@@ -289,6 +289,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     const unlocked = await unlockAchievements({ game, dayKey, now, textIds: [text.id] })
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
     run.xpEarned += achievementXp
+    if (unlocked.length > 0) run.unlocked = [...(run.unlocked ?? []), ...unlocked.map((u) => u.key)]
     await db.sessionRuns.put(run)
 
     const levelAfter = levelInfo(game.totalXp).level
@@ -374,6 +375,7 @@ export async function finishRun(runId: string, now = Date.now()): Promise<Finish
     }
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
     run.xpEarned += gained + achievementXp
+    if (unlocked.length > 0) run.unlocked = [...(run.unlocked ?? []), ...unlocked.map((u) => u.key)]
     await db.sessionRuns.put(run)
     await db.settings.put({ key: 'game', value: game })
     const levelAfter = levelInfo(game.totalXp).level

@@ -33,13 +33,19 @@ export async function importBackupJson(json: string): Promise<ImportResult> {
   const parsed = parseBackup(json)
   if (!parsed.ok) return { ok: false, code: parsed.code, path: parsed.path }
   const { data } = parsed.backup
-  await db.transaction('rw', tables(), async () => {
-    for (const name of ALL_TABLES) {
-      const table = db.table(name)
-      await table.clear()
-      await table.bulkAdd(data[name] as unknown[])
-    }
-  })
+  try {
+    await db.transaction('rw', tables(), async () => {
+      for (const name of ALL_TABLES) {
+        const table = db.table(name)
+        await table.clear()
+        await table.bulkAdd(data[name] as unknown[])
+      }
+    })
+  } catch (error) {
+    // e.g. duplicate primary keys: the transaction rolled back, nothing changed.
+    console.error('[teleo] backup import rejected by the database', error)
+    return { ok: false, code: 'invalidShape', path: error instanceof Error ? error.name : undefined }
+  }
   return { ok: true }
 }
 

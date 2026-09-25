@@ -14,7 +14,7 @@ test.describe('tap mode', () => {
     await expect(page).toHaveURL(/#\/play\//)
     await expect(page.getByTestId('segment-text')).toContainText('Ojcze nasz')
     await page.getByRole('switch', { name: 'Na żywo' }).click() // live listening is the default
-    await expect(page.getByRole('switch', { name: 'Dotyk' })).toBeVisible()
+    await expect(page.getByRole('switch', { name: 'Na żywo' })).toHaveAttribute('aria-checked', 'false')
     await page.screenshot({ path: testInfo.outputPath('player.png') })
 
     const mic = page.getByRole('button', { name: 'Mów' })

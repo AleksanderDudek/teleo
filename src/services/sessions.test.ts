@@ -86,6 +86,12 @@ describe('runs', () => {
     expect(await findResumableRun(new Date(2026, 8, 26, 12).getTime())).toBeUndefined()
   })
 
+  it('refuses to resume a finished run (e.g. a stale banner in another tab)', async () => {
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, NOON)
+    await db.sessionRuns.update(run.id, { status: 'completed' })
+    await expect(resumeRun(run.id, NOON + 1)).rejects.toMatchObject({ code: 'notFound' })
+  })
+
   it('refuses to start an empty session', async () => {
     await expect(startRun({ kind: 'text', textId: 'nope' }, NOON)).rejects.toMatchObject({ code: 'notFound' })
   })

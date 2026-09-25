@@ -22,6 +22,8 @@ export function useTapCapture(options: {
   const [transcript, setTranscript] = useState('')
   const [error, setError] = useState<SpeechErrorCode | null>(null)
   const phaseRef = useRef<CapturePhase>('idle')
+  /** Bumped by cancel(): a result that arrives for an older capture is dropped. */
+  const generation = useRef(0)
   const update = (next: CapturePhase) => {
     phaseRef.current = next
     setPhase(next)
@@ -29,8 +31,10 @@ export function useTapCapture(options: {
 
   const stop = useCallback(async () => {
     if (!engine || phaseRef.current !== 'listening') return
+    const mine = generation.current
     update('stopping')
     const result = await engine.stop()
+    if (generation.current !== mine) return // cancelled meanwhile (skip, leave, hidden page)
     update('idle')
     onResult.current(result)
   }, [engine])
@@ -65,6 +69,7 @@ export function useTapCapture(options: {
   }, [start, stop])
 
   const cancel = useCallback(() => {
+    generation.current++
     engine?.abort()
     update('idle')
   }, [engine])
@@ -72,5 +77,5 @@ export function useTapCapture(options: {
   // Never leave the microphone open when the component goes away.
   useEffect(() => () => engine?.abort(), [engine])
 
-  return { phase, transcript, error, start, stop, toggle, cancel, clearError: () => setError(null) }
+  return { phase, transcript, error, start, stop, toggle, cancel }
 }

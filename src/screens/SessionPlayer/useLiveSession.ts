@@ -134,5 +134,5 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
   // Release the microphone when the player goes away.
   useEffect(() => () => engine?.abort(), [engine])
 
-  return { phase, progress, error, start, stop, discard, clearError: () => setError(null) }
+  return { phase, progress, error, start, stop, discard }
 }

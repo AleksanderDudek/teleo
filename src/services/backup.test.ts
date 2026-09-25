@@ -52,6 +52,14 @@ describe('backup', () => {
     expect(await snapshot()).toEqual(before)
   })
 
+  it('reports (and rolls back) a structurally valid backup that the database rejects', async () => {
+    const before = await snapshot()
+    const file = await exportBackup()
+    const duplicated = { ...file, data: { ...file.data, texts: [...file.data.texts, file.data.texts[0]!] } }
+    expect(await importBackupJson(JSON.stringify(duplicated))).toMatchObject({ ok: false, code: 'invalidShape' })
+    expect(await snapshot()).toEqual(before)
+  })
+
   it('names files by date', () => {
     expect(backupFileName(new Date(2026, 8, 25, 10).getTime())).toBe('teleo-backup-2026-09-25.json')
   })

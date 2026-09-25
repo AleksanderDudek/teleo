@@ -1,8 +1,6 @@
 {
   "app": {
-    "name": "Teleo",
-    "tagline": "prayers & affirmations",
-    "fullName": "Teleo – prayers & affirmations"
+    "name": "Teleo"
   },
   "nav": {
     "main": "Main navigation",
@@ -46,12 +44,9 @@
     "title": "Something went wrong",
     "body": "Your data is safe on this device. Try again or go back to Today.",
     "notFound": "This page does not exist.",
-    "home": "Back to Today",
-    "storageUnavailable": "Teleo cannot open its local database. Private browsing or blocked site data can cause this."
+    "home": "Back to Today"
   },
   "today": {
-    "rubric": "Today",
-    "title": "Good to see you",
     "greetingMorning": "Good morning",
     "greetingDay": "Good to see you",
     "greetingEvening": "Good evening",
@@ -87,7 +82,6 @@
     "add": "New text",
     "searchPlaceholder": "Search titles and words",
     "filterType": "Type",
-    "filterLang": "Language",
     "filterSource": "Source",
     "sourceAll": "All",
     "sourceBuiltin": "Builtin",
@@ -103,8 +97,6 @@
     "milestone": "{{remaining}} more to “{{name}}”"
   },
   "editor": {
-    "rubricNew": "New text",
-    "rubricEdit": "Edit text",
     "titleNew": "New text",
     "titleEdit": "Edit text",
     "fieldTitle": "Title",
@@ -128,7 +120,6 @@
     "mergeNext": "Merge with next",
     "mergePrevious": "Merge with previous",
     "editSegment": "Edit",
-    "removeSegment": "Remove",
     "applySuggestion": "Split at suggested point",
     "segmentLabel": "Segment {{n}}",
     "issueLong": "Long sentence ({{words}} words) — speech recognition works better with shorter parts.",
@@ -139,7 +130,6 @@
     "resplitNotice": "The text changed, so it was split again.",
     "save": "Save text",
     "saved": "Text saved",
-    "builtinReadOnly": "Builtin texts are read-only.",
     "errors": {
       "titleEmpty": "Give the text a title.",
       "titleTooLong": "The title is too long.",
@@ -151,7 +141,6 @@
     }
   },
   "textDetail": {
-    "rubric": "Text",
     "sayNow": "Say it now",
     "copy": "Copy as my own",
     "copyTitle": "{{title}} (copy)",
@@ -202,13 +191,10 @@
     "resume": "Resume",
     "progressOf": "{{done}} of {{total}}",
     "cantStart": "This session has nothing to say — its texts were removed or hidden.",
-    "wholeText": "whole text",
     "someSegments": "{{count}} of {{total}} segments",
     "missingText": "missing text"
   },
   "builder": {
-    "rubricNew": "New session",
-    "rubricEdit": "Edit session",
     "titleNew": "New session",
     "titleEdit": "Edit session",
     "fieldName": "Name",
@@ -240,7 +226,6 @@
     }
   },
   "player": {
-    "rubric": "Session",
     "close": "Leave session",
     "progress": "Sentence {{current}} of {{total}}",
     "xp": "{{xp}} XP",
@@ -256,22 +241,17 @@
     "leaveConfirm": "Pause and leave",
     "stay": "Keep going",
     "notFound": "This session no longer exists.",
-    "finished": "Session finished",
     "repetition": "{{current}}/{{total}}",
     "liveMode": "Live",
-    "tapMode": "Tap",
     "liveOn": "Live listening: just keep speaking — each sentence is checked as you go.",
     "liveOff": "Tap mode: tap the microphone for each sentence.",
     "listeningLive": "Listening — speak at your own pace",
     "pausedLive": "Listening paused",
-    "resumeListening": "Resume listening",
-    "pauseListening": "Pause listening",
     "listen": "Listen to the sentence",
     "listening": "Reading aloud…",
     "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue."
   },
   "summary": {
-    "rubric": "Summary",
     "title": "Well done",
     "titleIncomplete": "Session saved",
     "accepted": "Sentences said",
@@ -290,8 +270,6 @@
   "progress": {
     "rubric": "Progress",
     "title": "Your garden",
-    "levelHeading": "Growth",
-    "nextLevel": "Next: {{name}}",
     "metricsHeading": "At a glance",
     "firstTry": "First-try success",
     "firstTryHint": "Aim: 80% or more",
@@ -317,14 +295,11 @@
     "colWeek": "Week",
     "colRate": "First try",
     "colSentences": "Sentences",
-    "colDay": "Day",
-    "colCount": "Sentences",
     "achievementsHeading": "Achievements",
     "general": "General",
     "perText": "Per text",
     "unlockedCount": "{{count}} of {{total}} unlocked",
     "unlockedOn": "Unlocked {{date}}",
-    "hidden": "Hidden achievement",
     "hiddenBody": "Keep practising to reveal it.",
     "categories": {
       "streak": "Streaks",
@@ -341,10 +316,8 @@
     "colText": "Text",
     "colReps": "Repetitions",
     "colBestStreak": "Best run",
-    "colFlawless": "Flawless",
     "colLast": "Last",
-    "emptyTexts": "Say a text in full to see it here.",
-    "yes": "yes"
+    "emptyTexts": "Say a text in full to see it here."
   },
   "settings": {
     "rubric": "Settings",
@@ -447,8 +420,6 @@
     "onDeviceInstalled": "Language pack installed"
   },
   "onboarding": {
-    "rubric": "Welcome",
-    "title": "Speak it. Complete it.",
     "start": "Get started",
     "skip": "Skip",
     "next": "Next",
@@ -501,14 +472,8 @@
   "counts": {
     "segments_one": "{{count}} segment",
     "segments_other": "{{count}} segments",
-    "repetitions_one": "{{count}} repetition",
-    "repetitions_other": "{{count}} repetitions",
-    "words_one": "{{count}} word",
-    "words_other": "{{count}} words",
     "days_one": "{{count}} day",
-    "days_other": "{{count}} days",
-    "times_one": "{{count}} time",
-    "times_other": "{{count}} times"
+    "days_other": "{{count}} days"
   },
   "speech": {
     "speak": "Speak",
@@ -828,8 +793,6 @@
   },
   "celebrate": {
     "unlocked": "Achievement unlocked",
-    "hidden": "???",
-    "xp": "+{{xp}} XP",
     "freezeEarned": "You earned a streak freeze ❄",
     "goalReached": "Daily goal reached! +{{xp}} XP"
   },

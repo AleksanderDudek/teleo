@@ -77,6 +77,8 @@ export interface SessionRun {
   mode: 'read' | 'memory'
   /** Memory mode difficulty (spec §7.3); only the "hidden" level earns `text.memory`. */
   memoryLevel?: MemoryLevel
+  /** Achievement keys unlocked by this run (listed on its summary). */
+  unlocked?: string[]
 }
 
 export interface Attempt {

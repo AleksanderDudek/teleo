@@ -13,6 +13,7 @@ import { Segmented } from '@/components/ui/Segmented'
 import { buildDiff, evaluate, type MatchResult } from '@/domain/matcher'
 import type { OnDeviceStatus, SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type Lang } from '@/domain/types'
+import { useSpaceKey } from '@/hooks/useSpaceKey'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { cn } from '@/lib/cn'
@@ -60,15 +61,7 @@ export default function MicTest() {
     capture.toggle()
   }
 
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.code !== 'Space' || (event.target as HTMLElement | null)?.closest('input, textarea, button, [role="radio"]')) return
-      event.preventDefault()
-      toggle()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  })
+  useSpaceKey(toggle)
 
   const listening = capture.phase === 'listening'
 

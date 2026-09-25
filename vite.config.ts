@@ -68,7 +68,6 @@ export default defineConfig({
         start_url: BASE,
         scope: BASE,
         display: 'standalone',
-        orientation: 'portrait',
         theme_color: '#1f4a3a',
         background_color: '#f7f2e7',
         categories: ['lifestyle', 'education', 'health'],

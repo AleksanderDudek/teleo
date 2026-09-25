@@ -50,10 +50,10 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
         ))}
       </div>
 
-      <p className="flex min-h-12 max-w-xl items-start justify-center gap-2 font-serif text-lg text-ink-faint">
+      <p className="flex min-h-12 max-w-xl items-start justify-center gap-2 font-serif text-lg text-ink-soft">
         {previous && <span className="sr-only">{t('player.previous')}: </span>}
         {previous && previousDone && <Check aria-hidden className="mt-1 size-4 shrink-0 text-ok" strokeWidth={3} />}
-        <span className="line-clamp-2 opacity-75">{previous}</span>
+        <span className="line-clamp-2">{previous}</span>
       </p>
 
       {repetition && (
@@ -96,7 +96,7 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
           : current}
       </p>
 
-      <p className="line-clamp-2 min-h-12 max-w-xl font-serif text-lg text-ink-faint opacity-60">
+      <p className="line-clamp-2 min-h-12 max-w-xl font-serif text-lg text-ink-faint">
         {next && <span className="sr-only">{t('player.next')}: </span>}
         {nextText}
       </p>

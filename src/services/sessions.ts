@@ -198,7 +198,7 @@ export async function findResumableRun(now = Date.now()): Promise<SessionRun | u
 export async function resumeRun(runId: string, now = Date.now()): Promise<SessionRun> {
   return db.transaction('rw', db.sessionRuns, async () => {
     const run = await db.sessionRuns.get(runId)
-    if (!run) throw new SessionError('notFound')
+    if (!run || run.status === 'completed' || run.cursor >= run.plan.length) throw new SessionError('notFound')
     await markRunningRunsPartial(runId)
     const next = { ...run, status: 'in_progress' as const, lastActivityAt: now }
     await db.sessionRuns.put(next)

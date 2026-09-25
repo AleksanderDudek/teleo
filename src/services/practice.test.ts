@@ -64,6 +64,8 @@ describe('a full PL rosary decade', () => {
     expect(day?.xp).toBe(await ledgerTotal())
     const runRow = await db.sessionRuns.get(run.id)
     expect(runRow).toMatchObject({ status: 'completed', cursor: 26 })
+    // The run remembers exactly what it unlocked (the summary lists these).
+    expect([...(runRow?.unlocked ?? [])].sort()).toEqual([...keys].sort())
     expect(runRow?.xpEarned).toBe(await ledgerTotal())
     expect((await db.xpLedger.where('reason').equals('dailyGoal').toArray())).toHaveLength(1)
     expect((await db.xpLedger.where('reason').equals('sessionComplete').toArray())).toHaveLength(1)

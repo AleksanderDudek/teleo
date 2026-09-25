@@ -41,7 +41,9 @@ export default function SessionSummary() {
     const until = run.endedAt ?? now
     const [daily, achievements, texts] = await Promise.all([
       db.dailyStats.toArray(),
-      db.achievements.where('unlockedAt').between(run.startedAt, until, true, true).toArray(),
+      run.unlocked
+        ? db.achievements.bulkGet(run.unlocked).then((rows) => rows.filter((row) => row !== undefined))
+        : db.achievements.where('unlockedAt').between(run.startedAt, until, true, true).toArray(),
       db.texts.toArray(),
     ])
     return { run, daily, achievements, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }

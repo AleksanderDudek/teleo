@@ -15,6 +15,7 @@ import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/m
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
 import { useOnline } from '@/hooks/useOnline'
+import { useSpaceKey } from '@/hooks/useSpaceKey'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
@@ -139,6 +140,11 @@ function Player({ data }: { data: PlayerData }) {
   const onTapResult = async (speech: SpeechResult) => {
     if (!segment) return
     const result = evaluate(segment.content, speech.alternatives, { lang, strictness: app.strictness })
+    if (result.reason === 'empty') {
+      // Nothing was heard (accidental tap, microphone muted): tell the user, but it is not an attempt.
+      setFeedback({ entryIndex: index, result, diff: buildDiff(segment.content, lang, result), message: resultMessage(result, t) })
+      return
+    }
     setBusy(true)
     try {
       const ended = await record(index, result, speech.durationMs, speech.engine)
@@ -206,17 +212,7 @@ function Player({ data }: { data: PlayerData }) {
     capture.toggle()
   }
 
-  // Space toggles the microphone (spec §11 accessibility).
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.code !== 'Space' || event.repeat) return
-      if ((event.target as HTMLElement | null)?.closest('input, textarea, button, dialog')) return
-      event.preventDefault()
-      toggleMic()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  })
+  useSpaceKey(toggleMic)
 
   // Never keep the microphone open in the background.
   useEffect(() => {
@@ -326,7 +322,7 @@ function Player({ data }: { data: PlayerData }) {
               )}
             >
               <Radio aria-hidden className="size-3.5" />
-              {app.handsFree ? t('player.liveMode') : t('player.tapMode')}
+              {t('player.liveMode')}
             </button>
             )}
           </div>
@@ -426,6 +422,7 @@ function Player({ data }: { data: PlayerData }) {
           )}
         </div>
         <p className="h-5 text-sm font-medium text-ink-soft">{status}</p>
+        {memoryLevel && <p className="max-w-sm text-center text-xs text-ink-faint">{t('memory.hintNote')}</p>}
         {failed >= SKIP_AFTER_FAILS && (live || !listening) && (
           <div className="flex flex-col items-center gap-1">
             <Button variant="ghost" size="sm" onClick={() => void skip()}>
