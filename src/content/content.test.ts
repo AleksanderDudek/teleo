@@ -21,38 +21,37 @@ describe('builtin content', () => {
   })
 
   it('gives every text segments (or three equally long grammatical variants)', () => {
-    for (const def of BUILTIN_TEXTS) {
-      if (def.variants) {
-        expect(def.lang).toBe('pl')
-        const lengths = FORMS.map((form) => def.variants?.[form].length)
-        expect(new Set(lengths).size).toBe(1)
-      } else {
-        expect(def.segments?.length).toBeGreaterThan(0)
-      }
-    }
+    const problems = BUILTIN_TEXTS.flatMap((def) => {
+      if (!def.variants) return def.segments?.length ? [] : [`${def.key}: no segments`]
+      const lengths = new Set(FORMS.map((form) => def.variants?.[form].length))
+      return [
+        ...(def.lang === 'pl' ? [] : [`${def.key}: variants are Polish-only`]),
+        ...(lengths.size === 1 ? [] : [`${def.key}: variant lengths differ`]),
+      ]
+    })
+    expect(problems).toEqual([])
   })
 
   it('keeps segments speakable: 3–40 words, no digits (spec §7.2)', () => {
-    for (const def of BUILTIN_TEXTS) {
-      for (const form of FORMS) {
-        for (const segment of builtinSegments(def, form)) {
+    const problems = BUILTIN_TEXTS.flatMap((def) =>
+      FORMS.flatMap((form) =>
+        builtinSegments(def, form).flatMap((segment) => {
           const words = countWords(segment)
-          expect(words, segment).toBeGreaterThanOrEqual(3)
-          expect(words, segment).toBeLessThanOrEqual(40)
-          expect(segment, segment).not.toMatch(/\d/)
-        }
-      }
-    }
+          return words < 3 || words > 40 || /\d/.test(segment) ? [`${def.key}/${form}: ${segment}`] : []
+        }),
+      ),
+    )
+    expect(problems).toEqual([])
   })
 
   it('sessions reference existing texts of the same language', () => {
     const texts = new Map(BUILTIN_TEXTS.map((t) => [t.key, t]))
-    for (const session of BUILTIN_SESSIONS) {
-      for (const item of session.items) {
-        expect(texts.get(item.text)?.lang, `${session.key} → ${item.text}`).toBe(session.lang)
-        expect(item.repeat).toBeGreaterThanOrEqual(1)
-      }
-    }
+    const problems = BUILTIN_SESSIONS.flatMap((session) =>
+      session.items.flatMap((item) =>
+        texts.get(item.text)?.lang === session.lang && item.repeat >= 1 ? [] : [`${session.key} → ${item.text}`],
+      ),
+    )
+    expect(problems).toEqual([])
   })
 
   it('expands the rosary decades to 26 (PL) and 36 (EN) segments', () => {
