@@ -48,6 +48,7 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
     setPhase(next)
   }
 
+  const handleRef = useRef<(events: LiveEvent[]) => void>(() => {})
   const handle = useCallback((events: LiveEvent[]) => {
     for (const event of events) {
       if (event.type === 'progress') {
@@ -61,9 +62,17 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
       // Verdicts must reach storage in the order they were spoken.
       queue.current = queue.current
         .then(() => verdict.current(entryIndex, result, duration))
-        .catch((cause: unknown) => console.error('[teleo] recording a live verdict failed', cause))
+        .catch((cause: unknown) => {
+          console.error('[teleo] recording a live verdict failed', cause)
+          // Nothing was stored: keep listening for the same sentence instead of going silent.
+          const live = tracker.current
+          if (live) handleRef.current(live.setTarget(targetRef.current))
+        })
     }
   }, [])
+  useLayoutEffect(() => {
+    handleRef.current = handle
+  })
 
   const stop = useCallback(() => {
     engine?.abort()
@@ -85,7 +94,7 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
       await engine.start({
         lang: SPEECH_LANG[current.lang],
         continuous: true,
-        onTranscript: (text) => tracker.current === liveTracker && handle(liveTracker.update(text)),
+        onTranscript: (text, _isFinal, alternatives) => tracker.current === liveTracker && handle(liveTracker.update(text, alternatives)),
         onSilence: () => tracker.current === liveTracker && handle(liveTracker.pause()),
         onRestart: () => liveTracker.reset(),
         onError: (e) => {

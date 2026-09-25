@@ -135,6 +135,32 @@ describe('LiveTracker', () => {
     expect(accepted(tracker.update('to jest zupełnie inny tekst który w ogóle nie pasuje do tego zdania Idę dalej z odwagą'))).toEqual([0])
   })
 
+  it('keeps words heard before a mid-sentence restart', () => {
+    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: S1 })
+    tracker.update('Jestem spokojny i')
+    tracker.reset()
+    const events = tracker.update('pewny siebie')
+    expect(accepted(events)).toEqual([0])
+    expect(events.find((e) => e.type === 'rejected')).toBeUndefined()
+  })
+
+  it('re-locates the end of the last sentence when the recogniser revises its words', () => {
+    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: 'I am calm and focused.' })
+    expect(accepted(tracker.update('I am calm and focused Every'))).toEqual([0])
+    tracker.setTarget({ entryIndex: 1, source: 'Every day I am becoming a better version of myself.' })
+    // The final result merges "I am" into "I'm": one word fewer before the boundary.
+    expect(accepted(tracker.update("I'm calm and focused. Every day I am becoming a better version of myself"))).toEqual([1])
+  })
+
+  it('checks the other recognition hypotheses when a pause settles the sentence', () => {
+    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: 'I am calm and focused.' })
+    tracker.update('I am come and focused', ['I am calm and focused'])
+    expect(accepted(tracker.pause())).toEqual([0])
+  })
+
   it('starts over after the recogniser restarts', () => {
     const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
     tracker.setTarget({ entryIndex: 0, source: S1 })

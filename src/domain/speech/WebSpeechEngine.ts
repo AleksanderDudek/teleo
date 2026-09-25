@@ -202,7 +202,8 @@ export class WebSpeechEngine implements SpeechEngine {
     if (!session.options.continuous) this.#arm(session, 'max')
     this.#arm(session, 'silence')
     const text = bestTranscript(session.results)
-    session.options.onTranscript?.(text, session.results.every((r) => r.isFinal))
+    const others = transcriptAlternatives(session.results).filter((alternative) => alternative !== text)
+    session.options.onTranscript?.(text, session.results.every((r) => r.isFinal), others)
   }
 
   #onEnd(session: Session) {

@@ -7,8 +7,11 @@ export interface SpeechStartOptions {
    * restart transparently when the browser ends recognition on its own.
    */
   continuous?: boolean
-  /** Whole transcript heard so far in this recognition (final + interim, best hypothesis). */
-  onTranscript?: (text: string, isFinal: boolean) => void
+  /**
+   * Whole transcript heard so far in this recognition (final + interim, best hypothesis),
+   * plus the other whole-utterance hypotheses when the engine has them.
+   */
+  onTranscript?: (text: string, isFinal: boolean, alternatives: string[]) => void
   /** No new speech for a moment (or none at all for a while): a sentence probably ended. */
   onSilence?: () => void
   /** Live mode only: recognition restarted, the next transcript starts empty. */
