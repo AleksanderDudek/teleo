@@ -81,8 +81,13 @@ export function Plant({ level, className }: { level: number; className?: string 
   const clip = useId().replace(/:/g, '')
   const order: PlantPart['kind'][] = ['sun', 'path', 'roots', 'trunk', 'stem', 'crown', 'leaf', 'bud', 'flower', 'fruit', 'seed']
   const parts = [...scene.parts].sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
+  // Young plants are small in the 240×200 scene: zoom in around the ground, keeping it in view.
+  const zoom = scene.stage <= 2 ? 2.4 : scene.stage <= 5 ? 1.8 : scene.stage <= 9 ? 1.3 : 1
+  const vw = 240 / zoom
+  const vh = 200 / zoom
+  const viewBox = `${120 - vw / 2} ${200 - vh} ${vw} ${vh}`
   return (
-    <svg viewBox="0 0 240 200" aria-hidden className={className}>
+    <svg viewBox={viewBox} aria-hidden className={className}>
       <defs>
         <clipPath id={clip}>
           <rect x="0" y={GROUND_Y} width="240" height={200 - GROUND_Y} />

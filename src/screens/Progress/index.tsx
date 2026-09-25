@@ -98,12 +98,12 @@ export default function Progress() {
           <p className="text-ink-soft">{t('progress.emptyTexts')}</p>
         ) : (
           <Card className="overflow-x-auto p-0">
-            <table className="w-full min-w-[28rem] text-left text-sm">
+            <table className="w-full text-left text-sm">
               <thead className="text-ink-soft">
                 <tr>
                   <th className="px-4 py-2 font-medium">{t('progress.colText')}</th>
                   <th className="px-2 py-2 text-right font-medium">{t('progress.colReps')}</th>
-                  <th className="px-2 py-2 text-right font-medium">{t('progress.colBestStreak')}</th>
+                  <th className="hidden px-2 py-2 text-right font-medium sm:table-cell">{t('progress.colBestStreak')}</th>
                   <th className="px-4 py-2 text-right font-medium">{t('progress.colLast')}</th>
                 </tr>
               </thead>
@@ -118,7 +118,7 @@ export default function Progress() {
                         </Link>
                       </td>
                       <td className="px-2 py-2 text-right">{number(stats.repetitions)}</td>
-                      <td className="px-2 py-2 text-right">{stats.bestDayStreak}</td>
+                      <td className="hidden px-2 py-2 text-right sm:table-cell">{stats.bestDayStreak}</td>
                       <td className="px-4 py-2 text-right text-ink-soft">
                         {stats.lastPracticedAt ? new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(stats.lastPracticedAt) : '—'}
                       </td>

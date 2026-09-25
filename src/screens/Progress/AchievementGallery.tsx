@@ -77,7 +77,7 @@ export function AchievementGallery({ global, unlocked, textStats, texts, segment
               const done = textRules.filter((r) => unlocked.has(achievementKey(r.id, text.id))).length
               return (
                 <details key={text.id} className="rounded-2xl border border-line bg-surface/60">
-                  <summary className="flex cursor-pointer items-center justify-between gap-3 px-4 py-3">
+                  <summary className="flex cursor-pointer flex-col gap-2 px-4 py-3">
                     <span className="min-w-0">
                       <span className="block truncate font-serif text-lg font-semibold">{text.title}</span>
                       {milestone && (
@@ -86,7 +86,7 @@ export function AchievementGallery({ global, unlocked, textStats, texts, segment
                         </span>
                       )}
                     </span>
-                    <span className="flex shrink-0 items-center gap-1" aria-hidden>
+                    <span className="flex flex-wrap items-center gap-1" aria-hidden>
                       {textRules.map((rule) => (
                         <AchievementBadge key={rule.id} tier={rule.tier} locked={!unlocked.has(achievementKey(rule.id, text.id))} className="size-4" />
                       ))}

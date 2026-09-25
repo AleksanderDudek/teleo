@@ -53,6 +53,13 @@ test.describe('live mode', () => {
     await page.waitForURL(/summary$/, { timeout: 120_000 })
     await expect(page.getByText('26/26')).toBeVisible()
     await expect(page.getByText('100%')).toBeVisible()
+    await page.screenshot({ path: testInfo.outputPath('live-summary.png'), fullPage: true })
+
+    await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
+    await page.getByRole('navigation').getByRole('link', { name: 'Postępy' }).click()
+    await expect(page.getByRole('heading', { name: 'Twój ogród' })).toBeVisible()
+    await page.waitForTimeout(1200) // let entrance animations settle for the screenshot
+    await page.screenshot({ path: testInfo.outputPath('progress.png'), fullPage: true })
   })
 
   test('a slipped sentence repeated at once counts as one failed and one accepted attempt', async ({ page }) => {

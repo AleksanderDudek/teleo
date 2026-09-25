@@ -104,7 +104,7 @@ export default function SessionSummary() {
           <h2 className="mb-3 text-2xl font-semibold">{t('summary.newAchievements')}</h2>
           <ul className="space-y-2">
             {achievements.map((a, i) => (
-              <li key={a.key} className="card flex items-center gap-3 p-3 animate-rise" style={{ animationDelay: `${i * 120}ms` }}>
+              <li key={a.key} className="card flex items-center gap-3 p-3 animate-rise" style={{ animationDelay: `${Math.min(i, 5) * 80}ms` }}>
                 <AchievementBadge tier={a.tier} className="size-11" />
                 <div className="min-w-0 flex-1">
                   <p className="font-serif text-lg font-semibold">{achievementName(t, a.ruleId)}</p>
