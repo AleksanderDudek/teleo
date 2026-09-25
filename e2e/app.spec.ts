@@ -82,3 +82,27 @@ test.describe('data', () => {
     await expect(policy.getByRole('heading', { name: 'Teleo – modlitwy i afirmacje' })).toBeVisible()
   })
 })
+
+test.describe('session builder', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('a new session with a repeated text shows the counter and plays with a repetition badge', async ({ page }) => {
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Sesje' }).click()
+    await page.getByRole('link', { name: 'Nowa sesja' }).click()
+    await page.getByPlaceholder('np. Modlitwa wieczorna').fill('Wieczorna chwała')
+    await page.getByRole('button', { name: 'Dodaj tekst' }).click()
+    await page.getByRole('dialog').getByRole('button', { name: /Chwała Ojcu/ }).click()
+    const repeat = page.getByRole('group', { name: 'Powtórzenia' })
+    await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
+    await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
+    await expect(page.getByText('6 / 150 segmentów')).toBeVisible()
+    await page.getByRole('button', { name: 'Zapisz sesję' }).click()
+    await expect(page).toHaveURL(/#\/sessions$/)
+    const card = page.locator('.card', { hasText: 'Wieczorna chwała' })
+    await expect(card).toContainText('6 segmentów')
+    await card.getByRole('button', { name: 'Rozpocznij' }).click()
+    await expect(page.getByText('Chwała Ojcu · 1/3')).toBeVisible()
+  })
+})
