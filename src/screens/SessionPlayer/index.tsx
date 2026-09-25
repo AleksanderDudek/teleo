@@ -7,6 +7,8 @@ import { HowWeCount } from '@/components/speech/HowWeCount'
 import { MicButton } from '@/components/speech/MicButton'
 import { resultMessage } from '@/components/speech/resultMessage'
 import { SpeechPrivacyDialog } from '@/components/speech/SpeechPrivacyDialog'
+import { pointsToSpeechSettings } from '@/components/speech/speechErrors'
+import { SpeechSettingsLink } from '@/components/speech/SpeechSettingsLink'
 import { isIosStandalone } from '@/components/speech/vendor'
 import { Button, ButtonLink, IconButton } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
@@ -157,7 +159,9 @@ function Player({ data }: { data: PlayerData }) {
   const capture = useTapCapture({ engine: live ? null : engine, lang: SPEECH_LANG[lang], onResult: (speech) => void onTapResult(speech) })
 
   const listening = live ? liveSession.phase === 'listening' : capture.phase === 'listening'
-  const starting = live ? liveSession.phase === 'starting' : capture.phase === 'starting' || capture.phase === 'stopping'
+  const starting = live ? liveSession.phase === 'starting' : capture.phase === 'starting'
+  // Tap mode after the utterance: the engine is turning speech into text (Whisper takes seconds).
+  const checking = !live && capture.phase === 'stopping'
   const speechError = live ? liveSession.error : capture.error
 
   const stopAll = () => {
@@ -276,6 +280,8 @@ function Player({ data }: { data: PlayerData }) {
 
   const status = speaking
     ? t('player.listening')
+    : checking
+    ? t('speech.checking')
     : starting
     ? t('speech.starting')
     : listening
@@ -375,11 +381,13 @@ function Player({ data }: { data: PlayerData }) {
           {speechError && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
               {t(`speech.errors.${speechError}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
+              {pointsToSpeechSettings(speechError) && <SpeechSettingsLink />}
             </p>
           )}
           {engineState.status === 'unsupported' && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
-              {t('speech.errors.not-supported')}
+              {t(`speech.errors.${engineState.reason}`)}
+              <SpeechSettingsLink />
             </p>
           )}
         </div>
@@ -397,7 +405,7 @@ function Player({ data }: { data: PlayerData }) {
           ) : (
             <span className="size-12" />
           )}
-          <MicButton listening={listening} busy={busy || starting} disabled={!engine || finished || speaking} onClick={toggleMic} />
+          <MicButton listening={listening} busy={busy || starting || checking} disabled={!engine || finished || speaking} onClick={toggleMic} />
           {memoryLevel ? (
             <button
               type="button"

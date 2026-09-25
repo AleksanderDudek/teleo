@@ -95,7 +95,13 @@
           przeglądarkach nagranie Twojego głosu jest przesyłane do dostawcy przeglądarki</strong> – np. do Google (Chrome), Microsoft
           (Edge) lub Apple (Safari) – który zamienia je na tekst na własnych serwerach, zgodnie z własną polityką prywatności. Teleo
           informuje o tym przed pierwszym użyciem mikrofonu. Jeśli przeglądarka potrafi rozpoznawać mowę na urządzeniu, Teleo używa
-          tej opcji automatycznie. W wersji 1.1 planowany jest silnik Whisper działający w pełni lokalnie.
+          tej opcji automatycznie.
+        </p>
+        <p>
+          Możesz też włączyć <strong>silnik offline Whisper</strong>, który rozpoznaje mowę w całości na Twoim urządzeniu – nagranie
+          nigdy go nie opuszcza. Model (ok. 44–80 MB) pobierasz sam w Ustawieniach, jednorazowo, z serwisu Hugging Face
+          (huggingface.co), który – jak każdy serwer – widzi przy tym techniczne dane żądania (np. adres IP); silnik uruchomieniowy
+          (ok. 27 MB) pochodzi ze strony Teleo. Bez Twojej decyzji Teleo nie łączy się z Hugging Face.
         </p>
         <p>
           <strong>Teleo nigdy nie zapisuje nagrań.</strong> Przechowywana jest tylko rozpoznana transkrypcja próby (możesz to wyłączyć
@@ -112,8 +118,8 @@
         <h2>Pliki cookie, śledzenie, połączenia sieciowe</h2>
         <p>
           Teleo nie używa plików cookie ani narzędzi śledzących. Aplikacja jest plikami statycznymi hostowanymi w GitHub Pages;
-          GitHub może rejestrować techniczne dane o żądaniach (np. adres IP) zgodnie z własną polityką. Poza rozpoznawaniem mowy (patrz
-          wyżej) aplikacja nie łączy się z innymi serwerami.
+          GitHub może rejestrować techniczne dane o żądaniach (np. adres IP) zgodnie z własną polityką. Poza rozpoznawaniem mowy i
+          pobraniem modelu Whisper na Twoje żądanie (patrz wyżej) aplikacja nie łączy się z innymi serwerami.
         </p>
 
         <h2>Dzieci</h2>
@@ -148,7 +154,13 @@
           Teleo uses the speech recognition built into your browser (Web Speech API). <strong>In some browsers, your voice is sent to
           the browser vendor</strong> — for example Google (Chrome), Microsoft (Edge) or Apple (Safari) — which turns it into text on
           its own servers under its own privacy policy. Teleo tells you this before the first use of the microphone. When the browser
-          can recognise speech on the device, Teleo uses that automatically. A fully local Whisper engine is planned for v1.1.
+          can recognise speech on the device, Teleo uses that automatically.
+        </p>
+        <p>
+          You can also switch to the <strong>offline Whisper engine</strong>, which recognises speech entirely on your device — the
+          audio never leaves it. You download the model (about 44–80 MB) yourself in Settings, once, from Hugging Face
+          (huggingface.co), which — like any server — sees technical request data such as your IP address; the runtime engine (about
+          27 MB) comes from Teleo’s own site. Teleo never contacts Hugging Face without your decision.
         </p>
         <p>
           <strong>Teleo never stores recordings.</strong> Only the recognised transcript of an attempt is kept (you can turn this off in
@@ -164,7 +176,8 @@
         <h2>Cookies, tracking, network</h2>
         <p>
           Teleo uses no cookies and no trackers. The app is static files hosted on GitHub Pages; GitHub may log technical request data
-          (such as IP addresses) under its own policy. Apart from speech recognition (see above) the app connects to no other servers.
+          (such as IP addresses) under its own policy. Apart from speech recognition and the Whisper model download you ask for (see
+          above) the app connects to no other servers.
         </p>
 
         <h2>Children</h2>

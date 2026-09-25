@@ -166,3 +166,46 @@ Each entry: **decision** — why.
     transcripts" is on (useful to understand rejections); turning the setting off stores none.
 55. **Segments needed by an unfinished run are archived, never deleted**, when a text is edited or the
     affirmation form changes, so the run can still be resumed and finished.
+
+## Offline Whisper engine (stage 8a, spec §5.3)
+
+56. **Models `onnx-community/whisper-tiny` and `onnx-community/whisper-base`, dtype `q8`** (`encoder_model_quantized.onnx`,
+    `decoder_model_merged_quantized.onnx` + 5 JSON files: ≈ 44 MB / ≈ 80 MB, checked with the Hub API). — The smallest complete
+    set: `q4`/`bnb4` decoders keep fp32 token embeddings (87 MB / 124 MB) and fp32 is 2.5× bigger without a measurable gain on
+    Polish test sentences; on single-threaded WebAssembly a q4 encoder was ~12 % slower than q8. Sizes shown to users include
+    the 27 MB runtime (tiny ≈ 70 MB, base ≈ 107 MB).
+57. **WebGPU when the device has an adapter, WebAssembly otherwise.** The same q8 files run on both (onnxruntime runs the int8
+    ops it lacks on the GPU on the CPU); measured on an Apple-silicon Mac, whisper-base: ≈ 2.2 s per utterance on WebGPU,
+    ≈ 2.7 s on WebAssembly. Any WebGPU failure (session or inference) moves the worker to WebAssembly for the session.
+    WebAssembly is single-threaded (GitHub Pages cannot send COOP/COEP, so no SharedArrayBuffer); Safari < 26 gets the plain
+    (non-asyncify) build, as transformers.js does.
+58. **Self-hosted onnxruntime-web runtime under `ort/<version>/`.** A Vite plugin copies the needed files from
+    `node_modules/onnxruntime-web/dist` (and serves them from there in dev). The worker reads the binary from Cache Storage and
+    passes it as `env.wasm.wasmBinary`, using the loader bundled in `onnxruntime-web/webgpu`: no CDN (the production CSP allows
+    'self' scripts only) and no `blob:` imports (`env.useWasmCache = false`). onnxruntime's own
+    `new URL('ort-wasm-….wasm', import.meta.url)` references are marked `@vite-ignore`, or Vite would emit a second 27 MB copy.
+59. **Cache policy.** Model files live in transformers.js' Cache Storage bucket (`transformers-cache`, keyed by Hub URL) and
+    are written only by the explicit download in Settings. At any other time the worker's `env.fetch` answers locally with 404,
+    so loading a model never touches the network and a missing file surfaces as `model-missing`. The runtime is stored in
+    `teleo-ort` by the same download (the versioned path makes cache-first safe; older versions are pruned) and is also covered
+    by a Workbox runtime `CacheFirst` route for `/teleo/ort/`; it is never precached (`globIgnores`). The ~550 kB worker chunk
+    is precached (`maximumFileSizeToCacheInBytes` = 3 MiB), so Whisper works offline once downloaded. "Downloaded" means every
+    model file and the current runtime are cached — after an onnxruntime upgrade Settings offers a (runtime-only) download
+    again rather than fetching 27 MB unasked. Persistent storage is requested with the download; deleting the last model also
+    deletes the runtime.
+60. **Capture and silence.** `getUserMedia` (mono, echo cancellation, noise suppression) → `MediaRecorder` (one Blob) plus an
+    `AnalyserNode` read every 50 ms. A frame is speech when its RMS is ≥ 3× the noise floor (the quietest frame of the last
+    5 s) and ≥ 0.008, for at least 150 ms (a tap on the phone is not speech; a steady hum is noise). The utterance ends 1.5 s
+    after the last speech, after 8 s without any speech, or at 60 s. The recording is decoded and resampled to 16 kHz mono with
+    OfflineAudioContext (pure-JS fallback). The microphone stays open 8 s after an utterance so hands-free continues without a
+    new prompt or delay; leaving the screen or hiding the app closes it at once.
+61. **Whisper never transcribes silence.** The decoded recording is checked for speech again; without speech the result is
+    empty (Whisper invents "Napisy stworzone przez społeczność Amara.org" or loops on silence). Output is capped at
+    16 tokens/s + 24 (≤ 440), recordings over 30 s are chunked (30 s windows, 5 s stride), and `[…]` tags and subtitle credits
+    are removed from the text.
+62. **Engine resolution.** `auto`: Web Speech when the browser has it (live mode), otherwise Whisper if its model is downloaded;
+    `whisper`: only with a downloaded model (the UI shows `model-missing` with a link to the speech settings); `webspeech`: only
+    Web Speech. Whisper uses tap mode with the hands-free auto-listen fallback; its `stop()` takes seconds and may reject, and
+    `useTapCapture` drops a result that arrives after `cancel()` (a skipped sentence must not get a late verdict).
+63. **Privacy notice.** When recognition runs on the device (Whisper, or on-device Web Speech) the first-use dialog says the
+    audio stays on the device instead of naming the browser vendor.

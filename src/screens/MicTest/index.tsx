@@ -5,6 +5,8 @@ import { HowWeCount } from '@/components/speech/HowWeCount'
 import { MicButton } from '@/components/speech/MicButton'
 import { resultMessage } from '@/components/speech/resultMessage'
 import { SpeechPrivacyDialog } from '@/components/speech/SpeechPrivacyDialog'
+import { pointsToSpeechSettings } from '@/components/speech/speechErrors'
+import { SpeechSettingsLink } from '@/components/speech/SpeechSettingsLink'
 import { isIosStandalone } from '@/components/speech/vendor'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -133,12 +135,14 @@ export default function MicTest() {
 
       {engineState.status === 'unsupported' && (
         <p role="alert" className="mt-6 rounded-xl bg-bad-soft px-4 py-3 text-bad">
-          {t('speech.errors.not-supported')}
+          {t(`speech.errors.${engineState.reason}`)}
+          <SpeechSettingsLink />
         </p>
       )}
       {capture.error && (
         <p role="alert" className="mt-6 rounded-xl bg-bad-soft px-4 py-3 text-bad">
           {t(`speech.errors.${capture.error}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
+          {pointsToSpeechSettings(capture.error) && <SpeechSettingsLink />}
         </p>
       )}
 
@@ -162,7 +166,10 @@ export default function MicTest() {
 
       <Card className="mt-6 space-y-2 text-sm">
         <p>
-          <span className="font-semibold">{t('micTest.engine')}:</span> {t('micTest.engineWeb')}
+          <span className="font-semibold">{t('micTest.engine')}:</span>{' '}
+          {(engine?.id ?? (app.engine === 'whisper' ? 'whisper' : 'webspeech')) === 'whisper'
+            ? t('micTest.engineWhisper', { model: app.whisperModel === 'base' ? 'Base' : 'Tiny' })
+            : t('micTest.engineWeb')}
         </p>
         {onDeviceStatus && (
           <p className="flex flex-wrap items-center gap-2">

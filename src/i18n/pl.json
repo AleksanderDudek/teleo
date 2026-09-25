@@ -345,9 +345,8 @@
     "sectionSpeech": "Mowa",
     "engine": "Silnik rozpoznawania",
     "engineAuto": "Automatycznie",
-    "engineWeb": "Przeglądarka (Web Speech)",
+    "engineWeb": "Przeglądarka",
     "engineWhisper": "Whisper offline",
-    "engineWhisperSoon": "Whisper offline pojawi się w wersji 1.1.",
     "strictness": "Rygor oceny",
     "strict": "Ścisły",
     "lenient": "Łagodny",
@@ -407,7 +406,33 @@
     "about": "Teleo {{version}} – bezpłatne i otwarte, działa w całości w Twojej przeglądarce.",
     "specLink": "Jak działa Teleo",
     "listenFirst": "Najpierw posłuchaj",
-    "listenFirstHint": "Teleo czyta każde zdanie na głos, zanim je powiesz – pomocne przy nauce nowego tekstu."
+    "listenFirstHint": "Teleo czyta każde zdanie na głos, zanim je powiesz – pomocne przy nauce nowego tekstu.",
+    "engineHint": "Automatycznie: rozpoznawanie wbudowane w przeglądarkę (Web Speech), a tam, gdzie go nie ma (np. w Firefoksie), Whisper offline.",
+    "whisperTitle": "Whisper offline",
+    "whisperIntro": "Rozpoznaje mowę bezpośrednio na tym urządzeniu: w 100% prywatnie – nagranie nigdy go nie opuszcza – i działa także w Firefoksie. Jest wolniejszy od rozpoznawania przeglądarki, zwłaszcza na starszych telefonach, i sprawdza zdanie dopiero po jego wypowiedzeniu (bez słuchania na żywo).",
+    "whisperModel": "Model Whisper",
+    "whisperTiny": "Tiny · {{size}}",
+    "whisperBase": "Base · {{size}}",
+    "whisperModelHint": "Base (zalecany) znacznie lepiej rozpoznaje polski; Tiny jest mniejszy i szybszy, ale częściej się myli.",
+    "whisperChecking": "Sprawdzam…",
+    "whisperUnavailable": "Ta przeglądarka nie uruchomi Whispera (potrzebne są Web Workers, WebAssembly, pamięć offline i nagrywanie z mikrofonu).",
+    "whisperMissing": "Model nie jest jeszcze pobrany.",
+    "whisperDownloading": "Pobieranie… {{percent}}%",
+    "whisperProgress": "Pobieranie modelu",
+    "whisperReady": "Pobrany – działa offline.",
+    "whisperNeedsDownload": "Aby używać Whispera, pobierz model.",
+    "whisperDownload": "Pobierz ({{size}})",
+    "whisperCancel": "Przerwij pobieranie",
+    "whisperDelete": "Usuń pobrany model",
+    "whisperDeleted": "Model usunięty",
+    "whisperDone": "Whisper gotowy – działa już offline",
+    "whisperFailed": "Pobieranie nie powiodło się. Sprawdź połączenie i spróbuj ponownie.",
+    "whisperNoSpace": "Na tym urządzeniu brakuje miejsca na model.",
+    "whisperAlsoDownloaded": "Pobrany jest też model {{model}} ({{size}}).",
+    "whisperDeleteOther": "Usuń {{model}}",
+    "whisperConfirmTitle": "Pobrać model Whisper?",
+    "whisperConfirmBody": "Teleo jednorazowo pobierze ok. {{size}}: model z Hugging Face (huggingface.co) i silnik rozpoznawania ze strony Teleo. Przy transmisji komórkowej może to być kosztowne – jeśli możesz, użyj Wi-Fi. Potem rozpoznawanie działa offline, a nagranie nigdy nie opuszcza urządzenia.",
+    "whisperConfirm": "Pobierz"
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -425,7 +450,8 @@
     "onDeviceDownloadable": "można pobrać",
     "onDeviceUnavailable": "niedostępne",
     "onDeviceInstall": "Pobierz pakiet językowy",
-    "onDeviceInstalled": "Pakiet językowy zainstalowany"
+    "onDeviceInstalled": "Pakiet językowy zainstalowany",
+    "engineWhisper": "Whisper offline ({{model}}) – na tym urządzeniu"
   },
   "onboarding": {
     "start": "Zaczynamy",
@@ -519,29 +545,31 @@
     "legendMissing": "pominięte",
     "legendExtra": "dodatkowe / inne",
     "errors": {
-      "not-supported": "Ta przeglądarka nie rozpoznaje mowy. Użyj Chrome, Edge lub Safari – albo silnika offline Whisper (w wersji 1.1).",
+      "not-supported": "Ta przeglądarka nie rozpoznaje mowy. Użyj Chrome, Edge lub Safari – albo pobierz silnik offline Whisper w Ustawieniach.",
       "permission-denied": "Dostęp do mikrofonu jest zablokowany. Zezwól na niego w ustawieniach witryny i spróbuj ponownie.",
       "no-microphone": "Nie znaleziono mikrofonu.",
       "network": "Rozpoznawanie mowy w tej przeglądarce wymaga połączenia z internetem.",
       "language-not-supported": "Ta przeglądarka nie rozpoznaje tego języka.",
       "busy": "Mikrofon jest zajęty – spróbuj za chwilę.",
-      "model-missing": "Model offline nie został jeszcze pobrany.",
+      "model-missing": "Model offline Whisper nie jest jeszcze pobrany – pobierz go w Ustawieniach.",
       "unknown": "Rozpoznawanie mowy nieoczekiwanie się zatrzymało. Spróbuj ponownie.",
-      "iosStandalone": "Na iPhonie rozpoznawanie mowy w zainstalowanej aplikacji bywa zawodne. Jeśli problem się powtarza, otwórz Teleo w Safari.",
+      "iosStandalone": "Na iPhonie rozpoznawanie mowy w zainstalowanej aplikacji bywa zawodne. Jeśli problem się powtarza, otwórz Teleo w Safari albo włącz Whisper offline w Ustawieniach.",
       "aborted": "Słuchanie zostało przerwane."
     },
     "privacy": {
       "title": "Zanim zaczniesz mówić",
       "body": "Teleo nigdy nie zapisuje Twojego głosu i niczego nam nie wysyła. Wbudowane w przeglądarkę rozpoznawanie mowy może jednak przesyłać nagranie do firmy {{vendor}}, aby zamienić je na tekst.",
       "onDevice": "Dobra wiadomość: Twoja przeglądarka rozpoznaje ten język na urządzeniu.",
-      "whisper": "Wolisz w pełni prywatne rozpoznawanie? Silnik offline Whisper planujemy w wersji 1.1.",
+      "whisper": "Wolisz w pełni prywatne rozpoznawanie? Włącz Whisper offline w Ustawieniach – nagranie nie opuści wtedy urządzenia.",
       "accept": "Rozumiem – dalej",
       "vendorGoogle": "Google",
       "vendorMicrosoft": "Microsoft",
       "vendorApple": "Apple",
-      "vendorGeneric": "dostawca przeglądarki"
+      "vendorGeneric": "dostawca przeglądarki",
+      "bodyOnDevice": "Teleo nigdy nie zapisuje Twojego głosu i niczego nam nie wysyła. Mowa jest rozpoznawana bezpośrednio na tym urządzeniu, więc nagranie go nie opuszcza."
     },
-    "offline": "Jesteś offline. Ta przeglądarka potrzebuje internetu do rozpoznawania mowy – połącz się ponownie lub użyj rozpoznawania na urządzeniu, jeśli jest dostępne."
+    "offline": "Jesteś offline. Ta przeglądarka potrzebuje internetu do rozpoznawania mowy – połącz się ponownie lub użyj rozpoznawania na urządzeniu, jeśli jest dostępne.",
+    "openSettings": "Ustawienia mowy"
   },
   "achievements": {
     "text": {
