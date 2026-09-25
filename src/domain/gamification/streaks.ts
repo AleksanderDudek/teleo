@@ -96,13 +96,19 @@ export function reconcileFreezes(
 
 export interface FreezeAward {
   award: number
-  /** Store it as `GameState.lastFreezeAwardStreak`. */
+  /**
+   * Persist as `GameState.lastFreezeAwardStreak` after EVERY call, also when `award` is 0.
+   */
   lastAwardStreak: number
 }
 
 /**
  * Call after every accepted attempt. Awards a freeze when the streak reaches a multiple of 7
  * (7, 14, 21 …) other than the stored milestone while fewer than 2 are stored.
+ *
+ * Callers must persist the returned `lastAwardStreak` after EVERY call — also when `award` is
+ * 0. It changes on calls that award nothing (a capped milestone, a chain restart), and the
+ * chain-restart reset below only works when those values are stored.
  * - The milestone is stored even when the store is full, so repeated calls with the same
  *   streak value award nothing.
  * - A streak only grows within a chain, so `newStreak < lastAwardStreak` means the chain
