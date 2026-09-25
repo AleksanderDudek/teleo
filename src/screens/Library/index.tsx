@@ -7,7 +7,9 @@ import { Chip } from '@/components/ui/Chip'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Segmented } from '@/components/ui/Segmented'
+import { ACHIEVEMENT_RULES, buildTextMetrics, nextTextMilestone } from '@/domain/gamification'
 import { TEXT_TYPES, type Lang, type TextType } from '@/domain/types'
+import { achievementName } from '@/i18n/dynamic'
 import { useLibrary } from '@/hooks/useLibrary'
 import { searchKey } from '@/lib/search'
 
@@ -43,6 +45,13 @@ export default function Library() {
   }
 
   const hasAnyVisible = entries?.some((e) => !e.text.archived) ?? false
+
+  /** "12 more to Centurion" once a text has been said at least once (spec §11/3). */
+  const milestoneOf = ({ stats, segmentCount }: (typeof filtered)[number]) => {
+    if (!stats?.repetitions) return undefined
+    const next = nextTextMilestone(buildTextMetrics(stats, segmentCount), ACHIEVEMENT_RULES)
+    return next ? t('library.milestone', { remaining: next.remaining, name: achievementName(t, next.rule.id) }) : undefined
+  }
 
   return (
     <>
@@ -117,7 +126,7 @@ export default function Library() {
           <ul className="space-y-3">
             {filtered.map((entry, index) => (
               <li key={entry.text.id} className="animate-rise" style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}>
-                <TextCard entry={entry} />
+                <TextCard entry={entry} footnote={milestoneOf(entry)} />
               </li>
             ))}
           </ul>
