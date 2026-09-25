@@ -47,6 +47,10 @@ describe('segmentXp', () => {
     expect(segmentXp(25, true, 0)).toEqual({ base: 30, bonus: 2, multiplier: 1, total: 32 })
   })
 
+  it('treats a negative word count as 0', () => {
+    expect(segmentXp(-3, false, 0)).toEqual({ base: 5, bonus: 0, multiplier: 1, total: 5 })
+  })
+
   it('multiplies base and bonus by the streak multiplier and rounds', () => {
     expect(segmentXp(5, true, 3)).toEqual({ base: 10, bonus: 2, multiplier: 1.1, total: 13 })
     expect(segmentXp(30, true, 30).total).toBe(48)

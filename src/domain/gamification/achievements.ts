@@ -17,14 +17,8 @@ export const ACHIEVEMENT_CATEGORIES = [
 ] as const
 export type AchievementCategory = (typeof ACHIEVEMENT_CATEGORIES)[number]
 
-/**
- * One achievement template (spec §9.8). `scope: 'text'` rules apply to every text, including
- * texts created later; their metric is a `TextMetric`, otherwise a `GlobalMetric`.
- */
-export interface AchievementRule {
+interface AchievementRuleBase {
   id: string
-  scope: 'global' | 'text'
-  metric: GlobalMetric | TextMetric
   /** Unlocks when the metric value is at least this (> 0). */
   threshold: number
   tier: Tier
@@ -32,6 +26,21 @@ export interface AchievementRule {
   /** Shown as "???" until unlocked. */
   hidden?: boolean
 }
+
+/** Evaluated once, against the global metrics. */
+export interface GlobalAchievementRule extends AchievementRuleBase {
+  scope: 'global'
+  metric: GlobalMetric
+}
+
+/** Evaluated for every text, including texts created later. */
+export interface TextAchievementRule extends AchievementRuleBase {
+  scope: 'text'
+  metric: TextMetric
+}
+
+/** One achievement template (spec §9.8); `scope` decides which metrics `metric` names. */
+export type AchievementRule = GlobalAchievementRule | TextAchievementRule
 
 export interface AchievementUnlock {
   key: string
@@ -97,13 +106,6 @@ export function achievementKey(ruleId: string, textId?: string): string {
   return textId === undefined ? ruleId : `${ruleId}:${textId}`
 }
 
-type MetricValues = Partial<Record<GlobalMetric | TextMetric, number>>
-
-function reached(rule: AchievementRule, values: MetricValues): boolean {
-  const value = values[rule.metric]
-  return value !== undefined && value >= rule.threshold
-}
-
 /**
  * Achievements to unlock now: rules whose metric reached the threshold and whose key is not
  * in `unlocked`. Text rules are checked for every text. Order: rules, then texts, as given.
@@ -119,14 +121,14 @@ export function evaluateAchievements(input: {
   for (const rule of rules) {
     if (rule.scope === 'global') {
       const key = achievementKey(rule.id)
-      if (!unlocked.has(key) && reached(rule, global)) {
+      if (!unlocked.has(key) && global[rule.metric] >= rule.threshold) {
         unlocks.push({ key, ruleId: rule.id, tier: rule.tier })
       }
       continue
     }
     for (const { textId, metrics } of texts) {
       const key = achievementKey(rule.id, textId)
-      if (!unlocked.has(key) && reached(rule, metrics)) {
+      if (!unlocked.has(key) && metrics[rule.metric] >= rule.threshold) {
         unlocks.push({ key, ruleId: rule.id, textId, tier: rule.tier })
       }
     }
@@ -135,15 +137,15 @@ export function evaluateAchievements(input: {
 }
 
 export interface RuleProgress {
-  /** The metric value, capped at the threshold. */
+  /** The metric value clamped to 0…threshold (NaN counts as 0). */
   current: number
   threshold: number
-  /** 0–1. */
+  /** `current / threshold`, always within 0…1. */
   ratio: number
 }
 
 export function ruleProgress(rule: AchievementRule, value: number): RuleProgress {
-  const current = Math.min(value, rule.threshold)
+  const current = Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), rule.threshold)
   return { current, threshold: rule.threshold, ratio: current / rule.threshold }
 }
 
@@ -151,9 +153,9 @@ export function ruleProgress(rule: AchievementRule, value: number): RuleProgress
 export function nextTextMilestone(
   metrics: Record<TextMetric, number>,
   rules: readonly AchievementRule[],
-): { rule: AchievementRule; remaining: number } | null {
+): { rule: TextAchievementRule; remaining: number } | null {
   const repetitions = metrics.textRepetitions
-  let next: AchievementRule | undefined
+  let next: TextAchievementRule | undefined
   for (const rule of rules) {
     if (rule.scope !== 'text' || rule.metric !== 'textRepetitions') continue
     if (rule.threshold > repetitions && (!next || rule.threshold < next.threshold)) next = rule

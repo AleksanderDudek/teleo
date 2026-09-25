@@ -96,13 +96,19 @@ export function reconcileFreezes(
 
 export interface FreezeAward {
   award: number
-  /** Store it as `GameState.lastFreezeAwardStreak`. */
+  /**
+   * Persist as `GameState.lastFreezeAwardStreak` after EVERY call, also when `award` is 0.
+   */
   lastAwardStreak: number
 }
 
 /**
  * Call after every accepted attempt. Awards a freeze when the streak reaches a multiple of 7
  * (7, 14, 21 …) other than the stored milestone while fewer than 2 are stored.
+ *
+ * Callers must persist the returned `lastAwardStreak` after EVERY call — also when `award` is
+ * 0. It changes on calls that award nothing (a capped milestone, a chain restart), and the
+ * chain-restart reset below only works when those values are stored.
  * - The milestone is stored even when the store is full, so repeated calls with the same
  *   streak value award nothing.
  * - A streak only grows within a chain, so `newStreak < lastAwardStreak` means the chain
@@ -160,15 +166,21 @@ export interface TextDayStreak {
 
 /**
  * Per-text "said N days in a row" (no freezes), updated when the text is said on `today`:
- * same day → unchanged, the day after `lastDayKey` → +1, otherwise → 1.
+ * the day after `lastDayKey` → +1; the same day, or a day before `lastDayKey` (the day-start
+ * hour or the time zone changed) → unchanged; otherwise → 1.
  */
 export function nextTextDayStreak(
   prev: { current: number; best: number; lastDayKey?: DayKey },
   today: DayKey,
 ): TextDayStreak {
-  const last = prev.lastDayKey
-  let current = 1
-  if (last === today) current = prev.current
-  else if (last !== undefined && diffDays(today, last) === 1) current = prev.current + 1
-  return { current, best: Math.max(prev.best, current), lastDayKey: today }
+  const { current, best, lastDayKey } = prev
+  const saidToday = (next: number): TextDayStreak => ({
+    current: next,
+    best: Math.max(best, next),
+    lastDayKey: today,
+  })
+  if (lastDayKey === undefined) return saidToday(1)
+  const days = diffDays(today, lastDayKey)
+  if (days <= 0) return { current, best, lastDayKey }
+  return saidToday(days === 1 ? current + 1 : 1)
 }

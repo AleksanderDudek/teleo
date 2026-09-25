@@ -26,8 +26,15 @@ export function thresholdForLevel(level: number): number {
   return thresholdForLevel(MAX_NAMED_LEVEL) + CIRCLE_XP * (level - MAX_NAMED_LEVEL)
 }
 
+/** Negative XP and NaN count as 0; XP beyond `Number.MAX_SAFE_INTEGER` (e.g. Infinity) as it. */
+function sanitizeXp(totalXp: number): number {
+  if (Number.isNaN(totalXp)) return 0
+  return Math.min(Math.max(totalXp, 0), Number.MAX_SAFE_INTEGER)
+}
+
+/** Level, circle and progress for a cumulative XP total; never throws. */
 export function levelInfo(totalXp: number): LevelInfo {
-  const xp = Math.max(0, totalXp)
+  const xp = sanitizeXp(totalXp)
   const lastNamedThreshold = thresholdForLevel(MAX_NAMED_LEVEL)
   let level = 1
   if (xp >= lastNamedThreshold) {

@@ -84,6 +84,16 @@ describe('computeStreak', () => {
     })
   })
 
+  it('is not affected by daylight-saving changes', () => {
+    // The test time zone (Europe/Warsaw) springs forward on 2026-03-29, falls back on 2026-10-25.
+    expect(computeStreak(marks('AAA', '2026-03-28'), '2026-03-30').current).toBe(3)
+    expect(computeStreak(marks('AAA', '2026-10-24'), '2026-10-26').current).toBe(3)
+    expect(reconcileFreezes(marks('A', '2026-03-28'), '2026-03-30', 1)).toEqual({
+      frozenDays: ['2026-03-29'],
+      freezesLeft: 0,
+    })
+  })
+
   it('follows the calendar across month and year boundaries', () => {
     expect(computeStreak(marks('AAAA', '2026-12-30'), '2027-01-02').current).toBe(4)
     expect(computeStreak(marks('AAA', '2026-02-27'), '2026-03-01').current).toBe(3)
@@ -150,9 +160,26 @@ describe('reconcileFreezes', () => {
 })
 
 describe('freezeAward', () => {
-  it('earns one freeze per 7 streak days, at most 2 in store', () => {
-    expect(FREEZE_EVERY).toBe(7)
-    expect(MAX_FREEZES).toBe(2)
+  it('earns a freeze every 7 streak days and never stores more than 2', () => {
+    let available = 0
+    let lastAwardStreak = 0
+    let mostStored = 0
+    const awardedAt: number[] = []
+    for (let streak = 1; streak <= 4 * FREEZE_EVERY; streak++) {
+      // Before day 22 a freeze bridged a missed day; the chain and its streak go on.
+      if (streak === 22) available -= 1
+      // Two accepted attempts a day, each followed by a call.
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const result = freezeAward(streak, lastAwardStreak, available)
+        lastAwardStreak = result.lastAwardStreak
+        available += result.award
+        mostStored = Math.max(mostStored, available)
+        if (result.award > 0) awardedAt.push(streak)
+      }
+    }
+    expect(awardedAt).toEqual([7, 14, 28]) // none at 21: the store was full
+    expect(mostStored).toBe(MAX_FREEZES)
+    expect(available).toBe(MAX_FREEZES)
   })
 
   it('awards a freeze when the streak reaches 7', () => {
@@ -302,5 +329,11 @@ describe('nextTextDayStreak', () => {
   it('continues across a year boundary', () => {
     const prev = { current: 2, best: 2, lastDayKey: '2026-12-31' }
     expect(nextTextDayStreak(prev, '2027-01-01')).toMatchObject({ current: 3, best: 3 })
+  })
+
+  it('stays unchanged when today lies before the last day (day start or time zone changed)', () => {
+    const prev = { current: 4, best: 6, lastDayKey: '2026-09-25' }
+    expect(nextTextDayStreak(prev, '2026-09-24')).toEqual(prev)
+    expect(nextTextDayStreak(prev, '2026-08-01')).toEqual(prev)
   })
 })

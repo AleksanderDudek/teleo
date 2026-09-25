@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 import type { Tier } from '@/domain/types'
 import {
   ACHIEVEMENT_CATEGORIES,
@@ -136,6 +136,13 @@ describe('ACHIEVEMENT_RULES', () => {
       r.scope === 'text' ? !isTextMetric(r.metric) : !isGlobalMetric(r.metric),
     )
     expect(mismatched).toEqual([])
+  })
+
+  it('ties the metric type to the scope', () => {
+    type GlobalRule = Extract<AchievementRule, { scope: 'global' }>
+    type TextRule = Extract<AchievementRule, { scope: 'text' }>
+    expectTypeOf<GlobalRule['metric']>().toEqualTypeOf<GlobalMetric>()
+    expectTypeOf<TextRule['metric']>().toEqualTypeOf<TextMetric>()
   })
 
   it('uses every metric in at least one rule', () => {
@@ -313,6 +320,14 @@ describe('ruleProgress', () => {
 
   it('caps the current value at the threshold', () => {
     expect(ruleProgress(rule('streak.7'), 12)).toEqual({ current: 7, threshold: 7, ratio: 1 })
+  })
+
+  it('keeps current within 0…threshold and the ratio within 0…1 for odd values', () => {
+    const centurion = rule('text.reps.100')
+    expect(ruleProgress(centurion, -5)).toEqual({ current: 0, threshold: 100, ratio: 0 })
+    expect(ruleProgress(centurion, Number.NaN)).toEqual({ current: 0, threshold: 100, ratio: 0 })
+    const infinite = ruleProgress(centurion, Number.POSITIVE_INFINITY)
+    expect(infinite).toEqual({ current: 100, threshold: 100, ratio: 1 })
   })
 })
 
