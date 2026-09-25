@@ -7,7 +7,13 @@ import type { DiffPart, DiffStatus } from './types'
 const diff = (lang: Lang, source: string, said: string) =>
   buildDiff(source, lang, evaluate(source, [said], { lang, strictness: 'strict' }))
 const word = (text: string, status: DiffStatus): DiffPart => ({ kind: 'source', text, status })
-const spoken = (text: string, status: 'extra' | 'wrong'): DiffPart => ({ kind: 'spoken', text, status })
+const spoken = (text: string, status: 'extra' | 'wrong'): DiffPart => ({
+  kind: 'spoken',
+  text,
+  status,
+})
+
+const JESTEM = 'Jestem spokojny i pewny siebie.'
 
 describe('buildDiff', () => {
   it('shows every original word with its punctuation', () => {
@@ -21,7 +27,7 @@ describe('buildDiff', () => {
   })
 
   it('marks a missing word', () => {
-    expect(diff('pl', 'Jestem spokojny i pewny siebie.', 'jestem spokojny pewny siebie')).toEqual([
+    expect(diff('pl', JESTEM, 'jestem spokojny pewny siebie')).toEqual([
       word('Jestem', 'match'),
       word('spokojny', 'match'),
       word('i', 'missing'),
@@ -49,7 +55,7 @@ describe('buildDiff', () => {
   })
 
   it('puts an extra word after the source word said before it', () => {
-    expect(diff('pl', 'Jestem spokojny i pewny siebie.', 'jestem bardzo spokojny i pewny siebie')).toEqual([
+    expect(diff('pl', JESTEM, 'jestem bardzo spokojny i pewny siebie')).toEqual([
       word('Jestem', 'match'),
       spoken('bardzo', 'extra'),
       word('spokojny', 'match'),
@@ -69,7 +75,7 @@ describe('buildDiff', () => {
   })
 
   it('places an extra word after a missing one', () => {
-    expect(diff('pl', 'Jestem spokojny i pewny siebie.', 'jestem spokojny pewny siebie teraz')).toEqual([
+    expect(diff('pl', JESTEM, 'jestem spokojny pewny siebie teraz')).toEqual([
       word('Jestem', 'match'),
       word('spokojny', 'match'),
       word('i', 'missing'),
@@ -99,8 +105,14 @@ describe('buildDiff', () => {
   })
 
   it("gives I'm the worst status of its two tokens", () => {
-    expect(diff('en', "I'm here", 'I am here')).toEqual([word("I'm", 'match'), word('here', 'match')])
-    expect(diff('en', "I'm here", 'I here')).toEqual([word("I'm", 'missing'), word('here', 'match')])
+    expect(diff('en', "I'm here", 'I am here')).toEqual([
+      word("I'm", 'match'),
+      word('here', 'match'),
+    ])
+    expect(diff('en', "I'm here", 'I here')).toEqual([
+      word("I'm", 'missing'),
+      word('here', 'match'),
+    ])
     expect(diff('en', "I'm here", 'you am here')).toEqual([
       word("I'm", 'wrong'),
       spoken('you', 'wrong'),
@@ -133,7 +145,11 @@ describe('buildDiff', () => {
   })
 
   it('leaves every word uncoloured when nothing was heard', () => {
-    expect(diff('en', 'I am calm.', 'um')).toEqual([word('I', 'none'), word('am', 'none'), word('calm.', 'none')])
+    expect(diff('en', 'I am calm.', 'um')).toEqual([
+      word('I', 'none'),
+      word('am', 'none'),
+      word('calm.', 'none'),
+    ])
     expect(diff('en', '—', 'anything')).toEqual([word('—', 'none')])
   })
 })

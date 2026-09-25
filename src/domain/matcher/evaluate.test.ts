@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import type { Lang, Strictness } from '@/domain/types'
 import { evaluate } from './evaluate'
+import type { EvaluateOptions } from './types'
 
+const JESTEM = 'Jestem spokojny i pewny siebie.'
 const PL_20 =
   'Każdego dnia rano wstaję wcześnie, dziękuję za nowy dzień i spokojnie planuję wszystkie ważne sprawy, które czekają na mnie dzisiaj.'
 const EN_20 =
@@ -28,8 +30,6 @@ const replacing = (sentence: string, index: number, word: string) =>
     .join(' ')
 
 describe('evaluate — spec §6.6 table', () => {
-  const JESTEM = 'Jestem spokojny i pewny siebie.'
-
   it('#1 accepts an exact transcript', () => {
     expect(pl(JESTEM, 'jestem spokojny i pewny siebie')).toEqual({
       accepted: true,
@@ -201,7 +201,8 @@ describe('evaluate — spec §6.6 table', () => {
   })
 
   it('#22 picks the accepted alternative', () => {
-    expect(en('I am calm and focused', 'I am very calm and focused', 'I am calm and focused')).toMatchObject({
+    const alternatives = ['I am very calm and focused', 'I am calm and focused']
+    expect(run('en', 'I am calm and focused', alternatives)).toMatchObject({
       accepted: true,
       bestAlternativeIndex: 1,
       transcript: 'I am calm and focused',
@@ -219,7 +220,13 @@ describe('evaluate — spec §6.6 table', () => {
   it('#24 ignores punctuation', () => {
     const result = en('Hail Mary, full of grace', 'hail mary full of grace')
     expect(result.accepted).toBe(true)
-    expect(result.ops.map((entry) => entry.op)).toEqual(['match', 'match', 'match', 'match', 'match'])
+    expect(result.ops.map((entry) => entry.op)).toEqual([
+      'match',
+      'match',
+      'match',
+      'match',
+      'match',
+    ])
   })
 
   it('#25 rejects a source without words', () => {
@@ -273,7 +280,11 @@ describe('evaluate — acceptance rule', () => {
   })
 
   it('reports extra before wrong', () => {
-    expect(en('I am calm', 'I am cold today')).toMatchObject({ reason: 'extra', extra: 1, wrong: 1 })
+    expect(en('I am calm', 'I am cold today')).toMatchObject({
+      reason: 'extra',
+      extra: 1,
+      wrong: 1,
+    })
   })
 
   it('rejects extra words in lenient mode too', () => {
@@ -284,12 +295,13 @@ describe('evaluate — acceptance rule', () => {
   })
 
   it('honours a custom threshold', () => {
-    const source = 'Jestem spokojny i pewny siebie.'
-    const said = 'jestem spokojny pewny siebie'
-    expect(evaluate(source, [said], { lang: 'pl', strictness: 'strict', threshold: 0.8 }).accepted).toBe(true)
-    expect(evaluate(PL_20, [omitting(PL_20, 2)], { lang: 'pl', strictness: 'strict', threshold: 1 }).accepted).toBe(
-      false,
-    )
+    const threshold = (value: number): EvaluateOptions => ({
+      lang: 'pl',
+      strictness: 'strict',
+      threshold: value,
+    })
+    expect(evaluate(JESTEM, ['jestem spokojny pewny siebie'], threshold(0.8)).accepted).toBe(true)
+    expect(evaluate(PL_20, [omitting(PL_20, 2)], threshold(1)).accepted).toBe(false)
   })
 
   it('counts source words after normalization', () => {
@@ -303,7 +315,10 @@ describe('evaluate — acceptance rule', () => {
 
 describe('evaluate — choosing among alternatives', () => {
   it('skips alternatives that are empty after normalization', () => {
-    expect(en('I am calm', '', 'um', 'I am calm')).toMatchObject({ accepted: true, bestAlternativeIndex: 2 })
+    expect(en('I am calm', '', 'um', 'I am calm')).toMatchObject({
+      accepted: true,
+      bestAlternativeIndex: 2,
+    })
   })
 
   it('prefers higher coverage among rejected alternatives', () => {
@@ -315,24 +330,32 @@ describe('evaluate — choosing among alternatives', () => {
   })
 
   it('prefers fewer extra and wrong words at equal coverage', () => {
-    expect(en('I am calm and focused', 'so I am calm and very focused', 'I am calm and focused now')).toMatchObject({
+    const alternatives = ['so I am calm and very focused', 'I am calm and focused now']
+    expect(run('en', 'I am calm and focused', alternatives)).toMatchObject({
       bestAlternativeIndex: 1,
       extra: 1,
     })
   })
 
   it('prefers the lower alignment cost next', () => {
-    expect(pl('Chleba naszego powszedniego', 'chleba waszego powszedniego', 'chleba naszego powszedniego')).toMatchObject({
+    const source = 'Chleba naszego powszedniego'
+    const near = 'chleba waszego powszedniego'
+    const exact = 'chleba naszego powszedniego'
+    expect(pl(source, near, exact)).toMatchObject({
       accepted: true,
       bestAlternativeIndex: 1,
       near: 0,
     })
-    expect(
-      pl('Chleba naszego powszedniego', 'chleba waszego powszedniego amen', 'chleba naszego powszedniego amen'),
-    ).toMatchObject({ accepted: false, bestAlternativeIndex: 1 })
+    expect(pl(source, `${near} amen`, `${exact} amen`)).toMatchObject({
+      accepted: false,
+      bestAlternativeIndex: 1,
+    })
   })
 
   it('keeps the earlier alternative on a full tie', () => {
-    expect(en('I am calm', 'I am calm', 'i am calm')).toMatchObject({ bestAlternativeIndex: 0, transcript: 'I am calm' })
+    expect(en('I am calm', 'I am calm', 'i am calm')).toMatchObject({
+      bestAlternativeIndex: 0,
+      transcript: 'I am calm',
+    })
   })
 })

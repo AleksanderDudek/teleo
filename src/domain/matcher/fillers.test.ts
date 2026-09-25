@@ -12,7 +12,9 @@ const clean = (text: string, lang: Lang, keep: readonly string[] = []) =>
 
 describe('removeFillers', () => {
   it('removes English hesitation sounds', () => {
-    expect(clean('um i umm uum am uh uhh er err grateful hmm hm mm mmm', 'en')).toBe('i am grateful')
+    expect(clean('um i umm uum am uh uhh er err grateful hmm hm mm mmm', 'en')).toBe(
+      'i am grateful',
+    )
   })
 
   it('keeps English words that merely look similar', () => {

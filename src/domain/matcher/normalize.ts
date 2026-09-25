@@ -3,12 +3,13 @@ import { expandContractions, joinSplitCompounds } from './contractions'
 import { normalizeNumbers } from './numbers'
 import type { Token } from './types'
 
+const WHITESPACE = /\s+/u
 /** Capturing, so `split` keeps the separators: words at even indexes, whitespace at odd. */
 const WHITESPACE_RUNS = /(\s+)/u
 const APOSTROPHES = /[’‘ʼ´`]/gu
 const THOUSANDS_COMMA = /(\d),(?=\d{3}(?!\d))/gu
 /** No-break spaces group digits (`1 000`); a plain space may separate two spoken numbers. */
-const DIGIT_GROUP_SPACE = /^[  ]$/u
+const DIGIT_GROUP_SPACE = /^[\u00a0\u202f]$/u
 const ENDS_WITH_DIGIT = /\d$/u
 const STARTS_WITH_DIGIT_GROUP = /^\d{3}(?!\d)/u
 /** Everything but letters (with their combining marks), digits and apostrophes breaks words. */
@@ -17,7 +18,7 @@ const WORD_BREAK = /[^\p{L}\p{M}\p{N}']+/u
 /** The words of the original text that token raw ranges point into. */
 export function rawWords(text: string): string[] {
   const trimmed = text.trim()
-  return trimmed === '' ? [] : trimmed.split(/\s+/u)
+  return trimmed === '' ? [] : trimmed.split(WHITESPACE)
 }
 
 function cleanWord(word: string, lang: Lang): string {

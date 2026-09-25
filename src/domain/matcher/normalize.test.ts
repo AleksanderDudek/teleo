@@ -9,7 +9,12 @@ const texts = (text: string, lang: Lang) =>
 
 describe('rawWords', () => {
   it('splits the trimmed text on any whitespace', () => {
-    expect(rawWords('  Zdrowaś Maryjo,\nłaski\tpełna ')).toEqual(['Zdrowaś', 'Maryjo,', 'łaski', 'pełna'])
+    expect(rawWords('  Zdrowaś Maryjo,\nłaski\tpełna ')).toEqual([
+      'Zdrowaś',
+      'Maryjo,',
+      'łaski',
+      'pełna',
+    ])
   })
 
   it('has no words for blank text', () => {
@@ -67,7 +72,9 @@ describe('normalize — characters', () => {
   it('gives identical tokens for NFC and NFD input', () => {
     const text = 'Zdrowaś Maryjo, łaski pełna, Pan z Tobą. Żółć gęślą jaźń.'
     expect(normalize(text.normalize('NFD'), 'pl')).toEqual(normalize(text.normalize('NFC'), 'pl'))
-    expect(texts(text.normalize('NFD'), 'pl')).toBe('zdrowaś maryjo łaski pełna pan z tobą żółć gęślą jaźń')
+    expect(texts(text.normalize('NFD'), 'pl')).toBe(
+      'zdrowaś maryjo łaski pełna pan z tobą żółć gęślą jaźń',
+    )
   })
 
   it('lowercases Polish capitals', () => {
@@ -116,12 +123,12 @@ describe('normalize — numbers', () => {
   })
 
   it('joins digit groups separated by a (narrow) no-break space', () => {
-    expect(normalize('1 000 dni', 'pl')).toEqual([
+    expect(normalize('1\u00a0000 dni', 'pl')).toEqual([
       { text: '1000', rawStart: 0, rawEnd: 1 },
       { text: 'dni', rawStart: 2, rawEnd: 2 },
     ])
-    expect(texts('1 000 000', 'pl')).toBe('1000000')
-    expect(texts('(10 000)', 'pl')).toBe('10000')
+    expect(texts('1\u202f000\u202f000', 'pl')).toBe('1000000')
+    expect(texts('(10\u00a0000)', 'pl')).toBe('10000')
   })
 
   it('does not join digit groups separated by a plain space', () => {

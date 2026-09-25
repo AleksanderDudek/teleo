@@ -8,7 +8,11 @@ const MIN_FUZZY_LENGTH = 4
  * diacritics; `ł` has no Unicode decomposition, so it is mapped explicitly.
  */
 export function stripDiacritics(word: string): string {
-  return word.normalize('NFD').replace(COMBINING_MARKS, '').replaceAll('ł', 'l').replaceAll('Ł', 'L')
+  return word
+    .normalize('NFD')
+    .replace(COMBINING_MARKS, '')
+    .replaceAll('ł', 'l')
+    .replaceAll('Ł', 'L')
 }
 
 /** Character edit distance (insert, delete, substitute = 1). */

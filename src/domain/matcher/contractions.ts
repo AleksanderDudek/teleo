@@ -74,7 +74,11 @@ export function joinSplitCompounds(tokens: readonly Token[]): Token[] {
     const previous = joined.at(-1)
     const compound = previous && SPLIT_COMPOUNDS.get(`${previous.text} ${token.text}`)
     if (previous && compound) {
-      joined[joined.length - 1] = { text: compound, rawStart: previous.rawStart, rawEnd: token.rawEnd }
+      joined[joined.length - 1] = {
+        text: compound,
+        rawStart: previous.rawStart,
+        rawEnd: token.rawEnd,
+      }
     } else {
       joined.push(token)
     }

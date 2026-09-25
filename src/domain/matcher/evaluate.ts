@@ -6,8 +6,8 @@ import type { EvaluateOptions, MatchOp, MatchResult, RejectReason } from './type
 
 const DEFAULT_THRESHOLD = 0.95
 
-/** The verdict for one alternative, before it is tagged with its index and text. */
-type Score = Omit<MatchResult, 'bestAlternativeIndex' | 'transcript'>
+/** The verdict on one alternative, before it is tagged with its index and text. */
+type Verdict = Omit<MatchResult, 'bestAlternativeIndex' | 'transcript'>
 
 interface Candidate {
   result: MatchResult
@@ -31,12 +31,25 @@ function unmatched(reason: 'empty' | 'emptySource', sourceWords: number): MatchR
   }
 }
 
-function score(
+/** The first failed condition, in the order the user should fix them; null = accepted. */
+function rejectReason(
+  extra: number,
+  wrong: number,
+  covered: boolean,
+  strictness: Strictness,
+): RejectReason | null {
+  if (extra > 0) return 'extra'
+  // Strict: a wrong word is a word outside the source. Lenient: it only lowers coverage.
+  if (strictness === 'strict' && wrong > 0) return 'wrong'
+  return covered ? null : 'coverage'
+}
+
+function judge(
   source: readonly string[],
   spoken: readonly string[],
   strictness: Strictness,
   percent: number,
-): { score: Score; cost: number } {
+): { verdict: Verdict; cost: number } {
   const { ops, cost } = align(source, spoken)
   const count = (op: MatchOp) => ops.filter((entry) => entry.op === op).length
   const matched = count('match')
@@ -45,11 +58,9 @@ function score(
   const wrong = count('wrong')
   // Integer comparison: 19 of 20 words is exactly 95%.
   const covered = (matched + near) * 100 >= percent * source.length
-  // Strict: a wrong word is a word outside the source. Lenient: it only lowers coverage.
-  const reason: RejectReason | null =
-    extra > 0 ? 'extra' : strictness === 'strict' && wrong > 0 ? 'wrong' : covered ? null : 'coverage'
+  const reason = rejectReason(extra, wrong, covered, strictness)
   return {
-    score: {
+    verdict: {
       accepted: reason === null,
       coverage: (matched + near) / source.length,
       matched,
@@ -101,11 +112,8 @@ export function evaluate(
   for (const [index, transcript] of alternatives.entries()) {
     const spoken = removeFillers(normalize(transcript, lang), lang, keep).map((token) => token.text)
     if (spoken.length === 0) continue
-    const scored = score(sourceWords, spoken, strictness, percent)
-    const candidate = {
-      result: { ...scored.score, bestAlternativeIndex: index, transcript },
-      cost: scored.cost,
-    }
+    const { verdict, cost } = judge(sourceWords, spoken, strictness, percent)
+    const candidate = { result: { ...verdict, bestAlternativeIndex: index, transcript }, cost }
     if (!best || isBetter(candidate, best)) best = candidate
   }
   return best?.result ?? unmatched('empty', sourceWords.length)
