@@ -46,7 +46,7 @@ describe('WebSpeechEngine', () => {
   })
 
   it('signals silence 1.5 s after the last result', async () => {
-    const onSilence = vi.fn()
+    const onSilence = vi.fn<() => void>()
     await engine().start({ lang: 'pl-PL', onSilence })
     last().emit([false, 'Jestem'])
     await vi.advanceTimersByTimeAsync(1400)
@@ -58,13 +58,13 @@ describe('WebSpeechEngine', () => {
   })
 
   it('gives up after 8 s of no speech in tap mode, but not in live mode', async () => {
-    const tap = vi.fn()
+    const tap = vi.fn<() => void>()
     const e = engine()
     await e.start({ lang: 'pl-PL', onSilence: tap })
     await vi.advanceTimersByTimeAsync(8000)
     expect(tap).toHaveBeenCalledTimes(1)
     e.abort()
-    const live = vi.fn()
+    const live = vi.fn<() => void>()
     await engine().start({ lang: 'pl-PL', continuous: true, onSilence: live })
     await vi.advanceTimersByTimeAsync(20_000)
     expect(live).not.toHaveBeenCalled()
@@ -76,14 +76,14 @@ describe('WebSpeechEngine', () => {
   })
 
   it('reports network errors after start through onError', async () => {
-    const onError = vi.fn()
+    const onError = vi.fn<(error: SpeechError) => void>()
     await engine().start({ lang: 'pl-PL', onError })
     last().fail('network')
     expect(onError).toHaveBeenCalledWith(expect.objectContaining({ code: 'network' }))
   })
 
   it('restarts transparently in live mode when the browser ends recognition', async () => {
-    const onRestart = vi.fn()
+    const onRestart = vi.fn<() => void>()
     const transcripts: string[] = []
     await engine().start({ lang: 'pl-PL', continuous: true, onRestart, onTranscript: (t) => transcripts.push(t) })
     const recognition = last()
@@ -96,14 +96,14 @@ describe('WebSpeechEngine', () => {
   })
 
   it('stops restarting after too many consecutive browser stops', async () => {
-    const onError = vi.fn()
+    const onError = vi.fn<(error: SpeechError) => void>()
     await engine().start({ lang: 'pl-PL', continuous: true, onError })
     for (let i = 0; i < 6; i++) last().endUnexpectedly()
     expect(onError).toHaveBeenCalledWith(expect.objectContaining({ code: 'network' }))
   })
 
   it('treats an unexpected end in tap mode as silence', async () => {
-    const onSilence = vi.fn()
+    const onSilence = vi.fn<() => void>()
     await engine().start({ lang: 'pl-PL', onSilence })
     last().endUnexpectedly()
     expect(onSilence).toHaveBeenCalledTimes(1)
