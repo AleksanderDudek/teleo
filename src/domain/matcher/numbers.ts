@@ -1,4 +1,5 @@
 import type { Lang } from '@/domain/types'
+import { stripDiacritics } from './similarity'
 import type { Token } from './types'
 
 const KINDS = ['zero', 'unit', 'teen', 'tens', 'hundreds', 'thousand'] as const
@@ -21,11 +22,24 @@ const VALUE_AT: Record<Kind, (index: number) => number> = {
   thousand: () => 1000,
 }
 
+/** Spellings without diacritics that are real words: "piec" is an oven, not "pięć". */
+const NOT_NUMBERS: ReadonlySet<string> = new Set(['piec'])
+
+/**
+ * Every form is also registered without diacritics (`dwadziescia`), because the
+ * near-match tolerance for missing diacritics comes too late for number words:
+ * they are turned into digits first.
+ */
 function lexicon(forms: Forms): ReadonlyMap<string, NumberWord> {
   const words = new Map<string, NumberWord>()
   for (const kind of KINDS) {
     forms[kind].forEach((variants, index) => {
-      for (const word of [variants].flat()) words.set(word, { kind, value: VALUE_AT[kind](index) })
+      const entry = { kind, value: VALUE_AT[kind](index) }
+      for (const word of [variants].flat()) {
+        words.set(word, entry)
+        const bare = stripDiacritics(word)
+        if (!NOT_NUMBERS.has(bare)) words.set(bare, entry)
+      }
     })
   }
   return words

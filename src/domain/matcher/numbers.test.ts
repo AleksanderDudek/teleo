@@ -123,6 +123,20 @@ describe('normalizeNumbers — Polish words', () => {
     expect(digits(words, 'pl')).toBe(expected)
   })
 
+  it.each([
+    ['dwadziescia jeden', '21'],
+    ['piecset', '500'],
+    ['dziewiec', '9'],
+    ['tysiac', '1000'],
+    ['sto piecdziesiat szesc', '156'],
+  ])('also reads %s without diacritics (→ %s)', (words, expected) => {
+    expect(digits(words, 'pl')).toBe(expected)
+  })
+
+  it('keeps "piec" a word: without diacritics it is an oven, not "pięć"', () => {
+    expect(digits('piec pięć', 'pl')).toBe('piec 5')
+  })
+
   it('does not treat Polish "a" and "i" as English glue words', () => {
     expect(digits('a sto', 'pl')).toBe('a 100')
     expect(digits('sto i pięć', 'pl')).toBe('100 i 5')

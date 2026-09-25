@@ -311,6 +311,13 @@ describe('evaluate — acceptance rule', () => {
     })
   })
 
+  it('matches Polish number words said without diacritics', () => {
+    expect(pl('Dwadzieścia jeden dni', 'dwadziescia jeden dni')).toMatchObject({
+      accepted: true,
+      matched: 2,
+    })
+  })
+
   it('rejects a long number that is one digit off', () => {
     expect(pl('Mam 10000 kroków', 'mam 10001 kroków')).toMatchObject({
       accepted: false,
