@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { blockEntries, isBlockComplete, summarizeRun } from './progress'
+import { blockEntries, isBlockComplete, repetitionInfo, summarizeRun } from './progress'
 import type { EntryState, PlanEntry } from './types'
 
 function plan(entries: Array<Partial<PlanEntry> & Pick<PlanEntry, 'block'>>): PlanEntry[] {
@@ -8,7 +8,26 @@ function plan(entries: Array<Partial<PlanEntry> & Pick<PlanEntry, 'block'>>): Pl
     textId: e.textId ?? 'T',
     block: e.block,
     fullText: e.fullText ?? true,
+    item: e.item ?? 0,
   }))
+}
+
+/** Rosary decade: items[0] A x1 (4 segs, block 0), items[1] B x10 (2 segs, blocks 1..10),
+ *  items[2] C x1 (2 segs, block 11) — 26 entries total. */
+function rosaryPlan(): PlanEntry[] {
+  const entries: PlanEntry[] = []
+  for (let s = 0; s < 4; s++) {
+    entries.push({ segmentId: `a${s}`, textId: 'A', block: 0, fullText: true, item: 0 })
+  }
+  for (let r = 0; r < 10; r++) {
+    for (let s = 0; s < 2; s++) {
+      entries.push({ segmentId: `b${s}`, textId: 'B', block: r + 1, fullText: true, item: 1 })
+    }
+  }
+  for (let s = 0; s < 2; s++) {
+    entries.push({ segmentId: `c${s}`, textId: 'C', block: 11, fullText: true, item: 2 })
+  }
+  return entries
 }
 
 function state(overrides: Partial<EntryState> = {}): EntryState {
@@ -69,15 +88,15 @@ describe('summarizeRun', () => {
   it('summarizes mixed statuses across full-text and partial blocks', () => {
     const p: PlanEntry[] = [
       // Block 0: fullText, text T1, both accepted, one first-try
-      { segmentId: 's1', textId: 'T1', block: 0, fullText: true },
-      { segmentId: 's2', textId: 'T1', block: 0, fullText: true },
+      { segmentId: 's1', textId: 'T1', block: 0, fullText: true, item: 0 },
+      { segmentId: 's2', textId: 'T1', block: 0, fullText: true, item: 0 },
       // Block 1: fullText, text T2, one skipped -> block not complete
-      { segmentId: 's3', textId: 'T2', block: 1, fullText: true },
-      { segmentId: 's4', textId: 'T2', block: 1, fullText: true },
+      { segmentId: 's3', textId: 'T2', block: 1, fullText: true, item: 1 },
+      { segmentId: 's4', textId: 'T2', block: 1, fullText: true, item: 1 },
       // Block 2: not fullText (partial selection), fully accepted but must not count as a text completion
-      { segmentId: 's5', textId: 'T3', block: 2, fullText: false },
+      { segmentId: 's5', textId: 'T3', block: 2, fullText: false, item: 2 },
       // Block 3: fullText, single entry, pending (not yet attempted)
-      { segmentId: 's6', textId: 'T4', block: 3, fullText: true },
+      { segmentId: 's6', textId: 'T4', block: 3, fullText: true, item: 3 },
     ]
     const entries: EntryState[] = [
       state({ status: 'accepted', firstTry: true }),
@@ -104,5 +123,51 @@ describe('summarizeRun', () => {
     const entries = [state(), state()]
     const summary = summarizeRun(p, entries)
     expect(summary.firstTryRate).toBe(0)
+  })
+})
+
+describe('repetitionInfo', () => {
+  it('reports item/rep/reps/block span for an entry mid-way through a repeating item', () => {
+    const p = rosaryPlan()
+    expect(repetitionInfo(p, 5)).toEqual({ item: 1, rep: 0, reps: 10, blockStart: 4, blockEnd: 5 })
+  })
+
+  it('advances rep for the next block of the same item', () => {
+    const p = rosaryPlan()
+    expect(repetitionInfo(p, 7).rep).toBe(1)
+  })
+
+  it('reports the block span for a multi-segment single-repetition item', () => {
+    const p = rosaryPlan()
+    expect(repetitionInfo(p, 0)).toEqual({ item: 0, rep: 0, reps: 1, blockStart: 0, blockEnd: 3 })
+    expect(repetitionInfo(p, 3)).toEqual({ item: 0, rep: 0, reps: 1, blockStart: 0, blockEnd: 3 })
+  })
+
+  it('reports reps = 20 for a one-sentence item repeated 20 times', () => {
+    const p: PlanEntry[] = Array.from({ length: 20 }, (_, block) => ({
+      segmentId: `s${block}`,
+      textId: 'S',
+      block,
+      fullText: true,
+      item: 0,
+    }))
+    expect(repetitionInfo(p, 5)).toEqual({ item: 0, rep: 5, reps: 20, blockStart: 5, blockEnd: 5 })
+  })
+
+  it('counts only the blocks actually present in a truncated plan', () => {
+    // As if the full item had more repetitions, but the plan was truncated to blocks 0..2.
+    const p: PlanEntry[] = [
+      { segmentId: 's0', textId: 'S', block: 0, fullText: true, item: 0 },
+      { segmentId: 's1', textId: 'S', block: 1, fullText: true, item: 0 },
+      { segmentId: 's2', textId: 'S', block: 2, fullText: false, item: 0 },
+    ]
+    const info = repetitionInfo(p, 2)
+    expect(info.reps).toBe(3)
+    expect(info.rep).toBe(2)
+  })
+
+  it('throws for an out-of-range index', () => {
+    const p = rosaryPlan()
+    expect(() => repetitionInfo(p, 999)).toThrow(RangeError)
   })
 })

@@ -1,10 +1,10 @@
-import { MAX_SESSION_SEGMENTS } from './types'
+import { MAX_REPEAT, MAX_SESSION_SEGMENTS } from './types'
 import type { PlanEntry, SegmentsByText, TemplateItem } from './types'
 
-/** Round `repeat` and clamp it to the 1..150 range a single item may legally repeat. */
+/** Round `repeat` and clamp it to the 1..MAX_REPEAT range a single item may legally repeat. */
 export function clampRepeat(repeat: number): number {
   if (Number.isNaN(repeat)) return 1
-  return Math.min(MAX_SESSION_SEGMENTS, Math.max(1, Math.round(repeat)))
+  return Math.min(MAX_REPEAT, Math.max(1, Math.round(repeat)))
 }
 
 interface ResolvedItem {
@@ -28,7 +28,13 @@ function resolveItem(item: TemplateItem, segments: SegmentsByText): ResolvedItem
   }
 
   const activeIdSet = new Set(activeIds)
-  const selected = item.segmentIds.filter((id) => activeIdSet.has(id))
+  const seen = new Set<string>()
+  const selected: string[] = []
+  for (const id of item.segmentIds) {
+    if (!activeIdSet.has(id) || seen.has(id)) continue
+    seen.add(id)
+    selected.push(id)
+  }
   if (selected.length === 0) return null
 
   const fullText =
@@ -65,25 +71,41 @@ export function expandTemplate(
   const missingTextIds: string[] = []
   const seenMissing = new Set<string>()
   let block = 0
+  // Once we've collected one entry past the cap, we know overLimit and can
+  // tell whether the cut fell mid-block — no need to build the rest of a
+  // potentially huge plan. Missing-text detection still runs for every item.
+  let full = false
 
-  for (const item of items) {
+  items.forEach((item, itemIndex) => {
     const resolved = resolveItem(item, segments)
     if (!resolved) {
       if (!seenMissing.has(item.textId)) {
         seenMissing.add(item.textId)
         missingTextIds.push(item.textId)
       }
-      continue
+      return
     }
+    if (full) return
 
     const repeat = clampRepeat(item.repeat)
-    for (let r = 0; r < repeat; r++) {
-      for (const segmentId of resolved.segmentIds) {
-        plan.push({ segmentId, textId: item.textId, block, fullText: resolved.fullText })
-      }
+    repsLoop: for (let r = 0; r < repeat; r++) {
+      const currentBlock = block
       block += 1
+      for (const segmentId of resolved.segmentIds) {
+        plan.push({
+          segmentId,
+          textId: item.textId,
+          block: currentBlock,
+          fullText: resolved.fullText,
+          item: itemIndex,
+        })
+        if (plan.length > MAX_SESSION_SEGMENTS) {
+          full = true
+          break repsLoop
+        }
+      }
     }
-  }
+  })
 
   if (plan.length <= MAX_SESSION_SEGMENTS) {
     return { plan, overLimit: false, missingTextIds }

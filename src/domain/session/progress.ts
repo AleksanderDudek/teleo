@@ -19,6 +19,44 @@ export function isBlockComplete(
   return indices.length > 0 && indices.every((i) => entries[i]?.status === 'accepted')
 }
 
+/**
+ * Repetition counters for the entry at `index`, used by live mode to show
+ * "Hail Mary 3 of 10"-style progress: `rep` is the 0-based rank of this
+ * entry's block among all blocks of the same template item present in the
+ * plan, `reps` is how many such blocks the plan holds (only those actually
+ * present — a truncated plan counts fewer), and `blockStart`/`blockEnd` are
+ * the inclusive plan indices of the entry's own block.
+ */
+export function repetitionInfo(
+  plan: readonly PlanEntry[],
+  index: number,
+): { item: number; rep: number; reps: number; blockStart: number; blockEnd: number } {
+  const entry = plan[index]
+  if (!entry) throw new RangeError(`No plan entry at index ${index}`)
+
+  const blocksForItem: number[] = []
+  const seenBlocks = new Set<number>()
+  for (const e of plan) {
+    if (e.item === entry.item && !seenBlocks.has(e.block)) {
+      seenBlocks.add(e.block)
+      blocksForItem.push(e.block)
+    }
+  }
+  blocksForItem.sort((a, b) => a - b)
+
+  const indices = blockEntries(plan, entry.block)
+  const blockStart = indices[0] ?? index
+  const blockEnd = indices[indices.length - 1] ?? index
+
+  return {
+    item: entry.item,
+    rep: blocksForItem.indexOf(entry.block),
+    reps: blocksForItem.length,
+    blockStart,
+    blockEnd,
+  }
+}
+
 /** Aggregate stats for a session run, used for the end-of-session summary screen. */
 export function summarizeRun(
   plan: readonly PlanEntry[],
