@@ -94,6 +94,12 @@
   --bad-soft: #f6d9d2;
   --frost: #3f6f84;
   --frost-soft: #dcebf1;
+  --heat-0: #ebe3d0;
+  --heat-1: #b6d6b9;
+  --heat-2: #86b893;
+  --heat-3: #5a9a6c;
+  --heat-4: #2f6b52;
+  --heat-frozen: #9cc3d3;
   --grain-opacity: 0.35;
   color-scheme: light;
 }
@@ -123,6 +129,13 @@
   --bad-soft: #3d201a;
   --frost: #9cc6d8;
   --frost-soft: #1b2d35;
+  /* Sequential ramp flips its anchor in dark mode: low values sit near the surface. */
+  --heat-0: #1d2a23;
+  --heat-1: #274536;
+  --heat-2: #3d6b51;
+  --heat-3: #5f9c75;
+  --heat-4: #9fd4b1;
+  --heat-frozen: #4f7f93;
   --grain-opacity: 0.18;
   color-scheme: dark;
 }

@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
+import { useEffect } from 'react'
 import { Home, RotateCcw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
@@ -7,12 +8,13 @@ import { Sprig } from '@/components/Ornaments'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { ProgressRing } from '@/components/ui/Progress'
 import { db } from '@/db/schema'
-import { computeStreak, dayMarksFrom } from '@/domain/gamification'
+import { computeStreak, dayMarksFrom, levelInfo } from '@/domain/gamification'
 import { summarizeRun } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
-import { achievementDescription, achievementName } from '@/i18n/dynamic'
+import { achievementDescription, achievementName, levelName } from '@/i18n/dynamic'
 import { startRun, type StartRunInput } from '@/services/sessions'
-import { useAppSettings } from '@/stores/settings'
+import { useAppSettings, useGameState } from '@/stores/settings'
+import { useUiStore } from '@/stores/ui'
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -28,6 +30,10 @@ export default function SessionSummary() {
   const navigate = useNavigate()
   const { runId } = useParams()
   const app = useAppSettings()
+  const game = useGameState()
+  const clearToasts = useUiStore((s) => s.clearToasts)
+  // Celebration toasts from the last sentence would cover this screen, which lists them anyway.
+  useEffect(() => clearToasts(), [clearToasts])
   const data = useLiveQuery(async () => {
     const run = runId ? await db.sessionRuns.get(runId) : undefined
     if (!run) return null
@@ -56,6 +62,8 @@ export default function SessionSummary() {
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
   const clean = summary.skipped === 0 && summary.accepted > 0
+  const levelBefore = levelInfo(game.totalXp - run.xpEarned).level
+  const levelNow = levelInfo(game.totalXp).level
   const again: StartRunInput | null = run.templateId
     ? { kind: 'template', templateId: run.templateId }
     : run.textId
@@ -68,6 +76,11 @@ export default function SessionSummary() {
       <p className="rubric mt-4">{run.title}</p>
       <h1 className="mt-1 text-4xl font-semibold">{clean ? t('summary.title') : t('summary.titleIncomplete')}</h1>
       {summary.skipped > 0 && <p className="mt-2 text-ink-soft">{t('summary.skipped', { count: summary.skipped })}</p>}
+      {levelNow > levelBefore && (
+        <p className="mx-auto mt-4 inline-flex rounded-full bg-gold-soft px-4 py-1.5 font-semibold text-gold-ink animate-rise">
+          {t('level.up', { name: levelName(t, levelNow) })}
+        </p>
+      )}
 
       <div className="mt-8 flex justify-center">
         <ProgressRing value={todayStats?.segmentsAccepted ?? 0} max={app.dailyGoal} label={t('summary.goal')} size={148}>

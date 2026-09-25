@@ -80,11 +80,11 @@ function Player({ data }: { data: PlayerData }) {
   useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), [])
 
   const finish = useCallback(async () => {
-    const outcome = await finishRun(run.id)
-    celebrate(outcome, t, (id) => texts.get(id)?.title)
+    // The summary lists everything unlocked in this run (and the level-up), so no toasts here.
+    await finishRun(run.id)
     allowLeave.current = true
     navigate(`/play/${run.id}/summary`, { replace: true })
-  }, [navigate, run.id, t, texts])
+  }, [navigate, run.id])
 
   const handleResult = async (speech: SpeechResult) => {
     if (!segment) return

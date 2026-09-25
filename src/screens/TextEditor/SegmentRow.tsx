@@ -102,8 +102,8 @@ export function SegmentRow({ index, content, issues, isLast, onSplit, onMergeNex
                     {issue.kind === 'short' && t('editor.issueShort')}
                     {issue.kind === 'digits' && t('editor.issueDigits')}
                   </span>
-                  {(issue.kind === 'long' || issue.kind === 'tooLong') && issue.suggestedSplitWord !== null && (
-                    <button type="button" onClick={() => onSplit(issue.suggestedSplitWord!)} className="font-semibold underline underline-offset-4">
+                  {(issue.kind === 'long' || issue.kind === 'tooLong') && (
+                    <button type="button" onClick={() => onSplit(issue.suggestedSplitWord)} className="font-semibold underline underline-offset-4">
                       {t('editor.applySuggestion')}
                     </button>
                   )}
