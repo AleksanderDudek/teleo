@@ -19,7 +19,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-2xl bg-sunk px-4 py-3">
       <dt className="text-xs font-semibold tracking-wide text-ink-soft uppercase">{label}</dt>
-      <dd className="tabular mt-1 font-serif text-2xl font-semibold text-ink">{value}</dd>
+      <dd className="mt-1 text-2xl font-semibold text-ink">{value}</dd>
     </div>
   )
 }

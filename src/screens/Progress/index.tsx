@@ -37,7 +37,7 @@ export default function Progress() {
       <PageHeader rubric={t('progress.rubric')} title={t('progress.title')} />
 
       <Card className="overflow-hidden p-0">
-        <div className="bg-gradient-to-b from-gold-soft/40 to-transparent px-4 pt-4">
+        <div className="bg-[radial-gradient(70%_80%_at_50%_45%,var(--gold-soft),transparent_75%)] px-4 pt-4">
           <Plant level={info.level} className="mx-auto h-56 w-full max-w-md" />
         </div>
         <div className="px-5 pt-2 pb-5">

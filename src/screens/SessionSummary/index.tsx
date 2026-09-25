@@ -20,7 +20,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-2xl bg-sunk px-4 py-3 text-left">
       <dt className="text-xs font-semibold tracking-wide text-ink-soft uppercase">{label}</dt>
-      <dd className="tabular mt-1 font-serif text-2xl font-semibold">{value}</dd>
+      <dd className="mt-1 text-2xl font-semibold">{value}</dd>
     </div>
   )
 }
@@ -85,7 +85,7 @@ export default function SessionSummary() {
       <div className="mt-8 flex justify-center">
         <ProgressRing value={todayStats?.segmentsAccepted ?? 0} max={app.dailyGoal} label={t('summary.goal')} size={148}>
           <span className="block text-xs font-semibold tracking-wide text-ink-soft uppercase">{t('summary.goal')}</span>
-          <span className="tabular block font-serif text-2xl font-semibold">
+          <span className="block text-2xl font-semibold">
             {t('summary.goalValue', { done: todayStats?.segmentsAccepted ?? 0, goal: app.dailyGoal })}
           </span>
         </ProgressRing>

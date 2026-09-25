@@ -87,7 +87,8 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
             ))
           : covered
           ? words.map((word, i) => (
-              <span key={i} className={cn('transition-colors duration-300', covered[i] ? 'text-ink' : 'text-ink-soft')}>
+              // Unheard words stay readable: ≥ 3:1 is the WCAG AA bar for this large text.
+              <span key={i} className={cn('transition-colors duration-300', covered[i] ? 'text-ink' : 'text-ink-soft/70')}>
                 {word}
                 {i < words.length - 1 ? ' ' : ''}
               </span>

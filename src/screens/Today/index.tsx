@@ -99,7 +99,7 @@ export default function Today() {
                 <Flame aria-hidden className="size-6" />
               </span>
               <div>
-                <p className="tabular font-serif text-4xl leading-none font-semibold">{data.streak.current}</p>
+                <p className="text-4xl leading-none font-semibold">{data.streak.current}</p>
                 <p className="mt-1 text-sm font-semibold text-ink-soft">
                   {data.streak.current > 0 ? t('today.streak', { count: data.streak.current }) : t('today.streakZero')}
                 </p>
@@ -113,7 +113,7 @@ export default function Today() {
             )}
           </div>
           <ProgressRing value={done} max={app.dailyGoal} label={t('today.goal')} size={120}>
-            <span className="tabular block font-serif text-3xl leading-none font-semibold">{done}</span>
+            <span className="block text-3xl leading-none font-semibold">{done}</span>
             <span className="tabular block text-xs font-semibold text-ink-soft">/ {app.dailyGoal}</span>
           </ProgressRing>
         </div>

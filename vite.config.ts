@@ -83,9 +83,18 @@ export default defineConfig({
             purpose: 'maskable',
           },
         ],
+        // Richer install sheet on Android/desktop Chrome.
+        screenshots: [
+          { src: 'screenshots/player-narrow.png', sizes: '780x1688', type: 'image/png', form_factor: 'narrow', label: 'Live checking, sentence by sentence' },
+          { src: 'screenshots/today-narrow.png', sizes: '780x1688', type: 'image/png', form_factor: 'narrow', label: 'Streak, daily goal and level' },
+          { src: 'screenshots/progress-narrow.png', sizes: '780x1688', type: 'image/png', form_factor: 'narrow', label: 'Your garden grows with every level' },
+          { src: 'screenshots/library-wide.png', sizes: '1280x800', type: 'image/png', form_factor: 'wide', label: 'Library of prayers and affirmations' },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
+        // Install-sheet screenshots are never needed offline.
+        globIgnores: ['screenshots/**'],
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [/privacy\.html$/],
         cleanupOutdatedCaches: true,

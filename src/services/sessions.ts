@@ -185,13 +185,13 @@ export async function startRun(input: StartRunInput, now = Date.now()): Promise<
   return run
 }
 
-/** Most recent unfinished run of today, if any (spec §8.3/6: resume the same day). */
+/** Most recent unfinished run of today with some progress (spec §8.3/6: resume the same day). */
 export async function findResumableRun(now = Date.now()): Promise<SessionRun | undefined> {
   const { app } = await readSettings()
   const today = dayKeyFor(now, app.dayStartHour)
   const runs = await db.sessionRuns.where('dayKey').equals(today).toArray()
   return runs
-    .filter((run) => run.status !== 'completed' && run.cursor < run.plan.length)
+    .filter((run) => run.status !== 'completed' && run.cursor > 0 && run.cursor < run.plan.length)
     .sort((a, b) => b.lastActivityAt - a.lastActivityAt)[0]
 }
 

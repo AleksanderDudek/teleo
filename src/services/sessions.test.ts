@@ -74,6 +74,9 @@ describe('runs', () => {
 
     await markRunningRunsPartial()
     expect((await db.sessionRuns.get(second.id))?.status).toBe('partial')
+    // A run left before its first sentence is not worth resuming; the earlier one with progress is.
+    expect((await findResumableRun(NOON + 30))?.id).toBe(first.id)
+    await db.sessionRuns.update(second.id, { cursor: 1, lastActivityAt: NOON + 25 })
     const resumable = await findResumableRun(NOON + 30)
     expect(resumable?.id).toBe(second.id)
 

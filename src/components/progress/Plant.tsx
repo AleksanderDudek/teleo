@@ -70,8 +70,6 @@ function Part({ part, index, clip }: { part: PlantPart; index: number; clip: str
           <circle cx={part.x} cy={part.y} r={part.r} fill="var(--gold)" fillOpacity="0.85" />
         </g>
       )
-    case 'path':
-      return <path d={part.d} fill="none" stroke="var(--line-strong)" strokeWidth="6" strokeLinecap="round" />
   }
 }
 
@@ -79,30 +77,42 @@ function Part({ part, index, clip }: { part: PlantPart; index: number; clip: str
 export function Plant({ level, className }: { level: number; className?: string }) {
   const scene = plantScene(level)
   const clip = useId().replace(/:/g, '')
-  const order: PlantPart['kind'][] = ['sun', 'path', 'roots', 'trunk', 'stem', 'crown', 'leaf', 'bud', 'flower', 'fruit', 'seed']
+  const order: PlantPart['kind'][] = ['sun', 'roots', 'trunk', 'stem', 'crown', 'leaf', 'bud', 'flower', 'fruit', 'seed']
   const parts = [...scene.parts].sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
   // Young plants are small in the 240×200 scene: zoom in around the ground, keeping it in view.
   const zoom = scene.stage <= 2 ? 2.4 : scene.stage <= 5 ? 1.8 : scene.stage <= 9 ? 1.3 : 1
   const vw = 240 / zoom
   const vh = 200 / zoom
-  const viewBox = `${120 - vw / 2} ${200 - vh} ${vw} ${vh}`
+  const vx = 120 - vw / 2
+  const vy = 200 - vh
   return (
-    <svg viewBox={viewBox} aria-hidden className={className}>
+    <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} aria-hidden className={className}>
       <defs>
         <clipPath id={clip}>
-          <rect x="0" y={GROUND_Y} width="240" height={200 - GROUND_Y} />
+          <rect x={vx} y={GROUND_Y} width={vw} height={200 - GROUND_Y} />
         </clipPath>
-        <radialGradient id={`${clip}-glow`} cx="50%" cy="60%" r="60%">
-          <stop offset="0%" stopColor="var(--gold-soft)" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="var(--gold-soft)" stopOpacity="0" />
-        </radialGradient>
+        {/* Soil fades out towards the edges of whatever is visible, so no hard edge shows at any zoom. */}
+        <linearGradient id={`${clip}-soil-x`} gradientUnits="userSpaceOnUse" x1={vx} x2={vx + vw} y1="0" y2="0">
+          <stop offset="0" stopColor="white" stopOpacity="0" />
+          <stop offset="0.28" stopColor="white" stopOpacity="1" />
+          <stop offset="0.72" stopColor="white" stopOpacity="1" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={`${clip}-soil-y`} gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={GROUND_Y} y2="200">
+          <stop offset="0" stopColor="var(--surface-sunk)" stopOpacity="1" />
+          <stop offset="1" stopColor="var(--surface-sunk)" stopOpacity="0" />
+        </linearGradient>
+        <mask id={`${clip}-soil-mask`} maskUnits="userSpaceOnUse" x={vx} y={GROUND_Y - 4} width={vw} height={200 - GROUND_Y + 4}>
+          <rect x={vx} y={GROUND_Y - 4} width={vw} height={200 - GROUND_Y + 4} fill={`url(#${clip}-soil-x)`} />
+        </mask>
       </defs>
-      <ellipse cx="120" cy="120" rx="118" ry="86" fill={`url(#${clip}-glow)`} />
       {Array.from({ length: Math.min(scene.rings, 5) }, (_, i) => (
         <circle key={i} cx="120" cy="104" r={92 - i * 7} fill="none" stroke="var(--gold)" strokeOpacity={0.55 - i * 0.07} strokeWidth="1.2" />
       ))}
-      <rect x="0" y={GROUND_Y} width="240" height={200 - GROUND_Y} fill="var(--surface-sunk)" />
-      <path d={`M0 ${GROUND_Y} Q 60 ${GROUND_Y - 3} 120 ${GROUND_Y} T 240 ${GROUND_Y}`} fill="none" stroke="var(--line-strong)" strokeWidth="1.4" />
+      <g mask={`url(#${clip}-soil-mask)`}>
+        <rect x={vx} y={GROUND_Y} width={vw} height={200 - GROUND_Y} fill={`url(#${clip}-soil-y)`} />
+        <path d={`M0 ${GROUND_Y} Q 60 ${GROUND_Y - 3} 120 ${GROUND_Y} T 240 ${GROUND_Y}`} fill="none" stroke="var(--line-strong)" strokeWidth={1.4 / zoom} />
+      </g>
       {parts.map((part, i) => (
         <Part key={i} part={part} index={i} clip={clip} />
       ))}

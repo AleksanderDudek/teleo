@@ -16,7 +16,6 @@ export type PlantPart =
   | { kind: 'trunk'; x: number; top: number; width: number }
   | { kind: 'roots'; x: number; depth: number; spread: number }
   | { kind: 'sun'; x: number; y: number; r: number; rays: number }
-  | { kind: 'path'; d: string }
 
 export interface PlantScene {
   stage: number
@@ -116,7 +115,6 @@ export function plantScene(level: number): PlantScene {
       break
     case 19:
       parts = [
-        { kind: 'path', d: `M${c - 12} 200 Q ${c - 4} 184 ${c} ${GROUND_Y}` },
         ...tree(c - 74, 104, 34, { blossom: 5 }),
         ...tree(c + 76, 110, 36, { fruit: 5 }),
         ...sprout(c - 30, 30, 1, 10),
@@ -128,8 +126,7 @@ export function plantScene(level: number): PlantScene {
       break
     default:
       parts = [
-        { kind: 'sun', x: c, y: 44, r: 16, rays: 12 },
-        { kind: 'path', d: `M${c - 12} 200 Q ${c - 4} 184 ${c} ${GROUND_Y}` },
+        { kind: 'sun', x: 206, y: 30, r: 12, rays: 12 },
         ...tree(c - 78, 106, 34, { blossom: 5 }),
         ...tree(c + 78, 110, 36, { fruit: 5 }),
         ...sprout(c - 32, 32, 1, 10),

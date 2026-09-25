@@ -39,7 +39,7 @@ export function TextCard({ entry, footnote }: TextCardProps) {
         {footnote && <span className="mt-1.5 block text-xs font-semibold text-gold-ink">{footnote}</span>}
       </span>
       <span className="flex shrink-0 flex-col items-end">
-        <span className="tabular font-serif text-2xl leading-none font-semibold text-gold-ink">{repetitions}</span>
+        <span className="tabular text-2xl leading-none font-semibold text-gold-ink">{repetitions}</span>
         <span className="mt-1 text-[0.65rem] font-semibold tracking-wider text-ink-faint uppercase">
           {t('library.repetitionsLabel')}
         </span>
