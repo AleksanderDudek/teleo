@@ -105,3 +105,25 @@ test.describe('memory mode', () => {
     await expect(page.getByText('Na pamięć')).toBeVisible()
   })
 })
+
+test.describe('English', () => {
+  test.use({ locale: 'en-US' })
+
+  test('an EN “Morning affirmations” session completes hands-free', async ({ page }) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page, { live: true, wordDelayMs: 20 })
+    await page.goto('./')
+    await page.getByRole('button', { name: 'English' }).click()
+    await page.getByRole('button', { name: 'Next' }).click()
+    await page.getByRole('button', { name: /^Affirmations/ }).click()
+    await page.getByRole('button', { name: 'Skip' }).click()
+    await expect(page.getByText('Morning affirmations · 10 sentences')).toBeVisible()
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await expect(page.getByTestId('segment-text')).toHaveText('I am calm and focused.')
+    await page.getByRole('button', { name: 'Speak' }).click()
+    await page.getByRole('button', { name: 'I understand — continue' }).click()
+    await page.waitForURL(/summary$/, { timeout: 60_000 })
+    await expect(page.getByText('10/10')).toBeVisible()
+    await expect(page.getByText('First Word')).toBeVisible()
+  })
+})
