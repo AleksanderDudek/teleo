@@ -122,6 +122,22 @@ describe('days, streaks and freezes', () => {
     expect(await reconcileStreakFreezes(at(18, 10))).toEqual([])
   })
 
+  it('bridges a missed day inside the attempt when startup reconciliation did not run (app resumed from memory)', async () => {
+    await updateGameState({ freezesAvailable: 1 })
+    for (let day = 10; day <= 15; day++) {
+      const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, at(day))
+      await speakAll(run, at(day))
+    }
+    // The 16th is missed; on the 17th the first sentence arrives before any reconcile.
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, at(17))
+    const outcome = await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: ok, engine: 'webspeech', durationMs: 1, now: at(17, 12, 1) })
+    expect(outcome.streak).toBe(7)
+    expect(outcome.segmentXp).toBe(Math.round((5 + 7 + 2) * 1.25))
+    expect(outcome.freezeEarned).toBe(true)
+    expect(await db.dailyStats.get('2026-09-16')).toMatchObject({ frozen: true })
+    expect((await readSettings()).game).toMatchObject({ freezesAvailable: 1, pendingFreezeNotice: ['2026-09-16'] })
+  })
+
   it('does not waste freezes on a gap they cannot cover, and counts a comeback', async () => {
     await updateGameState({ freezesAvailable: 2 })
     const first = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, at(10))

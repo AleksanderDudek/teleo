@@ -114,6 +114,24 @@ function nextPending(run: SessionRun, from: number): number {
   return i
 }
 
+/**
+ * Freezes the missed days before `today` when the available freezes cover the
+ * whole gap (DECISIONS #16). Mutates `game` (freezes, pending notice); the caller
+ * persists it. Idempotent. Runs at app start AND before the first accepted
+ * sentence of a day — an installed PWA resumed from memory may skip the former.
+ */
+async function bridgeMissedDays(game: GameState, today: DayKey): Promise<DayKey[]> {
+  const marks = dayMarksFrom(await db.dailyStats.toArray())
+  const { frozenDays, freezesLeft } = reconcileFreezes(marks, today, game.freezesAvailable)
+  for (const dayKey of frozenDays) {
+    const existing = (await db.dailyStats.get(dayKey)) ?? emptyDailyStats(dayKey)
+    await db.dailyStats.put({ ...existing, frozen: true })
+  }
+  game.freezesAvailable = freezesLeft
+  if (frozenDays.length > 0) game.pendingFreezeNotice = [...game.pendingFreezeNotice, ...frozenDays]
+  return frozenDays
+}
+
 function publishGame(game: GameState) {
   useSettingsStore.setState({ game })
 }
@@ -193,6 +211,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     // --- accepted -----------------------------------------------------------
     const firstActivityToday = daily.segmentsAccepted === 0
     if (firstActivityToday) {
+      await bridgeMissedDays(game, dayKey)
       const previous = (await db.dailyStats.toArray())
         .filter((d) => d.segmentsAccepted > 0 && d.dayKey < dayKey)
         .map((d) => d.dayKey)
@@ -366,18 +385,8 @@ export async function finishRun(runId: string, now = Date.now()): Promise<Finish
 export async function reconcileStreakFreezes(now = Date.now()): Promise<DayKey[]> {
   return db.transaction('rw', [db.dailyStats, db.settings], async () => {
     const { app, game } = await readSettings()
-    const today = dayKeyFor(now, app.dayStartHour)
-    const marks = dayMarksFrom(await db.dailyStats.toArray())
-    const { frozenDays, freezesLeft } = reconcileFreezes(marks, today, game.freezesAvailable)
-    if (frozenDays.length === 0) return []
-    for (const dayKey of frozenDays) {
-      const existing = (await db.dailyStats.get(dayKey)) ?? emptyDailyStats(dayKey)
-      await db.dailyStats.put({ ...existing, frozen: true })
-    }
-    await db.settings.put({
-      key: 'game',
-      value: { ...game, freezesAvailable: freezesLeft, pendingFreezeNotice: [...game.pendingFreezeNotice, ...frozenDays] },
-    })
+    const frozenDays = await bridgeMissedDays(game, dayKeyFor(now, app.dayStartHour))
+    if (frozenDays.length > 0) await db.settings.put({ key: 'game', value: game })
     return frozenDays
   })
 }
