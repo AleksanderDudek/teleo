@@ -1,0 +1,103 @@
+{
+  "app": {
+    "name": "Teleo",
+    "tagline": "prayers & affirmations",
+    "fullName": "Teleo – prayers & affirmations"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "today": "Today",
+    "library": "Library",
+    "sessions": "Sessions",
+    "progress": "Progress",
+    "settings": "Settings"
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "continue": "Continue",
+    "done": "Done",
+    "skip": "Skip",
+    "retry": "Try again",
+    "loading": "Loading…",
+    "add": "Add",
+    "remove": "Remove",
+    "search": "Search",
+    "all": "All",
+    "hide": "Hide",
+    "unhide": "Show again",
+    "start": "Start",
+    "confirm": "Confirm",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "more": "More"
+  },
+  "pwa": {
+    "updateAvailable": "A new version of Teleo is ready.",
+    "reload": "Reload",
+    "later": "Later",
+    "offlineReady": "Teleo is ready to work offline."
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "body": "Your data is safe on this device. Try again or go back to Today.",
+    "notFound": "This page does not exist.",
+    "home": "Back to Today",
+    "storageUnavailable": "Teleo cannot open its local database. Private browsing or blocked site data can cause this."
+  },
+  "today": {
+    "rubric": "Today",
+    "title": "Good to see you"
+  },
+  "library": {
+    "rubric": "Library",
+    "title": "Texts"
+  },
+  "editor": {
+    "rubricNew": "New text",
+    "rubricEdit": "Edit text"
+  },
+  "textDetail": {
+    "rubric": "Text"
+  },
+  "sessions": {
+    "rubric": "Sessions",
+    "title": "Your sessions"
+  },
+  "builder": {
+    "rubricNew": "New session",
+    "rubricEdit": "Edit session"
+  },
+  "player": {
+    "rubric": "Session"
+  },
+  "summary": {
+    "rubric": "Summary"
+  },
+  "progress": {
+    "rubric": "Progress",
+    "title": "Your garden"
+  },
+  "settings": {
+    "rubric": "Settings",
+    "title": "Settings",
+    "language": "Interface language",
+    "theme": "Appearance",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark"
+  },
+  "micTest": {
+    "rubric": "Microphone test",
+    "title": "Test your microphone"
+  },
+  "onboarding": {
+    "rubric": "Welcome",
+    "title": "Speak it. Complete it.",
+    "start": "Get started"
+  }
+}

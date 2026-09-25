@@ -31,13 +31,12 @@ function contentSecurityPolicy(): Plugin {
   return {
     name: 'teleo:csp',
     apply: 'build',
-    transformIndexHtml: () => [
-      {
-        tag: 'meta',
-        attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP },
-        injectTo: 'head-prepend',
-      },
-    ],
+    // Right after <meta charset> (which must stay first) and before any script or style.
+    transformIndexHtml: (html) =>
+      html.replace(
+        /<meta charset="UTF-8" \/>/,
+        (charset) => `${charset}\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />`,
+      ),
   }
 }
 

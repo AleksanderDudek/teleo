@@ -1,0 +1,103 @@
+{
+  "app": {
+    "name": "Teleo",
+    "tagline": "modlitwy i afirmacje",
+    "fullName": "Teleo – modlitwy i afirmacje"
+  },
+  "nav": {
+    "main": "Główna nawigacja",
+    "today": "Dziś",
+    "library": "Biblioteka",
+    "sessions": "Sesje",
+    "progress": "Postępy",
+    "settings": "Ustawienia"
+  },
+  "common": {
+    "back": "Wstecz",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij",
+    "continue": "Dalej",
+    "done": "Gotowe",
+    "skip": "Pomiń",
+    "retry": "Spróbuj ponownie",
+    "loading": "Wczytywanie…",
+    "add": "Dodaj",
+    "remove": "Usuń",
+    "search": "Szukaj",
+    "all": "Wszystkie",
+    "hide": "Ukryj",
+    "unhide": "Pokaż ponownie",
+    "start": "Rozpocznij",
+    "confirm": "Potwierdź",
+    "moveUp": "Przesuń wyżej",
+    "moveDown": "Przesuń niżej",
+    "more": "Więcej"
+  },
+  "pwa": {
+    "updateAvailable": "Nowa wersja Teleo jest gotowa.",
+    "reload": "Odśwież",
+    "later": "Później",
+    "offlineReady": "Teleo jest gotowe do pracy offline."
+  },
+  "errors": {
+    "title": "Coś poszło nie tak",
+    "body": "Twoje dane są bezpieczne na tym urządzeniu. Spróbuj ponownie lub wróć do ekranu Dziś.",
+    "notFound": "Ta strona nie istnieje.",
+    "home": "Wróć do ekranu Dziś",
+    "storageUnavailable": "Teleo nie może otworzyć lokalnej bazy danych. Przyczyną może być tryb prywatny lub zablokowane dane witryn."
+  },
+  "today": {
+    "rubric": "Dziś",
+    "title": "Dobrze, że jesteś"
+  },
+  "library": {
+    "rubric": "Biblioteka",
+    "title": "Teksty"
+  },
+  "editor": {
+    "rubricNew": "Nowy tekst",
+    "rubricEdit": "Edycja tekstu"
+  },
+  "textDetail": {
+    "rubric": "Tekst"
+  },
+  "sessions": {
+    "rubric": "Sesje",
+    "title": "Twoje sesje"
+  },
+  "builder": {
+    "rubricNew": "Nowa sesja",
+    "rubricEdit": "Edycja sesji"
+  },
+  "player": {
+    "rubric": "Sesja"
+  },
+  "summary": {
+    "rubric": "Podsumowanie"
+  },
+  "progress": {
+    "rubric": "Postępy",
+    "title": "Twój ogród"
+  },
+  "settings": {
+    "rubric": "Ustawienia",
+    "title": "Ustawienia",
+    "language": "Język interfejsu",
+    "theme": "Wygląd",
+    "themeSystem": "Systemowy",
+    "themeLight": "Jasny",
+    "themeDark": "Ciemny"
+  },
+  "micTest": {
+    "rubric": "Test mikrofonu",
+    "title": "Sprawdź mikrofon"
+  },
+  "onboarding": {
+    "rubric": "Witaj",
+    "title": "Wypowiedz. Wypełnij.",
+    "start": "Zaczynamy"
+  }
+}

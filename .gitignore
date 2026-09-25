@@ -29,3 +29,6 @@ coverage
 playwright-report
 test-results
 .vitest
+
+# Claude Code agent worktrees
+.claude/worktrees/
