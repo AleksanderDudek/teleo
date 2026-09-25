@@ -1,0 +1,59 @@
+[
+  { "id": "text.reps.1", "scope": "text", "metric": "textRepetitions", "threshold": 1, "tier": "bronze", "category": "text" },
+  { "id": "text.reps.7", "scope": "text", "metric": "textRepetitions", "threshold": 7, "tier": "bronze", "category": "text" },
+  { "id": "text.reps.21", "scope": "text", "metric": "textRepetitions", "threshold": 21, "tier": "silver", "category": "text" },
+  { "id": "text.reps.50", "scope": "text", "metric": "textRepetitions", "threshold": 50, "tier": "silver", "category": "text" },
+  { "id": "text.reps.100", "scope": "text", "metric": "textRepetitions", "threshold": 100, "tier": "gold", "category": "text" },
+  { "id": "text.reps.365", "scope": "text", "metric": "textRepetitions", "threshold": 365, "tier": "platinum", "category": "text" },
+  { "id": "text.reps.1000", "scope": "text", "metric": "textRepetitions", "threshold": 1000, "tier": "diamond", "category": "text" },
+  { "id": "text.streak.3", "scope": "text", "metric": "textBestDayStreak", "threshold": 3, "tier": "bronze", "category": "text" },
+  { "id": "text.streak.7", "scope": "text", "metric": "textBestDayStreak", "threshold": 7, "tier": "silver", "category": "text" },
+  { "id": "text.streak.30", "scope": "text", "metric": "textBestDayStreak", "threshold": 30, "tier": "gold", "category": "text" },
+  { "id": "text.streak.100", "scope": "text", "metric": "textBestDayStreak", "threshold": 100, "tier": "platinum", "category": "text" },
+  { "id": "text.perfect", "scope": "text", "metric": "textFlawless", "threshold": 1, "tier": "silver", "category": "text" },
+  { "id": "text.memory", "scope": "text", "metric": "textMemoryRuns", "threshold": 1, "tier": "gold", "category": "text" },
+
+  { "id": "streak.2", "scope": "global", "metric": "bestStreak", "threshold": 2, "tier": "bronze", "category": "streak" },
+  { "id": "streak.5", "scope": "global", "metric": "bestStreak", "threshold": 5, "tier": "bronze", "category": "streak" },
+  { "id": "streak.7", "scope": "global", "metric": "bestStreak", "threshold": 7, "tier": "silver", "category": "streak" },
+  { "id": "streak.14", "scope": "global", "metric": "bestStreak", "threshold": 14, "tier": "silver", "category": "streak" },
+  { "id": "streak.30", "scope": "global", "metric": "bestStreak", "threshold": 30, "tier": "gold", "category": "streak" },
+  { "id": "streak.60", "scope": "global", "metric": "bestStreak", "threshold": 60, "tier": "gold", "category": "streak" },
+  { "id": "streak.100", "scope": "global", "metric": "bestStreak", "threshold": 100, "tier": "platinum", "category": "streak" },
+  { "id": "streak.365", "scope": "global", "metric": "bestStreak", "threshold": 365, "tier": "diamond", "category": "streak" },
+
+  { "id": "weekly.5of7.x4", "scope": "global", "metric": "weeklyRhythmBest", "threshold": 4, "tier": "gold", "category": "consistency" },
+  { "id": "goal.days.30", "scope": "global", "metric": "goalDays", "threshold": 30, "tier": "gold", "category": "consistency" },
+
+  { "id": "daily.10", "scope": "global", "metric": "dailyMax", "threshold": 10, "tier": "bronze", "category": "daily" },
+  { "id": "daily.25", "scope": "global", "metric": "dailyMax", "threshold": 25, "tier": "bronze", "category": "daily" },
+  { "id": "daily.50", "scope": "global", "metric": "dailyMax", "threshold": 50, "tier": "silver", "category": "daily" },
+  { "id": "daily.100", "scope": "global", "metric": "dailyMax", "threshold": 100, "tier": "gold", "category": "daily" },
+  { "id": "daily.150", "scope": "global", "metric": "dailyMax", "threshold": 150, "tier": "platinum", "category": "daily" },
+
+  { "id": "total.100", "scope": "global", "metric": "totalSegments", "threshold": 100, "tier": "bronze", "category": "volume" },
+  { "id": "total.500", "scope": "global", "metric": "totalSegments", "threshold": 500, "tier": "silver", "category": "volume" },
+  { "id": "total.1000", "scope": "global", "metric": "totalSegments", "threshold": 1000, "tier": "gold", "category": "volume" },
+  { "id": "total.5000", "scope": "global", "metric": "totalSegments", "threshold": 5000, "tier": "platinum", "category": "volume" },
+  { "id": "total.10000", "scope": "global", "metric": "totalSegments", "threshold": 10000, "tier": "diamond", "category": "volume" },
+  { "id": "total.50000", "scope": "global", "metric": "totalSegments", "threshold": 50000, "tier": "diamond", "category": "volume" },
+
+  { "id": "session.first", "scope": "global", "metric": "sessionsCompleted", "threshold": 1, "tier": "bronze", "category": "sessions" },
+  { "id": "session.10", "scope": "global", "metric": "sessionsCompleted", "threshold": 10, "tier": "bronze", "category": "sessions" },
+  { "id": "session.50", "scope": "global", "metric": "sessionsCompleted", "threshold": 50, "tier": "silver", "category": "sessions" },
+  { "id": "session.100", "scope": "global", "metric": "sessionsCompleted", "threshold": 100, "tier": "gold", "category": "sessions" },
+  { "id": "session.perfect", "scope": "global", "metric": "perfectSessions", "threshold": 1, "tier": "silver", "category": "sessions" },
+  { "id": "session.long", "scope": "global", "metric": "fullSessions", "threshold": 1, "tier": "gold", "category": "sessions" },
+
+  { "id": "time.morning.7", "scope": "global", "metric": "morningDays", "threshold": 7, "tier": "silver", "category": "time", "hidden": true },
+  { "id": "time.evening.7", "scope": "global", "metric": "eveningDays", "threshold": 7, "tier": "silver", "category": "time", "hidden": true },
+
+  { "id": "create.1", "scope": "global", "metric": "ownTexts", "threshold": 1, "tier": "bronze", "category": "other" },
+  { "id": "create.5", "scope": "global", "metric": "ownTexts", "threshold": 5, "tier": "silver", "category": "other" },
+  { "id": "bilingual", "scope": "global", "metric": "bilingualDays", "threshold": 1, "tier": "silver", "category": "other" },
+  { "id": "comeback", "scope": "global", "metric": "comebacks", "threshold": 1, "tier": "bronze", "category": "other", "hidden": true },
+
+  { "id": "level.5", "scope": "global", "metric": "level", "threshold": 5, "tier": "silver", "category": "level" },
+  { "id": "level.10", "scope": "global", "metric": "level", "threshold": 10, "tier": "gold", "category": "level" },
+  { "id": "level.20", "scope": "global", "metric": "level", "threshold": 20, "tier": "diamond", "category": "level" }
+]
