@@ -1,7 +1,7 @@
 import { cn } from '@/lib/cn'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'gold'
-export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary:
@@ -13,6 +13,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
 }
 
 const SIZES: Record<ButtonSize, string> = {
+  xs: 'h-8 gap-1.5 px-2.5 text-[0.8rem]',
   sm: 'h-9 px-4 text-sm',
   md: 'h-11 px-5 text-[0.95rem]',
   lg: 'h-14 px-7 text-lg',

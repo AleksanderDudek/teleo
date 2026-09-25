@@ -122,15 +122,15 @@ export function SegmentRow({ index, content, issues, isLast, onSplit, onMergeNex
           )}
 
           {mode === 'view' && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              <Button size="sm" variant="ghost" disabled={words.length < 2} onClick={() => setMode('split')} icon={<Scissors aria-hidden className="size-4" />}>
+            <div className="-ml-2.5 mt-2 flex flex-wrap gap-0.5">
+              <Button size="xs" variant="ghost" disabled={words.length < 2} onClick={() => setMode('split')} icon={<Scissors aria-hidden className="size-4" />}>
                 {t('editor.splitHere')}
               </Button>
-              <Button size="sm" variant="ghost" disabled={isLast} onClick={onMergeNext} icon={<Combine aria-hidden className="size-4" />}>
+              <Button size="xs" variant="ghost" disabled={isLast} onClick={onMergeNext} icon={<Combine aria-hidden className="size-4" />}>
                 {t('editor.mergeNext')}
               </Button>
               <Button
-                size="sm"
+                size="xs"
                 variant="ghost"
                 onClick={() => {
                   setDraft(content)
