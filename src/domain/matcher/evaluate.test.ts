@@ -304,6 +304,27 @@ describe('evaluate — acceptance rule', () => {
     expect(evaluate(PL_20, [omitting(PL_20, 2)], threshold(1)).accepted).toBe(false)
   })
 
+  it("reads an archaic -'d elision as one word close to the spoken -ed form", () => {
+    expect(en("Hallow'd be thy name", 'hallowed be thy name')).toMatchObject({
+      accepted: true,
+      near: 1,
+    })
+  })
+
+  it('matches Polish number words said without diacritics', () => {
+    expect(pl('Dwadzieścia jeden dni', 'dwadziescia jeden dni')).toMatchObject({
+      accepted: true,
+      matched: 2,
+    })
+  })
+
+  it('rejects a long number that is one digit off', () => {
+    expect(pl('Mam 10000 kroków', 'mam 10001 kroków')).toMatchObject({
+      accepted: false,
+      reason: 'wrong',
+    })
+  })
+
   it('counts source words after normalization', () => {
     expect(en("I'm calm", 'I am calm')).toMatchObject({ accepted: true, sourceWords: 3 })
   })

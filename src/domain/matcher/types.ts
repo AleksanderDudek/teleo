@@ -43,6 +43,30 @@ export interface EvaluateOptions {
   threshold?: number
 }
 
+export interface PrefixOptions extends EvaluateOptions {
+  /**
+   * Normalized last tokens of the previously accepted sentence: a continuous
+   * transcript may repeat them at the start of the next window.
+   */
+  previousTail?: readonly string[]
+}
+
+export interface PrefixMatch {
+  result: MatchResult
+  /** Whitespace-separated words at the start of the window that belong to this sentence. */
+  consumedRawWords: number
+}
+
+/** How far the user has got into a sentence, for live highlighting. */
+export interface LiveProgress {
+  /** Per raw (whitespace-separated) source word: said, by all of its tokens. */
+  covered: boolean[]
+  /** Extra and wrong words in what was said so far. */
+  errors: number
+  /** Index of the last covered raw word, -1 when none. */
+  lastCovered: number
+}
+
 /**
  * A normalized word. `rawStart..rawEnd` (inclusive) index the whitespace-separated
  * words of the original text, so the UI can colour exactly what the user typed.

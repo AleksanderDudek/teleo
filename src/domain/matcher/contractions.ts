@@ -15,22 +15,20 @@ const SUFFIXES: ReadonlyArray<readonly [suffix: string, word: string]> = [
   ["'re", 'are'],
   ["'ve", 'have'],
   ["'ll", 'will'],
-  ["'d", 'would'],
 ]
 
-/** Only after these words is `'s` a contracted "is"; elsewhere it is a possessive (`god's`). */
-const IS_HOSTS: ReadonlySet<string> = new Set([
-  'it',
-  'that',
-  'what',
-  'there',
-  'here',
-  'he',
-  'she',
-  'who',
-  'where',
-  'how',
-])
+type HostedSuffix = readonly [suffix: string, word: string, hosts: ReadonlySet<string>]
+
+const wordSet = (list: string): ReadonlySet<string> => new Set(list.split(' '))
+
+/**
+ * Suffixes that are contractions only after pronouns and question words. Elsewhere
+ * `'s` is a possessive (`god's`) and `'d` an elided "-ed" (`hallow'd`): one word.
+ */
+const HOSTED_SUFFIXES: readonly HostedSuffix[] = [
+  ["'s", 'is', wordSet('it that what there here he she who where how')],
+  ["'d", 'would', wordSet('i you he she it we they that who what where how there')],
+]
 
 /** Typographic single quotes become `'` too, so `‘I’m’` must still read as `i'm`. */
 const EDGE_APOSTROPHES = /^'+|'+$/gu
@@ -44,9 +42,11 @@ const SPLIT_COMPOUNDS: ReadonlyMap<string, string> = new Map([
 function expand(word: string): readonly string[] | undefined {
   const irregular = IRREGULAR.get(word)
   if (irregular) return irregular
-  if (word.endsWith("'s")) {
-    const host = word.slice(0, -2)
-    return IS_HOSTS.has(host) ? [host, 'is'] : undefined
+  for (const [suffix, expansion, hosts] of HOSTED_SUFFIXES) {
+    if (word.endsWith(suffix)) {
+      const host = word.slice(0, -suffix.length)
+      return hosts.has(host) ? [host, expansion] : undefined
+    }
   }
   for (const [suffix, expansion] of SUFFIXES) {
     if (word.length > suffix.length && word.endsWith(suffix)) {
