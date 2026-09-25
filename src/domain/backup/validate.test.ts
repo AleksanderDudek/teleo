@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  BACKUP_APP,
-  BACKUP_SCHEMA_VERSION,
-  createBackupFile,
-  parseBackup,
-  validateBackup,
-} from './validate'
+import { BACKUP_APP, BACKUP_SCHEMA_VERSION, createBackupFile, parseBackup, validateBackup } from './validate'
 import type { BackupData, BackupFile } from './validate'
 
 function emptyData(): BackupData {
@@ -68,7 +62,7 @@ function realisticData(): BackupData {
         dayKey: '2026-09-25',
         title: 'Morning',
         status: 'completed',
-        plan: [{ segmentId: 's1', textId: 't1', block: 0, fullText: true }],
+        plan: [{ segmentId: 's1', textId: 't1', block: 0, fullText: true, item: 0 }],
         entries: [{ status: 'accepted', attempts: 1, firstTry: true, xp: 5 }],
         cursor: 1,
         startedAt: 1000,
@@ -134,95 +128,300 @@ function cloneJson<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
 }
 
-describe('validateBackup', () => {
+function backupWith(data: BackupData): unknown {
+  return cloneJson({ app: BACKUP_APP, schemaVersion: BACKUP_SCHEMA_VERSION, exportedAt: 1000, data })
+}
+
+describe('validateBackup: acceptance', () => {
   it('accepts a minimal backup with every table empty', () => {
-    const backup: BackupFile = {
-      app: BACKUP_APP,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
-      exportedAt: 1000,
-      data: emptyData(),
-    }
-    const result = validateBackup(cloneJson(backup))
+    const result = validateBackup(backupWith(emptyData()))
     expect(result.ok).toBe(true)
   })
 
   it('accepts a realistic row in every table', () => {
-    const backup: BackupFile = {
-      app: BACKUP_APP,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
-      exportedAt: 1000,
-      data: realisticData(),
-    }
-    const result = validateBackup(cloneJson(backup))
-    if (!result.ok) throw new Error(`expected ok, got ${result.code}`)
+    const result = validateBackup(backupWith(realisticData()))
+    if (!result.ok) throw new Error(`expected ok, got ${result.code}${result.path ? ` @ ${result.path}` : ''}`)
     expect(result.backup.data.texts).toHaveLength(1)
     expect(result.backup.data.xpLedger).toHaveLength(1)
   })
 
+  it('allows unknown extra fields on a row (forward compatibility)', () => {
+    const data = realisticData()
+    data.texts = [{ ...data.texts[0]!, futureField: 'added in a later schema version' } as (typeof data.texts)[number]]
+    const result = validateBackup(backupWith(data))
+    expect(result.ok).toBe(true)
+  })
+
+  it('accepts cursor at the inclusive bounds 0 and plan.length', () => {
+    const atStart = realisticData()
+    atStart.sessionRuns[0]!.cursor = 0
+    expect(validateBackup(backupWith(atStart)).ok).toBe(true)
+
+    const atEnd = realisticData()
+    atEnd.sessionRuns[0]!.cursor = atEnd.sessionRuns[0]!.plan.length
+    expect(validateBackup(backupWith(atEnd)).ok).toBe(true)
+  })
+
+  it('accepts xpLedger.id when present and finite', () => {
+    const data = realisticData()
+    data.xpLedger[0] = { ...data.xpLedger[0]!, id: 42 }
+    expect(validateBackup(backupWith(data)).ok).toBe(true)
+  })
+
+  it('accepts a full AppSettings settings row', () => {
+    const data = realisticData()
+    data.settings = [
+      {
+        key: 'app',
+        value: {
+          uiLang: 'pl',
+          theme: 'system',
+          engine: 'auto',
+          whisperModel: 'tiny',
+          strictness: 'strict',
+          dayStartHour: 3,
+          dailyGoal: 20,
+          handsFree: false,
+          saveTranscripts: true,
+          fontSize: 'md',
+          listenFirst: false,
+          grammaticalForm: 'm',
+          contentFocus: 'both',
+          reminderTime: '07:00',
+          onboardingCompleted: true,
+          speechPrivacyAcknowledged: true,
+        },
+      },
+    ]
+    expect(validateBackup(backupWith(data)).ok).toBe(true)
+  })
+
+  it('accepts a full GameState settings row', () => {
+    const data = realisticData()
+    data.settings = [
+      {
+        key: 'game',
+        value: {
+          freezesAvailable: 1,
+          lastFreezeAwardStreak: 0,
+          perfectSessions: 0,
+          fullSessions: 0,
+          comebacks: 0,
+          totalXp: 0,
+          pendingFreezeNotice: ['2026-09-24'],
+        },
+      },
+    ]
+    expect(validateBackup(backupWith(data)).ok).toBe(true)
+  })
+})
+
+describe('validateBackup: top-level rejection', () => {
   it('rejects a value that is not an object', () => {
-    const result = validateBackup(42)
-    expect(result).toEqual({ ok: false, code: 'invalidShape' })
+    expect(validateBackup(42)).toEqual({ ok: false, code: 'invalidShape' })
   })
 
   it('rejects the wrong app', () => {
     const backup = { app: 'other', schemaVersion: 1, exportedAt: 1, data: emptyData() }
-    const result = validateBackup(backup)
-    expect(result).toEqual({ ok: false, code: 'wrongApp' })
+    expect(validateBackup(backup)).toEqual({ ok: false, code: 'wrongApp' })
   })
 
   it.each([0, 2])('rejects unsupported schema version %i', (schemaVersion) => {
     const backup = { app: BACKUP_APP, schemaVersion, exportedAt: 1, data: emptyData() }
-    const result = validateBackup(backup)
-    expect(result).toEqual({ ok: false, code: 'unsupportedVersion' })
+    expect(validateBackup(backup)).toEqual({ ok: false, code: 'unsupportedVersion' })
+  })
+
+  it('rejects a non-finite exportedAt', () => {
+    const backup = { app: BACKUP_APP, schemaVersion: 1, exportedAt: Number.POSITIVE_INFINITY, data: emptyData() }
+    expect(validateBackup(backup)).toEqual({ ok: false, code: 'invalidShape', path: 'exportedAt' })
+  })
+
+  it('rejects a non-object `data`', () => {
+    const backup = { app: BACKUP_APP, schemaVersion: 1, exportedAt: 1, data: [] }
+    expect(validateBackup(backup)).toEqual({ ok: false, code: 'invalidShape', path: 'data' })
   })
 
   it('rejects a missing table with a path pointing at it', () => {
-    const backup = cloneJson({
-      app: BACKUP_APP,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
-      exportedAt: 1000,
-      data: emptyData(),
-    })
-    delete (backup.data as unknown as Record<string, unknown>).xpLedger
-
-    const result = validateBackup(backup)
-    expect(result).toEqual({ ok: false, code: 'invalidShape', path: 'data.xpLedger' })
+    const backup = backupWith(emptyData()) as Record<string, unknown>
+    delete (backup.data as Record<string, unknown>).xpLedger
+    expect(validateBackup(backup)).toEqual({ ok: false, code: 'invalidShape', path: 'data.xpLedger' })
   })
 
-  it('rejects a bad enum value with a path to the offending field', () => {
-    const backup = cloneJson({
-      app: BACKUP_APP,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
-      exportedAt: 1000,
-      data: realisticData(),
+  it('rejects a null row', () => {
+    const data = realisticData()
+    ;(data.texts as unknown[])[0] = null
+    expect(validateBackup(backupWith(data))).toEqual({
+      ok: false,
+      code: 'invalidShape',
+      path: 'data.texts[0]',
     })
-    // @ts-expect-error -- intentionally corrupting the fixture to test validation
-    backup.data.texts[0].lang = 'de'
+  })
 
-    const result = validateBackup(backup)
-    expect(result).toEqual({ ok: false, code: 'invalidShape', path: 'data.texts[0].lang' })
+  it('rejects an array standing in for a row', () => {
+    const data = realisticData()
+    ;(data.texts as unknown[])[0] = ['not', 'a', 'row']
+    expect(validateBackup(backupWith(data))).toEqual({
+      ok: false,
+      code: 'invalidShape',
+      path: 'data.texts[0]',
+    })
+  })
+})
+
+describe('validateBackup: per-table field rejection', () => {
+  type Mutation = { name: string; path: string; mutate: (data: BackupData) => void }
+
+  const mutations: Mutation[] = [
+    {
+      name: 'texts: bad lang enum',
+      path: 'data.texts[0].lang',
+      mutate: (d) => {
+        d.texts[0] = { ...d.texts[0]!, lang: 'de' as never }
+      },
+    },
+    {
+      name: 'segments: wordCount not a number',
+      path: 'data.segments[0].wordCount',
+      mutate: (d) => {
+        d.segments[0] = { ...d.segments[0]!, wordCount: 'six' as never }
+      },
+    },
+    {
+      name: 'sessionTemplates: nested items[1].repeat',
+      path: 'data.sessionTemplates[0].items[1].repeat',
+      mutate: (d) => {
+        d.sessionTemplates[0]!.items = [
+          { textId: 't1', repeat: 1 },
+          { textId: 't1', repeat: 'lots' as never },
+        ]
+      },
+    },
+    {
+      name: 'sessionRuns: plan[0].block negative',
+      path: 'data.sessionRuns[0].plan[0].block',
+      mutate: (d) => {
+        d.sessionRuns[0]!.plan[0]!.block = -1
+      },
+    },
+    {
+      name: 'sessionRuns: plan[0].item negative',
+      path: 'data.sessionRuns[0].plan[0].item',
+      mutate: (d) => {
+        d.sessionRuns[0]!.plan[0]!.item = -1
+      },
+    },
+    {
+      name: 'sessionRuns: entries[0].status bad enum',
+      path: 'data.sessionRuns[0].entries[0].status',
+      mutate: (d) => {
+        d.sessionRuns[0]!.entries[0] = { ...d.sessionRuns[0]!.entries[0]!, status: 'done' as never }
+      },
+    },
+    {
+      name: 'sessionRuns: cursor beyond plan.length',
+      path: 'data.sessionRuns[0].cursor',
+      mutate: (d) => {
+        d.sessionRuns[0]!.cursor = 99
+      },
+    },
+    {
+      name: 'attempts: bad strictness enum',
+      path: 'data.attempts[0].strictness',
+      mutate: (d) => {
+        d.attempts[0] = { ...d.attempts[0]!, strictness: 'meh' as never }
+      },
+    },
+    {
+      name: 'dailyStats: dayKey not YYYY-MM-DD',
+      path: 'data.dailyStats[0].dayKey',
+      mutate: (d) => {
+        d.dailyStats[0] = { ...d.dailyStats[0]!, dayKey: '2026/09/25' as never }
+      },
+    },
+    {
+      name: 'textStats: counter not finite',
+      path: 'data.textStats[0].bestConsecutiveFirstTry',
+      mutate: (d) => {
+        d.textStats[0] = { ...d.textStats[0]!, bestConsecutiveFirstTry: 'nope' as never }
+      },
+    },
+    {
+      name: 'achievements: bad tier enum',
+      path: 'data.achievements[0].tier',
+      mutate: (d) => {
+        d.achievements[0] = { ...d.achievements[0]!, tier: 'copper' as never }
+      },
+    },
+    {
+      name: 'xpLedger: bad reason enum',
+      path: 'data.xpLedger[0].reason',
+      mutate: (d) => {
+        d.xpLedger[0] = { ...d.xpLedger[0]!, reason: 'bonus' as never }
+      },
+    },
+    {
+      name: 'xpLedger: id present but not finite',
+      path: 'data.xpLedger[0].id',
+      mutate: (d) => {
+        d.xpLedger[0] = { ...d.xpLedger[0]!, id: 'abc' as never }
+      },
+    },
+    {
+      name: 'settings: bad key',
+      path: 'data.settings[0].key',
+      mutate: (d) => {
+        d.settings[0] = { key: 'bogus', value: {} } as unknown as (typeof d.settings)[number]
+      },
+    },
+    {
+      name: 'settings: bad field inside an app settings value',
+      path: 'data.settings[0].value.theme',
+      mutate: (d) => {
+        d.settings[0] = {
+          key: 'app',
+          value: {
+            uiLang: 'pl',
+            theme: 'purple' as never,
+            engine: 'auto',
+            whisperModel: 'tiny',
+            strictness: 'strict',
+            dayStartHour: 3,
+            dailyGoal: 20,
+            handsFree: false,
+            saveTranscripts: true,
+            fontSize: 'md',
+            listenFirst: false,
+            grammaticalForm: 'm',
+            contentFocus: 'both',
+            reminderTime: '07:00',
+            onboardingCompleted: true,
+            speechPrivacyAcknowledged: true,
+          },
+        }
+      },
+    },
+  ]
+
+  it.each(mutations)('$name -> $path', ({ mutate, path }) => {
+    const data = realisticData()
+    mutate(data)
+    expect(validateBackup(backupWith(data))).toEqual({ ok: false, code: 'invalidShape', path })
   })
 
   it('rejects a sessionRun whose plan and entries lengths differ', () => {
-    const backup = cloneJson({
-      app: BACKUP_APP,
-      schemaVersion: BACKUP_SCHEMA_VERSION,
-      exportedAt: 1000,
-      data: realisticData(),
+    const data = realisticData()
+    data.sessionRuns[0]!.entries = []
+    expect(validateBackup(backupWith(data))).toEqual({
+      ok: false,
+      code: 'invalidShape',
+      path: 'data.sessionRuns[0].entries',
     })
-    backup.data.sessionRuns[0]!.entries = []
-
-    const result = validateBackup(backup)
-    if (result.ok) throw new Error('expected validation to fail')
-    expect(result.code).toBe('invalidShape')
-    expect(result.path).toBe('data.sessionRuns[0].entries')
   })
 })
 
 describe('parseBackup', () => {
   it('reports notJson for malformed JSON', () => {
-    const result = parseBackup('not json{')
-    expect(result).toEqual({ ok: false, code: 'notJson' })
+    expect(parseBackup('not json{')).toEqual({ ok: false, code: 'notJson' })
   })
 
   it('parses and validates well-formed JSON', () => {
@@ -232,8 +431,7 @@ describe('parseBackup', () => {
       exportedAt: 1000,
       data: emptyData(),
     }
-    const result = parseBackup(JSON.stringify(backup))
-    expect(result.ok).toBe(true)
+    expect(parseBackup(JSON.stringify(backup)).ok).toBe(true)
   })
 })
 
