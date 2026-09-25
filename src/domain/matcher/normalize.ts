@@ -12,8 +12,12 @@ const THOUSANDS_COMMA = /(\d),(?=\d{3}(?!\d))/gu
 const DIGIT_GROUP_SPACE = /^[\u00a0\u202f]$/u
 const ENDS_WITH_DIGIT = /\d$/u
 const STARTS_WITH_DIGIT_GROUP = /^\d{3}(?!\d)/u
-/** Everything but letters (with their combining marks), digits and apostrophes breaks words. */
-const WORD_BREAK = /[^\p{L}\p{M}\p{N}']+/u
+/**
+ * Everything but letters, digits and apostrophes breaks words. After NFC every
+ * Polish and English letter is precomposed, so a combining mark left over is a
+ * stray one (e.g. from PDF copy-paste) and must not become a word.
+ */
+const WORD_BREAK = /[^\p{L}\p{N}']+/u
 
 /** The words of the original text that token raw ranges point into. */
 export function rawWords(text: string): string[] {

@@ -77,6 +77,13 @@ describe('normalize — characters', () => {
     )
   })
 
+  it('drops stray combining marks (PDF copy-paste artifacts)', () => {
+    expect(normalize('Zdrowas \u0301 Maryjo', 'pl')).toEqual([
+      { text: 'zdrowas', rawStart: 0, rawEnd: 0 },
+      { text: 'maryjo', rawStart: 2, rawEnd: 2 },
+    ])
+  })
+
   it('lowercases Polish capitals', () => {
     expect(texts('ŁĄKA ŻÓŁĆ Ślęża', 'pl')).toBe('łąka żółć ślęża')
   })
