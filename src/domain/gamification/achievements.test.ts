@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 import type { Tier } from '@/domain/types'
 import {
   ACHIEVEMENT_CATEGORIES,
@@ -136,6 +136,13 @@ describe('ACHIEVEMENT_RULES', () => {
       r.scope === 'text' ? !isTextMetric(r.metric) : !isGlobalMetric(r.metric),
     )
     expect(mismatched).toEqual([])
+  })
+
+  it('ties the metric type to the scope', () => {
+    type GlobalRule = Extract<AchievementRule, { scope: 'global' }>
+    type TextRule = Extract<AchievementRule, { scope: 'text' }>
+    expectTypeOf<GlobalRule['metric']>().toEqualTypeOf<GlobalMetric>()
+    expectTypeOf<TextRule['metric']>().toEqualTypeOf<TextMetric>()
   })
 
   it('uses every metric in at least one rule', () => {
