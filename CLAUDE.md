@@ -32,4 +32,10 @@ npm run typecheck    # tsc -b
 - Code, comments, commits in English. Imports use the `@/` alias for `src/`.
 - No `enum`/`namespace`; prefer string-literal unions and `as const` objects.
 - Matcher = heart of the app: change it only test-first (`src/domain/matcher/*.test.ts`).
+- Key modules: `src/domain/matcher` (evaluate, diff, live `matchPrefix`/`progressOf`),
+  `src/domain/live/liveTracker.ts` (continuous-listening state machine), `src/services/practice.ts`
+  (one transaction per attempt: stats, XP ledger, streaks/freezes, achievements),
+  `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first).
+- e2e tests stub speech with `e2e/fakeSpeech.ts` (the headless shell crashes on the real
+  `SpeechRecognition.available()`); UI strings must exist in both `pl.json` and `en.json`.
 - Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).
