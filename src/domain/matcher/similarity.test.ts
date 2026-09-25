@@ -71,6 +71,12 @@ describe('compareWords', () => {
     expect(compareWords('naszego', 'waszego')).toBe('near')
   })
 
+  it('compares numbers exactly: one digit off is a different number', () => {
+    expect(compareWords('10000', '10000')).toBe('match')
+    expect(compareWords('10000', '10001')).toBe('none')
+    expect(compareWords('12345', 'l2345')).toBe('none')
+  })
+
   it('rejects clearly different words', () => {
     expect(compareWords('calm', 'cold')).toBe('none')
   })

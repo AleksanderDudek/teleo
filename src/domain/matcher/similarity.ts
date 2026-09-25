@@ -1,4 +1,5 @@
 const COMBINING_MARKS = /\p{M}/gu
+const DIGITS = /^\d+$/u
 
 /** Shorter words get no fuzzy tolerance: "am"/"an" are different words, not recognition slips. */
 const MIN_FUZZY_LENGTH = 4
@@ -37,9 +38,11 @@ export function levenshtein(a: string, b: string): number {
 /**
  * The `near` rule for two words already stripped of diacritics: equal, or both
  * ≥ 4 letters with a similarity `1 − distance / longer length` of at least 0.8.
+ * Numbers get no tolerance: one digit off is a different number, not a slip.
  */
 export function isNearMatch(bareSource: string, bareSpoken: string): boolean {
   if (bareSource === bareSpoken) return true
+  if (DIGITS.test(bareSource) || DIGITS.test(bareSpoken)) return false
   if (bareSource.length < MIN_FUZZY_LENGTH || bareSpoken.length < MIN_FUZZY_LENGTH) return false
   const longest = Math.max(bareSource.length, bareSpoken.length)
   // similarity ≥ 4/5 in integers, so the 0.8 boundary is exact.

@@ -311,6 +311,13 @@ describe('evaluate — acceptance rule', () => {
     })
   })
 
+  it('rejects a long number that is one digit off', () => {
+    expect(pl('Mam 10000 kroków', 'mam 10001 kroków')).toMatchObject({
+      accepted: false,
+      reason: 'wrong',
+    })
+  })
+
   it('counts source words after normalization', () => {
     expect(en("I'm calm", 'I am calm')).toMatchObject({ accepted: true, sourceWords: 3 })
   })
