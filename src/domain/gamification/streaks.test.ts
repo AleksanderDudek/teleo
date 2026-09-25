@@ -159,8 +159,13 @@ describe('freezeAward', () => {
     expect(freezeAward(7, 0, 0)).toEqual({ award: 1, lastAwardStreak: 7 })
   })
 
-  it('does not award twice for the same streak value', () => {
-    expect(freezeAward(7, 7, 1)).toEqual({ award: 0, lastAwardStreak: 7 })
+  it('awards only once when called again with the same streak in one chain', () => {
+    const first = freezeAward(7, 0, 0)
+    const second = freezeAward(7, first.lastAwardStreak, 1)
+    expect([first, second]).toEqual([
+      { award: 1, lastAwardStreak: 7 },
+      { award: 0, lastAwardStreak: 7 },
+    ])
   })
 
   it('awards a second freeze at 14', () => {
@@ -169,16 +174,29 @@ describe('freezeAward', () => {
 
   it('awards nothing with 2 freezes in store but still marks the milestone', () => {
     expect(freezeAward(21, 14, 2)).toEqual({ award: 0, lastAwardStreak: 21 })
+    expect(freezeAward(7, 21, 2)).toEqual({ award: 0, lastAwardStreak: 7 })
   })
 
   it('awards again when a new chain reaches 7 after a longer one', () => {
     expect(freezeAward(7, 21, 0)).toEqual({ award: 1, lastAwardStreak: 7 })
   })
 
-  it('ignores streak values that are not a positive multiple of 7', () => {
+  it('lets a restarted chain earn a freeze at the same milestone again', () => {
+    const atSeven = freezeAward(7, 0, 0)
+    expect(atSeven).toEqual({ award: 1, lastAwardStreak: 7 })
+    const restarted = freezeAward(1, atSeven.lastAwardStreak, 1)
+    expect(restarted).toEqual({ award: 0, lastAwardStreak: 0 })
+    expect(freezeAward(7, restarted.lastAwardStreak, 1)).toEqual({ award: 1, lastAwardStreak: 7 })
+  })
+
+  it('forgets the last milestone as soon as the streak drops below it', () => {
+    expect(freezeAward(5, 14, 2)).toEqual({ award: 0, lastAwardStreak: 0 })
+    expect(freezeAward(0, 7, 0)).toEqual({ award: 0, lastAwardStreak: 0 })
+  })
+
+  it('keeps the last milestone for other values within the same chain', () => {
     expect(freezeAward(8, 7, 1)).toEqual({ award: 0, lastAwardStreak: 7 })
     expect(freezeAward(6, 0, 0)).toEqual({ award: 0, lastAwardStreak: 0 })
-    expect(freezeAward(0, 7, 0)).toEqual({ award: 0, lastAwardStreak: 7 })
   })
 })
 

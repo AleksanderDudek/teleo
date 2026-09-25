@@ -101,18 +101,23 @@ export interface FreezeAward {
 }
 
 /**
- * Call after every accepted attempt. Awards a freeze when the streak reaches a new multiple
- * of 7 while fewer than 2 are stored; the milestone is remembered even when the store is full,
- * so repeated calls with the same streak value award nothing.
+ * Call after every accepted attempt. Awards a freeze when the streak reaches a multiple of 7
+ * (7, 14, 21 …) other than the stored milestone while fewer than 2 are stored.
+ * - The milestone is stored even when the store is full, so repeated calls with the same
+ *   streak value award nothing.
+ * - A streak only grows within a chain, so `newStreak < lastAwardStreak` means the chain
+ *   restarted: the stored milestone counts as 0 (and 0 is returned unless `newStreak` is itself
+ *   a milestone), so the new chain earns freezes at 7, 14 … again.
  */
 export function freezeAward(
   newStreak: number,
   lastAwardStreak: number,
   available: number,
 ): FreezeAward {
+  const last = newStreak < lastAwardStreak ? 0 : lastAwardStreak
   const milestone = newStreak > 0 && newStreak % FREEZE_EVERY === 0
-  if (!milestone) return { award: 0, lastAwardStreak }
-  const award = newStreak !== lastAwardStreak && available < MAX_FREEZES ? 1 : 0
+  if (!milestone) return { award: 0, lastAwardStreak: last }
+  const award = newStreak !== last && available < MAX_FREEZES ? 1 : 0
   return { award, lastAwardStreak: newStreak }
 }
 
