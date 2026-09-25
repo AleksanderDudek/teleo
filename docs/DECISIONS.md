@@ -153,3 +153,16 @@ Each entry: **decision** — why.
 49. **Figures use the sans face**: Alegreya's old-style zero reads like the letter "o" in statistics.
 50. **Resume is offered only for runs with at least one processed sentence**; an untouched run is simply
     started again.
+51. **Live mode and alternatives** (spec §5.2 "check all alternatives"): while streaming, the tracker
+    follows the best hypothesis (word offsets must stay consistent between updates); when a pause
+    settles a sentence, every hypothesis is evaluated. Tap mode always evaluates all of them.
+52. **Recogniser restarts and revisions** in live mode: unmatched words are carried into the next
+    recognition (a sentence spoken across a restart still counts; starting it again after the
+    interruption is not a slip), and the end of the last accepted sentence is re-located by matching
+    it again whenever interim words are revised.
+53. **An empty capture is not an attempt**: "I didn't hear anything" is shown, but nothing is recorded
+    (an accidental tap must not cost first-try credit). Live mode ignores silence the same way.
+54. **Transcripts of rejected live-mode windows are stored** like any other attempt when "Save
+    transcripts" is on (useful to understand rejections); turning the setting off stores none.
+55. **Segments needed by an unfinished run are archived, never deleted**, when a text is edited or the
+    affirmation form changes, so the run can still be resumed and finished.
