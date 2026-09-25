@@ -64,11 +64,29 @@ export function foldIcsLine(line: string): string {
   return result
 }
 
+const LINE_BREAK_RE = /[\r\n]/
+
+function assertValidDate(date: Date, label: string): void {
+  if (Number.isNaN(date.getTime())) {
+    throw new RangeError(`Invalid ${label}: not a valid Date`)
+  }
+}
+
+function assertNoLineBreak(value: string, label: string): void {
+  if (LINE_BREAK_RE.test(value)) {
+    throw new RangeError(`Invalid ${label}: must not contain a line break`)
+  }
+}
+
 /** Builds a floating-local-time, daily-repeating reminder as an RFC 5545 .ics file. */
 export function buildDailyReminderIcs(options: DailyReminderOptions): string {
   if (!TIME_RE.test(options.time)) {
     throw new RangeError(`Invalid time: ${options.time}`)
   }
+  assertValidDate(options.now, 'now')
+  if (options.startDate) assertValidDate(options.startDate, 'startDate')
+  assertNoLineBreak(options.uid, 'uid')
+  assertNoLineBreak(options.url, 'url')
 
   const hhmm = options.time.replace(':', '')
   const dtstamp = formatUtcStamp(options.now)

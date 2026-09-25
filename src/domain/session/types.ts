@@ -1,6 +1,9 @@
 /** Maximum number of segments in one expanded session (spec §8.1). */
 export const MAX_SESSION_SEGMENTS = 150
 
+/** Maximum number of times a single template item may repeat. */
+export const MAX_REPEAT = 150
+
 /** One line of a session template: a whole text (or chosen segments) repeated `repeat` times. */
 export interface TemplateItem {
   textId: string
@@ -19,6 +22,8 @@ export interface PlanEntry {
   textId: string
   block: number
   fullText: boolean
+  /** Index of the producing item in the original template's `items` array. */
+  item: number
 }
 
 export type EntryStatus = 'pending' | 'accepted' | 'skipped'

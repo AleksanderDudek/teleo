@@ -41,20 +41,26 @@ describe('expandTemplate', () => {
     expect(missingTextIds).toEqual([])
     expect(plan.every((e) => e.fullText)).toBe(true)
 
-    // Block 0: text A, 4 entries
+    // Block 0: text A, 4 entries, produced by items[0]
     expect(plan.slice(0, 4).map((e) => e.segmentId)).toEqual(['a1', 'a2', 'a3', 'a4'])
-    expect(plan.slice(0, 4).every((e) => e.block === 0 && e.textId === 'A')).toBe(true)
+    expect(plan.slice(0, 4).every((e) => e.block === 0 && e.textId === 'A' && e.item === 0)).toBe(
+      true,
+    )
 
-    // Blocks 1..10: text B, 2 entries each
+    // Blocks 1..10: text B, 2 entries each, produced by items[1]
     for (let rep = 0; rep < 10; rep++) {
       const block = plan.slice(4 + rep * 2, 4 + rep * 2 + 2)
       expect(block.map((e) => e.segmentId)).toEqual(['b1', 'b2'])
-      expect(block.every((e) => e.block === rep + 1 && e.textId === 'B')).toBe(true)
+      expect(block.every((e) => e.block === rep + 1 && e.textId === 'B' && e.item === 1)).toBe(
+        true,
+      )
     }
 
-    // Block 11: text C, 2 entries
+    // Block 11: text C, 2 entries, produced by items[2]
     expect(plan.slice(24, 26).map((e) => e.segmentId)).toEqual(['c1', 'c2'])
-    expect(plan.slice(24, 26).every((e) => e.block === 11 && e.textId === 'C')).toBe(true)
+    expect(plan.slice(24, 26).every((e) => e.block === 11 && e.textId === 'C' && e.item === 2)).toBe(
+      true,
+    )
 
     const blockNumbers = new Set(plan.map((e) => e.block))
     expect(blockNumbers.size).toBe(12)
@@ -136,6 +142,8 @@ describe('expandTemplate', () => {
 
     expect(missingTextIds).toEqual(['X', 'Y'])
     expect(plan.map((e) => e.textId)).toEqual(['A'])
+    // 'A' is items[1] in the original array; its index is not compacted by the skipped items.
+    expect(plan.map((e) => e.item)).toEqual([1])
   })
 
   it('clamps repeat (0 becomes 1 repetition) when expanding', () => {
@@ -181,6 +189,74 @@ describe('expandTemplate', () => {
     expect(plan).toHaveLength(150)
     expect(overLimit).toBe(false)
     expect(plan.every((e) => e.fullText === true)).toBe(true)
+  })
+
+  it('does not force fullText false when the 150-cap lands exactly on a block boundary', () => {
+    // 5 segments/block, 31 repeats = 155 raw entries; 150 is exactly 30 blocks (block 29 ends at 149).
+    const eIds = Array.from({ length: 5 }, (_, i) => `e${i + 1}`)
+    const segments: SegmentsByText = new Map([['E', segs(...eIds)]])
+    const items: TemplateItem[] = [{ textId: 'E', repeat: 31 }]
+
+    const { plan, overLimit } = expandTemplate(items, segments)
+
+    expect(overLimit).toBe(true)
+    expect(plan).toHaveLength(150)
+    expect(plan[149]?.block).toBe(29)
+    expect(plan.every((e) => e.fullText === true)).toBe(true)
+  })
+
+  it('deduplicates a segmentIds selection, keeping the first occurrence', () => {
+    const segments: SegmentsByText = new Map([['A', segs('a1', 'a2', 'a3')]])
+    const items: TemplateItem[] = [
+      { textId: 'A', repeat: 1, segmentIds: ['a2', 'a1', 'a2', 'a3', 'a1'] },
+    ]
+
+    const { plan } = expandTemplate(items, segments)
+
+    expect(plan.map((e) => e.segmentId)).toEqual(['a2', 'a1', 'a3'])
+  })
+
+  it('marks an explicit, full, in-order segmentIds selection as fullText', () => {
+    const segments: SegmentsByText = new Map([['A', segs('a1', 'a2', 'a3', 'a4')]])
+    const items: TemplateItem[] = [
+      { textId: 'A', repeat: 1, segmentIds: ['a1', 'a2', 'a3', 'a4'] },
+    ]
+
+    const { plan } = expandTemplate(items, segments)
+
+    expect(plan.map((e) => e.segmentId)).toEqual(['a1', 'a2', 'a3', 'a4'])
+    expect(plan.every((e) => e.fullText === true)).toBe(true)
+  })
+
+  it('still collects missingTextIds from items after the 150-entry cap is reached', () => {
+    const segments: SegmentsByText = new Map([
+      ['A', segs('a1', 'a2')],
+      // 'Z' intentionally absent from the map -> missing
+    ])
+    const items: TemplateItem[] = [
+      { textId: 'A', repeat: 150 }, // fills the plan to the cap well before item 1 is reached
+      { textId: 'Z', repeat: 1 },
+    ]
+
+    const { plan, overLimit, missingTextIds } = expandTemplate(items, segments)
+
+    expect(overLimit).toBe(true)
+    expect(plan).toHaveLength(150)
+    expect(missingTextIds).toEqual(['Z'])
+  })
+
+  it('stays fast and bounded for a huge template instead of building millions of entries', () => {
+    const hugeIds = Array.from({ length: 100_000 }, (_, i) => `h${i}`)
+    const segments: SegmentsByText = new Map([['H', segs(...hugeIds)]])
+    const items: TemplateItem[] = [{ textId: 'H', repeat: 150 }]
+
+    const start = performance.now()
+    const { plan, overLimit } = expandTemplate(items, segments)
+    const elapsedMs = performance.now() - start
+
+    expect(overLimit).toBe(true)
+    expect(plan).toHaveLength(150)
+    expect(elapsedMs).toBeLessThan(500)
   })
 })
 

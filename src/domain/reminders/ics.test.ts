@@ -71,7 +71,7 @@ describe('buildDailyReminderIcs', () => {
     expect(ics).toContain('DTSTART:20260310T070000\r\n')
   })
 
-  it('escapes the summary and appends the raw url to an escaped description', () => {
+  it('escapes the summary, and the description together with its appended url, as ICS TEXT', () => {
     const ics = buildDailyReminderIcs({
       ...baseOptions,
       title: 'Czas na Teleo; módl się, proszę',
@@ -79,6 +79,7 @@ describe('buildDailyReminderIcs', () => {
     })
     expect(ics).toContain('SUMMARY:Czas na Teleo\\; módl się\\, proszę\r\n')
     expect(ics).toContain('DESCRIPTION:Krótka modlitwa\\nhttps://teleo.app/s/abc\r\n')
+    // The standalone URL property is a URI value, not TEXT, so it is not escaped.
     expect(ics).toContain('URL:https://teleo.app/s/abc\r\n')
     // The VALARM's DESCRIPTION carries the escaped title, not the body description.
     const afterAlarm = ics.split('BEGIN:VALARM')[1]
@@ -124,6 +125,32 @@ describe('buildDailyReminderIcs', () => {
       expect(() => buildDailyReminderIcs({ ...baseOptions, time })).toThrow(RangeError)
     },
   )
+
+  it.each(['bad\r\nuid', 'bad\nuid', 'bad\ruid'])(
+    'rejects a uid containing a line break: %j',
+    (uid) => {
+      expect(() => buildDailyReminderIcs({ ...baseOptions, uid })).toThrow(RangeError)
+    },
+  )
+
+  it.each(['https://teleo.app\r\n/evil', 'https://teleo.app\n/evil', 'https://teleo.app\r/evil'])(
+    'rejects a url containing a line break: %j',
+    (url) => {
+      expect(() => buildDailyReminderIcs({ ...baseOptions, url })).toThrow(RangeError)
+    },
+  )
+
+  it('rejects an invalid `now` Date', () => {
+    expect(() => buildDailyReminderIcs({ ...baseOptions, now: new Date(Number.NaN) })).toThrow(
+      RangeError,
+    )
+  })
+
+  it('rejects an invalid `startDate` Date', () => {
+    expect(() =>
+      buildDailyReminderIcs({ ...baseOptions, startDate: new Date(Number.NaN) }),
+    ).toThrow(RangeError)
+  })
 })
 
 describe('escapeIcsText', () => {
