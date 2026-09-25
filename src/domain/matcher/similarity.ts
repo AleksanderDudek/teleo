@@ -16,13 +16,19 @@ export function stripDiacritics(word: string): string {
     .replaceAll('Ł', 'L')
 }
 
-/** Character edit distance (insert, delete, substitute = 1). */
-export function levenshtein(a: string, b: string): number {
+/**
+ * Character edit distance (insert, delete, substitute = 1). Once every cell of a
+ * row exceeds `cap` the distance must too (values never decrease along a path),
+ * so it stops there and returns that row's minimum.
+ */
+function editDistance(a: string, b: string, cap: number): number {
   // Single DP row: before the update of cell j, row[j] holds the distance from the previous row.
-  const row = Array.from({ length: b.length + 1 }, (_, j) => j)
+  const row: number[] = []
+  for (let j = 0; j <= b.length; j++) row.push(j)
   for (let i = 1; i <= a.length; i++) {
     let diagonal = i - 1
     let left = i
+    let rowMin = left
     row[0] = i
     for (let j = 1; j <= b.length; j++) {
       const up = row[j] ?? 0
@@ -30,28 +36,40 @@ export function levenshtein(a: string, b: string): number {
       left = Math.min(substitution, up + 1, left + 1)
       row[j] = left
       diagonal = up
+      rowMin = Math.min(rowMin, left)
     }
+    if (rowMin > cap) return rowMin
   }
   return row[b.length] ?? 0
 }
 
+export function levenshtein(a: string, b: string): number {
+  return editDistance(a, b, Infinity)
+}
+
 /**
  * The `near` rule for two words already stripped of diacritics: equal, or both
- * ≥ 4 letters with a similarity `1 − distance / longer length` of at least 0.8.
+ * ≥ 4 letters with a similarity `1 − distance / longer length` of at least 0.8,
+ * i.e. at most one edit per five letters (integer maths keeps the boundary exact).
  * Numbers get no tolerance: one digit off is a different number, not a slip.
  */
 export function isNearMatch(bareSource: string, bareSpoken: string): boolean {
   if (bareSource === bareSpoken) return true
-  if (DIGITS.test(bareSource) || DIGITS.test(bareSpoken)) return false
   if (bareSource.length < MIN_FUZZY_LENGTH || bareSpoken.length < MIN_FUZZY_LENGTH) return false
-  const longest = Math.max(bareSource.length, bareSpoken.length)
-  // similarity ≥ 4/5 in integers, so the 0.8 boundary is exact.
-  const similarEnough = (distance: number) => (longest - distance) * 5 >= longest * 4
-  // The distance is at least the length difference: skip the DP when that alone is too much.
-  return (
-    similarEnough(Math.abs(bareSource.length - bareSpoken.length)) &&
-    similarEnough(levenshtein(bareSource, bareSpoken))
-  )
+  const maxDistance = Math.floor(Math.max(bareSource.length, bareSpoken.length) / 5)
+  // Different words are at least one edit and their length difference apart: no DP when
+  // that alone is too much (4-letter words must be equal).
+  if (maxDistance === 0 || Math.abs(bareSource.length - bareSpoken.length) > maxDistance) {
+    return false
+  }
+  if (isNumber(bareSource) || isNumber(bareSpoken)) return false
+  return editDistance(bareSource, bareSpoken, maxDistance) <= maxDistance
+}
+
+/** All digits; the first-character test spares the regex for ordinary words (hot path). */
+function isNumber(word: string): boolean {
+  const first = word.charCodeAt(0)
+  return first >= 48 && first <= 57 && DIGITS.test(word)
 }
 
 /** `match` when identical, `near` when only a speech-recognition slip apart, else `none`. */
