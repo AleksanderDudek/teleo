@@ -10,7 +10,9 @@ describe('matcher public API', () => {
       'compareWords',
       'evaluate',
       'levenshtein',
+      'matchPrefix',
       'normalize',
+      'progressOf',
       'removeFillers',
       'stripDiacritics',
     ])

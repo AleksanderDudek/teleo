@@ -2,12 +2,12 @@ import type { Strictness } from '@/domain/types'
 import { align } from './align'
 import { removeFillers } from './fillers'
 import { normalize } from './normalize'
-import type { EvaluateOptions, MatchOp, MatchResult, RejectReason } from './types'
+import type { EvaluateOptions, MatchOp, MatchResult, OpEntry, RejectReason } from './types'
 
-const DEFAULT_THRESHOLD = 0.95
+export const DEFAULT_THRESHOLD = 0.95
 
-/** The verdict on one alternative, before it is tagged with its index and text. */
-type Verdict = Omit<MatchResult, 'bestAlternativeIndex' | 'transcript'>
+/** The verdict on one alignment, before it is tagged with its alternative and text. */
+export type Verdict = Omit<MatchResult, 'bestAlternativeIndex' | 'transcript'>
 
 interface Candidate {
   result: MatchResult
@@ -44,35 +44,39 @@ function rejectReason(
   return covered ? null : 'coverage'
 }
 
-function judge(
-  source: readonly string[],
-  spoken: readonly string[],
+/**
+ * Fewest matched + near words that reach the coverage threshold. `threshold` is
+ * read as whole percent, so 19 of 20 words is exactly 95%.
+ */
+export function requiredCoverage(sourceWords: number, threshold: number): number {
+  return Math.ceil((Math.round(threshold * 100) * sourceWords) / 100)
+}
+
+/** Counts and acceptance (spec §6.1, §6.4) of one alignment of the whole source. */
+export function verdictOf(
+  ops: OpEntry[],
+  sourceWords: number,
   strictness: Strictness,
-  percent: number,
-): { verdict: Verdict; cost: number } {
-  const { ops, cost } = align(source, spoken)
+  threshold: number,
+): Verdict {
   const count = (op: MatchOp) => ops.filter((entry) => entry.op === op).length
   const matched = count('match')
   const near = count('near')
   const extra = count('extra')
   const wrong = count('wrong')
-  // Integer comparison: 19 of 20 words is exactly 95%.
-  const covered = (matched + near) * 100 >= percent * source.length
+  const covered = matched + near >= requiredCoverage(sourceWords, threshold)
   const reason = rejectReason(extra, wrong, covered, strictness)
   return {
-    verdict: {
-      accepted: reason === null,
-      coverage: (matched + near) / source.length,
-      matched,
-      near,
-      missing: count('missing'),
-      extra,
-      wrong,
-      ops,
-      sourceWords: source.length,
-      reason,
-    },
-    cost,
+    accepted: reason === null,
+    coverage: (matched + near) / sourceWords,
+    matched,
+    near,
+    missing: count('missing'),
+    extra,
+    wrong,
+    ops,
+    sourceWords,
+    reason,
   }
 }
 
@@ -107,12 +111,12 @@ export function evaluate(
   if (sourceWords.length === 0) return unmatched('emptySource', 0)
 
   const keep = new Set(sourceWords)
-  const percent = Math.round(threshold * 100)
   let best: Candidate | undefined
   for (const [index, transcript] of alternatives.entries()) {
     const spoken = removeFillers(normalize(transcript, lang), lang, keep).map((token) => token.text)
     if (spoken.length === 0) continue
-    const { verdict, cost } = judge(sourceWords, spoken, strictness, percent)
+    const { ops, cost } = align(sourceWords, spoken)
+    const verdict = verdictOf(ops, sourceWords.length, strictness, threshold)
     const candidate = { result: { ...verdict, bestAlternativeIndex: index, transcript }, cost }
     if (!best || isBetter(candidate, best)) best = candidate
   }
