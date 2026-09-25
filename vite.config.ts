@@ -1,12 +1,16 @@
-import { readFileSync } from 'node:fs'
+import { createReadStream, readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { ORT_CACHE, ORT_RUNTIME_FILES } from './src/domain/speech/whisper/runtime.ts'
 
 const BASE = '/teleo/'
-const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string }
+const readJson = <T>(path: string) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8')) as T
+const { version } = readJson<{ version: string }>('./package.json')
+const ORT_VERSION = readJson<{ version: string }>('./node_modules/onnxruntime-web/package.json').version
+const ORT_DIST = fileURLToPath(new URL('./node_modules/onnxruntime-web/dist/', import.meta.url))
 
 /**
  * Content-Security-Policy for the production build (GitHub Pages cannot set
@@ -29,6 +33,49 @@ const CSP = [
   "object-src 'none'",
 ].join('; ')
 
+/**
+ * Self-hosts the onnxruntime-web WebAssembly runtime of the offline Whisper
+ * engine under `ort/<version>/` (no CDN: the CSP allows 'self' scripts only).
+ * Dev serves the files from node_modules; the build copies them into dist.
+ */
+function selfHostedOrtRuntime(): Plugin {
+  const prefix = `${BASE}ort/${ORT_VERSION}/`
+  const contentType = (file: string) => (file.endsWith('.wasm') ? 'application/wasm' : 'text/javascript')
+  return {
+    name: 'teleo:ort-runtime',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const path = req.url?.split('?')[0] ?? ''
+        const file = path.startsWith(prefix) ? path.slice(prefix.length) : ''
+        if (!ORT_RUNTIME_FILES.includes(file)) return next()
+        res.setHeader('Content-Type', contentType(file))
+        createReadStream(ORT_DIST + file).pipe(res)
+      })
+    },
+    generateBundle() {
+      for (const file of ORT_RUNTIME_FILES) {
+        this.emitFile({ type: 'asset', fileName: `ort/${ORT_VERSION}/${file}`, source: readFileSync(ORT_DIST + file) })
+      }
+    },
+  }
+}
+
+/**
+ * onnxruntime-web points at its .wasm with `new URL('ort-wasm-…', import.meta.url)`, which makes
+ * Vite emit another 27 MB copy into assets/. Teleo always hands the binary over itself (see
+ * `whisper.worker.ts`), so those references are marked `@vite-ignore` (worker build only).
+ */
+function ignoreBundledOrtWasm(): Plugin {
+  return {
+    name: 'teleo:ignore-bundled-ort-wasm',
+    enforce: 'pre',
+    transform(code, id) {
+      if (!/onnxruntime-web[\\/]dist[\\/]/.test(id)) return null
+      return { code: code.replace(/new URL\((\s*["']ort-wasm-simd-threaded)/g, 'new URL(/* @vite-ignore */$1'), map: null }
+    },
+  }
+}
+
 function contentSecurityPolicy(): Plugin {
   return {
     name: 'teleo:csp',
@@ -45,7 +92,9 @@ function contentSecurityPolicy(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   base: BASE,
-  define: { __APP_VERSION__: JSON.stringify(version) },
+  define: { __APP_VERSION__: JSON.stringify(version), __ORT_VERSION__: JSON.stringify(ORT_VERSION) },
+  // Module workers (the Whisper worker is created with `type: 'module'`).
+  worker: { format: 'es', plugins: () => [ignoreBundledOrtWasm()] },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
@@ -53,6 +102,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     contentSecurityPolicy(),
+    selfHostedOrtRuntime(),
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
@@ -86,9 +136,23 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
+        // The Whisper runtime (tens of MB) is never precached; see runtimeCaching below.
+        globIgnores: ['**/ort/**'],
+        // Room for the Whisper worker chunk (transformers.js + onnxruntime glue), needed offline;
+        // anything bigger is a mistake and stays out of the precache.
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [/privacy\.html$/],
         cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          {
+            // Versioned paths (ort/<version>/…) make cache-first safe. The model download also
+            // stores the runtime in this cache, so Whisper works offline after the first use.
+            urlPattern: new RegExp(`${BASE}ort/`.replaceAll('/', '\\/')),
+            handler: 'CacheFirst',
+            options: { cacheName: ORT_CACHE, cacheableResponse: { statuses: [200] } },
+          },
+        ],
       },
     }),
   ],

@@ -7,6 +7,8 @@ import { HowWeCount } from '@/components/speech/HowWeCount'
 import { MicButton } from '@/components/speech/MicButton'
 import { resultMessage } from '@/components/speech/resultMessage'
 import { SpeechPrivacyDialog } from '@/components/speech/SpeechPrivacyDialog'
+import { pointsToSpeechSettings } from '@/components/speech/speechErrors'
+import { SpeechSettingsLink } from '@/components/speech/SpeechSettingsLink'
 import { isIosStandalone } from '@/components/speech/vendor'
 import { Button, ButtonLink, IconButton } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
@@ -313,11 +315,13 @@ function Player({ data }: { data: PlayerData }) {
           {speechError && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
               {t(`speech.errors.${speechError}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
+              {pointsToSpeechSettings(speechError) && <SpeechSettingsLink />}
             </p>
           )}
           {engineState.status === 'unsupported' && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
-              {t('speech.errors.not-supported')}
+              {t(`speech.errors.${engineState.reason}`)}
+              <SpeechSettingsLink />
             </p>
           )}
         </div>

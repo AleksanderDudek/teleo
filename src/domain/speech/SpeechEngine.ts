@@ -29,7 +29,11 @@ export interface SpeechEngine {
   isSupported(): Promise<boolean>
   /** Resolves when the microphone is live; rejects with {@link SpeechError}. */
   start(options: SpeechStartOptions): Promise<void>
-  /** Stops listening and returns what was heard. Safe to call when idle. */
+  /**
+   * Stops listening and returns what was heard. Safe to call when idle.
+   * Engines that recognise after the recording (Whisper) may take seconds and
+   * reject with {@link SpeechError} when recognition fails.
+   */
   stop(): Promise<SpeechResult>
   /** Stops immediately, discarding the result. */
   abort(): void

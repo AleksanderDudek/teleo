@@ -11,7 +11,10 @@ interface SpeechPrivacyDialogProps {
   onClose: () => void
 }
 
-/** First-use notice (spec §5.2 / §13): the browser's recognizer may send audio to its vendor. */
+/**
+ * First-use notice (spec §5.2 / §13): the browser's recognizer may send audio to its vendor —
+ * unless recognition runs on the device (on-device Web Speech or offline Whisper).
+ */
 export function SpeechPrivacyDialog({ open, onDevice, onAccept, onClose }: SpeechPrivacyDialogProps) {
   const { t } = useTranslation()
   const vendor = speechVendor()
@@ -33,10 +36,9 @@ export function SpeechPrivacyDialog({ open, onDevice, onAccept, onClose }: Speec
       <div className="space-y-3 text-ink-soft">
         <p className="flex gap-3">
           <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-leaf" />
-          <span>{t('speech.privacy.body', { vendor: vendorName })}</span>
+          <span>{onDevice ? t('speech.privacy.bodyOnDevice') : t('speech.privacy.body', { vendor: vendorName })}</span>
         </p>
-        {onDevice && <p className="rounded-xl bg-ok-soft px-3 py-2 text-sm font-medium text-ok">{t('speech.privacy.onDevice')}</p>}
-        <p className="text-sm">{t('speech.privacy.whisper')}</p>
+        {!onDevice && <p className="text-sm">{t('speech.privacy.whisper')}</p>}
         <a className="inline-block text-sm font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
           {t('settings.privacyPolicy')}
         </a>

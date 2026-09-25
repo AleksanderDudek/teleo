@@ -7,6 +7,8 @@ export type CapturePhase = 'idle' | 'starting' | 'listening' | 'stopping'
 /**
  * One utterance per tap (spec §8.3/2): start → live transcript → stop on
  * silence (or a second tap) → `onResult`. Errors surface as codes for i18n.
+ * An offline engine recognises after `stop()` (phase `stopping`, possibly for
+ * seconds); a result arriving after `cancel()` is dropped.
  */
 export function useTapCapture(options: {
   engine: SpeechEngine | null
@@ -22,6 +24,8 @@ export function useTapCapture(options: {
   const [transcript, setTranscript] = useState('')
   const [error, setError] = useState<SpeechErrorCode | null>(null)
   const phaseRef = useRef<CapturePhase>('idle')
+  /** Bumped by `cancel()`: a recognition still running for an older utterance must not report. */
+  const utterance = useRef(0)
   const update = (next: CapturePhase) => {
     phaseRef.current = next
     setPhase(next)
@@ -29,8 +33,18 @@ export function useTapCapture(options: {
 
   const stop = useCallback(async () => {
     if (!engine || phaseRef.current !== 'listening') return
+    const current = utterance.current
     update('stopping')
-    const result = await engine.stop()
+    let result: SpeechResult
+    try {
+      result = await engine.stop()
+    } catch (e) {
+      if (utterance.current !== current) return
+      setError(e instanceof SpeechError ? e.code : 'unknown')
+      update('idle')
+      return
+    }
+    if (utterance.current !== current) return
     update('idle')
     onResult.current(result)
   }, [engine])
@@ -46,6 +60,7 @@ export function useTapCapture(options: {
         onTranscript: (text) => setTranscript(text),
         onSilence: () => void stop(),
         onError: (e) => {
+          utterance.current++
           setError(e.code)
           engine.abort()
           update('idle')
@@ -64,6 +79,7 @@ export function useTapCapture(options: {
   }, [start, stop])
 
   const cancel = useCallback(() => {
+    utterance.current++
     engine?.abort()
     update('idle')
   }, [engine])

@@ -20,6 +20,7 @@ import { applyContentPreferences, applyGrammaticalForm } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
+import { WhisperSettings } from './WhisperSettings'
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
@@ -124,17 +125,19 @@ export default function Settings() {
 
         <Section id="speech" title={t('settings.sectionSpeech')}>
           <div>
-            <Segmented<'auto' | 'webspeech'>
+            <Segmented<AppSettings['engine']>
               label={t('settings.engine')}
-              value={app.engine === 'whisper' ? 'auto' : app.engine}
+              value={app.engine}
               options={[
                 { value: 'auto', label: t('settings.engineAuto') },
                 { value: 'webspeech', label: t('settings.engineWeb') },
+                { value: 'whisper', label: t('settings.engineWhisper') },
               ]}
               onChange={(engine) => set({ engine })}
             />
-            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.engineWhisperSoon')}</p>
+            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.engineHint')}</p>
           </div>
+          <WhisperSettings />
           <div>
             <Segmented<Strictness>
               label={t('settings.strictness')}
