@@ -47,6 +47,13 @@ describe('splitIntoSegments — sentence mode basics', () => {
       splitIntoSegments('Jeden. Dwa.\n\nTrzy.\n\nCztery. Pięć.', 'pl', 'sentence'),
     ).toEqual(['Jeden.', 'Dwa.', 'Trzy.', 'Cztery.', 'Pięć.'])
   })
+
+  it('splits after a mid-text … followed by a capital letter (ICU does not treat … as a terminator)', () => {
+    expect(splitIntoSegments('Oddycham spokojnie… Jestem tutaj.', 'pl', 'sentence')).toEqual([
+      'Oddycham spokojnie…',
+      'Jestem tutaj.',
+    ])
+  })
 })
 
 describe('splitIntoSegments — abbreviation protection', () => {
@@ -109,6 +116,29 @@ describe('splitIntoSegments — abbreviation protection', () => {
       'Jest ładna.',
     ])
   })
+
+  it('normalizes decomposed Unicode first, so a decomposed ó does not fool the word-boundary check', () => {
+    // "ó" written as the decomposed pair o (U+006F) + combining acute (U+0301),
+    // rather than the precomposed U+00F3 — must still not match `w.` inside it.
+    const decomposedKrow = `krów.`.normalize('NFD')
+    expect(decomposedKrow).not.toBe('krów.') // sanity check: the input really is decomposed
+    expect(splitIntoSegments(`Widzę stado ${decomposedKrow} Idą powoli.`, 'pl', 'sentence')).toEqual([
+      'Widzę stado krów.',
+      'Idą powoli.',
+    ])
+  })
+
+  it('leaves a pre-existing U+E000 placeholder character in the input untouched', () => {
+    // U+E000 is the private-use placeholder this module uses internally to
+    // shield abbreviation dots. If the pasted text already contains a literal
+    // one (however unlikely), it must survive unchanged, not turn into '.'.
+    const weird = 'Dziwny\uE000znak. Kolejne np. zdanie. Ostatnie.'
+    expect(splitIntoSegments(weird, 'pl', 'sentence')).toEqual([
+      'Dziwny\uE000znak.',
+      'Kolejne np. zdanie.',
+      'Ostatnie.',
+    ])
+  })
 })
 
 describe('splitIntoSegments — quotes', () => {
@@ -158,15 +188,63 @@ describe('splitIntoSegments — line mode', () => {
     ])
   })
 
+  it('collapses internal whitespace runs within a line to single spaces', () => {
+    expect(splitIntoSegments('Jestem   bardzo\tspokojny.', 'pl', 'line')).toEqual([
+      'Jestem bardzo spokojny.',
+    ])
+  })
+
   it('returns an empty array for empty or whitespace-only text', () => {
     expect(splitIntoSegments('', 'pl', 'line')).toEqual([])
     expect(splitIntoSegments('   \n  \n ', 'pl', 'line')).toEqual([])
+  })
+
+  it('drops a line holding only a marker with nothing after it', () => {
+    expect(splitIntoSegments('Jestem spokojny.\n-\n2.\n•\nIdę dalej.', 'pl', 'line')).toEqual([
+      'Jestem spokojny.',
+      'Idę dalej.',
+    ])
+  })
+})
+
+describe('splitIntoSegments — zero-word segments never survive', () => {
+  it('drops an isolated paragraph of only punctuation in sentence mode', () => {
+    expect(splitIntoSegments('Pierwsza.\n\n* * *\n\nDruga.', 'pl', 'sentence')).toEqual([
+      'Pierwsza.',
+      'Druga.',
+    ])
+  })
+
+  it('drops an isolated paragraph of only an em dash in sentence mode', () => {
+    expect(splitIntoSegments('Pierwsza.\n\n—\n\nDruga.', 'pl', 'sentence')).toEqual([
+      'Pierwsza.',
+      'Druga.',
+    ])
+  })
+
+  it('drops an isolated paragraph of only emoji in sentence mode', () => {
+    expect(splitIntoSegments('Pierwsza.\n\n😀😀\n\nDruga.', 'pl', 'sentence')).toEqual([
+      'Pierwsza.',
+      'Druga.',
+    ])
+  })
+
+  it('drops a punctuation-only or emoji-only line in line mode', () => {
+    expect(splitIntoSegments('Pierwsza.\n* * *\n😀😀\nDruga.', 'pl', 'line')).toEqual([
+      'Pierwsza.',
+      'Druga.',
+    ])
   })
 })
 
 describe('splitIntoSegments — fallback without Intl.Segmenter', () => {
   beforeEach(() => {
-    vi.stubGlobal('Intl', { ...Intl, Segmenter: undefined })
+    // `{ ...Intl }` would only copy Intl's own enumerable properties, and its
+    // standard members (Collator, NumberFormat, etc.) are non-enumerable —
+    // that spread produces an object missing all of them. Inheriting from
+    // the real Intl instead keeps every other member working; only the own
+    // `Segmenter: undefined` property shadows the real one.
+    vi.stubGlobal('Intl', Object.assign(Object.create(Intl), { Segmenter: undefined }))
   })
 
   afterEach(() => {
@@ -220,6 +298,13 @@ describe('splitIntoSegments — fallback without Intl.Segmenter', () => {
     expect(splitIntoSegments('Powiedział: „Idź.” Poszedł.', 'pl', 'sentence')).toEqual([
       'Powiedział: „Idź.”',
       'Poszedł.',
+    ])
+  })
+
+  it('splits after a mid-text … followed by a capital letter', () => {
+    expect(splitIntoSegments('Oddycham spokojnie… Jestem tutaj.', 'pl', 'sentence')).toEqual([
+      'Oddycham spokojnie…',
+      'Jestem tutaj.',
     ])
   })
 })

@@ -34,6 +34,16 @@ describe('splitSegmentAt', () => {
     expect(() => splitSegmentAt(['Ala ma kota.'], 0, 3)).toThrow(RangeError)
     expect(() => splitSegmentAt(['Ala ma kota.'], 0, 10)).toThrow(RangeError)
   })
+
+  it('throws RangeError for a non-integer or NaN wordIndex', () => {
+    expect(() => splitSegmentAt(['Ala ma kota.'], 0, 1.5)).toThrow(RangeError)
+    expect(() => splitSegmentAt(['Ala ma kota.'], 0, Number.NaN)).toThrow(RangeError)
+  })
+
+  it('throws RangeError when either resulting part would have zero real words', () => {
+    // 'Idę dalej —' has 3 whitespace tokens, but the em dash alone is not a word
+    expect(() => splitSegmentAt(['Idę dalej —'], 0, 2)).toThrow(RangeError)
+  })
 })
 
 describe('mergeWithNext', () => {
@@ -71,6 +81,14 @@ describe('replaceSegment', () => {
   it('removes the segment when the new content is empty after trimming', () => {
     expect(replaceSegment(['A', 'B', 'C'], 1, '   ')).toEqual(['A', 'C'])
     expect(replaceSegment(['A', 'B', 'C'], 1, '')).toEqual(['A', 'C'])
+  })
+
+  it('collapses newlines and whitespace runs, since a segment is always a single line', () => {
+    expect(replaceSegment(['A', 'B', 'C'], 1, '  New\n  content   here  ')).toEqual([
+      'A',
+      'New content here',
+      'C',
+    ])
   })
 
   it('does not mutate the input array', () => {

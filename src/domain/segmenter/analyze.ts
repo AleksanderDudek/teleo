@@ -7,18 +7,29 @@ import {
 } from './constants'
 
 export type SegmentIssue =
-  | { kind: 'long'; index: number; words: number; suggestedSplitWord: number | null }
-  | { kind: 'tooLong'; index: number; words: number; suggestedSplitWord: number | null }
+  | { kind: 'long'; index: number; words: number; suggestedSplitWord: number }
+  | { kind: 'tooLong'; index: number; words: number; suggestedSplitWord: number }
   | { kind: 'short'; index: number; words: number; mergeWith: 'previous' | 'next' }
   | { kind: 'digits'; index: number }
   | { kind: 'tooMany'; count: number }
 
-/** Word index of the nearest `;`/`:`/`,` to the middle of `words`, or `null` if none carry it. */
-function nearestMiddleCandidate(words: readonly string[], marks: readonly string[]): number | null {
+// Closing quotes/brackets allowed between a mark and the end of its word,
+// e.g. the `;` in `koniec;”`. Mirrors the fallback sentence boundary's set.
+const CLOSING_QUOTES = ')\\]"\'’”»'
+const ENDS_WITH_SEMICOLON_OR_COLON = new RegExp(`[;:][${CLOSING_QUOTES}]*$`)
+const ENDS_WITH_COMMA = new RegExp(`,[${CLOSING_QUOTES}]*$`)
+
+/**
+ * Word index of the nearest end-of-word match for `pattern` to the middle of
+ * `words`, or `null` if none carry it. A mark only counts when it ends the
+ * word (optionally followed by closing quotes/brackets) — `8:00` and `J
+ * 3:16` don't count as colon split points.
+ */
+function nearestMiddleCandidate(words: readonly string[], pattern: RegExp): number | null {
   const middle = words.length / 2
   const candidates = words
     .slice(0, -1) // a mark on the very last word leaves nothing to split off
-    .flatMap((word, i) => (marks.some((mark) => word.includes(mark)) ? [i + 1] : []))
+    .flatMap((word, i) => (pattern.test(word) ? [i + 1] : []))
   if (candidates.length === 0) return null
   return candidates.reduce((best, candidate) =>
     Math.abs(candidate - middle) < Math.abs(best - middle) ? candidate : best,
@@ -36,10 +47,19 @@ export function suggestSplitPoint(segment: string): number | null {
   if (words.length < 2) return null
 
   return (
-    nearestMiddleCandidate(words, [';', ':']) ??
-    nearestMiddleCandidate(words, [',']) ??
+    nearestMiddleCandidate(words, ENDS_WITH_SEMICOLON_OR_COLON) ??
+    nearestMiddleCandidate(words, ENDS_WITH_COMMA) ??
     Math.round(words.length / 2)
   )
+}
+
+/** `suggestSplitPoint`, asserting non-null: any segment with words > LONG_SEGMENT_WORDS has ≥ 2 words. */
+function requireSplitPoint(segment: string): number {
+  const point = suggestSplitPoint(segment)
+  if (point === null) {
+    throw new Error('unreachable: a segment long enough to flag always has a split point')
+  }
+  return point
 }
 
 const HAS_DIGIT = /\p{Nd}/u
@@ -64,14 +84,14 @@ export function analyzeSegments(segments: readonly string[]): SegmentIssue[] {
         kind: 'tooLong',
         index,
         words: wordCount,
-        suggestedSplitWord: suggestSplitPoint(segment),
+        suggestedSplitWord: requireSplitPoint(segment),
       })
     } else if (wordCount > LONG_SEGMENT_WORDS) {
       issues.push({
         kind: 'long',
         index,
         words: wordCount,
-        suggestedSplitWord: suggestSplitPoint(segment),
+        suggestedSplitWord: requireSplitPoint(segment),
       })
     }
 

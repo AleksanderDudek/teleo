@@ -17,7 +17,7 @@ export const SHORT_SEGMENT_WORDS = 3
  * sentence segmenter runs. U+E000 (private-use area) — NOT U+2024 (ONE DOT
  * LEADER), which ICU's `Intl.Segmenter` still treats as a sentence terminator.
  */
-export const ABBREVIATION_DOT_PLACEHOLDER = ''
+export const ABBREVIATION_DOT_PLACEHOLDER = '\uE000'
 
 /**
  * Whole-word abbreviations whose trailing dot must not be read as a sentence
@@ -31,6 +31,7 @@ export const PROTECTED_ABBREVIATIONS: Readonly<Record<Lang, readonly string[]>> 
 
 /**
  * List markers stripped from the start of a line in line mode (spec §7.2/3):
- * bullet characters, or 1–3 digits followed by `.` or `)`, then whitespace.
+ * bullet characters, or 1–3 digits followed by `.` or `)`, then whitespace —
+ * or end of line, so a line holding only a marker reduces to empty.
  */
-export const LIST_MARKER = /^(?:[-*•·–—]|\d{1,3}[.)])\s+/
+export const LIST_MARKER = /^(?:[-*•·–—]|\d{1,3}[.)])(?:\s+|$)/

@@ -34,6 +34,22 @@ describe('suggestSplitPoint', () => {
   it('ignores punctuation attached to the very last word (nothing to split off)', () => {
     expect(suggestSplitPoint('a b c d;')).toBe(2)
   })
+
+  it('ignores a colon in the middle of a word, like a clock time', () => {
+    // no split marks at all here, so this must fall back to the middle boundary (3)
+    expect(suggestSplitPoint('Spotkajmy się o 8:00 rano dzisiaj')).toBe(3)
+  })
+
+  it('ignores a colon in the middle of a word, like a bible reference', () => {
+    // "3:16" is word 2 (a buggy mid-word match would wrongly suggest 2); with
+    // no valid mark, the correct answer is the middle boundary (4) instead
+    expect(suggestSplitPoint('J 3:16 mówi codziennie do nas wszystkich tutaj')).toBe(4)
+  })
+
+  it('still counts a mark followed only by closing quotes/brackets before the word ends', () => {
+    // colon+closing-quote at word 2 is a valid end-of-word mark, so it wins over the middle boundary
+    expect(suggestSplitPoint('a b:” c d e f')).toBe(2)
+  })
 })
 
 describe('analyzeSegments', () => {
@@ -49,10 +65,19 @@ describe('analyzeSegments', () => {
     ])
   })
 
-  it('does not flag an exactly-40-word or exactly-80-word segment', () => {
+  it('does not flag an exactly-40-word segment at all', () => {
     expect(analyzeSegments([words(40)])).toEqual([])
+  })
+
+  it('flags an exactly-80-word segment as long, not tooLong (the hard limit is only above 80)', () => {
     expect(analyzeSegments([words(80)])).toEqual([
       { kind: 'long', index: 0, words: 80, suggestedSplitWord: 40 },
+    ])
+  })
+
+  it('flags a 2-word segment as short (the boundary is under 3 words)', () => {
+    expect(analyzeSegments(['Boże mój.', 'Chwała Panu na wieki.'])).toEqual([
+      { kind: 'short', index: 0, words: 2, mergeWith: 'next' },
     ])
   })
 
