@@ -1,0 +1,35 @@
+# Teleo — project brief for Claude Code
+
+Local-first PWA that verifies spoken prayers/affirmations sentence by sentence (PL + EN).
+**Source of truth:** [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md). Decisions not covered by the spec:
+[docs/DECISIONS.md](docs/DECISIONS.md) — add an entry whenever you make a new one.
+
+## Stack
+Vite 8 · React 19 · TypeScript 6 (strict, `erasableSyntaxOnly`, `noUncheckedIndexedAccess`) ·
+react-router 8 data mode (`createHashRouter`) · Tailwind CSS 4 (CSS-first tokens in `src/index.css`) ·
+Zustand 5 · Dexie 4 (IndexedDB) · vite-plugin-pwa (Workbox) · i18next · Vitest 5 · Playwright · oxlint.
+Deployed as static files to GitHub Pages under `/teleo/` — **no backend, no paid services, no API keys,
+no analytics**.
+
+## Commands
+```bash
+npm run dev          # dev server  → http://localhost:5173/teleo/
+npm run build        # tsc -b + vite build → dist/
+npm run preview      # serve dist → http://localhost:4173/teleo/
+npm run test         # vitest (watch); CI: npm run test -- --run
+npm run test:e2e     # playwright (builds + previews automatically)
+npm run lint         # oxlint
+npm run typecheck    # tsc -b
+```
+
+## Layout & conventions
+- `src/domain/**` — pure business logic (segmenter, matcher, gamification, session, time, speech
+  interfaces). No DOM, no Dexie. Every rule lives here and is unit-tested (`*.test.ts`, Node env).
+- `src/db/` — Dexie schema + row types. `src/services/` — DB-coupled orchestration (one Dexie
+  transaction per user event), tested with `fake-indexeddb`.
+- `src/screens/<Name>/` — route screens; `src/components/` — shared UI; `src/hooks/`, `src/stores/`.
+- UI strings only via i18n keys (`src/i18n/pl.json` + `en.json`, identical key sets — enforced by a test).
+- Code, comments, commits in English. Imports use the `@/` alias for `src/`.
+- No `enum`/`namespace`; prefer string-literal unions and `as const` objects.
+- Matcher = heart of the app: change it only test-first (`src/domain/matcher/*.test.ts`).
+- Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).
