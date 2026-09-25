@@ -80,3 +80,57 @@ Each entry: **decision** — why.
 26. **PL affirmation forms**: the builtin "Poranek" set has masculine, feminine and neutral variants;
     the neutral variant rephrases gendered sentences ("Zachowuję spokój i skupienie."). Skipping
     onboarding selects the neutral form.
+27. **Default pinned session**: Polish + prayers/both → "Dziesiątka różańca"; Polish + affirmations →
+    "Poranne afirmacje"; English + affirmations/both → "Morning affirmations"; English + prayers →
+    "Decade of the Rosary"; own texts → none (spec §13 market defaults, chosen via onboarding).
+28. **Deleting a user text** removes the text, its segments, per-text stats and per-text achievements
+    and drops it from session templates; attempts, daily stats and the XP ledger stay (history).
+29. **First-try rate** of a run = first-try accepts / (accepted + skipped): a skipped sentence counts as
+    a failed first try.
+30. **Text day streak** (`text.streak.*`) advances on full-text repetitions, not on single sentences.
+31. **Freeze bridging also runs inside the first accepted attempt of a day** (not only at start-up): an
+    installed PWA resumed from memory could otherwise compute the streak multiplier and the 7-day
+    freeze award on a broken chain.
+
+## Matcher details (spec §6 left open)
+
+32. Quote marks around a word don't block contraction expansion (`‘I’m’` → "i am"); `'re → are` for
+    any word; `'d → would` only after pronouns/question words (so KJV `Hallow'd` near-matches
+    "hallowed").
+33. Digit tokens never near-match (`10000` ≠ `10001`); two digit groups merge only across a
+    (narrow) no-break space followed by exactly three digits.
+34. Polish number words are also recognised without diacritics (`dwadziescia` → 20), except `piec`
+    (a common noun).
+35. A one-letter difference in a longer word is a tolerated recognition error, which also accepts a
+    different grammatical gender (`wdzięczna` for `wdzięczny`) — accepted trade-off of spec §6.3.
+36. `empty`/`emptySource` results carry zero counts, no ops, index −1 and an empty transcript; the
+    transcript of a result is the alternative exactly as received.
+
+## Segmenter details
+
+37. Abbreviation protection (spec §7.2) means a sentence ending in `itd.`, `itp.`, `r.` or `Dr.` merges
+    with the next one; the user can split it in the editor.
+38. ICU does not treat `…` as a sentence end; the segmenter splits after `…` + capital letter itself.
+    Zero-word segments (`* * *`, `—`, emoji-only) are dropped; split points only count punctuation at
+    the end of a word (`8:00` is not one).
+
+## Live mode (owner request, 2026-09-25)
+
+39. **Live mode = hands-free, on by default.** One continuous Web Speech recognition per session; each
+    sentence is checked in real time and the next one starts listening immediately. Tap mode (one
+    utterance per tap) stays available via the toggle in the player; with a non-streaming engine
+    (Whisper) hands-free falls back to the spec's "auto-listen 600 ms after an accepted sentence".
+40. **Acceptance rules are unchanged** (≥ 95 %, zero extra words); only the moment of evaluation
+    changes. A sentence is accepted from interim results when every word was heard; below 100 %
+    coverage (≥ 20-word sentences) only once its last word was heard, or on a pause.
+41. **Spill-over is not "extra"**: words after the matched sentence belong to the next one. Up to 3
+    leading words repeating the previous sentence's tail may be skipped (cost 0.5 each, so a genuine
+    repetition such as `I am calm ×3` is never swallowed).
+42. **Failed attempts in live mode**: a pause ≥ 1.5 s after a wrong attempt, more than `sentence + 8`
+    words without a match, or an immediate restart of the sentence after a slip (restart detection)
+    each record one rejected attempt; the user just says the sentence again — listening never stops.
+43. **The "Great!" beat never blocks**: the praise pill and a check on the previous line appear while
+    the next sentence is already shown and heard. Achievements unlocked mid-session appear as a quiet
+    line under the praise (toasts would cover the text); the summary lists everything.
+44. **Repetition counter** comes from `PlanEntry.item`: repeated one-sentence items show pips `k/N`,
+    multi-sentence items show `Title · k/N`.
