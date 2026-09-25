@@ -58,6 +58,11 @@ describe('compareWords', () => {
     expect(compareWords('abcd', 'abxy')).toBe('none')
   })
 
+  it('judges words of different lengths by the longer one', () => {
+    expect(compareWords('naszego', 'naszeg')).toBe('near')
+    expect(compareWords('wieczór', 'wieczorami')).toBe('none')
+  })
+
   it('measures similarity after stripping diacritics', () => {
     expect(compareWords('wdzięczna', 'wdzieczny')).toBe('near')
   })

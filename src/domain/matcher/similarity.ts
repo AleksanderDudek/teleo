@@ -31,16 +31,24 @@ export function levenshtein(a: string, b: string): number {
 }
 
 /**
- * `near` = the same word up to diacritics, or (both ≥ 4 letters) a character
- * similarity `1 − distance / longer length` of at least 0.8.
+ * The `near` rule for two words already stripped of diacritics: equal, or both
+ * ≥ 4 letters with a similarity `1 − distance / longer length` of at least 0.8.
  */
+export function isNearMatch(bareSource: string, bareSpoken: string): boolean {
+  if (bareSource === bareSpoken) return true
+  if (bareSource.length < MIN_FUZZY_LENGTH || bareSpoken.length < MIN_FUZZY_LENGTH) return false
+  const longest = Math.max(bareSource.length, bareSpoken.length)
+  // similarity ≥ 4/5 in integers, so the 0.8 boundary is exact.
+  const similarEnough = (distance: number) => (longest - distance) * 5 >= longest * 4
+  // The distance is at least the length difference: skip the DP when that alone is too much.
+  return (
+    similarEnough(Math.abs(bareSource.length - bareSpoken.length)) &&
+    similarEnough(levenshtein(bareSource, bareSpoken))
+  )
+}
+
+/** `match` when identical, `near` when only a speech-recognition slip apart, else `none`. */
 export function compareWords(source: string, spoken: string): 'match' | 'near' | 'none' {
   if (source === spoken) return 'match'
-  const a = stripDiacritics(source)
-  const b = stripDiacritics(spoken)
-  if (a === b) return 'near'
-  if (a.length < MIN_FUZZY_LENGTH || b.length < MIN_FUZZY_LENGTH) return 'none'
-  const longest = Math.max(a.length, b.length)
-  // similarity ≥ 4/5 in integers, so the 0.8 boundary is exact.
-  return (longest - levenshtein(a, b)) * 5 >= longest * 4 ? 'near' : 'none'
+  return isNearMatch(stripDiacritics(source), stripDiacritics(spoken)) ? 'near' : 'none'
 }
