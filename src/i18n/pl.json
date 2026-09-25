@@ -579,7 +579,8 @@
       "vendorMicrosoft": "Microsoft",
       "vendorApple": "Apple",
       "vendorGeneric": "dostawca przeglądarki"
-    }
+    },
+    "offline": "Jesteś offline. Ta przeglądarka potrzebuje internetu do rozpoznawania mowy – połącz się ponownie lub użyj rozpoznawania na urządzeniu, jeśli jest dostępne."
   },
   "achievements": {
     "text": {

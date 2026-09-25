@@ -63,7 +63,8 @@ test.describe('data', () => {
     await expect(page.getByText('1 dzień z rzędu')).toBeVisible({ timeout: 15_000 })
   })
 
-  test('the installed app shell opens offline', async ({ page, context }) => {
+  test('the installed app shell opens offline and explains that speech needs the internet', async ({ page, context }) => {
+    await installFakeSpeech(page)
     await finishOnboarding(page)
     await page.evaluate(async () => {
       await navigator.serviceWorker.ready
@@ -72,6 +73,8 @@ test.describe('data', () => {
     await context.setOffline(true)
     await page.reload()
     await expect(page.getByRole('button', { name: 'Rozpocznij', exact: true })).toBeVisible()
+    await page.getByRole('button', { name: 'Rozpocznij', exact: true }).click()
+    await expect(page.getByText(/Jesteś offline/)).toBeVisible()
     await context.setOffline(false)
   })
 

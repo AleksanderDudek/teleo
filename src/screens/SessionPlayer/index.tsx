@@ -14,6 +14,7 @@ import { ProgressBar } from '@/components/ui/Progress'
 import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
+import { useOnline } from '@/hooks/useOnline'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
@@ -69,6 +70,8 @@ function Player({ data }: { data: PlayerData }) {
 
   const engineState = useSpeechEngine(SPEECH_LANG[lang])
   const engine = engineState.status === 'ready' ? engineState.engine : null
+  const online = useOnline()
+  const offlineWarning = !online && engine?.id === 'webspeech' && engineState.status === 'ready' && !engineState.onDevice
   // Live mode needs a streaming recogniser (Web Speech); others fall back to tap + auto-listen.
   const live = app.handsFree && engine?.id === 'webspeech'
 
@@ -354,6 +357,11 @@ function Player({ data }: { data: PlayerData }) {
                 <HowWeCount />
               </div>
             </div>
+          )}
+          {offlineWarning && (
+            <p role="status" className="mb-3 rounded-xl bg-near-soft px-4 py-3 text-near">
+              {t('speech.offline')}
+            </p>
           )}
           {speechError && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">

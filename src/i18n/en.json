@@ -555,7 +555,8 @@
       "vendorMicrosoft": "Microsoft",
       "vendorApple": "Apple",
       "vendorGeneric": "the browser vendor"
-    }
+    },
+    "offline": "You’re offline. This browser needs the internet to recognise speech — reconnect, or use on-device recognition where available."
   },
   "achievements": {
     "text": {
