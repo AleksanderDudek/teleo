@@ -8,6 +8,7 @@ import {
   type EntryState,
   type TemplateItem,
 } from '@/domain/session'
+import type { MemoryLevel } from '@/domain/memory/mask'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import { newId } from '@/lib/id'
 import { readSettings } from './settings'
@@ -25,8 +26,8 @@ export class SessionError extends Error {
 }
 
 export type StartRunInput =
-  | { kind: 'template'; templateId: string }
-  | { kind: 'text'; textId: string }
+  | { kind: 'template'; templateId: string; memoryLevel?: MemoryLevel }
+  | { kind: 'text'; textId: string; memoryLevel?: MemoryLevel }
   | { kind: 'daily'; title: string }
 
 /** Active segments for every text referenced by `items` (texts that no longer exist are absent). */
@@ -173,7 +174,8 @@ export async function startRun(input: StartRunInput, now = Date.now()): Promise<
     cursor: 0,
     xpEarned: 0,
     lastActivityAt: now,
-    mode: 'read',
+    mode: input.kind !== 'daily' && input.memoryLevel ? 'memory' : 'read',
+    ...(input.kind !== 'daily' && input.memoryLevel ? { memoryLevel: input.memoryLevel } : {}),
   }
   await db.transaction('rw', [db.sessionRuns, db.sessionTemplates], async () => {
     await markRunningRunsPartial()

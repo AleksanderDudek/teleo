@@ -3,7 +3,7 @@ import { builtinSessionId, builtinTextId } from '@/content'
 import { db } from '@/db/schema'
 import type { SessionRun } from '@/db/types'
 import { resetDb } from '@/test/db'
-import { finishRun, reconcileStreakFreezes, recordAttempt, skipEntry, type Evaluation } from './practice'
+import { finishRun, markHinted, reconcileStreakFreezes, recordAttempt, skipEntry, type Evaluation } from './practice'
 import { seedBuiltins } from './seed'
 import { startRun } from './sessions'
 import { readSettings, updateAppSettings, updateGameState } from './settings'
@@ -165,5 +165,34 @@ describe('per-text rules on user texts', () => {
     expect(keys.has(`text.reps.7:${text.id}`)).toBe(true)
     expect(keys.has(`text.perfect:${text.id}`)).toBe(true)
     expect(keys.has('session.10')).toBe(true)
+  })
+})
+
+describe('memory mode (spec §7.3)', () => {
+  const sayAll = async (runId: string, total: number, hintAt?: number) => {
+    for (let i = 0; i < total; i++) {
+      if (i === hintAt) await markHinted(runId, i)
+      await recordAttempt({ runId, entryIndex: i, evaluation: ok, engine: 'webspeech', durationMs: 1, now: at(25, 12, i) })
+    }
+  }
+
+  it('credits a full repetition at the hidden level with text.memory', async () => {
+    const textId = builtinTextId('pl.aniele-bozy')
+    const run = await startRun({ kind: 'text', textId, memoryLevel: 'hidden' }, at(25))
+    expect(run).toMatchObject({ mode: 'memory', memoryLevel: 'hidden' })
+    await sayAll(run.id, run.plan.length)
+    expect((await db.textStats.get(textId))?.memoryRuns).toBe(1)
+    expect((await unlockedKeys()).has(`text.memory:${textId}`)).toBe(true)
+  })
+
+  it('gives no memory credit when a hint was used or the level is easier', async () => {
+    const textId = builtinTextId('pl.aniele-bozy')
+    const hinted = await startRun({ kind: 'text', textId, memoryLevel: 'hidden' }, at(25))
+    await sayAll(hinted.id, hinted.plan.length, 1)
+    expect((await db.sessionRuns.get(hinted.id))?.entries[1]?.hinted).toBe(true)
+    const easier = await startRun({ kind: 'text', textId, memoryLevel: 'initials' }, at(25, 13))
+    await sayAll(easier.id, easier.plan.length)
+    expect((await db.textStats.get(textId))?.memoryRuns ?? 0).toBe(0)
+    expect((await db.textStats.get(textId))?.repetitions).toBe(2)
   })
 })

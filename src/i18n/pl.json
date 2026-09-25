@@ -271,7 +271,9 @@
     "listeningLive": "Słucham – mów we własnym tempie",
     "pausedLive": "Słuchanie wstrzymane",
     "resumeListening": "Wznów słuchanie",
-    "pauseListening": "Wstrzymaj słuchanie"
+    "pauseListening": "Wstrzymaj słuchanie",
+    "listen": "Posłuchaj zdania",
+    "listening": "Czytam na głos…"
   },
   "summary": {
     "rubric": "Podsumowanie",
@@ -429,7 +431,9 @@
     "deleteConfirm": "Usuń wszystko",
     "sectionAbout": "O aplikacji",
     "about": "Teleo {{version}} – bezpłatne i otwarte, działa w całości w Twojej przeglądarce.",
-    "specLink": "Jak działa Teleo"
+    "specLink": "Jak działa Teleo",
+    "listenFirst": "Najpierw posłuchaj",
+    "listenFirstHint": "Teleo czyta każde zdanie na głos, zanim je powiesz – pomocne przy nauce nowego tekstu."
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -849,5 +853,28 @@
     "xp": "+{{xp}} XP",
     "freezeEarned": "Zdobywasz zamrożenie serii ❄",
     "goalReached": "Cel dzienny osiągnięty! +{{xp}} XP"
+  },
+  "memory": {
+    "button": "Z pamięci",
+    "title": "Powiedz z pamięci",
+    "body": "Wybierz, ile tekstu ma zostać widoczne. Słowa pojawiają się, gdy wypowiadasz je poprawnie.",
+    "start": "Rozpocznij",
+    "badge": "Z pamięci · {{level}}",
+    "hint": "Pokaż tekst (przytrzymaj)",
+    "hintNote": "Podejrzeć można – zdanie z podpowiedzią nie liczy się do osiągnięcia „Na pamięć”.",
+    "levels": {
+      "initials": {
+        "name": "Pierwsze litery",
+        "desc": "Widać tylko pierwszą literę każdego słowa."
+      },
+      "alternate": {
+        "name": "Co drugie słowo",
+        "desc": "Co drugie słowo jest ukryte."
+      },
+      "hidden": {
+        "name": "Tekst ukryty",
+        "desc": "Nic nie widać. Ukończenie tekstu w tym trybie daje osiągnięcie „Na pamięć”."
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Award, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { maskWords, type MemoryLevel } from '@/domain/memory/mask'
 import { cn } from '@/lib/cn'
 import type { RepetitionLabel } from './repetition'
 
@@ -16,6 +17,10 @@ interface SegmentStageProps {
   /** Unlocked goal/achievements/level from the last sentence, shown quietly. */
   unlockLines: readonly string[]
   repetition?: RepetitionLabel
+  /** Memory mode: mask the text (words said so far are revealed). */
+  memoryLevel?: MemoryLevel
+  /** Hint held down: show the full text. */
+  reveal?: boolean
 }
 
 /**
@@ -23,9 +28,11 @@ interface SegmentStageProps {
  * The "Great!" beat never blocks: the next sentence is shown at once, so a
  * fluent speaker can keep going.
  */
-export function SegmentStage({ previous, previousDone, current, next, covered, praiseKey, unlockLines, repetition }: SegmentStageProps) {
+export function SegmentStage({ previous, previousDone, current, next, covered, praiseKey, unlockLines, repetition, memoryLevel, reveal }: SegmentStageProps) {
   const { t } = useTranslation()
   const words = current.split(/\s+/)
+  const masked = memoryLevel && !reveal ? maskWords(current, memoryLevel, covered) : null
+  const nextText = next && memoryLevel ? maskWords(next, memoryLevel).map((w) => w.text).join(' ') : next
   return (
     <div className="relative flex w-full max-w-2xl flex-col items-center gap-5 text-center">
       <div className="flex min-h-9 flex-col items-center justify-center gap-1.5">
@@ -71,7 +78,14 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
       )}
 
       <p data-testid="segment-text" className="scripture">
-        {covered
+        {masked
+          ? masked.map((word, i) => (
+              <span key={i} className={cn('transition-colors duration-300', word.masked ? 'tracking-[0.08em] text-ink-faint' : 'text-ink')}>
+                {word.text}
+                {i < masked.length - 1 ? ' ' : ''}
+              </span>
+            ))
+          : covered
           ? words.map((word, i) => (
               <span key={i} className={cn('transition-colors duration-300', covered[i] ? 'text-ink' : 'text-ink-soft')}>
                 {word}
@@ -83,7 +97,7 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
 
       <p className="line-clamp-2 min-h-12 max-w-xl font-serif text-lg text-ink-faint opacity-60">
         {next && <span className="sr-only">{t('player.next')}: </span>}
-        {next}
+        {nextText}
       </p>
     </div>
   )

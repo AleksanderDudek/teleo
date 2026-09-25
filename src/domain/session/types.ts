@@ -36,6 +36,8 @@ export interface EntryState {
   firstTry: boolean
   /** XP awarded for this entry (segment XP incl. bonus and multiplier). */
   xp: number
+  /** Memory mode: the full text was revealed while saying it (no memory credit). */
+  hinted?: boolean
 }
 
 /** Active (non-archived) segments of each text, in reading order. */

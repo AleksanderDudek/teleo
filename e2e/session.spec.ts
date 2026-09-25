@@ -78,3 +78,30 @@ test.describe('live mode', () => {
     await expect(page.getByText('96%')).toBeVisible() // 25 of 26 on the first try
   })
 })
+
+test.describe('memory mode', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('a text said from memory at the hidden level earns “Na pamięć”', async ({ page }) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page, { live: true, wordDelayMs: 20 })
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    await page.getByRole('link', { name: /Chwała Ojcu/ }).click()
+    await page.getByRole('button', { name: 'Z pamięci' }).click()
+    await page.getByText('Tekst ukryty', { exact: true }).click()
+    await page.getByRole('button', { name: 'Rozpocznij' }).click()
+    await expect(page).toHaveURL(/#\/play\//)
+    await expect(page.getByText('Z pamięci · Tekst ukryty')).toBeVisible()
+    await expect(page.getByTestId('segment-text')).not.toContainText('Chwała')
+    // The fake speaker knows the prayer by heart even though the screen shows only dots.
+    await page.evaluate(() => {
+      const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
+      fake.queue.push('Chwała Ojcu i Synowi, i Duchowi Świętemu.', 'Jak była na początku, teraz i zawsze, i na wieki wieków. Amen.')
+    })
+    await page.getByRole('button', { name: 'Mów' }).click()
+    await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
+    await page.waitForURL(/summary$/, { timeout: 60_000 })
+    await expect(page.getByText('Na pamięć')).toBeVisible()
+  })
+})

@@ -255,6 +255,10 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       const perfect = indices.length > 1 && indices.every((i) => run.entries[i]?.firstTry)
       textStats.repetitions += 1
       if (perfect) textStats.perfectRuns += 1
+      // Memory credit: said entirely from memory at the hardest level, without revealing it.
+      if (run.mode === 'memory' && run.memoryLevel === 'hidden' && indices.every((i) => !run.entries[i]?.hinted)) {
+        textStats.memoryRuns += 1
+      }
       const dayStreak = nextTextDayStreak(
         { current: textStats.currentDayStreak, best: textStats.bestDayStreak, lastDayKey: textStats.lastDayKey },
         dayKey,
@@ -316,6 +320,17 @@ export async function skipEntry(runId: string, entryIndex: number, now = Date.no
     const stats = await db.textStats.get(planEntry.textId)
     if (stats) await db.textStats.put({ ...stats, consecutiveFirstTry: 0 })
     return run
+  })
+}
+
+/** Memory mode: the user revealed the current sentence (press-and-hold hint). */
+export async function markHinted(runId: string, entryIndex: number): Promise<void> {
+  await db.transaction('rw', db.sessionRuns, async () => {
+    const run = await db.sessionRuns.get(runId)
+    const entry = run?.entries[entryIndex]
+    if (!run || !entry || entry.hinted) return
+    entry.hinted = true
+    await db.sessionRuns.put(run)
   })
 }
 

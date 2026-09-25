@@ -265,7 +265,9 @@
     "listeningLive": "Listening — speak at your own pace",
     "pausedLive": "Listening paused",
     "resumeListening": "Resume listening",
-    "pauseListening": "Pause listening"
+    "pauseListening": "Pause listening",
+    "listen": "Listen to the sentence",
+    "listening": "Reading aloud…"
   },
   "summary": {
     "rubric": "Summary",
@@ -421,7 +423,9 @@
     "deleteConfirm": "Delete everything",
     "sectionAbout": "About",
     "about": "Teleo {{version}} — free and open, runs entirely in your browser.",
-    "specLink": "How Teleo works"
+    "specLink": "How Teleo works",
+    "listenFirst": "Listen first",
+    "listenFirstHint": "Teleo reads each sentence aloud before you say it — helpful when learning a new text."
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -825,5 +829,28 @@
     "xp": "+{{xp}} XP",
     "freezeEarned": "You earned a streak freeze ❄",
     "goalReached": "Daily goal reached! +{{xp}} XP"
+  },
+  "memory": {
+    "button": "From memory",
+    "title": "Say it from memory",
+    "body": "Choose how much of the text stays visible. Words appear as you say them correctly.",
+    "start": "Start",
+    "badge": "From memory · {{level}}",
+    "hint": "Show the text (hold)",
+    "hintNote": "Peeking is fine — a sentence you peeked at doesn’t count towards “By Heart”.",
+    "levels": {
+      "initials": {
+        "name": "First letters",
+        "desc": "Only the first letter of each word is shown."
+      },
+      "alternate": {
+        "name": "Every other word",
+        "desc": "Every second word is hidden."
+      },
+      "hidden": {
+        "name": "Hidden text",
+        "desc": "Nothing is shown. Completing a text this way earns “By Heart”."
+      }
+    }
   }
 }

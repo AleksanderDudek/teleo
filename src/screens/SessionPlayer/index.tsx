@@ -1,5 +1,5 @@
-import { Radio, X } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { Eye, Radio, Volume2, X } from 'lucide-react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useBlocker, useNavigate, useParams } from 'react-router'
 import { DiffLegend, DiffView } from '@/components/speech/DiffView'
@@ -18,7 +18,8 @@ import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
 import { cn } from '@/lib/cn'
-import { finishRun, pauseRun, recordAttempt, skipEntry } from '@/services/practice'
+import { speak, stopSpeaking, ttsSupported } from '@/lib/tts'
+import { finishRun, markHinted, pauseRun, recordAttempt, skipEntry } from '@/services/practice'
 import { updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
 import { celebrationLines } from './celebrate'
@@ -77,6 +78,8 @@ function Player({ data }: { data: PlayerData }) {
   const [askPrivacy, setAskPrivacy] = useState(false)
   const [leaving, setLeaving] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [speaking, setSpeaking] = useState(false)
+  const [hint, setHint] = useState(false)
   const allowLeave = useRef(false)
   const finishing = useRef(false)
   const timers = useRef<number[]>([])
@@ -137,7 +140,7 @@ function Player({ data }: { data: PlayerData }) {
     try {
       const ended = await record(index, result, speech.durationMs, speech.engine)
       if (ended) await finish()
-      else if (result.accepted && app.handsFree) later(() => void capture.start(), AUTO_LISTEN_DELAY_MS)
+      else if (result.accepted && app.handsFree && !app.listenFirst) later(() => void capture.start(), AUTO_LISTEN_DELAY_MS)
     } finally {
       setBusy(false)
     }
@@ -149,12 +152,46 @@ function Player({ data }: { data: PlayerData }) {
   const speechError = live ? liveSession.error : capture.error
 
   const stopAll = () => {
+    stopSpeaking()
     liveSession.stop()
     capture.cancel()
   }
 
+  // --- listen first (spec §7.3) -------------------------------------------------
+  /** Reads the current sentence aloud with the microphone paused, so it can't hear itself. */
+  const readAloud = async (auto: boolean) => {
+    if (!segment || speaking) return
+    const resumeLive = live && liveSession.phase !== 'idle'
+    const resumeTap = !live && (capture.phase === 'listening' || (auto && app.handsFree && praiseKey > 0))
+    liveSession.stop()
+    capture.cancel()
+    setSpeaking(true)
+    await speak(segment.content, SPEECH_LANG[lang])
+    setSpeaking(false)
+    if (resumeLive) void liveSession.start()
+    else if (resumeTap) void capture.start()
+  }
+  const readAloudRef = useRef(readAloud)
+  useLayoutEffect(() => {
+    readAloudRef.current = readAloud
+  })
+  const spokenIndex = useRef(-1)
+  useEffect(() => {
+    if (!app.listenFirst || finished || spokenIndex.current === index) return
+    spokenIndex.current = index
+    void readAloudRef.current(true)
+  }, [app.listenFirst, finished, index])
+  useEffect(() => () => stopSpeaking(), [])
+
+  // --- memory mode --------------------------------------------------------------
+  const memoryLevel = run.mode === 'memory' ? run.memoryLevel : undefined
+  const showHint = (on: boolean) => {
+    setHint(on)
+    if (on && !run.entries[index]?.hinted) void markHinted(run.id, index)
+  }
+
   const toggleMic = () => {
-    if (busy || finished) return
+    if (busy || finished || speaking) return
     const idle = live ? liveSession.phase === 'idle' : capture.phase === 'idle'
     if (idle && !app.speechPrivacyAcknowledged) return setAskPrivacy(true)
     if (live) {
@@ -230,9 +267,12 @@ function Player({ data }: { data: PlayerData }) {
   const repetition = repetitionLabel(run.plan, index, (id) => texts.get(id)?.title ?? '')
   const done = run.entries.filter((e) => e.status !== 'pending').length
   const covered = live && listening ? liveSession.progress?.covered : undefined
+  const memoryBadge = memoryLevel ? t('memory.badge', { level: t(`memory.levels.${memoryLevel}.name`) }) : null
   const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
 
-  const status = starting
+  const status = speaking
+    ? t('player.listening')
+    : starting
     ? t('speech.starting')
     : listening
       ? live
@@ -262,8 +302,10 @@ function Player({ data }: { data: PlayerData }) {
             <p className="tabular text-xs font-semibold text-gold-ink">{t('player.xp', { xp: run.xpEarned })}</p>
           </div>
         </div>
-        {engine?.id === 'webspeech' && (
-          <div className="mx-auto mt-2 flex max-w-2xl justify-end">
+        {(engine?.id === 'webspeech' || memoryBadge) && (
+          <div className="mx-auto mt-2 flex max-w-2xl items-center justify-between gap-2">
+            <span className="text-xs font-semibold text-gold-ink">{memoryBadge}</span>
+            {engine?.id === 'webspeech' && (
             <button
               type="button"
               role="switch"
@@ -278,6 +320,7 @@ function Player({ data }: { data: PlayerData }) {
               <Radio aria-hidden className="size-3.5" />
               {app.handsFree ? t('player.liveMode') : t('player.tapMode')}
             </button>
+            )}
           </div>
         )}
       </header>
@@ -293,6 +336,8 @@ function Player({ data }: { data: PlayerData }) {
             praiseKey={praiseKey}
             unlockLines={unlockLines}
             repetition={repetition}
+            memoryLevel={memoryLevel}
+            reveal={hint}
           />
         )}
 
@@ -327,7 +372,38 @@ function Player({ data }: { data: PlayerData }) {
         {!live && listening && capture.transcript && (
           <p className="line-clamp-2 max-w-xl text-center font-serif text-ink-soft italic">{capture.transcript}</p>
         )}
-        <MicButton listening={listening} busy={busy || starting} disabled={!engine || finished} onClick={toggleMic} />
+        <div className="flex items-center gap-5">
+          {ttsSupported() && segment ? (
+            <IconButton label={t('player.listen')} onClick={() => void readAloud(false)} disabled={speaking || finished} className="size-12 border border-line bg-surface">
+              <Volume2 aria-hidden className="size-5" />
+            </IconButton>
+          ) : (
+            <span className="size-12" />
+          )}
+          <MicButton listening={listening} busy={busy || starting} disabled={!engine || finished || speaking} onClick={toggleMic} />
+          {memoryLevel ? (
+            <button
+              type="button"
+              aria-label={t('memory.hint')}
+              title={t('memory.hint')}
+              onPointerDown={() => showHint(true)}
+              onPointerUp={() => setHint(false)}
+              onPointerLeave={() => setHint(false)}
+              onPointerCancel={() => setHint(false)}
+              onKeyDown={(event) => {
+                if (event.key !== 'Enter' && event.key !== ' ') return
+                event.preventDefault()
+                showHint(true)
+                later(() => setHint(false), 2500)
+              }}
+              className={cn('inline-flex size-12 touch-none items-center justify-center rounded-full border border-line bg-surface text-ink-soft select-none', hint && 'border-gold text-gold-ink')}
+            >
+              <Eye aria-hidden className="size-5" />
+            </button>
+          ) : (
+            <span className="size-12" />
+          )}
+        </div>
         <p className="h-5 text-sm font-medium text-ink-soft">{status}</p>
         {failed >= SKIP_AFTER_FAILS && (live || !listening) && (
           <div className="flex flex-col items-center gap-1">

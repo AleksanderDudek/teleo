@@ -1,4 +1,4 @@
-import { Copy, Eye, EyeOff, Pencil, Pin, PinOff, Play, Plus, RotateCcw, Trash2 } from 'lucide-react'
+import { Brain, Copy, Eye, EyeOff, Pencil, Pin, PinOff, Play, Plus, RotateCcw, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
@@ -6,10 +6,12 @@ import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Chip } from '@/components/ui/Chip'
 import { Dialog } from '@/components/ui/Dialog'
+import { MemoryStartDialog } from '@/components/MemoryStartDialog'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar } from '@/components/ui/Progress'
 import type { SessionTemplate } from '@/db/types'
+import type { MemoryLevel } from '@/domain/memory/mask'
 import { useResumableRun, useTemplates, type TemplateEntry } from '@/hooks/useSessions'
 import { cn } from '@/lib/cn'
 import {
@@ -34,11 +36,12 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
   const navigate = useNavigate()
   const { template } = entry
   const [busy, setBusy] = useState(false)
+  const [choosingMemory, setChoosingMemory] = useState(false)
 
-  const start = async () => {
+  const start = async (memoryLevel?: MemoryLevel) => {
     setBusy(true)
     try {
-      const run = await startRun({ kind: 'template', templateId: template.id })
+      const run = await startRun({ kind: 'template', templateId: template.id, memoryLevel })
       navigate(`/play/${run.id}`)
     } catch (error) {
       if (error instanceof SessionError) toast({ kind: 'error', title: t('sessions.cantStart') })
@@ -83,6 +86,9 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
             {t('sessions.edit')}
           </ButtonLink>
         )}
+        <Button size="sm" variant="ghost" disabled={entry.segmentCount === 0} onClick={() => setChoosingMemory(true)} icon={<Brain aria-hidden className="size-4" />}>
+          {t('memory.button')}
+        </Button>
         <Button
           size="sm"
           variant="ghost"
@@ -109,6 +115,14 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
           </Button>
         )}
       </div>
+      <MemoryStartDialog
+        open={choosingMemory}
+        onClose={() => setChoosingMemory(false)}
+        onStart={(level) => {
+          setChoosingMemory(false)
+          void start(level)
+        }}
+      />
     </Card>
   )
 }

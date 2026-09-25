@@ -1,3 +1,4 @@
+import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
 import type {
   ContentFocus,
@@ -74,6 +75,8 @@ export interface SessionRun {
   xpEarned: number
   lastActivityAt: number
   mode: 'read' | 'memory'
+  /** Memory mode difficulty (spec §7.3); only the "hidden" level earns `text.memory`. */
+  memoryLevel?: MemoryLevel
 }
 
 export interface Attempt {

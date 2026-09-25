@@ -1,4 +1,4 @@
-import { Copy, Eye, EyeOff, Mic, Pencil, Trash2 } from 'lucide-react'
+import { Brain, Copy, Eye, EyeOff, Mic, Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
@@ -6,7 +6,9 @@ import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Dialog } from '@/components/ui/Dialog'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { MemoryStartDialog } from '@/components/MemoryStartDialog'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
+import type { MemoryLevel } from '@/domain/memory/mask'
 import { useText } from '@/hooks/useText'
 import { startRun } from '@/services/sessions'
 import { copyTextAsOwn, deleteUserText, setTextArchived } from '@/services/texts'
@@ -29,6 +31,7 @@ export default function TextDetail() {
   const view = useText(textId)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [starting, setStarting] = useState(false)
+  const [choosingMemory, setChoosingMemory] = useState(false)
 
   if (view === undefined) return null
   if (view === null) {
@@ -48,10 +51,10 @@ export default function TextDetail() {
     ? new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium' }).format(stats.lastPracticedAt)
     : t('textDetail.never')
 
-  const sayNow = async () => {
+  const sayNow = async (memoryLevel?: MemoryLevel) => {
     setStarting(true)
     try {
-      const run = await startRun({ kind: 'text', textId: text.id })
+      const run = await startRun({ kind: 'text', textId: text.id, memoryLevel })
       navigate(`/play/${run.id}`)
     } finally {
       setStarting(false)
@@ -75,6 +78,9 @@ export default function TextDetail() {
       <div className="flex flex-wrap items-center gap-2">
         <Button size="lg" onClick={() => void sayNow()} disabled={starting || segments.length === 0} icon={<Mic aria-hidden className="size-5" />}>
           {t('textDetail.sayNow')}
+        </Button>
+        <Button variant="secondary" onClick={() => setChoosingMemory(true)} disabled={starting || segments.length === 0} icon={<Brain aria-hidden className="size-4" />}>
+          {t('memory.button')}
         </Button>
         {text.source === 'user' ? (
           <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon={<Pencil aria-hidden className="size-4" />}>
@@ -142,6 +148,14 @@ export default function TextDetail() {
         </Card>
       </section>
 
+      <MemoryStartDialog
+        open={choosingMemory}
+        onClose={() => setChoosingMemory(false)}
+        onStart={(level) => {
+          setChoosingMemory(false)
+          void sayNow(level)
+        }}
+      />
       <Dialog
         open={confirmDelete}
         onClose={() => setConfirmDelete(false)}
