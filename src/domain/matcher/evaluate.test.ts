@@ -304,6 +304,13 @@ describe('evaluate — acceptance rule', () => {
     expect(evaluate(PL_20, [omitting(PL_20, 2)], threshold(1)).accepted).toBe(false)
   })
 
+  it("reads an archaic -'d elision as one word close to the spoken -ed form", () => {
+    expect(en("Hallow'd be thy name", 'hallowed be thy name')).toMatchObject({
+      accepted: true,
+      near: 1,
+    })
+  })
+
   it('counts source words after normalization', () => {
     expect(en("I'm calm", 'I am calm')).toMatchObject({ accepted: true, sourceWords: 3 })
   })

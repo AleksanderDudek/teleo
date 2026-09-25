@@ -40,6 +40,17 @@ describe('expandContractions', () => {
     expect(texts(expandContractions(tokens("god's mary's")))).toBe("god's mary's")
   })
 
+  it.each('i you he she it we they that who what where how there'.split(' '))(
+    "%s'd → … would",
+    (host) => {
+      expect(texts(expandContractions(tokens(`${host}'d`)))).toBe(`${host} would`)
+    },
+  )
+
+  it("keeps any other 'd as one word with an elided -ed", () => {
+    expect(texts(expandContractions(tokens("hallow'd bless'd")))).toBe("hallow'd bless'd")
+  })
+
   it('leaves words without contractions untouched', () => {
     expect(texts(expandContractions(tokens('i am enough')))).toBe('i am enough')
   })
