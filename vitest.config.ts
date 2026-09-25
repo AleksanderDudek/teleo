@@ -7,6 +7,7 @@ process.env.TZ = 'Europe/Warsaw'
 
 export default defineConfig({
   plugins: [react()],
+  define: { __APP_VERSION__: JSON.stringify('test') },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },

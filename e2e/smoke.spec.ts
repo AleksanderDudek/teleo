@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test'
+import { finishOnboarding } from './fakeSpeech.ts'
 
 test('first launch shows onboarding, then the five tabs navigate', async ({ page }) => {
   await page.goto('./')
   await expect(page).toHaveURL(/#\/onboarding$/)
-  await page.getByRole('button', { name: /Zaczynamy|Get started/ }).click()
-  await expect(page).toHaveURL(/#\/$/)
+  await finishOnboarding(page)
 
   const nav = page.getByRole('navigation')
   for (const name of [/Biblioteka|Library/, /Sesje|Sessions/, /Postępy|Progress/, /Ustawienia|Settings/, /Dziś|Today/]) {
@@ -14,8 +14,7 @@ test('first launch shows onboarding, then the five tabs navigate', async ({ page
 })
 
 test('interface language can be switched in settings', async ({ page }) => {
-  await page.goto('./')
-  await page.getByRole('button', { name: /Zaczynamy|Get started/ }).click()
+  await finishOnboarding(page)
   await page.goto('./#/settings')
   await page.getByText('English', { exact: true }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Settings')

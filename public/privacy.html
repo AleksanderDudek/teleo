@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teleo – polityka prywatności / privacy policy</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <style>
+      :root {
+        --paper: #f7f2e7;
+        --ink: #1d2b24;
+        --soft: #4b5a52;
+        --gold: #7a5712;
+        --line: #ddd3bc;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #0f1713;
+          --ink: #ece4d1;
+          --soft: #b7b09e;
+          --gold: #e0c27c;
+          --line: #26352c;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 1rem/1.65 Georgia, 'Times New Roman', serif;
+      }
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 2.5rem 1.25rem 4rem;
+      }
+      h1 {
+        font-size: 2rem;
+        line-height: 1.15;
+        margin: 0 0 0.5rem;
+      }
+      h2 {
+        font-size: 1.35rem;
+        margin: 2rem 0 0.5rem;
+      }
+      p,
+      li {
+        color: var(--soft);
+      }
+      strong {
+        color: var(--ink);
+      }
+      .rubric {
+        font: 600 0.72rem/1 system-ui, sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      nav a,
+      a {
+        color: var(--gold);
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 3rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="./">← Teleo</a> · <a href="#en">English</a></nav>
+
+      <section lang="pl">
+        <p class="rubric">Polityka prywatności</p>
+        <h1>Teleo – modlitwy i afirmacje</h1>
+        <p>Obowiązuje od 25 września 2026 r.</p>
+
+        <h2>W skrócie</h2>
+        <p>
+          <strong>Teleo nie ma kont, serwera ani analityki.</strong> Wszystko, co tworzysz i robisz w aplikacji – teksty, sesje,
+          historia prób, statystyki, osiągnięcia i ustawienia – jest zapisywane wyłącznie w pamięci Twojej przeglądarki (IndexedDB) na
+          tym urządzeniu. Twórca aplikacji nie otrzymuje, nie przechowuje i nie przetwarza tych danych.
+        </p>
+
+        <h2>Dane szczególnej kategorii (RODO art. 9)</h2>
+        <p>
+          Informacje o praktykach religijnych należą do szczególnej kategorii danych osobowych. Ponieważ Teleo działa w modelu
+          „local-first”, dane te nie opuszczają Twojego urządzenia za pośrednictwem aplikacji i nie są przetwarzane przez jej twórcę.
+        </p>
+
+        <h2>Rozpoznawanie mowy</h2>
+        <p>
+          Teleo korzysta z mechanizmu rozpoznawania mowy wbudowanego w przeglądarkę (Web Speech API). <strong>W niektórych
+          przeglądarkach nagranie Twojego głosu jest przesyłane do dostawcy przeglądarki</strong> – np. do Google (Chrome), Microsoft
+          (Edge) lub Apple (Safari) – który zamienia je na tekst na własnych serwerach, zgodnie z własną polityką prywatności. Teleo
+          informuje o tym przed pierwszym użyciem mikrofonu. Jeśli przeglądarka potrafi rozpoznawać mowę na urządzeniu, Teleo używa
+          tej opcji automatycznie. W wersji 1.1 planowany jest silnik Whisper działający w pełni lokalnie.
+        </p>
+        <p>
+          <strong>Teleo nigdy nie zapisuje nagrań.</strong> Przechowywana jest tylko rozpoznana transkrypcja próby (możesz to wyłączyć
+          w Ustawieniach – wtedy zapisywany jest tylko wynik oceny).
+        </p>
+
+        <h2>Kopie zapasowe i usuwanie danych</h2>
+        <p>
+          W Ustawieniach możesz wyeksportować pełną kopię danych do pliku JSON, zaimportować ją z powrotem oraz usunąć wszystkie dane
+          z urządzenia. Plik kopii zawiera Twoje teksty i historię – przechowuj go bezpiecznie. Usunięcie danych przeglądarki dla tej
+          witryny również usuwa wszystkie dane Teleo.
+        </p>
+
+        <h2>Pliki cookie, śledzenie, połączenia sieciowe</h2>
+        <p>
+          Teleo nie używa plików cookie ani narzędzi śledzących. Aplikacja jest plikami statycznymi hostowanymi w GitHub Pages;
+          GitHub może rejestrować techniczne dane o żądaniach (np. adres IP) zgodnie z własną polityką. Poza rozpoznawaniem mowy (patrz
+          wyżej) aplikacja nie łączy się z innymi serwerami.
+        </p>
+
+        <h2>Dzieci</h2>
+        <p>Teleo nie zbiera danych osobowych, również od dzieci.</p>
+
+        <h2>Kontakt</h2>
+        <p>Pytania dotyczące prywatności można zgłaszać przez repozytorium projektu (zakładka Issues).</p>
+      </section>
+
+      <hr />
+
+      <section id="en" lang="en">
+        <p class="rubric">Privacy policy</p>
+        <h1>Teleo – prayers &amp; affirmations</h1>
+        <p>Effective 25 September 2026.</p>
+
+        <h2>In short</h2>
+        <p>
+          <strong>Teleo has no accounts, no server and no analytics.</strong> Everything you create and do in the app — texts,
+          sessions, attempt history, statistics, achievements and settings — is stored only in your browser’s storage (IndexedDB) on
+          this device. The developer never receives, stores or processes this data.
+        </p>
+
+        <h2>Sensitive data</h2>
+        <p>
+          Information about religious practice is a special category of personal data under the EU GDPR (Art. 9). Because Teleo is
+          local-first, this data does not leave your device through the app and is not processed by its developer.
+        </p>
+
+        <h2>Speech recognition</h2>
+        <p>
+          Teleo uses the speech recognition built into your browser (Web Speech API). <strong>In some browsers, your voice is sent to
+          the browser vendor</strong> — for example Google (Chrome), Microsoft (Edge) or Apple (Safari) — which turns it into text on
+          its own servers under its own privacy policy. Teleo tells you this before the first use of the microphone. When the browser
+          can recognise speech on the device, Teleo uses that automatically. A fully local Whisper engine is planned for v1.1.
+        </p>
+        <p>
+          <strong>Teleo never stores recordings.</strong> Only the recognised transcript of an attempt is kept (you can turn this off in
+          Settings — then only the result is stored).
+        </p>
+
+        <h2>Backups and deletion</h2>
+        <p>
+          In Settings you can export a complete copy of your data as a JSON file, import it again, and delete all data from the device.
+          The backup file contains your texts and history — keep it safe. Clearing the browser’s site data also deletes all Teleo data.
+        </p>
+
+        <h2>Cookies, tracking, network</h2>
+        <p>
+          Teleo uses no cookies and no trackers. The app is static files hosted on GitHub Pages; GitHub may log technical request data
+          (such as IP addresses) under its own policy. Apart from speech recognition (see above) the app connects to no other servers.
+        </p>
+
+        <h2>Children</h2>
+        <p>Teleo collects no personal data, including from children (COPPA).</p>
+
+        <h2>Contact</h2>
+        <p>Privacy questions can be raised through the project repository (Issues).</p>
+      </section>
+    </main>
+  </body>
+</html>
