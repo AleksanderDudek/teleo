@@ -1,0 +1,174 @@
+[
+  {
+    "key": "pl.ojcze-nasz",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Ojcze nasz",
+    "splitMode": "sentence",
+    "tags": ["tradycyjne", "różaniec"],
+    "segments": [
+      "Ojcze nasz, któryś jest w niebie, święć się imię Twoje, przyjdź królestwo Twoje, bądź wola Twoja jako w niebie, tak i na ziemi.",
+      "Chleba naszego powszedniego daj nam dzisiaj.",
+      "I odpuść nam nasze winy, jako i my odpuszczamy naszym winowajcom.",
+      "I nie wódź nas na pokuszenie, ale nas zbaw ode złego. Amen."
+    ]
+  },
+  {
+    "key": "pl.zdrowas-maryjo",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Zdrowaś Maryjo",
+    "splitMode": "sentence",
+    "tags": ["tradycyjne", "różaniec"],
+    "segments": [
+      "Zdrowaś Maryjo, łaski pełna, Pan z Tobą, błogosławionaś Ty między niewiastami i błogosławiony owoc żywota Twojego, Jezus.",
+      "Święta Maryjo, Matko Boża, módl się za nami grzesznymi teraz i w godzinę śmierci naszej. Amen."
+    ]
+  },
+  {
+    "key": "pl.chwala-ojcu",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała Ojcu",
+    "splitMode": "sentence",
+    "tags": ["tradycyjne", "różaniec"],
+    "segments": [
+      "Chwała Ojcu i Synowi, i Duchowi Świętemu.",
+      "Jak była na początku, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.aniele-bozy",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Aniele Boży",
+    "splitMode": "sentence",
+    "tags": ["tradycyjne"],
+    "segments": [
+      "Aniele Boży, stróżu mój, Ty zawsze przy mnie stój.",
+      "Rano, wieczór, we dnie, w nocy bądź mi zawsze ku pomocy.",
+      "Strzeż duszy, ciała mego i zaprowadź mnie do żywota wiecznego. Amen."
+    ]
+  },
+  {
+    "key": "pl.poranek",
+    "lang": "pl",
+    "type": "affirmation",
+    "title": "Poranek",
+    "splitMode": "line",
+    "tags": ["poranek"],
+    "variants": {
+      "m": [
+        "Jestem spokojny i skupiony.",
+        "Każdego dnia staję się lepszą wersją siebie.",
+        "Mam w sobie siłę, by poradzić sobie z tym dniem.",
+        "Zasługuję na dobro i szacunek.",
+        "Moje myśli są jasne, a decyzje przemyślane.",
+        "Jestem wdzięczny za to, co mam.",
+        "Uczę się na błędach i idę dalej.",
+        "Dbam o swoje ciało i umysł.",
+        "Robię dziś małe kroki w stronę moich celów.",
+        "Wybieram spokój zamiast pośpiechu."
+      ],
+      "f": [
+        "Jestem spokojna i skupiona.",
+        "Każdego dnia staję się lepszą wersją siebie.",
+        "Mam w sobie siłę, by poradzić sobie z tym dniem.",
+        "Zasługuję na dobro i szacunek.",
+        "Moje myśli są jasne, a decyzje przemyślane.",
+        "Jestem wdzięczna za to, co mam.",
+        "Uczę się na błędach i idę dalej.",
+        "Dbam o swoje ciało i umysł.",
+        "Robię dziś małe kroki w stronę moich celów.",
+        "Wybieram spokój zamiast pośpiechu."
+      ],
+      "n": [
+        "Zachowuję spokój i skupienie.",
+        "Każdego dnia staję się lepszą wersją siebie.",
+        "Mam w sobie siłę, by poradzić sobie z tym dniem.",
+        "Zasługuję na dobro i szacunek.",
+        "Moje myśli są jasne, a decyzje przemyślane.",
+        "Czuję wdzięczność za to, co mam.",
+        "Uczę się na błędach i idę dalej.",
+        "Dbam o swoje ciało i umysł.",
+        "Robię dziś małe kroki w stronę moich celów.",
+        "Wybieram spokój zamiast pośpiechu."
+      ]
+    }
+  },
+  {
+    "key": "en.lords-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Lord’s Prayer",
+    "splitMode": "sentence",
+    "tags": ["traditional", "rosary"],
+    "segments": [
+      "Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven.",
+      "Give us this day our daily bread.",
+      "And forgive us our trespasses, as we forgive those who trespass against us.",
+      "And lead us not into temptation, but deliver us from evil. Amen."
+    ]
+  },
+  {
+    "key": "en.hail-mary",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Hail Mary",
+    "splitMode": "sentence",
+    "tags": ["traditional", "rosary"],
+    "segments": [
+      "Hail Mary, full of grace, the Lord is with thee.",
+      "Blessed art thou among women, and blessed is the fruit of thy womb, Jesus.",
+      "Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
+    ]
+  },
+  {
+    "key": "en.glory-be",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory Be",
+    "splitMode": "sentence",
+    "tags": ["traditional", "rosary"],
+    "segments": [
+      "Glory be to the Father, and to the Son, and to the Holy Spirit.",
+      "As it was in the beginning, is now, and ever shall be, world without end. Amen."
+    ]
+  },
+  {
+    "key": "en.psalm-23",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 23",
+    "splitMode": "line",
+    "tags": ["scripture", "KJV"],
+    "segments": [
+      "The LORD is my shepherd; I shall not want.",
+      "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
+      "He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake.",
+      "Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.",
+      "Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.",
+      "Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."
+    ]
+  },
+  {
+    "key": "en.morning",
+    "lang": "en",
+    "type": "affirmation",
+    "title": "Morning",
+    "splitMode": "line",
+    "tags": ["morning"],
+    "segments": [
+      "I am calm and focused.",
+      "Every day I am becoming a better version of myself.",
+      "I have the strength to handle this day.",
+      "I deserve kindness and respect.",
+      "My mind is clear and my choices are wise.",
+      "I am grateful for what I have.",
+      "I learn from my mistakes and keep moving forward.",
+      "I take care of my body and my mind.",
+      "Today I take small steps toward my goals.",
+      "I choose peace over hurry."
+    ]
+  }
+]

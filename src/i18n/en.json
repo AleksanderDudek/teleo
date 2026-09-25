@@ -55,14 +55,54 @@
   },
   "library": {
     "rubric": "Library",
-    "title": "Texts"
+    "title": "Texts",
+    "add": "New text",
+    "searchPlaceholder": "Search titles and words",
+    "filterType": "Type",
+    "filterLang": "Language",
+    "filterSource": "Source",
+    "sourceAll": "All",
+    "sourceBuiltin": "Builtin",
+    "sourceUser": "My texts",
+    "showHidden": "Show hidden",
+    "hidden": "Hidden",
+    "builtin": "Builtin",
+    "own": "Mine",
+    "repetitionsLabel": "repetitions",
+    "emptyTitle": "Nothing here yet",
+    "emptyBody": "Add your own prayer, affirmation or passage — or change the filters.",
+    "noResults": "No texts match these filters.",
+    "milestone": "{{remaining}} more to “{{name}}”"
   },
   "editor": {
     "rubricNew": "New text",
     "rubricEdit": "Edit text"
   },
   "textDetail": {
-    "rubric": "Text"
+    "rubric": "Text",
+    "sayNow": "Say it now",
+    "copy": "Copy as my own",
+    "copyTitle": "{{title}} (copy)",
+    "copied": "Copied to your texts",
+    "hide": "Hide text",
+    "unhide": "Show text",
+    "hiddenNote": "This text is hidden from the library and pickers.",
+    "delete": "Delete text",
+    "deleteTitle": "Delete “{{title}}”?",
+    "deleteBody": "The text, its per-text statistics and achievements will be removed. Your overall history and XP stay.",
+    "deleted": "Text deleted",
+    "segmentsHeading": "Segments",
+    "statsHeading": "Statistics",
+    "achievementsHeading": "Achievements for this text",
+    "statRepetitions": "Repetitions",
+    "statSegments": "Sentences spoken",
+    "statStreak": "Days in a row",
+    "statBestStreak": "Best run",
+    "statPerfect": "Flawless runs",
+    "statLast": "Last practised",
+    "never": "Not yet",
+    "builtinNote": "Builtin texts can’t be edited — make a copy to change it.",
+    "notFound": "This text no longer exists."
   },
   "sessions": {
     "rubric": "Sessions",
@@ -99,5 +139,35 @@
     "rubric": "Welcome",
     "title": "Speak it. Complete it.",
     "start": "Get started"
+  },
+  "textTypes": {
+    "affirmation": "Affirmation",
+    "prayer": "Prayer",
+    "text": "Text"
+  },
+  "textTypesPlural": {
+    "affirmation": "Affirmations",
+    "prayer": "Prayers",
+    "text": "Texts"
+  },
+  "langs": {
+    "pl": "Polish",
+    "en": "English"
+  },
+  "langShort": {
+    "pl": "PL",
+    "en": "EN"
+  },
+  "counts": {
+    "segments_one": "{{count}} segment",
+    "segments_other": "{{count}} segments",
+    "repetitions_one": "{{count}} repetition",
+    "repetitions_other": "{{count}} repetitions",
+    "words_one": "{{count}} word",
+    "words_other": "{{count}} words",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "times_one": "{{count}} time",
+    "times_other": "{{count}} times"
   }
 }

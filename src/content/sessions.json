@@ -1,0 +1,38 @@
+[
+  {
+    "key": "pl.poranne-afirmacje",
+    "lang": "pl",
+    "name": "Poranne afirmacje",
+    "focus": "affirmations",
+    "items": [{ "text": "pl.poranek", "repeat": 1 }]
+  },
+  {
+    "key": "pl.dziesiatka-rozanca",
+    "lang": "pl",
+    "name": "Dziesiątka różańca",
+    "focus": "prayers",
+    "items": [
+      { "text": "pl.ojcze-nasz", "repeat": 1 },
+      { "text": "pl.zdrowas-maryjo", "repeat": 10 },
+      { "text": "pl.chwala-ojcu", "repeat": 1 }
+    ]
+  },
+  {
+    "key": "en.morning-affirmations",
+    "lang": "en",
+    "name": "Morning affirmations",
+    "focus": "affirmations",
+    "items": [{ "text": "en.morning", "repeat": 1 }]
+  },
+  {
+    "key": "en.decade-of-the-rosary",
+    "lang": "en",
+    "name": "Decade of the Rosary",
+    "focus": "prayers",
+    "items": [
+      { "text": "en.lords-prayer", "repeat": 1 },
+      { "text": "en.hail-mary", "repeat": 10 },
+      { "text": "en.glory-be", "repeat": 1 }
+    ]
+  }
+]

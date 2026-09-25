@@ -55,14 +55,54 @@
   },
   "library": {
     "rubric": "Biblioteka",
-    "title": "Teksty"
+    "title": "Teksty",
+    "add": "Nowy tekst",
+    "searchPlaceholder": "Szukaj w tytułach i słowach",
+    "filterType": "Rodzaj",
+    "filterLang": "Język",
+    "filterSource": "Źródło",
+    "sourceAll": "Wszystkie",
+    "sourceBuiltin": "Wbudowane",
+    "sourceUser": "Moje",
+    "showHidden": "Pokaż ukryte",
+    "hidden": "Ukryty",
+    "builtin": "Wbudowany",
+    "own": "Mój",
+    "repetitionsLabel": "powtórzeń",
+    "emptyTitle": "Jeszcze tu pusto",
+    "emptyBody": "Dodaj własną modlitwę, afirmację lub fragment – albo zmień filtry.",
+    "noResults": "Żaden tekst nie pasuje do filtrów.",
+    "milestone": "jeszcze {{remaining}} do „{{name}}”"
   },
   "editor": {
     "rubricNew": "Nowy tekst",
     "rubricEdit": "Edycja tekstu"
   },
   "textDetail": {
-    "rubric": "Tekst"
+    "rubric": "Tekst",
+    "sayNow": "Powiedz teraz",
+    "copy": "Kopiuj jako własny",
+    "copyTitle": "{{title}} (kopia)",
+    "copied": "Skopiowano do Twoich tekstów",
+    "hide": "Ukryj tekst",
+    "unhide": "Pokaż tekst",
+    "hiddenNote": "Ten tekst jest ukryty w bibliotece i przy wyborze.",
+    "delete": "Usuń tekst",
+    "deleteTitle": "Usunąć „{{title}}”?",
+    "deleteBody": "Tekst, jego statystyki i osiągnięcia zostaną usunięte. Twoja ogólna historia i XP pozostaną.",
+    "deleted": "Tekst usunięty",
+    "segmentsHeading": "Segmenty",
+    "statsHeading": "Statystyki",
+    "achievementsHeading": "Osiągnięcia tego tekstu",
+    "statRepetitions": "Powtórzenia",
+    "statSegments": "Wypowiedziane zdania",
+    "statStreak": "Dni z rzędu",
+    "statBestStreak": "Najdłuższa seria",
+    "statPerfect": "Bez zająknięcia",
+    "statLast": "Ostatnio",
+    "never": "Jeszcze nie",
+    "builtinNote": "Tekstów wbudowanych nie można edytować – zrób kopię, aby coś zmienić.",
+    "notFound": "Ten tekst już nie istnieje."
   },
   "sessions": {
     "rubric": "Sesje",
@@ -99,5 +139,45 @@
     "rubric": "Witaj",
     "title": "Wypowiedz. Wypełnij.",
     "start": "Zaczynamy"
+  },
+  "textTypes": {
+    "affirmation": "Afirmacja",
+    "prayer": "Modlitwa",
+    "text": "Tekst"
+  },
+  "textTypesPlural": {
+    "affirmation": "Afirmacje",
+    "prayer": "Modlitwy",
+    "text": "Teksty"
+  },
+  "langs": {
+    "pl": "Polski",
+    "en": "Angielski"
+  },
+  "langShort": {
+    "pl": "PL",
+    "en": "EN"
+  },
+  "counts": {
+    "segments_one": "{{count}} segment",
+    "segments_few": "{{count}} segmenty",
+    "segments_many": "{{count}} segmentów",
+    "segments_other": "{{count}} segmentu",
+    "repetitions_one": "{{count}} powtórzenie",
+    "repetitions_few": "{{count}} powtórzenia",
+    "repetitions_many": "{{count}} powtórzeń",
+    "repetitions_other": "{{count}} powtórzenia",
+    "words_one": "{{count}} słowo",
+    "words_few": "{{count}} słowa",
+    "words_many": "{{count}} słów",
+    "words_other": "{{count}} słowa",
+    "days_one": "{{count}} dzień",
+    "days_few": "{{count}} dni",
+    "days_many": "{{count}} dni",
+    "days_other": "{{count}} dnia",
+    "times_one": "{{count}} raz",
+    "times_few": "{{count}} razy",
+    "times_many": "{{count}} razy",
+    "times_other": "{{count}} razy"
   }
 }
