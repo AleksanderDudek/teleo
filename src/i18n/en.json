@@ -267,7 +267,8 @@
     "resumeListening": "Resume listening",
     "pauseListening": "Pause listening",
     "listen": "Listen to the sentence",
-    "listening": "Reading aloud…"
+    "listening": "Reading aloud…",
+    "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue."
   },
   "summary": {
     "rubric": "Summary",

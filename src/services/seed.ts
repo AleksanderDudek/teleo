@@ -12,7 +12,7 @@ import { db } from '@/db/schema'
 import type { AppSettings, SessionTemplate, TextItem } from '@/db/types'
 import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { readSettings, updateMeta } from './settings'
-import { replaceSegments } from './texts'
+import { replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
 export const SEED_VERSION = 1
@@ -44,7 +44,7 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
   const { app, meta } = await readSettings()
   if (meta.seedVersion >= SEED_VERSION) return
 
-  await db.transaction('rw', [db.texts, db.segments, db.attempts, db.sessionTemplates], async () => {
+  await db.transaction('rw', [...SEGMENT_EDIT_TABLES, db.sessionTemplates], async () => {
     for (const def of BUILTIN_TEXTS) {
       const id = builtinTextId(def.key)
       const segments = builtinSegments(def, app.grammaticalForm)
@@ -121,7 +121,7 @@ export async function applyContentPreferences(uiLang: Lang, contentFocus: Conten
 
 /** Re-renders gendered builtin affirmations after the grammatical form changes (spec §15 #20). */
 export async function applyGrammaticalForm(form: GrammaticalForm, now = Date.now()): Promise<void> {
-  await db.transaction('rw', [db.texts, db.segments, db.attempts], async () => {
+  await db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
     for (const def of BUILTIN_TEXTS) {
       if (!def.variants) continue
       const id = builtinTextId(def.key)

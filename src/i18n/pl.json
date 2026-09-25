@@ -273,7 +273,8 @@
     "resumeListening": "Wznów słuchanie",
     "pauseListening": "Wstrzymaj słuchanie",
     "listen": "Posłuchaj zdania",
-    "listening": "Czytam na głos…"
+    "listening": "Czytam na głos…",
+    "segmentMissing": "Tego zdania już nie ma (jego tekst zmieniono lub usunięto). Pomiń je, aby kontynuować."
   },
   "summary": {
     "rubric": "Podsumowanie",

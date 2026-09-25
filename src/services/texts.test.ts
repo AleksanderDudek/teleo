@@ -91,6 +91,18 @@ describe('updateText', () => {
     expect((await db.texts.get(text.id))?.body).toBe('Jestem wdzięczny.\nJestem spokojny.\nJestem odważny.')
   })
 
+  it('archives (never deletes) segments that an unfinished session still needs', async () => {
+    const text = await createText(input(['Jestem spokojny.', 'Jestem silny.']))
+    const [calm, strong] = await getActiveSegments(text.id)
+    await db.sessionRuns.add({
+      id: 'run', title: 'T', dayKey: '2026-09-25', startedAt: 0, status: 'partial', cursor: 0, xpEarned: 0, lastActivityAt: 0, mode: 'read',
+      plan: [calm!, strong!].map((s, i) => ({ segmentId: s.id, textId: text.id, block: 0, fullText: true, item: 0, ...(i ? {} : {}) })),
+      entries: [0, 1].map(() => ({ status: 'pending' as const, attempts: 0, firstTry: false, xp: 0 })),
+    })
+    await updateText(text.id, input(['Jestem spokojny.', 'Jestem bardzo silny.']))
+    expect(await db.segments.get(strong!.id)).toMatchObject({ archived: true, content: 'Jestem silny.' })
+  })
+
   it('refuses to edit builtin texts', async () => {
     await db.texts.add({ id: 'builtin:x', title: 'X', type: 'prayer', lang: 'pl', body: 'A b c.', source: 'builtin', tags: [], archived: false, splitMode: 'sentence', createdAt: 0, updatedAt: 0 })
     await expect(updateText('builtin:x', input(['A b c.']))).rejects.toMatchObject({ code: 'notEditable' })

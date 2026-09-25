@@ -60,11 +60,21 @@ async function hasAttempts(segmentId: string): Promise<boolean> {
   return (await db.attempts.where('segmentId').equals(segmentId).limit(1).count()) > 0
 }
 
+/** Segments still needed by a session that can be resumed. */
+async function segmentsInUnfinishedRuns(): Promise<Set<string>> {
+  const runs = await db.sessionRuns.where('status').anyOf('in_progress', 'partial').toArray()
+  return new Set(runs.flatMap((run) => run.plan.map((entry) => entry.segmentId)))
+}
+
+/** Tables `replaceSegments` touches — include them in the caller's transaction. */
+export const SEGMENT_EDIT_TABLES = [db.texts, db.segments, db.attempts, db.sessionRuns] as const
+
 /**
  * Replaces the active segments of a text while preserving history (spec §10):
  * unchanged sentences keep their ids (and attempt history); segments that were
- * removed or edited are archived when they were ever spoken, deleted otherwise.
- * Must run inside a transaction covering `segments` and `attempts`.
+ * removed or edited are archived when they were ever spoken or an unfinished
+ * session still needs them (so it can be resumed), deleted otherwise.
+ * Must run inside a transaction covering {@link SEGMENT_EDIT_TABLES}.
  */
 export async function replaceSegments(textId: string, contents: readonly string[]): Promise<Segment[]> {
   const pool = new Map<string, Segment[]>()
@@ -81,8 +91,10 @@ export async function replaceSegments(textId: string, contents: readonly string[
       : { id: newId(), textId, order, content, wordCount: countWords(content), archived: false }
   })
 
-  for (const leftover of [...pool.values()].flat()) {
-    if (await hasAttempts(leftover.id)) await db.segments.put({ ...leftover, archived: true })
+  const leftovers = [...pool.values()].flat()
+  const needed = leftovers.length > 0 ? await segmentsInUnfinishedRuns() : new Set<string>()
+  for (const leftover of leftovers) {
+    if (needed.has(leftover.id) || (await hasAttempts(leftover.id))) await db.segments.put({ ...leftover, archived: true })
     else await db.segments.delete(leftover.id)
   }
   await db.segments.bulkPut(next)
@@ -104,7 +116,7 @@ export async function createText(input: TextInput, now = Date.now()): Promise<Te
     createdAt: now,
     updatedAt: now,
   }
-  await db.transaction('rw', [db.texts, db.segments, db.attempts], async () => {
+  await db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
     await db.texts.add(text)
     await replaceSegments(text.id, segments)
   })
@@ -115,7 +127,7 @@ export async function createText(input: TextInput, now = Date.now()): Promise<Te
 /** Edits a user text. Repetition counters and history are kept (typo fixes never cost progress). */
 export async function updateText(textId: string, input: TextInput, now = Date.now()): Promise<TextItem> {
   const segments = validate(input)
-  return db.transaction('rw', [db.texts, db.segments, db.attempts], async () => {
+  return db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
     const existing = await db.texts.get(textId)
     if (!existing || existing.source !== 'user') throw new TextValidationError('notEditable')
     const text: TextItem = {

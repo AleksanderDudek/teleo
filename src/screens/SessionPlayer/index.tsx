@@ -20,7 +20,7 @@ import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
 import { cn } from '@/lib/cn'
 import { speak, stopSpeaking, ttsSupported } from '@/lib/tts'
-import { finishRun, markHinted, pauseRun, recordAttempt, skipEntry } from '@/services/practice'
+import { finishRun, markHinted, pauseRun, PracticeError, recordAttempt, skipEntry } from '@/services/practice'
 import { updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
 import { celebrationLines } from './celebrate'
@@ -249,11 +249,16 @@ function Player({ data }: { data: PlayerData }) {
   const skip = async () => {
     if (live) liveSession.discard()
     else capture.cancel()
-    const next = await skipEntry(run.id, index)
-    setFeedback(null)
-    if (next.cursor >= total) {
-      stopAll()
-      await finish()
+    try {
+      const next = await skipEntry(run.id, index)
+      setFeedback(null)
+      if (next.cursor >= total) {
+        stopAll()
+        await finish()
+      }
+    } catch (error) {
+      // An accepted verdict for this sentence landed first: nothing left to skip.
+      if (!(error instanceof PracticeError && error.code === 'outOfOrder')) throw error
     }
   }
 
@@ -329,6 +334,14 @@ function Player({ data }: { data: PlayerData }) {
       </header>
 
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-6">
+        {!segment && !finished && (
+          <div className="card flex max-w-xl flex-col items-center gap-3 p-5 text-center">
+            <p className="text-ink-soft">{t('player.segmentMissing')}</p>
+            <Button variant="secondary" onClick={() => void skip()}>
+              {t('player.skip')}
+            </Button>
+          </div>
+        )}
         {segment && (
           <SegmentStage
             previous={previous}
