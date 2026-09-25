@@ -76,7 +76,12 @@ export function analyzeSegments(segments: readonly string[]): SegmentIssue[] {
     }
 
     if (wordCount < SHORT_SEGMENT_WORDS && segments.length > 1) {
-      issues.push({ kind: 'short', index, words: wordCount, mergeWith: index === 0 ? 'next' : 'previous' })
+      issues.push({
+        kind: 'short',
+        index,
+        words: wordCount,
+        mergeWith: index === 0 ? 'next' : 'previous',
+      })
     }
 
     if (HAS_DIGIT.test(segment)) {
