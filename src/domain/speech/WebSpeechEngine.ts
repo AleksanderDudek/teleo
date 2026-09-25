@@ -17,17 +17,18 @@ export interface WebSpeechTimings {
   noSpeechMs: number
   /** Tap mode: hard cap for one utterance. */
   maxUtteranceMs: number
-  /** Live mode: max automatic restarts within `restartWindowMs` before giving up. */
-  maxRestarts: number
-  restartWindowMs: number
+  /** Live mode: give up after this many consecutive restarts that heard nothing... */
+  maxRapidRestarts: number
+  /** ...and ended within this long after starting (a failing recogniser, not a phrase end). */
+  rapidRestartMs: number
 }
 
 export const DEFAULT_TIMINGS: WebSpeechTimings = {
   silenceMs: 1500,
   noSpeechMs: 8000,
   maxUtteranceMs: 60_000,
-  maxRestarts: 5,
-  restartWindowMs: 60_000,
+  maxRapidRestarts: 3,
+  rapidRestartMs: 1500,
 }
 
 const ERROR_CODES: Record<string, SpeechErrorCode> = {
@@ -45,7 +46,10 @@ interface Session {
   results: ResultSnapshot[]
   stopping: boolean
   onEnded?: () => void
-  restarts: number[]
+  /** When the current recognition (re)started and whether it heard anything since. */
+  runStartedAt: number
+  heardSinceStart: boolean
+  rapidRestarts: number
   timers: Set<ReturnType<typeof setTimeout>>
 }
 
@@ -126,7 +130,9 @@ export class WebSpeechEngine implements SpeechEngine {
       startedAt: Date.now(),
       results: [],
       stopping: false,
-      restarts: [],
+      runStartedAt: Date.now(),
+      heardSinceStart: false,
+      rapidRestarts: 0,
       timers: new Set(),
     }
     this.#session = session
@@ -189,6 +195,7 @@ export class WebSpeechEngine implements SpeechEngine {
       snapshots.push({ alternatives, isFinal: result.isFinal })
     }
     session.results = this.#webkit ? collapseCumulative(snapshots) : snapshots
+    session.heardSinceStart = true
     // Any speech cancels the "nothing heard" timer; the silence timer restarts on every result.
     for (const timer of session.timers) clearTimeout(timer)
     session.timers.clear()
@@ -205,12 +212,15 @@ export class WebSpeechEngine implements SpeechEngine {
       return
     }
     if (session.options.continuous) {
-      // The browser ended recognition on its own (time limit, network blip): resume listening.
+      // The browser ended recognition on its own (phrase end on iOS, time limit, network blip):
+      // resume listening. Only quick ends that heard nothing count as failures.
       const now = Date.now()
-      session.restarts = session.restarts.filter((t) => now - t < this.#timings.restartWindowMs)
-      if (session.restarts.length < this.#timings.maxRestarts) {
-        session.restarts.push(now)
+      const rapid = !session.heardSinceStart && now - session.runStartedAt < this.#timings.rapidRestartMs
+      session.rapidRestarts = rapid ? session.rapidRestarts + 1 : 0
+      if (session.rapidRestarts < this.#timings.maxRapidRestarts) {
         session.results = []
+        session.runStartedAt = now
+        session.heardSinceStart = false
         session.options.onRestart?.()
         try {
           session.recognition.start()

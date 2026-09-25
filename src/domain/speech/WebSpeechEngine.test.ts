@@ -95,6 +95,19 @@ describe('WebSpeechEngine', () => {
     expect(transcripts.at(-1)).toBe('Chleba')
   })
 
+  it('keeps restarting while speech is heard between stops (iOS ends after every phrase)', async () => {
+    const onError = vi.fn<(error: SpeechError) => void>()
+    const onRestart = vi.fn<() => void>()
+    await engine().start({ lang: 'pl-PL', continuous: true, onError, onRestart })
+    for (let i = 0; i < 12; i++) {
+      last().emit([true, `zdanie ${i}`])
+      await vi.advanceTimersByTimeAsync(2000)
+      last().endUnexpectedly()
+    }
+    expect(onRestart).toHaveBeenCalledTimes(12)
+    expect(onError).not.toHaveBeenCalled()
+  })
+
   it('stops restarting after too many consecutive browser stops', async () => {
     const onError = vi.fn<(error: SpeechError) => void>()
     await engine().start({ lang: 'pl-PL', continuous: true, onError })
