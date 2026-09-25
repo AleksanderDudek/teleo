@@ -544,7 +544,8 @@
       "busy": "The microphone is busy — try again in a moment.",
       "model-missing": "The offline model isn’t downloaded yet.",
       "unknown": "Speech recognition stopped unexpectedly. Try again.",
-      "iosStandalone": "On iPhone, speech recognition can fail in the installed app. If it keeps failing, open Teleo in Safari."
+      "iosStandalone": "On iPhone, speech recognition can fail in the installed app. If it keeps failing, open Teleo in Safari.",
+      "aborted": "Listening was stopped."
     },
     "privacy": {
       "title": "Before you speak",

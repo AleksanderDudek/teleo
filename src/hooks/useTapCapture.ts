@@ -53,7 +53,8 @@ export function useTapCapture(options: {
       })
       update('listening')
     } catch (e) {
-      setError(e instanceof SpeechError ? e.code : 'unknown')
+      const code = e instanceof SpeechError ? e.code : 'unknown'
+      if (code !== 'aborted') setError(code)
       update('idle')
     }
   }, [engine, lang, stop])

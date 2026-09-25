@@ -46,11 +46,16 @@ interface Session {
   results: ResultSnapshot[]
   stopping: boolean
   onEnded?: () => void
+  /** Rejects the pending `start()` (abort before the browser confirmed the start). */
+  failStart?: (error: SpeechError) => void
   /** When the current recognition (re)started and whether it heard anything since. */
   runStartedAt: number
   heardSinceStart: boolean
   rapidRestarts: number
+  /** Silence / nothing-heard timers (re-armed on every result). */
   timers: Set<ReturnType<typeof setTimeout>>
+  /** Tap mode: hard cap for the whole utterance (never re-armed). */
+  maxTimer?: ReturnType<typeof setTimeout>
 }
 
 /**
@@ -65,6 +70,8 @@ export class WebSpeechEngine implements SpeechEngine {
   readonly #webkit: boolean
   readonly #onDevice = new Map<SpeechLang, boolean>()
   #session: Session | null = null
+  /** Identifies the `start()` call that is still checking on-device support. */
+  #starting: object | null = null
 
   constructor(options: { timings?: Partial<WebSpeechTimings>; scope?: object; userAgent?: string } = {}) {
     this.#timings = { ...DEFAULT_TIMINGS, ...options.timings }
@@ -113,10 +120,14 @@ export class WebSpeechEngine implements SpeechEngine {
   }
 
   async start(options: SpeechStartOptions): Promise<void> {
-    if (this.#session) throw new SpeechError('busy')
+    if (this.#session || this.#starting) throw new SpeechError('busy')
     const Ctor = this.#ctor()
     if (!Ctor) throw new SpeechError('not-supported')
+    const ticket = {}
+    this.#starting = ticket
     const onDevice = await this.#prefersOnDevice(options.lang)
+    if (this.#starting !== ticket) throw new SpeechError('aborted') // abort() while we were checking
+    this.#starting = null
     const recognition = new Ctor()
     recognition.lang = options.lang
     recognition.continuous = true // a single-shot session cuts long sentences short (spec §5.2)
@@ -139,11 +150,22 @@ export class WebSpeechEngine implements SpeechEngine {
 
     await new Promise<void>((resolve, reject) => {
       let started = false
-      recognition.onstart = () => {
+      session.failStart = (error) => {
+        if (started) return
         started = true
+        reject(error)
+      }
+      recognition.onstart = () => {
+        if (started) return
+        started = true
+        session.failStart = undefined
         resolve()
-        if (!options.continuous) this.#arm(session, 'noSpeech')
-        if (!options.continuous) this.#arm(session, 'max')
+        if (!options.continuous) {
+          this.#arm(session, 'noSpeech')
+          session.maxTimer = setTimeout(() => {
+            if (this.#session === session && !session.stopping) session.options.onSilence?.()
+          }, this.#timings.maxUtteranceMs)
+        }
       }
       recognition.onresult = (event) => this.#onResult(session, event)
       recognition.onerror = (event) => {
@@ -170,9 +192,8 @@ export class WebSpeechEngine implements SpeechEngine {
     })
   }
 
-  #arm(session: Session, kind: 'silence' | 'noSpeech' | 'max') {
-    const ms =
-      kind === 'silence' ? this.#timings.silenceMs : kind === 'noSpeech' ? this.#timings.noSpeechMs : this.#timings.maxUtteranceMs
+  #arm(session: Session, kind: 'silence' | 'noSpeech') {
+    const ms = kind === 'silence' ? this.#timings.silenceMs : this.#timings.noSpeechMs
     const timer = setTimeout(() => {
       session.timers.delete(timer)
       if (this.#session === session && !session.stopping) session.options.onSilence?.()
@@ -199,7 +220,6 @@ export class WebSpeechEngine implements SpeechEngine {
     // Any speech cancels the "nothing heard" timer; the silence timer restarts on every result.
     for (const timer of session.timers) clearTimeout(timer)
     session.timers.clear()
-    if (!session.options.continuous) this.#arm(session, 'max')
     this.#arm(session, 'silence')
     const text = bestTranscript(session.results)
     const others = transcriptAlternatives(session.results).filter((alternative) => alternative !== text)
@@ -244,6 +264,7 @@ export class WebSpeechEngine implements SpeechEngine {
     session.stopping = true
     for (const timer of session.timers) clearTimeout(timer)
     session.timers.clear()
+    if (session.maxTimer) clearTimeout(session.maxTimer)
     await new Promise<void>((resolve) => {
       const fallback = setTimeout(() => {
         session.recognition.abort()
@@ -270,9 +291,11 @@ export class WebSpeechEngine implements SpeechEngine {
   }
 
   abort(): void {
+    this.#starting = null
     const session = this.#session
     if (!session) return
     session.stopping = true
+    session.failStart?.(new SpeechError('aborted'))
     this.#teardown(session)
     try {
       session.recognition.abort()
@@ -284,6 +307,7 @@ export class WebSpeechEngine implements SpeechEngine {
   #teardown(session: Session) {
     for (const timer of session.timers) clearTimeout(timer)
     session.timers.clear()
+    if (session.maxTimer) clearTimeout(session.maxTimer)
     session.recognition.onresult = null
     session.recognition.onerror = null
     session.recognition.onstart = null

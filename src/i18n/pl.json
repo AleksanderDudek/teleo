@@ -568,7 +568,8 @@
       "busy": "Mikrofon jest zajęty – spróbuj za chwilę.",
       "model-missing": "Model offline nie został jeszcze pobrany.",
       "unknown": "Rozpoznawanie mowy nieoczekiwanie się zatrzymało. Spróbuj ponownie.",
-      "iosStandalone": "Na iPhonie rozpoznawanie mowy w zainstalowanej aplikacji bywa zawodne. Jeśli problem się powtarza, otwórz Teleo w Safari."
+      "iosStandalone": "Na iPhonie rozpoznawanie mowy w zainstalowanej aplikacji bywa zawodne. Jeśli problem się powtarza, otwórz Teleo w Safari.",
+      "aborted": "Słuchanie zostało przerwane."
     },
     "privacy": {
       "title": "Zanim zaczniesz mówić",

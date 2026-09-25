@@ -57,6 +57,19 @@ describe('WebSpeechEngine', () => {
     expect(onSilence).toHaveBeenCalledTimes(1)
   })
 
+  it('caps one tap-mode utterance at 60 s even while words keep coming', async () => {
+    const onSilence = vi.fn<() => void>()
+    await engine().start({ lang: 'pl-PL', onSilence })
+    for (let second = 1; second <= 59; second++) {
+      last().emit([false, `słowo ${second}`])
+      await vi.advanceTimersByTimeAsync(1000)
+    }
+    expect(onSilence).not.toHaveBeenCalled()
+    last().emit([false, 'jeszcze'])
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(onSilence).toHaveBeenCalledTimes(1)
+  })
+
   it('gives up after 8 s of no speech in tap mode, but not in live mode', async () => {
     const tap = vi.fn<() => void>()
     const e = engine()
@@ -138,6 +151,31 @@ describe('WebSpeechEngine', () => {
     await chrome.start({ lang: 'en-US' })
     last().emit([true, 'I am calm'], [true, 'I am calm'])
     expect((await chrome.stop()).alternatives[0]).toBe('I am calm I am calm')
+  })
+
+  it('abort during start leaves no microphone running and settles start()', async () => {
+    let release: (status: 'available') => void = () => {}
+    const scope = {
+      SpeechRecognition: Object.assign(class extends FakeRecognition {}, {
+        available: () => new Promise<'available'>((resolve) => (release = resolve)),
+      }),
+    }
+    const e = new WebSpeechEngine({ scope, userAgent: CHROME_UA })
+    const starting = e.start({ lang: 'pl-PL' })
+    e.abort() // e.g. the page was hidden right after the tap
+    release('available')
+    await expect(starting).rejects.toMatchObject({ code: 'aborted' })
+    expect(FakeRecognition.instances.filter((r) => r.running)).toHaveLength(0)
+    await e.start({ lang: 'pl-PL' }) // not stuck in "busy"
+  })
+
+  it('abort before the browser confirms the start rejects start()', async () => {
+    const e = engine()
+    const starting = e.start({ lang: 'pl-PL' })
+    await Promise.resolve()
+    await Promise.resolve()
+    e.abort()
+    await expect(starting).rejects.toMatchObject({ code: 'aborted' })
   })
 
   it('returns an empty result when stopped while idle', async () => {

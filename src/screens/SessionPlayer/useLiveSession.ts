@@ -107,7 +107,8 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
       handle(liveTracker.setTarget(targetRef.current))
     } catch (e) {
       tracker.current = null
-      setError(e instanceof SpeechError ? e.code : 'unknown')
+      const code = e instanceof SpeechError ? e.code : 'unknown'
+      if (code !== 'aborted') setError(code)
       setPhaseBoth('idle')
     }
   }, [engine, handle, stop, strictness])

@@ -52,6 +52,8 @@ export type SpeechErrorCode =
   | 'language-not-supported'
   | 'busy'
   | 'model-missing'
+  /** The caller aborted while the engine was still starting (not an error to show). */
+  | 'aborted'
   | 'unknown'
 
 export class SpeechError extends Error {
