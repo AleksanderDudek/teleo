@@ -160,15 +160,21 @@ export interface TextDayStreak {
 
 /**
  * Per-text "said N days in a row" (no freezes), updated when the text is said on `today`:
- * same day → unchanged, the day after `lastDayKey` → +1, otherwise → 1.
+ * the day after `lastDayKey` → +1; the same day, or a day before `lastDayKey` (the day-start
+ * hour or the time zone changed) → unchanged; otherwise → 1.
  */
 export function nextTextDayStreak(
   prev: { current: number; best: number; lastDayKey?: DayKey },
   today: DayKey,
 ): TextDayStreak {
-  const last = prev.lastDayKey
-  let current = 1
-  if (last === today) current = prev.current
-  else if (last !== undefined && diffDays(today, last) === 1) current = prev.current + 1
-  return { current, best: Math.max(prev.best, current), lastDayKey: today }
+  const { current, best, lastDayKey } = prev
+  const saidToday = (next: number): TextDayStreak => ({
+    current: next,
+    best: Math.max(best, next),
+    lastDayKey: today,
+  })
+  if (lastDayKey === undefined) return saidToday(1)
+  const days = diffDays(today, lastDayKey)
+  if (days <= 0) return { current, best, lastDayKey }
+  return saidToday(days === 1 ? current + 1 : 1)
 }

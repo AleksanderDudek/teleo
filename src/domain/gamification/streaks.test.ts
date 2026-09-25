@@ -303,4 +303,10 @@ describe('nextTextDayStreak', () => {
     const prev = { current: 2, best: 2, lastDayKey: '2026-12-31' }
     expect(nextTextDayStreak(prev, '2027-01-01')).toMatchObject({ current: 3, best: 3 })
   })
+
+  it('stays unchanged when today lies before the last day (day start or time zone changed)', () => {
+    const prev = { current: 4, best: 6, lastDayKey: '2026-09-25' }
+    expect(nextTextDayStreak(prev, '2026-09-24')).toEqual(prev)
+    expect(nextTextDayStreak(prev, '2026-08-01')).toEqual(prev)
+  })
 })
