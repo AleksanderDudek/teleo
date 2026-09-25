@@ -43,7 +43,9 @@ export interface RecognitionLike {
   abort(): void
 }
 
-export type AvailabilityStatus = 'available' | 'downloadable' | 'downloading' | 'unavailable'
+import type { OnDeviceStatus } from './SpeechEngine'
+
+export type AvailabilityStatus = OnDeviceStatus
 
 export interface RecognitionCtorLike {
   new (): RecognitionLike

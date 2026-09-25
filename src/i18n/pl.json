@@ -212,10 +212,51 @@
     }
   },
   "player": {
-    "rubric": "Sesja"
+    "rubric": "Sesja",
+    "close": "Wyjdź z sesji",
+    "progress": "Zdanie {{current}} z {{total}}",
+    "xp": "{{xp}} XP",
+    "retry": "Spróbuj ponownie",
+    "skip": "Pomiń to zdanie",
+    "skipHint": "Utknęło? Możesz pominąć – bez punktów XP.",
+    "tapToSpeak": "Dotknij mikrofonu i powiedz zdanie",
+    "previous": "Poprzednie zdanie",
+    "next": "Następne zdanie",
+    "great": "Świetnie!",
+    "leaveTitle": "Wstrzymać sesję?",
+    "leaveBody": "Postęp jest zapisany. Możesz ją dziś wznowić z ekranu Dziś lub Sesje.",
+    "leaveConfirm": "Wstrzymaj i wyjdź",
+    "stay": "Kontynuuj",
+    "notFound": "Ta sesja już nie istnieje.",
+    "finished": "Sesja ukończona",
+    "repetition": "{{current}}/{{total}}",
+    "liveMode": "Na żywo",
+    "tapMode": "Dotyk",
+    "liveOn": "Słuchanie na żywo: po prostu mów dalej – każde zdanie sprawdzamy na bieżąco.",
+    "liveOff": "Tryb dotyku: dotknij mikrofonu przy każdym zdaniu.",
+    "listeningLive": "Słucham – mów we własnym tempie",
+    "pausedLive": "Słuchanie wstrzymane",
+    "resumeListening": "Wznów słuchanie",
+    "pauseListening": "Wstrzymaj słuchanie"
   },
   "summary": {
-    "rubric": "Podsumowanie"
+    "rubric": "Podsumowanie",
+    "title": "Pięknie",
+    "titleIncomplete": "Sesja zapisana",
+    "accepted": "Wypowiedziane zdania",
+    "texts": "Ukończone teksty",
+    "firstTry": "Za pierwszym razem",
+    "xp": "Zdobyte XP",
+    "streak": "Seria dni",
+    "goal": "Cel dzienny",
+    "goalValue": "{{done}} / {{goal}}",
+    "newAchievements": "Nowe osiągnięcia",
+    "again": "Jeszcze raz",
+    "home": "Wróć do ekranu Dziś",
+    "skipped_one": "{{count}} zdanie pominięte",
+    "skipped_few": "{{count}} zdania pominięte",
+    "skipped_many": "{{count}} zdań pominiętych",
+    "skipped_other": "{{count}} zdania pominiętego"
   },
   "progress": {
     "rubric": "Postępy",
@@ -228,11 +269,26 @@
     "theme": "Wygląd",
     "themeSystem": "Systemowy",
     "themeLight": "Jasny",
-    "themeDark": "Ciemny"
+    "themeDark": "Ciemny",
+    "privacyPolicy": "Polityka prywatności"
   },
   "micTest": {
     "rubric": "Test mikrofonu",
-    "title": "Sprawdź mikrofon"
+    "title": "Sprawdź mikrofon",
+    "intro": "Powiedz zdanie poniżej. Teleo pokaże, co usłyszało i czy zdanie zostałoby zaliczone.",
+    "phrase": "Zdanie do powiedzenia",
+    "custom": "Własne zdanie",
+    "customPlaceholder": "Wpisz dowolne zdanie…",
+    "heard": "Co usłyszeliśmy",
+    "alternatives": "Inne hipotezy",
+    "engine": "Silnik",
+    "engineWeb": "Rozpoznawanie mowy przeglądarki (Web Speech API)",
+    "onDevice": "Rozpoznawanie na urządzeniu",
+    "onDeviceAvailable": "dostępne – używane automatycznie",
+    "onDeviceDownloadable": "można pobrać",
+    "onDeviceUnavailable": "niedostępne",
+    "onDeviceInstall": "Pobierz pakiet językowy",
+    "onDeviceInstalled": "Pakiet językowy zainstalowany"
   },
   "onboarding": {
     "rubric": "Witaj",
@@ -278,5 +334,330 @@
     "times_few": "{{count}} razy",
     "times_many": "{{count}} razy",
     "times_other": "{{count}} razy"
+  },
+  "speech": {
+    "speak": "Mów",
+    "stop": "Stop",
+    "listening": "Słucham…",
+    "starting": "Włączam mikrofon…",
+    "checking": "Sprawdzam…",
+    "spaceHint": "Spacja: start / stop",
+    "result": {
+      "great": "Świetnie!",
+      "acceptedNear": "Zaliczone – kilka słów zabrzmiało nieco inaczej.",
+      "empty": "Nic nie usłyszałem. Spróbuj jeszcze raz, trochę głośniej.",
+      "emptySource": "Ten segment nie zawiera słów do wypowiedzenia.",
+      "extra_one": "Dodatkowe słowo: „{{words}}”. Spróbuj jeszcze raz.",
+      "extra_few": "Dodatkowe słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "extra_many": "Dodatkowe słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "extra_other": "Dodatkowe słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "wrong": "Usłyszałem „{{spoken}}” zamiast „{{expected}}”. Spróbuj jeszcze raz.",
+      "missing_one": "Pominięte słowo: „{{words}}”. Spróbuj jeszcze raz.",
+      "missing_few": "Pominięte słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "missing_many": "Pominięte słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "missing_other": "Pominięte słowa: „{{words}}”. Spróbuj jeszcze raz.",
+      "coverage": "Dopasowano {{percent}}% słów – potrzeba {{needed}}%."
+    },
+    "howWeCount": "Jak liczymy?",
+    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz co najmniej 95% jego słów i nie dodasz żadnego słowa. W zdaniach krótszych niż 20 słów oznacza to wszystkie słowa – jedno pominięte słowo dopuszczamy dopiero od 20 słów. Drobne potknięcia rozpoznawania (brak polskich znaków, jedna litera w dłuższym słowie) wybaczamy, a dźwięki typu „yyy” pomijamy.",
+    "legendMatch": "powiedziane",
+    "legendNear": "prawie",
+    "legendMissing": "pominięte",
+    "legendExtra": "dodatkowe / inne",
+    "errors": {
+      "not-supported": "Ta przeglądarka nie rozpoznaje mowy. Użyj Chrome, Edge lub Safari – albo silnika offline Whisper (w wersji 1.1).",
+      "permission-denied": "Dostęp do mikrofonu jest zablokowany. Zezwól na niego w ustawieniach witryny i spróbuj ponownie.",
+      "no-microphone": "Nie znaleziono mikrofonu.",
+      "network": "Rozpoznawanie mowy w tej przeglądarce wymaga połączenia z internetem.",
+      "language-not-supported": "Ta przeglądarka nie rozpoznaje tego języka.",
+      "busy": "Mikrofon jest zajęty – spróbuj za chwilę.",
+      "model-missing": "Model offline nie został jeszcze pobrany.",
+      "unknown": "Rozpoznawanie mowy nieoczekiwanie się zatrzymało. Spróbuj ponownie.",
+      "iosStandalone": "Na iPhonie rozpoznawanie mowy w zainstalowanej aplikacji bywa zawodne. Jeśli problem się powtarza, otwórz Teleo w Safari."
+    },
+    "privacy": {
+      "title": "Zanim zaczniesz mówić",
+      "body": "Teleo nigdy nie zapisuje Twojego głosu i niczego nam nie wysyła. Wbudowane w przeglądarkę rozpoznawanie mowy może jednak przesyłać nagranie do firmy {{vendor}}, aby zamienić je na tekst.",
+      "onDevice": "Dobra wiadomość: Twoja przeglądarka rozpoznaje ten język na urządzeniu.",
+      "whisper": "Wolisz w pełni prywatne rozpoznawanie? Silnik offline Whisper planujemy w wersji 1.1.",
+      "accept": "Rozumiem – dalej",
+      "vendorGoogle": "Google",
+      "vendorMicrosoft": "Microsoft",
+      "vendorApple": "Apple",
+      "vendorGeneric": "dostawca przeglądarki"
+    }
+  },
+  "achievements": {
+    "text": {
+      "reps": {
+        "1": {
+          "name": "Pierwsze słowo",
+          "desc": "{{title}} – wypowiedziany w całości"
+        },
+        "7": {
+          "name": "Tydzień słów",
+          "desc": "{{title}} – 7 powtórzeń"
+        },
+        "21": {
+          "name": "Nawyk w drodze",
+          "desc": "{{title}} – 21 powtórzeń"
+        },
+        "50": {
+          "name": "Pół setki",
+          "desc": "{{title}} – 50 powtórzeń"
+        },
+        "100": {
+          "name": "Setka",
+          "desc": "{{title}} – 100 powtórzeń"
+        },
+        "365": {
+          "name": "Rok słów",
+          "desc": "{{title}} – 365 powtórzeń"
+        },
+        "1000": {
+          "name": "Tysiąc razy",
+          "desc": "{{title}} – 1000 powtórzeń"
+        }
+      },
+      "streak": {
+        "3": {
+          "name": "Trzy dni wierności",
+          "desc": "{{title}} – 3 dni z rzędu"
+        },
+        "7": {
+          "name": "Tydzień wierności",
+          "desc": "{{title}} – 7 dni z rzędu"
+        },
+        "30": {
+          "name": "Miesiąc wierności",
+          "desc": "{{title}} – 30 dni z rzędu"
+        },
+        "100": {
+          "name": "Sto dni",
+          "desc": "{{title}} – 100 dni z rzędu"
+        }
+      },
+      "perfect": {
+        "name": "Bez zająknięcia",
+        "desc": "{{title}} – cały tekst bez żadnej poprawki"
+      },
+      "memory": {
+        "name": "Na pamięć",
+        "desc": "{{title}} – wypowiedziany z pamięci, w pełni ukryty"
+      }
+    },
+    "streak": {
+      "2": {
+        "name": "Drugi dzień",
+        "desc": "2 dni z rzędu"
+      },
+      "5": {
+        "name": "Pięć dni",
+        "desc": "5 dni z rzędu"
+      },
+      "7": {
+        "name": "Pełny tydzień",
+        "desc": "7 dni z rzędu"
+      },
+      "14": {
+        "name": "Dwa tygodnie",
+        "desc": "14 dni z rzędu"
+      },
+      "30": {
+        "name": "Miesiąc",
+        "desc": "30 dni z rzędu"
+      },
+      "60": {
+        "name": "Dwa miesiące",
+        "desc": "60 dni z rzędu"
+      },
+      "100": {
+        "name": "Setka dni",
+        "desc": "100 dni z rzędu"
+      },
+      "365": {
+        "name": "Rok",
+        "desc": "365 dni z rzędu"
+      }
+    },
+    "weekly": {
+      "5of7": {
+        "x4": {
+          "name": "Stały rytm",
+          "desc": "4 tygodnie z rzędu, w każdym co najmniej 5 aktywnych dni"
+        }
+      }
+    },
+    "goal": {
+      "days": {
+        "30": {
+          "name": "Cel osiągnięty ×30",
+          "desc": "Cel dzienny osiągnięty 30 razy"
+        }
+      }
+    },
+    "daily": {
+      "10": {
+        "name": "Dziesiątka",
+        "desc": "10 zdań w jednym dniu"
+      },
+      "25": {
+        "name": "Ćwierć setki",
+        "desc": "25 zdań w jednym dniu"
+      },
+      "50": {
+        "name": "Pięćdziesiątka",
+        "desc": "50 zdań w jednym dniu"
+      },
+      "100": {
+        "name": "Setka dnia",
+        "desc": "100 zdań w jednym dniu"
+      },
+      "150": {
+        "name": "Maraton",
+        "desc": "150 zdań w jednym dniu"
+      }
+    },
+    "total": {
+      "100": {
+        "name": "Pierwsza setka",
+        "desc": "100 zdań łącznie"
+      },
+      "500": {
+        "name": "Pięćset",
+        "desc": "500 zdań łącznie"
+      },
+      "1000": {
+        "name": "Tysiąc",
+        "desc": "1000 zdań łącznie"
+      },
+      "5000": {
+        "name": "Pięć tysięcy",
+        "desc": "5000 zdań łącznie"
+      },
+      "10000": {
+        "name": "Dziesięć tysięcy",
+        "desc": "10 000 zdań łącznie"
+      },
+      "50000": {
+        "name": "Legenda",
+        "desc": "50 000 zdań łącznie"
+      }
+    },
+    "session": {
+      "first": {
+        "name": "Pierwsza sesja",
+        "desc": "Twoja pierwsza ukończona sesja"
+      },
+      "10": {
+        "name": "Sesje ×10",
+        "desc": "10 ukończonych sesji"
+      },
+      "50": {
+        "name": "Sesje ×50",
+        "desc": "50 ukończonych sesji"
+      },
+      "100": {
+        "name": "Sesje ×100",
+        "desc": "100 ukończonych sesji"
+      },
+      "perfect": {
+        "name": "Czysta sesja",
+        "desc": "Sesja z 10+ zdaniami, każde za pierwszym razem"
+      },
+      "long": {
+        "name": "Pełna setka i pół",
+        "desc": "Sesja 150 zdań bez pominięć"
+      }
+    },
+    "time": {
+      "morning": {
+        "7": {
+          "name": "Ranny ptaszek",
+          "desc": "7 dni z praktyką przed 8:00"
+        }
+      },
+      "evening": {
+        "7": {
+          "name": "Wieczorna cisza",
+          "desc": "7 dni z praktyką po 21:00"
+        }
+      }
+    },
+    "create": {
+      "1": {
+        "name": "Własne słowa",
+        "desc": "Dodany pierwszy własny tekst"
+      },
+      "5": {
+        "name": "Autor",
+        "desc": "Dodanych 5 własnych tekstów"
+      }
+    },
+    "bilingual": {
+      "name": "Dwujęzyczny",
+      "desc": "Polski i angielski tego samego dnia"
+    },
+    "comeback": {
+      "name": "Powrót",
+      "desc": "Powrót po co najmniej 3 dniach przerwy"
+    },
+    "level": {
+      "5": {
+        "name": "Poziom 5",
+        "desc": "Osiągnięty poziom 5"
+      },
+      "10": {
+        "name": "Poziom 10",
+        "desc": "Osiągnięty poziom 10"
+      },
+      "20": {
+        "name": "Poziom 20",
+        "desc": "Osiągnięty poziom 20 – Teleo"
+      }
+    }
+  },
+  "tiers": {
+    "bronze": "Brąz",
+    "silver": "Srebro",
+    "gold": "Złoto",
+    "platinum": "Platyna",
+    "diamond": "Diament"
+  },
+  "levelNames": {
+    "1": "Ziarno",
+    "2": "Kiełek",
+    "3": "Siewka",
+    "4": "Pęd",
+    "5": "Łodyga",
+    "6": "Liść",
+    "7": "Pąk",
+    "8": "Kwiat",
+    "9": "Owoc",
+    "10": "Krzew",
+    "11": "Młode drzewo",
+    "12": "Drzewo",
+    "13": "Mocne korzenie",
+    "14": "Rozłożysta korona",
+    "15": "Gaj",
+    "16": "Sad",
+    "17": "Las",
+    "18": "Stary las",
+    "19": "Ogród",
+    "20": "Teleo"
+  },
+  "level": {
+    "label": "Poziom {{level}}",
+    "circle": "Teleo {{roman}}",
+    "xp": "{{xp}} XP",
+    "toNext": "{{xp}} XP do: {{name}}",
+    "up": "Nowy poziom: {{name}}"
+  },
+  "celebrate": {
+    "unlocked": "Nowe osiągnięcie",
+    "hidden": "???",
+    "xp": "+{{xp}} XP",
+    "freezeEarned": "Zdobywasz zamrożenie serii ❄",
+    "goalReached": "Cel dzienny osiągnięty! +{{xp}} XP"
   }
 }

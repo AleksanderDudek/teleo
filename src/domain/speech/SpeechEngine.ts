@@ -33,7 +33,13 @@ export interface SpeechEngine {
   stop(): Promise<SpeechResult>
   /** Stops immediately, discarding the result. */
   abort(): void
+  /** On-device recognition status for a language, when the engine can tell. */
+  onDeviceStatus?(lang: SpeechLang): Promise<OnDeviceStatus | undefined>
+  /** Downloads on-device support for a language (call from a user gesture). */
+  installOnDevice?(lang: SpeechLang): Promise<boolean>
 }
+
+export type OnDeviceStatus = 'available' | 'downloadable' | 'downloading' | 'unavailable'
 
 export type SpeechErrorCode =
   | 'not-supported'

@@ -212,10 +212,49 @@
     }
   },
   "player": {
-    "rubric": "Session"
+    "rubric": "Session",
+    "close": "Leave session",
+    "progress": "Sentence {{current}} of {{total}}",
+    "xp": "{{xp}} XP",
+    "retry": "Try again",
+    "skip": "Skip this sentence",
+    "skipHint": "Stuck? You can skip — it earns no XP.",
+    "tapToSpeak": "Tap the microphone and say the sentence",
+    "previous": "Previous sentence",
+    "next": "Next sentence",
+    "great": "Great!",
+    "leaveTitle": "Pause this session?",
+    "leaveBody": "Your progress is saved. You can resume it today from Today or Sessions.",
+    "leaveConfirm": "Pause and leave",
+    "stay": "Keep going",
+    "notFound": "This session no longer exists.",
+    "finished": "Session finished",
+    "repetition": "{{current}}/{{total}}",
+    "liveMode": "Live",
+    "tapMode": "Tap",
+    "liveOn": "Live listening: just keep speaking — each sentence is checked as you go.",
+    "liveOff": "Tap mode: tap the microphone for each sentence.",
+    "listeningLive": "Listening — speak at your own pace",
+    "pausedLive": "Listening paused",
+    "resumeListening": "Resume listening",
+    "pauseListening": "Pause listening"
   },
   "summary": {
-    "rubric": "Summary"
+    "rubric": "Summary",
+    "title": "Well done",
+    "titleIncomplete": "Session saved",
+    "accepted": "Sentences said",
+    "texts": "Texts completed",
+    "firstTry": "First-try success",
+    "xp": "XP earned",
+    "streak": "Day streak",
+    "goal": "Daily goal",
+    "goalValue": "{{done}} / {{goal}}",
+    "newAchievements": "New achievements",
+    "again": "Once more",
+    "home": "Back to Today",
+    "skipped_one": "{{count}} sentence skipped",
+    "skipped_other": "{{count}} sentences skipped"
   },
   "progress": {
     "rubric": "Progress",
@@ -228,11 +267,26 @@
     "theme": "Appearance",
     "themeSystem": "System",
     "themeLight": "Light",
-    "themeDark": "Dark"
+    "themeDark": "Dark",
+    "privacyPolicy": "Privacy policy"
   },
   "micTest": {
     "rubric": "Microphone test",
-    "title": "Test your microphone"
+    "title": "Test your microphone",
+    "intro": "Say the phrase below. Teleo shows what it heard and whether the sentence would count.",
+    "phrase": "Phrase to say",
+    "custom": "Your own sentence",
+    "customPlaceholder": "Type any sentence…",
+    "heard": "What we heard",
+    "alternatives": "Other hypotheses",
+    "engine": "Engine",
+    "engineWeb": "Browser speech recognition (Web Speech API)",
+    "onDevice": "On-device recognition",
+    "onDeviceAvailable": "available — used automatically",
+    "onDeviceDownloadable": "can be downloaded",
+    "onDeviceUnavailable": "not available",
+    "onDeviceInstall": "Download language pack",
+    "onDeviceInstalled": "Language pack installed"
   },
   "onboarding": {
     "rubric": "Welcome",
@@ -268,5 +322,326 @@
     "days_other": "{{count}} days",
     "times_one": "{{count}} time",
     "times_other": "{{count}} times"
+  },
+  "speech": {
+    "speak": "Speak",
+    "stop": "Stop",
+    "listening": "Listening…",
+    "starting": "Starting the microphone…",
+    "checking": "Checking…",
+    "spaceHint": "Space: start / stop",
+    "result": {
+      "great": "Great!",
+      "acceptedNear": "Accepted — a few words sounded slightly different.",
+      "empty": "I didn’t hear anything. Try again a little louder.",
+      "emptySource": "This segment has no words to say.",
+      "extra_one": "Extra word: “{{words}}”. Try again.",
+      "extra_other": "Extra words: “{{words}}”. Try again.",
+      "wrong": "I heard “{{spoken}}” instead of “{{expected}}”. Try again.",
+      "missing_one": "Missing word: “{{words}}”. Try again.",
+      "missing_other": "Missing words: “{{words}}”. Try again.",
+      "coverage": "{{percent}}% of the words matched — {{needed}}% needed."
+    },
+    "howWeCount": "How do we check?",
+    "howWeCountBody": "A sentence counts when at least 95% of its words were said and you added no extra words. For sentences shorter than 20 words this means every word — one skipped word is tolerated only from 20 words up. Small recognition slips (missing Polish letters, one wrong letter in a longer word) are forgiven; filler sounds like “um” are ignored.",
+    "legendMatch": "said",
+    "legendNear": "close enough",
+    "legendMissing": "missing",
+    "legendExtra": "extra / different",
+    "errors": {
+      "not-supported": "This browser can’t recognise speech. Use Chrome, Edge or Safari — or the offline Whisper engine (coming in v1.1).",
+      "permission-denied": "Microphone access was blocked. Allow it in the browser’s site settings and try again.",
+      "no-microphone": "No microphone was found.",
+      "network": "Speech recognition needs an internet connection in this browser.",
+      "language-not-supported": "This browser can’t recognise this language.",
+      "busy": "The microphone is busy — try again in a moment.",
+      "model-missing": "The offline model isn’t downloaded yet.",
+      "unknown": "Speech recognition stopped unexpectedly. Try again.",
+      "iosStandalone": "On iPhone, speech recognition can fail in the installed app. If it keeps failing, open Teleo in Safari."
+    },
+    "privacy": {
+      "title": "Before you speak",
+      "body": "Teleo never stores your voice and sends nothing to us. The speech recognition built into your browser may send audio to {{vendor}} to turn it into text.",
+      "onDevice": "Good news: your browser can recognise this language on the device.",
+      "whisper": "Prefer fully private recognition? An offline Whisper engine is planned for v1.1.",
+      "accept": "I understand — continue",
+      "vendorGoogle": "Google",
+      "vendorMicrosoft": "Microsoft",
+      "vendorApple": "Apple",
+      "vendorGeneric": "the browser vendor"
+    }
+  },
+  "achievements": {
+    "text": {
+      "reps": {
+        "1": {
+          "name": "First Word",
+          "desc": "{{title}} — said once in full"
+        },
+        "7": {
+          "name": "Seven Times",
+          "desc": "{{title}} — 7 repetitions"
+        },
+        "21": {
+          "name": "Habit Forming",
+          "desc": "{{title}} — 21 repetitions"
+        },
+        "50": {
+          "name": "Half Hundred",
+          "desc": "{{title}} — 50 repetitions"
+        },
+        "100": {
+          "name": "Centurion",
+          "desc": "{{title}} — 100 repetitions"
+        },
+        "365": {
+          "name": "A Year of Words",
+          "desc": "{{title}} — 365 repetitions"
+        },
+        "1000": {
+          "name": "Thousandfold",
+          "desc": "{{title}} — 1000 repetitions"
+        }
+      },
+      "streak": {
+        "3": {
+          "name": "Three Faithful Days",
+          "desc": "{{title}} — 3 days in a row"
+        },
+        "7": {
+          "name": "Faithful Week",
+          "desc": "{{title}} — 7 days in a row"
+        },
+        "30": {
+          "name": "Faithful Month",
+          "desc": "{{title}} — 30 days in a row"
+        },
+        "100": {
+          "name": "Hundred Days",
+          "desc": "{{title}} — 100 days in a row"
+        }
+      },
+      "perfect": {
+        "name": "Flawless",
+        "desc": "{{title}} — the whole text without a single retry"
+      },
+      "memory": {
+        "name": "By Heart",
+        "desc": "{{title}} — said from memory, fully hidden"
+      }
+    },
+    "streak": {
+      "2": {
+        "name": "Day Two",
+        "desc": "2 days in a row"
+      },
+      "5": {
+        "name": "Five Days",
+        "desc": "5 days in a row"
+      },
+      "7": {
+        "name": "Full Week",
+        "desc": "7 days in a row"
+      },
+      "14": {
+        "name": "Fortnight",
+        "desc": "14 days in a row"
+      },
+      "30": {
+        "name": "Month Strong",
+        "desc": "30 days in a row"
+      },
+      "60": {
+        "name": "Two Months",
+        "desc": "60 days in a row"
+      },
+      "100": {
+        "name": "100 Days",
+        "desc": "100 days in a row"
+      },
+      "365": {
+        "name": "One Full Year",
+        "desc": "365 days in a row"
+      }
+    },
+    "weekly": {
+      "5of7": {
+        "x4": {
+          "name": "Steady Rhythm",
+          "desc": "4 weeks in a row with at least 5 active days"
+        }
+      }
+    },
+    "goal": {
+      "days": {
+        "30": {
+          "name": "Goal Crusher",
+          "desc": "Daily goal reached 30 times"
+        }
+      }
+    },
+    "daily": {
+      "10": {
+        "name": "Ten Today",
+        "desc": "10 sentences in one day"
+      },
+      "25": {
+        "name": "Twenty-Five",
+        "desc": "25 sentences in one day"
+      },
+      "50": {
+        "name": "Fifty in a Day",
+        "desc": "50 sentences in one day"
+      },
+      "100": {
+        "name": "Hundred in a Day",
+        "desc": "100 sentences in one day"
+      },
+      "150": {
+        "name": "Marathon",
+        "desc": "150 sentences in one day"
+      }
+    },
+    "total": {
+      "100": {
+        "name": "First Hundred",
+        "desc": "100 sentences in total"
+      },
+      "500": {
+        "name": "Five Hundred",
+        "desc": "500 sentences in total"
+      },
+      "1000": {
+        "name": "One Thousand",
+        "desc": "1,000 sentences in total"
+      },
+      "5000": {
+        "name": "Five Thousand",
+        "desc": "5,000 sentences in total"
+      },
+      "10000": {
+        "name": "Ten Thousand",
+        "desc": "10,000 sentences in total"
+      },
+      "50000": {
+        "name": "Legend",
+        "desc": "50,000 sentences in total"
+      }
+    },
+    "session": {
+      "first": {
+        "name": "First Session",
+        "desc": "Your first completed session"
+      },
+      "10": {
+        "name": "Sessions ×10",
+        "desc": "10 completed sessions"
+      },
+      "50": {
+        "name": "Sessions ×50",
+        "desc": "50 completed sessions"
+      },
+      "100": {
+        "name": "Sessions ×100",
+        "desc": "100 completed sessions"
+      },
+      "perfect": {
+        "name": "Clean Session",
+        "desc": "A session of 10+ sentences, all on the first try"
+      },
+      "long": {
+        "name": "The Full 150",
+        "desc": "A 150-sentence session without skipping"
+      }
+    },
+    "time": {
+      "morning": {
+        "7": {
+          "name": "Early Bird",
+          "desc": "7 days with practice before 8:00"
+        }
+      },
+      "evening": {
+        "7": {
+          "name": "Evening Calm",
+          "desc": "7 days with practice after 21:00"
+        }
+      }
+    },
+    "create": {
+      "1": {
+        "name": "My Own Words",
+        "desc": "Added your first own text"
+      },
+      "5": {
+        "name": "Author",
+        "desc": "Added 5 own texts"
+      }
+    },
+    "bilingual": {
+      "name": "Bilingual",
+      "desc": "Polish and English on the same day"
+    },
+    "comeback": {
+      "name": "Welcome Back",
+      "desc": "Returned after 3+ days away"
+    },
+    "level": {
+      "5": {
+        "name": "Level 5",
+        "desc": "Reached level 5"
+      },
+      "10": {
+        "name": "Level 10",
+        "desc": "Reached level 10"
+      },
+      "20": {
+        "name": "Level 20",
+        "desc": "Reached level 20 — Teleo"
+      }
+    }
+  },
+  "tiers": {
+    "bronze": "Bronze",
+    "silver": "Silver",
+    "gold": "Gold",
+    "platinum": "Platinum",
+    "diamond": "Diamond"
+  },
+  "levelNames": {
+    "1": "Seed",
+    "2": "Sprout",
+    "3": "Seedling",
+    "4": "Shoot",
+    "5": "Stem",
+    "6": "Leaf",
+    "7": "Bud",
+    "8": "Blossom",
+    "9": "Fruit",
+    "10": "Shrub",
+    "11": "Sapling",
+    "12": "Tree",
+    "13": "Deep Roots",
+    "14": "Wide Canopy",
+    "15": "Grove",
+    "16": "Orchard",
+    "17": "Forest",
+    "18": "Old-growth Forest",
+    "19": "Garden",
+    "20": "Teleo"
+  },
+  "level": {
+    "label": "Level {{level}}",
+    "circle": "Teleo {{roman}}",
+    "xp": "{{xp}} XP",
+    "toNext": "{{xp}} XP to {{name}}",
+    "up": "New level: {{name}}"
+  },
+  "celebrate": {
+    "unlocked": "Achievement unlocked",
+    "hidden": "???",
+    "xp": "+{{xp}} XP",
+    "freezeEarned": "You earned a streak freeze ❄",
+    "goalReached": "Daily goal reached! +{{xp}} XP"
   }
 }
