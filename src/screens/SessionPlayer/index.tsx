@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { Radio, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useBlocker, useNavigate, useParams } from 'react-router'
@@ -13,7 +13,7 @@ import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
 import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
-import { SPEECH_LANG } from '@/domain/types'
+import { SPEECH_LANG, type EngineId } from '@/domain/types'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
@@ -21,12 +21,12 @@ import { cn } from '@/lib/cn'
 import { finishRun, pauseRun, recordAttempt, skipEntry } from '@/services/practice'
 import { updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
-import { celebrate } from './celebrate'
-import { SegmentStage } from './SegmentStage'
-import { usePlayerData, type PlayerData } from './usePlayerData'
+import { celebrationLines } from './celebrate'
 import { repetitionLabel } from './repetition'
+import { SegmentStage } from './SegmentStage'
+import { useLiveSession, type LiveSentence } from './useLiveSession'
+import { usePlayerData, type PlayerData } from './usePlayerData'
 
-const CELEBRATION_MS = 900
 const AUTO_LISTEN_DELAY_MS = 600
 const SKIP_AFTER_FAILS = 3
 
@@ -47,6 +47,7 @@ export default function SessionPlayer() {
 }
 
 interface Feedback {
+  entryIndex: number
   result: MatchResult
   diff: DiffPart[]
   message: string
@@ -58,21 +59,26 @@ function Player({ data }: { data: PlayerData }) {
   const app = useAppSettings()
   const { run, segments, texts } = data
   const total = run.plan.length
+  const finished = run.cursor >= total || run.status === 'completed'
   const index = Math.min(run.cursor, total - 1)
   const planEntry = run.plan[index]!
   const segment = segments.get(planEntry.segmentId)
   const text = texts.get(planEntry.textId)
   const lang = text?.lang ?? app.uiLang
-  const finished = run.cursor >= total || run.status === 'completed'
 
   const engineState = useSpeechEngine(SPEECH_LANG[lang])
   const engine = engineState.status === 'ready' ? engineState.engine : null
+  // Live mode needs a streaming recogniser (Web Speech); others fall back to tap + auto-listen.
+  const live = app.handsFree && engine?.id === 'webspeech'
+
   const [feedback, setFeedback] = useState<Feedback | null>(null)
-  const [celebrating, setCelebrating] = useState(false)
+  const [praiseKey, setPraiseKey] = useState(0)
+  const [unlockLines, setUnlockLines] = useState<string[]>([])
   const [askPrivacy, setAskPrivacy] = useState(false)
   const [leaving, setLeaving] = useState(false)
   const [busy, setBusy] = useState(false)
   const allowLeave = useRef(false)
+  const finishing = useRef(false)
   const timers = useRef<number[]>([])
   useWakeLock(!finished)
 
@@ -80,43 +86,83 @@ function Player({ data }: { data: PlayerData }) {
   useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), [])
 
   const finish = useCallback(async () => {
+    if (finishing.current) return
+    finishing.current = true
     // The summary lists everything unlocked in this run (and the level-up), so no toasts here.
     await finishRun(run.id)
     allowLeave.current = true
     navigate(`/play/${run.id}/summary`, { replace: true })
   }, [navigate, run.id])
 
-  const handleResult = async (speech: SpeechResult) => {
+  /** Stores a verdict; returns whether the session just reached its end. */
+  const record = async (entryIndex: number, result: MatchResult, durationMs: number, engineId: EngineId): Promise<boolean> => {
+    const outcome = await recordAttempt({ runId: run.id, entryIndex, evaluation: result, engine: engineId, durationMs })
+    const lines = celebrationLines(outcome, t)
+    if (lines.length > 0) {
+      setUnlockLines(lines)
+      later(() => setUnlockLines((current) => (current === lines ? [] : current)), 4500)
+    }
+    if (result.accepted) {
+      navigator.vibrate?.(35)
+      setFeedback(null)
+      setPraiseKey((k) => k + 1)
+      return outcome.run.cursor >= total
+    }
+    const source = segments.get(run.plan[entryIndex]!.segmentId)?.content ?? ''
+    const entryLang = texts.get(run.plan[entryIndex]!.textId)?.lang ?? lang
+    setFeedback({ entryIndex, result, diff: buildDiff(source, entryLang, result), message: resultMessage(result, t) })
+    return false
+  }
+
+  // --- live mode --------------------------------------------------------------
+  const liveTarget: LiveSentence | null = live && !finished && segment ? { entryIndex: index, source: segment.content, lang } : null
+  const liveSession = useLiveSession({
+    engine: live ? engine : null,
+    strictness: app.strictness,
+    target: liveTarget,
+    onVerdict: async (entryIndex, result, durationMs) => {
+      const ended = await record(entryIndex, result, durationMs, 'webspeech')
+      if (ended) {
+        liveSession.stop()
+        await finish()
+      }
+    },
+  })
+
+  // --- tap mode ---------------------------------------------------------------
+  const onTapResult = async (speech: SpeechResult) => {
     if (!segment) return
     const result = evaluate(segment.content, speech.alternatives, { lang, strictness: app.strictness })
     setBusy(true)
     try {
-      const outcome = await recordAttempt({ runId: run.id, entryIndex: index, evaluation: result, engine: speech.engine, durationMs: speech.durationMs })
-      celebrate(outcome, t, (id) => texts.get(id)?.title)
-      if (result.accepted) {
-        navigator.vibrate?.(35)
-        setFeedback(null)
-        setCelebrating(true)
-        later(() => {
-          setCelebrating(false)
-          if (outcome.run.cursor >= total) void finish()
-          else if (app.handsFree) later(() => void capture.start(), AUTO_LISTEN_DELAY_MS)
-        }, CELEBRATION_MS)
-      } else {
-        setFeedback({ result, diff: buildDiff(segment.content, lang, result), message: resultMessage(result, t) })
-      }
+      const ended = await record(index, result, speech.durationMs, speech.engine)
+      if (ended) await finish()
+      else if (result.accepted && app.handsFree) later(() => void capture.start(), AUTO_LISTEN_DELAY_MS)
     } finally {
       setBusy(false)
     }
   }
+  const capture = useTapCapture({ engine: live ? null : engine, lang: SPEECH_LANG[lang], onResult: (speech) => void onTapResult(speech) })
 
-  const capture = useTapCapture({ engine, lang: SPEECH_LANG[lang], onResult: (speech) => void handleResult(speech) })
-  const listening = capture.phase === 'listening'
+  const listening = live ? liveSession.phase === 'listening' : capture.phase === 'listening'
+  const starting = live ? liveSession.phase === 'starting' : capture.phase === 'starting' || capture.phase === 'stopping'
+  const speechError = live ? liveSession.error : capture.error
+
+  const stopAll = () => {
+    liveSession.stop()
+    capture.cancel()
+  }
 
   const toggleMic = () => {
-    if (busy || celebrating || finished) return
-    if (capture.phase === 'idle' && !app.speechPrivacyAcknowledged) return setAskPrivacy(true)
-    if (capture.phase === 'idle') setFeedback(null)
+    if (busy || finished) return
+    const idle = live ? liveSession.phase === 'idle' : capture.phase === 'idle'
+    if (idle && !app.speechPrivacyAcknowledged) return setAskPrivacy(true)
+    if (live) {
+      if (idle) void liveSession.start()
+      else liveSession.stop()
+      return
+    }
+    if (idle) setFeedback(null)
     capture.toggle()
   }
 
@@ -134,10 +180,15 @@ function Player({ data }: { data: PlayerData }) {
 
   // Never keep the microphone open in the background.
   useEffect(() => {
-    const onVisibility = () => document.visibilityState === 'hidden' && capture.cancel()
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        liveSession.stop()
+        capture.cancel()
+      }
+    }
     document.addEventListener('visibilitychange', onVisibility)
     return () => document.removeEventListener('visibilitychange', onVisibility)
-  }, [capture])
+  }, [liveSession, capture])
 
   const blocker = useBlocker(({ nextLocation }) => !allowLeave.current && !finished && !nextLocation.pathname.endsWith('/summary'))
   const leaveDialogOpen = leaving || blocker.state === 'blocked'
@@ -147,7 +198,7 @@ function Player({ data }: { data: PlayerData }) {
   }
 
   const leave = async () => {
-    capture.cancel()
+    stopAll()
     await pauseRun(run.id)
     allowLeave.current = true
     setLeaving(false)
@@ -156,17 +207,42 @@ function Player({ data }: { data: PlayerData }) {
   }
 
   const skip = async () => {
-    capture.cancel()
+    if (live) liveSession.discard()
+    else capture.cancel()
     const next = await skipEntry(run.id, index)
     setFeedback(null)
-    if (next.cursor >= total) void finish()
+    if (next.cursor >= total) {
+      stopAll()
+      await finish()
+    }
+  }
+
+  const switchMode = async () => {
+    stopAll()
+    setFeedback(null)
+    await updateAppSettings({ handsFree: !app.handsFree })
   }
 
   const failed = run.entries[index]?.attempts ?? 0
-  const previous = index > 0 ? segments.get(run.plan[index - 1]!.segmentId)?.content : undefined
+  const previousEntry = index > 0 ? run.plan[index - 1] : undefined
+  const previous = previousEntry ? segments.get(previousEntry.segmentId)?.content : undefined
   const next = index + 1 < total ? segments.get(run.plan[index + 1]!.segmentId)?.content : undefined
   const repetition = repetitionLabel(run.plan, index, (id) => texts.get(id)?.title ?? '')
   const done = run.entries.filter((e) => e.status !== 'pending').length
+  const covered = live && listening ? liveSession.progress?.covered : undefined
+  const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
+
+  const status = starting
+    ? t('speech.starting')
+    : listening
+      ? live
+        ? t('player.listeningLive')
+        : t('speech.listening')
+      : visibleFeedback
+        ? t('player.retry')
+        : live && praiseKey > 0
+          ? t('player.pausedLive')
+          : t('player.tapToSpeak')
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -186,28 +262,57 @@ function Player({ data }: { data: PlayerData }) {
             <p className="tabular text-xs font-semibold text-gold-ink">{t('player.xp', { xp: run.xpEarned })}</p>
           </div>
         </div>
+        {engine?.id === 'webspeech' && (
+          <div className="mx-auto mt-2 flex max-w-2xl justify-end">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={app.handsFree}
+              onClick={() => void switchMode()}
+              title={app.handsFree ? t('player.liveOn') : t('player.liveOff')}
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-colors',
+                app.handsFree ? 'border-ok/40 bg-ok-soft text-ok' : 'border-line bg-surface text-ink-soft',
+              )}
+            >
+              <Radio aria-hidden className="size-3.5" />
+              {app.handsFree ? t('player.liveMode') : t('player.tapMode')}
+            </button>
+          </div>
+        )}
       </header>
 
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-8">
+      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-6">
         {segment && (
-          <SegmentStage previous={previous} current={segment.content} next={next} celebrating={celebrating} repetition={repetition} />
+          <SegmentStage
+            previous={previous}
+            previousDone={!!previousEntry && run.entries[index - 1]?.status === 'accepted'}
+            current={segment.content}
+            next={next}
+            covered={covered}
+            praiseKey={praiseKey}
+            unlockLines={unlockLines}
+            repetition={repetition}
+          />
         )}
 
         <div aria-live="polite" className="mt-6 w-full max-w-xl">
-          {celebrating && <p className="sr-only">{t('player.great')}</p>}
-          {feedback && !listening && (
+          <p key={praiseKey} className="sr-only">
+            {praiseKey > 0 ? [t('player.great'), ...unlockLines].join('. ') : ''}
+          </p>
+          {visibleFeedback && (
             <div className="card space-y-3 p-4 text-left animate-rise">
-              <p className="font-semibold text-bad">{feedback.message}</p>
-              <DiffView parts={feedback.diff} className="text-lg" />
+              <p className="font-semibold text-bad">{visibleFeedback.message}</p>
+              <DiffView parts={visibleFeedback.diff} className="text-lg" />
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <DiffLegend />
                 <HowWeCount />
               </div>
             </div>
           )}
-          {capture.error && (
+          {speechError && (
             <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
-              {t(`speech.errors.${capture.error}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
+              {t(`speech.errors.${speechError}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
             </p>
           )}
           {engineState.status === 'unsupported' && (
@@ -219,14 +324,12 @@ function Player({ data }: { data: PlayerData }) {
       </main>
 
       <footer className="sticky bottom-0 z-20 flex flex-col items-center gap-2 bg-gradient-to-t from-paper via-paper/95 to-transparent px-6 pt-6 pb-[max(env(safe-area-inset-bottom),1.25rem)]">
-        {listening && capture.transcript && (
+        {!live && listening && capture.transcript && (
           <p className="line-clamp-2 max-w-xl text-center font-serif text-ink-soft italic">{capture.transcript}</p>
         )}
-        <MicButton listening={listening} busy={busy || capture.phase === 'starting' || capture.phase === 'stopping'} disabled={!engine || celebrating || finished} onClick={toggleMic} />
-        <p className={cn('h-5 text-sm font-medium text-ink-soft')}>
-          {capture.phase === 'starting' ? t('speech.starting') : listening ? t('speech.listening') : feedback ? t('player.retry') : t('player.tapToSpeak')}
-        </p>
-        {failed >= SKIP_AFTER_FAILS && !listening && (
+        <MicButton listening={listening} busy={busy || starting} disabled={!engine || finished} onClick={toggleMic} />
+        <p className="h-5 text-sm font-medium text-ink-soft">{status}</p>
+        {failed >= SKIP_AFTER_FAILS && (live || !listening) && (
           <div className="flex flex-col items-center gap-1">
             <Button variant="ghost" size="sm" onClick={() => void skip()}>
               {t('player.skip')}
@@ -243,7 +346,8 @@ function Player({ data }: { data: PlayerData }) {
         onAccept={async () => {
           setAskPrivacy(false)
           await updateAppSettings({ speechPrivacyAcknowledged: true })
-          void capture.start()
+          if (live) void liveSession.start()
+          else void capture.start()
         }}
       />
       <Dialog

@@ -88,6 +88,29 @@ describe('LiveTracker', () => {
     expect(accepted(tracker.update('jestem bardzo spokojny i pewny siebie jestem spokojny i pewny siebie'))).toEqual([0])
   })
 
+  it('treats an immediate restart of the sentence as a failed attempt followed by a fresh one', () => {
+    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: S1 })
+    const events = tracker.update('jestem bardzo spokojny i pewny siebie jestem spokojny i pewny siebie')
+    expect(events.map((e) => e.type)).toEqual(['rejected', 'accepted'])
+    expect(events[0]).toMatchObject({ cause: 'restart', transcript: 'jestem bardzo spokojny i pewny siebie' })
+  })
+
+  it('handles a stuttered start as a restart', () => {
+    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: S1 })
+    const events = tracker.update('jestem jestem spokojny i pewny siebie')
+    expect(events.map((e) => e.type)).toEqual(['rejected', 'accepted'])
+  })
+
+  it('does not mistake a repeated opening word inside a clean sentence for a restart', () => {
+    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    tracker.setTarget({ entryIndex: 0, source: 'I am calm and I am strong.' })
+    const partial = tracker.update('I am calm and I am')
+    expect(partial.map((e) => e.type)).toEqual(['progress'])
+    expect(accepted(tracker.update('I am calm and I am strong'))).toEqual([0])
+  })
+
   it('accepts on a pause when only the last word of a long sentence was dropped', () => {
     const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
     tracker.setTarget({ entryIndex: 0, source: TWENTY })

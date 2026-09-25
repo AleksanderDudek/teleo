@@ -8,7 +8,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   strictness: 'strict',
   dayStartHour: 3,
   dailyGoal: 10,
-  handsFree: false,
+  handsFree: true,
   saveTranscripts: true,
   fontSize: 'md',
   listenFirst: false,

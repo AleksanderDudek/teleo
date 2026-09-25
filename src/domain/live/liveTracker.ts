@@ -1,4 +1,4 @@
-import { evaluate, matchPrefix, normalize, progressOf, removeFillers, type LiveProgress, type MatchResult } from '@/domain/matcher'
+import { compareWords, evaluate, matchPrefix, normalize, progressOf, removeFillers, type LiveProgress, type MatchResult } from '@/domain/matcher'
 import type { Lang, Strictness } from '@/domain/types'
 
 /** The sentence currently expected in live mode. */
@@ -10,7 +10,7 @@ export interface LiveTarget {
 export type LiveEvent =
   | { type: 'progress'; entryIndex: number; progress: LiveProgress; window: string }
   | { type: 'accepted'; entryIndex: number; result: MatchResult; transcript: string }
-  | { type: 'rejected'; entryIndex: number; result: MatchResult; transcript: string; cause: 'pause' | 'overflow' }
+  | { type: 'rejected'; entryIndex: number; result: MatchResult; transcript: string; cause: 'pause' | 'overflow' | 'restart' }
 
 export interface LiveTracker {
   /** Sets the next expected sentence; words already heard after the last one are checked at once. */
@@ -68,6 +68,24 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
     return [{ type: 'accepted', entryIndex: current.entryIndex, result, transcript }]
   }
 
+  /**
+   * The speaker slipped and started the sentence again without pausing: find the
+   * last clean fresh start (the sentence's first word followed by no errors) in a
+   * window that already contains an error. Returns its raw-word offset, or null.
+   */
+  const findRestart = (current: LiveTarget, window: string): number | null => {
+    const first = normalize(current.source, lang)[0]?.text
+    if (!first || progressOf(current.source, window, lang).errors === 0) return null
+    const raw = splitWords(window)
+    const starts = spokenTokens(window, current.source)
+      .filter((token, i) => i > 0 && token.rawStart > 0 && compareWords(first, token.text) !== 'none')
+      .map((token) => token.rawStart)
+    for (const start of starts.reverse()) {
+      if (progressOf(current.source, raw.slice(start).join(' '), lang).errors === 0) return start
+    }
+    return null
+  }
+
   const check = (): LiveEvent[] => {
     const current = target
     if (!current) return []
@@ -76,6 +94,14 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
     if (match) {
       consumed += match.consumedRawWords
       return accept(current, match.result, match.result.transcript)
+    }
+
+    const restart = window ? findRestart(current, window) : null
+    if (restart !== null) {
+      const slip = splitWords(window).slice(0, restart).join(' ')
+      const result = evaluate(current.source, [slip], { lang, strictness })
+      consumed += restart
+      return [{ type: 'rejected', entryIndex: current.entryIndex, result, transcript: slip, cause: 'restart' }, ...check()]
     }
 
     const sourceTokens = normalize(current.source, lang).length
