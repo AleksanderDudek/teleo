@@ -314,6 +314,14 @@ describe('ruleProgress', () => {
   it('caps the current value at the threshold', () => {
     expect(ruleProgress(rule('streak.7'), 12)).toEqual({ current: 7, threshold: 7, ratio: 1 })
   })
+
+  it('keeps current within 0…threshold and the ratio within 0…1 for odd values', () => {
+    const centurion = rule('text.reps.100')
+    expect(ruleProgress(centurion, -5)).toEqual({ current: 0, threshold: 100, ratio: 0 })
+    expect(ruleProgress(centurion, Number.NaN)).toEqual({ current: 0, threshold: 100, ratio: 0 })
+    const infinite = ruleProgress(centurion, Number.POSITIVE_INFINITY)
+    expect(infinite).toEqual({ current: 100, threshold: 100, ratio: 1 })
+  })
 })
 
 describe('nextTextMilestone', () => {

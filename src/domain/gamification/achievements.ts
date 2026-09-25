@@ -135,15 +135,15 @@ export function evaluateAchievements(input: {
 }
 
 export interface RuleProgress {
-  /** The metric value, capped at the threshold. */
+  /** The metric value clamped to 0…threshold (NaN counts as 0). */
   current: number
   threshold: number
-  /** 0–1. */
+  /** `current / threshold`, always within 0…1. */
   ratio: number
 }
 
 export function ruleProgress(rule: AchievementRule, value: number): RuleProgress {
-  const current = Math.min(value, rule.threshold)
+  const current = Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), rule.threshold)
   return { current, threshold: rule.threshold, ratio: current / rule.threshold }
 }
 

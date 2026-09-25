@@ -84,8 +84,20 @@ describe('levelInfo', () => {
     }
   })
 
-  it('treats negative XP as 0', () => {
+  it('treats negative XP and NaN as 0', () => {
     expect(levelInfo(-50)).toEqual(levelInfo(0))
+    expect(levelInfo(Number.NEGATIVE_INFINITY)).toEqual(levelInfo(0))
+    expect(levelInfo(Number.NaN)).toEqual(levelInfo(0))
+  })
+
+  it('clamps huge and infinite XP to Number.MAX_SAFE_INTEGER instead of throwing', () => {
+    const max = levelInfo(Number.MAX_SAFE_INTEGER)
+    expect(levelInfo(Number.POSITIVE_INFINITY)).toEqual(max)
+    expect(levelInfo(1e300)).toEqual(max)
+    expect(Number.isSafeInteger(max.level)).toBe(true)
+    expect(max.circle).toBe(max.level - MAX_NAMED_LEVEL)
+    expect(max.progress).toBeGreaterThanOrEqual(0)
+    expect(max.progress).toBeLessThan(1)
   })
 })
 

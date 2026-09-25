@@ -28,7 +28,7 @@ export function streakMultiplier(streak: number): number {
 }
 
 export interface SegmentXpBreakdown {
-  /** `5 + words`, capped at 30. */
+  /** `5 + words`, capped at 30 (a negative word count counts as 0). */
   base: number
   /** First-try bonus (added after the cap). */
   bonus: number
@@ -41,7 +41,8 @@ export function segmentXp(
   firstTry: boolean,
   streak: number,
 ): SegmentXpBreakdown {
-  const base = Math.min(XP_RULES.segmentBase + wordCount, XP_RULES.segmentCap)
+  const words = Math.max(0, wordCount)
+  const base = Math.min(XP_RULES.segmentBase + words, XP_RULES.segmentCap)
   const bonus = firstTry ? XP_RULES.firstTryBonus : 0
   const multiplier = streakMultiplier(streak)
   return { base, bonus, multiplier, total: Math.round((base + bonus) * multiplier) }
