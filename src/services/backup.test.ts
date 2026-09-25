@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { builtinSessionId } from '@/content'
+import { builtinSessionId, builtinTextId } from '@/content'
 import { ALL_TABLES, db } from '@/db/schema'
 import { resetDb } from '@/test/db'
 import { backupFileName, exportBackup, importBackupJson, wipeAllData } from './backup'
-import { finishRun, recordAttempt } from './practice'
+import { finishRun, markHinted, recordAttempt } from './practice'
 import { seedBuiltins } from './seed'
 import { startRun } from './sessions'
 import { readSettings, updateAppSettings } from './settings'
@@ -24,6 +24,9 @@ beforeEach(async () => {
     await recordAttempt({ runId: run.id, entryIndex: i, evaluation: { accepted: true, coverage: 1, extra: 0, wrong: 0, transcript: 'ok' }, engine: 'webspeech', durationMs: 900 })
   }
   await finishRun(run.id)
+  // A paused memory-mode run with a hinted sentence (optional fields must survive the round trip).
+  const memory = await startRun({ kind: 'text', textId: builtinTextId('pl.aniele-bozy'), memoryLevel: 'hidden' })
+  await markHinted(memory.id, 0)
 })
 
 describe('backup', () => {
