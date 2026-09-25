@@ -35,7 +35,10 @@ npm run typecheck    # tsc -b
 - Key modules: `src/domain/matcher` (evaluate, diff, live `matchPrefix`/`progressOf`),
   `src/domain/live/liveTracker.ts` (continuous-listening state machine), `src/services/practice.ts`
   (one transaction per attempt: stats, XP ledger, streaks/freezes, achievements),
-  `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first).
+  `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first),
+  `src/domain/speech` (Web Speech engine, offline Whisper engine + worker, registry).
+- The onnxruntime-web runtime for Whisper is copied to `dist/ort/<version>/` by a Vite plugin and never
+  precached; `npm ci` also pulls `onnxruntime-node` (transformers.js dependency, not bundled).
 - e2e tests stub speech with `e2e/fakeSpeech.ts` (the headless shell crashes on the real
   `SpeechRecognition.available()`); UI strings must exist in both `pl.json` and `en.json`.
 - Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).

@@ -10,8 +10,11 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 
 - **Private by design:** all data lives in your browser (IndexedDB). Nothing is sent to us — there is
   no "us" server. Exception: in some browsers (e.g. Chrome) the built-in Web Speech recognizer sends
-  audio to the browser vendor; the app says so before the first use. Audio is never stored.
-- **Works offline** once installed (speech recognition may need the network, see above).
+  audio to the browser vendor; the app says so before the first use (the Whisper engine keeps audio on
+  the device). Audio is never stored.
+- **Works offline** once installed. Browser speech recognition may need the network; the optional
+  **offline Whisper engine** (Settings → Speech, 70–107 MB download) recognises speech entirely on the
+  device — also in Firefox.
 - **Costs nothing to run:** static files on GitHub Pages.
 
 <p align="center">
@@ -39,7 +42,7 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Yours only:** JSON backup export/import, calendar (.ics) reminders, delete-everything, PL/EN UI,
   light/dark theme, three text sizes, keyboard (Space = microphone), screen stays on in sessions.
 
-Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
+Changes: [CHANGELOG.md](CHANGELOG.md) · Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
 · implementation plan: [docs/superpowers/plans/2026-09-25-teleo-v1.md](docs/superpowers/plans/2026-09-25-teleo-v1.md)
 
 ## Development

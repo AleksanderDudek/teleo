@@ -13,6 +13,12 @@ export const routes: RouteObject[] = [
   {
     element: <Root />,
     errorElement: <RouteError />,
+    // Shown while the first lazy screen loads: the same splash as index.html.
+    hydrateFallbackElement: (
+      <div className="boot" aria-hidden>
+        <span>TELEO</span>
+      </div>
+    ),
     children: [
       {
         element: <TabsLayout />,
