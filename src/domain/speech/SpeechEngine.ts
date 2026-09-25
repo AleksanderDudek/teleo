@@ -1,0 +1,55 @@
+import type { EngineId, SpeechLang } from '@/domain/types'
+
+export interface SpeechStartOptions {
+  lang: SpeechLang
+  /**
+   * Live mode: keep listening across sentences (no auto-stop on silence) and
+   * restart transparently when the browser ends recognition on its own.
+   */
+  continuous?: boolean
+  /** Whole transcript heard so far in this recognition (final + interim, best hypothesis). */
+  onTranscript?: (text: string, isFinal: boolean) => void
+  /** No new speech for a moment (or none at all for a while): a sentence probably ended. */
+  onSilence?: () => void
+  /** Live mode only: recognition restarted, the next transcript starts empty. */
+  onRestart?: () => void
+  /** Failure after `start()` resolved (e.g. network lost mid-sentence). */
+  onError?: (error: SpeechError) => void
+}
+
+export interface SpeechResult {
+  /** Best transcripts first; empty when nothing was heard. */
+  alternatives: string[]
+  durationMs: number
+  engine: EngineId
+}
+
+export interface SpeechEngine {
+  readonly id: EngineId
+  isSupported(): Promise<boolean>
+  /** Resolves when the microphone is live; rejects with {@link SpeechError}. */
+  start(options: SpeechStartOptions): Promise<void>
+  /** Stops listening and returns what was heard. Safe to call when idle. */
+  stop(): Promise<SpeechResult>
+  /** Stops immediately, discarding the result. */
+  abort(): void
+}
+
+export type SpeechErrorCode =
+  | 'not-supported'
+  | 'permission-denied'
+  | 'no-microphone'
+  | 'network'
+  | 'language-not-supported'
+  | 'busy'
+  | 'model-missing'
+  | 'unknown'
+
+export class SpeechError extends Error {
+  readonly code: SpeechErrorCode
+  constructor(code: SpeechErrorCode, message?: string) {
+    super(message ?? `Speech recognition failed: ${code}`)
+    this.name = 'SpeechError'
+    this.code = code
+  }
+}
