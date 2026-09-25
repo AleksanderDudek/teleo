@@ -134,3 +134,22 @@ Each entry: **decision** — why.
     line under the praise (toasts would cover the text); the summary lists everything.
 44. **Repetition counter** comes from `PlanEntry.item`: repeated one-sentence items show pips `k/N`,
     multi-sentence items show `Title · k/N`.
+
+## Stage 7–8 details
+
+45. **Reminders are .ics only** (spec §12 main solution: a daily recurring event with a floating local
+    time and an alarm). The optional in-app/Periodic Background Sync notification is not implemented —
+    it would need custom service-worker code for a feature Chrome only offers to engaged, installed
+    PWAs; the calendar works everywhere.
+46. **Backup import replaces everything** in one transaction after full validation, then reloads the app
+    at Today (language, theme and stores follow the restored data). Delete-all requires typing the
+    confirmation word.
+47. **Memory mode**: chosen when starting a text or session (first letters / every other word / hidden);
+    words reveal as they are said in live mode; the press-and-hold hint marks that sentence as hinted.
+    Only a full repetition at the hidden level with no hinted sentence counts for `text.memory`.
+48. **Listen first** pauses the microphone while speechSynthesis reads the sentence (the recogniser
+    would otherwise hear the synthetic voice and accept it), then resumes listening; a time limit
+    guards engines that never fire `end`.
+49. **Figures use the sans face**: Alegreya's old-style zero reads like the letter "o" in statistics.
+50. **Resume is offered only for runs with at least one processed sentence**; an untouched run is simply
+    started again.
