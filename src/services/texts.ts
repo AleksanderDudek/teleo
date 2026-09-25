@@ -4,6 +4,7 @@ import type { Segment, TextItem } from '@/db/types'
 import { countWords } from '@/domain/text/countWords'
 import type { Lang, SplitMode, TextType } from '@/domain/types'
 import { newId } from '@/lib/id'
+import { evaluateGlobalAchievements } from './progress'
 
 export const MAX_TITLE_LENGTH = 120
 export const MAX_SEGMENTS = 150
@@ -107,6 +108,7 @@ export async function createText(input: TextInput, now = Date.now()): Promise<Te
     await db.texts.add(text)
     await replaceSegments(text.id, segments)
   })
+  await evaluateGlobalAchievements(now) // `create.1` / `create.5`
   return text
 }
 

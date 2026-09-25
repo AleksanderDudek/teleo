@@ -125,7 +125,7 @@ describe('other text operations', () => {
     expect(await db.texts.get(text.id)).toBeUndefined()
     expect(await db.segments.where('textId').equals(text.id).count()).toBe(0)
     expect(await db.textStats.get(text.id)).toBeUndefined()
-    expect(await db.achievements.toArray()).toEqual([expect.objectContaining({ key: 'streak.2' })])
+    expect((await db.achievements.toCollection().primaryKeys()).sort()).toEqual(['create.1', 'streak.2'])
     expect((await db.sessionTemplates.get('t'))?.items).toEqual([{ textId: 'other', repeat: 1 }])
     expect(await db.attempts.count()).toBe(1)
   })
