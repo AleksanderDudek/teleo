@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   reminderTime: '07:00',
   onboardingCompleted: false,
   speechPrivacyAcknowledged: false,
+  character: 'anna',
 }
 
 export const DEFAULT_GAME: GameState = {
