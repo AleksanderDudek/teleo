@@ -2,6 +2,12 @@
 
 All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
+## 1.1.1 — 2026-09-26
+
+- End-to-end suite also runs in WebKit (iPhone) and Firefox; CI installs all three engines.
+- Firefox without Web Speech: the player explains it and links to the offline Whisper engine.
+- Leaving a session asks "pause?" only once it has progress.
+
 ## 1.1.0 — 2026-09-25
 
 Spec stage 8 (v1.1) plus the owner's live-listening request.
