@@ -1,0 +1,13 @@
+Copyright (c) 2026 Aleksander Dudek. All rights reserved.
+
+This software — its source code, documentation, design, images and original texts (including the
+original affirmations) — is proprietary. No licence is granted. You may not use, copy, modify, merge,
+publish, distribute, sublicense, host or sell it, in whole or in part, without the prior written
+agreement of the copyright holder.
+
+Viewing the source on GitHub and forking it within GitHub are permitted only to the extent required by
+the GitHub Terms of Service for public repositories.
+
+Third-party components keep their own licences: the dependencies listed in package.json, the Alegreya
+and Instrument Sans fonts (SIL Open Font License 1.1), and the builtin traditional prayers and Psalm 23
+(King James Version), which are in the public domain.

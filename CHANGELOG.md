@@ -7,6 +7,7 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 - End-to-end suite also runs in WebKit (iPhone) and Firefox; CI installs all three engines.
 - Firefox without Web Speech: the player explains it and links to the offline Whisper engine.
 - Leaving a session asks "pause?" only once it has progress.
+- Licence: all rights reserved (LICENSE). Published at https://aleksanderdudek.github.io/teleo/.
 
 ## 1.1.0 — 2026-09-25
 

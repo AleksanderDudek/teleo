@@ -70,15 +70,12 @@ that reaches a microphone screen installs the fake.
 
 The GitHub Free plan only serves Pages from **public** repositories.
 
-1. Create a public repository named `teleo` (the app is built for the `/teleo/` path; for another
-   name change `BASE` in `vite.config.ts`).
-2. Push `main`:
-   ```bash
-   gh repo create teleo --public --source . --remote origin --push
-   ```
-3. Repository → **Settings → Pages → Source: GitHub Actions**.
-4. Every push to `main` runs `.github/workflows/deploy.yml` (lint, tests, build, deploy). The app
-   appears at `https://<user>.github.io/teleo/`.
+Live at **https://aleksanderdudek.github.io/teleo/** (repository `AleksanderDudek/teleo`).
+
+1. Pages is served from **GitHub Actions** (Settings → Pages → Source). The app is built for the
+   `/teleo/` path; for another repository name change `BASE` in `vite.config.ts`.
+2. Every push to `main` runs `.github/workflows/deploy.yml` (lint, unit tests, build, deploy).
+3. The GitHub Free plan only serves Pages from **public** repositories.
 
 Pull requests run `.github/workflows/ci.yml` (lint, type-check, unit and e2e tests).
 
@@ -94,6 +91,7 @@ public/         icons, privacy policy · e2e/ Playwright tests
 
 ## Licence & content
 
-Code licence: not chosen yet — add a `LICENSE` file before publishing. Builtin texts are traditional public-domain prayers (Polish liturgical wording, English
+© 2026 Aleksander Dudek — **all rights reserved** (see [LICENSE](LICENSE)). The code is public to read,
+but it may not be used, copied, modified or redistributed without prior written agreement. Builtin texts are traditional public-domain prayers (Polish liturgical wording, English
 traditional wording, Psalm 23 KJV) and original affirmations written for this project. Fonts:
 Alegreya and Instrument Sans (SIL Open Font License).
