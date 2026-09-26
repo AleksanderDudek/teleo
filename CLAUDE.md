@@ -39,6 +39,8 @@ npm run typecheck    # tsc -b
   `src/domain/speech` (Web Speech engine, offline Whisper engine + worker, registry).
 - The onnxruntime-web runtime for Whisper is copied to `dist/ort/<version>/` by a Vite plugin and never
   precached; `npm ci` also pulls `onnxruntime-node` (transformers.js dependency, not bundled).
+- Regenerate `package-lock.json` with CI's npm (`npx npm@11.19.0 install`), not an older local npm: npm
+  11.6 omits the bundled deps of `@tailwindcss/oxide-wasm32-wasi` and `npm ci` on the runner then fails.
 - e2e tests stub speech with `e2e/fakeSpeech.ts` (the headless shell crashes on the real
   `SpeechRecognition.available()`); UI strings must exist in both `pl.json` and `en.json`.
 - Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).
