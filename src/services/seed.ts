@@ -15,14 +15,13 @@ import { readSettings, updateMeta } from './settings'
 import { replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
-export const SEED_VERSION = 1
+export const SEED_VERSION = 2
 
 const typeFocus = (def: BuiltinTextDef): 'prayers' | 'affirmations' | null =>
   def.type === 'prayer' ? 'prayers' : def.type === 'affirmation' ? 'affirmations' : null
 
-/** Builtin visibility for a language + focus choice (DECISIONS #25). */
-function visible(lang: Lang, focus: 'prayers' | 'affirmations' | null, prefs: Pick<AppSettings, 'uiLang' | 'contentFocus'>): boolean {
-  if (lang !== prefs.uiLang) return false
+/** Builtin visibility for a focus choice (DECISIONS #64): both languages show together. */
+function visible(focus: 'prayers' | 'affirmations' | null, prefs: Pick<AppSettings, 'contentFocus'>): boolean {
   if (prefs.contentFocus === 'own') return false
   if (prefs.contentFocus === 'both' || focus === null) return true
   return focus === prefs.contentFocus
@@ -57,7 +56,7 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
         body: joinSegments(segments, def.splitMode),
         source: 'builtin',
         tags: def.tags,
-        archived: existing?.archived ?? !visible(def.lang, typeFocus(def), app),
+        archived: existing?.archived ?? !visible(typeFocus(def), app),
         splitMode: def.splitMode,
         createdAt: existing?.createdAt ?? now,
         updatedAt: now,
@@ -82,7 +81,7 @@ function sessionRow(
   now: number,
   existing: SessionTemplate | undefined,
   pinnedKey: string | null,
-  prefs: Pick<AppSettings, 'uiLang' | 'contentFocus'>,
+  prefs: Pick<AppSettings, 'contentFocus'>,
 ): SessionTemplate {
   return {
     id: builtinSessionId(def.key),
@@ -92,7 +91,7 @@ function sessionRow(
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
     source: 'builtin',
-    archived: existing?.archived ?? !visible(def.lang, def.focus, prefs),
+    archived: existing?.archived ?? !visible(def.focus, prefs),
     lang: def.lang,
     builtinKey: def.key,
     lastUsedAt: existing?.lastUsedAt,
@@ -104,15 +103,15 @@ function sessionRow(
  * which session is pinned. Explicit user choice → overrides previous state.
  */
 export async function applyContentPreferences(uiLang: Lang, contentFocus: ContentFocus): Promise<void> {
-  const prefs = { uiLang, contentFocus }
+  const prefs = { contentFocus }
   const pinnedKey = defaultPinnedSessionKey(uiLang, contentFocus)
   await db.transaction('rw', [db.texts, db.sessionTemplates], async () => {
     for (const def of BUILTIN_TEXTS) {
-      await db.texts.update(builtinTextId(def.key), { archived: !visible(def.lang, typeFocus(def), prefs) })
+      await db.texts.update(builtinTextId(def.key), { archived: !visible(typeFocus(def), prefs) })
     }
     for (const def of BUILTIN_SESSIONS) {
       await db.sessionTemplates.update(builtinSessionId(def.key), {
-        archived: !visible(def.lang, def.focus, prefs),
+        archived: !visible(def.focus, prefs),
         pinned: def.key === pinnedKey,
       })
     }

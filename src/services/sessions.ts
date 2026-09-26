@@ -112,7 +112,9 @@ async function dailyItems(now: number): Promise<TemplateItem[]> {
   const practicedToday = new Set(todayAttempts.filter((a) => a.accepted).map((a) => a.textId))
   const doneToday = (await db.dailyStats.get(today))?.segmentsAccepted ?? 0
   const candidates = []
-  for (const text of texts.filter((t) => !t.archived)) {
+  // Both languages can be visible at once (DECISIONS #64); the auto-generated daily
+  // session stays in the interface language so a run never mixes recognisers.
+  for (const text of texts.filter((t) => !t.archived && t.lang === app.uiLang)) {
     candidates.push({
       id: text.id,
       segmentCount: (await getActiveSegments(text.id)).length,

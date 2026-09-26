@@ -34,5 +34,33 @@
       { "text": "en.hail-mary", "repeat": 10 },
       { "text": "en.glory-be", "repeat": 1 }
     ]
+  },
+  {
+    "key": "en.psalm-91-session",
+    "lang": "en",
+    "name": "Psalm 91",
+    "focus": "prayers",
+    "items": [{ "text": "en.psalm-91", "repeat": 1 }]
+  },
+  {
+    "key": "en.verses-of-strength-session",
+    "lang": "en",
+    "name": "Verses of Strength",
+    "focus": "prayers",
+    "items": [{ "text": "en.verses-of-strength", "repeat": 1 }]
+  },
+  {
+    "key": "en.through-christ-session",
+    "lang": "en",
+    "name": "Through Christ",
+    "focus": "affirmations",
+    "items": [{ "text": "en.through-christ", "repeat": 1 }]
+  },
+  {
+    "key": "pl.przez-jezusa-chrystusa-sesja",
+    "lang": "pl",
+    "name": "Przez Jezusa Chrystusa",
+    "focus": "affirmations",
+    "items": [{ "text": "pl.przez-jezusa-chrystusa", "repeat": 1 }]
   }
 ]

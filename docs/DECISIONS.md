@@ -209,3 +209,24 @@ Each entry: **decision** — why.
     `useTapCapture` drops a result that arrives after `cancel()` (a skipped sentence must not get a late verdict).
 63. **Privacy notice.** When recognition runs on the device (Whisper, or on-device Web Speech) the first-use dialog says the
     audio stays on the device instead of naming the browser vendor.
+
+## Bilingual content library (owner request, 2026-09-26)
+
+64. **Builtin visibility no longer depends on the interface language** (supersedes #25's language gate): both PL and EN
+    builtin texts/sessions show together, filtered only by content focus (prayers/affirmations/both/own). The interface
+    language still picks the default *pinned* quick-start session (`defaultPinnedSessionKey`) and drives speech
+    recognition for texts without a per-segment language override; each text keeps recognising in its own `lang`
+    regardless of the UI language. This is how "missing translation → falls back to English" works in practice: a
+    builtin only seeded in English (no PL counterpart) simply appears in English for every user instead of being hidden.
+65. **New builtin content**: `en.psalm-91` (KJV, public domain) and `en.verses-of-strength` (13 KJV verses on courage and
+    strength, incl. Philippians 4:13 "through Christ which strengtheneth me") ship English-only — no Polish translation is
+    attempted for Scripture, to avoid misquoting a specific Bible translation from memory. `en.through-christ` /
+    `pl.przez-jezusa-chrystusa` are original "I am" identity affirmations framed as "Through Jesus Christ, I am …" (not a
+    verbatim copy of any source), written directly in both languages since they carry no translation-accuracy risk; the
+    Polish set follows the existing masculine/feminine/neutral variant pattern (#26), rephrasing with God/Jesus as the
+    grammatical subject for the neutral form where a plain adjective would force a gender.
+66. **The auto-generated "session of the day" stays in the interface language** even though both languages are now
+    visible in the library: `dailyItems` filters candidates by `text.lang === uiLang` so one run never switches the
+    speech recogniser's language sentence to sentence. Manually built sessions/texts (library, "say now", custom
+    templates) are unaffected and can mix or pick the other language freely.
+

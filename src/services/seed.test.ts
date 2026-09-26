@@ -17,8 +17,8 @@ beforeEach(async () => {
 describe('seedBuiltins', () => {
   it('inserts all builtin texts and sessions once', async () => {
     await seedBuiltins(10)
-    expect(await db.texts.count()).toBe(10)
-    expect(await db.sessionTemplates.count()).toBe(4)
+    expect(await db.texts.count()).toBe(14)
+    expect(await db.sessionTemplates.count()).toBe(8)
     expect((await readSettings()).meta.seedVersion).toBe(SEED_VERSION)
     const segmentsBefore = await db.segments.count()
     await seedBuiltins(20)
@@ -26,9 +26,24 @@ describe('seedBuiltins', () => {
     expect((await db.texts.get(builtinTextId('pl.ojcze-nasz')))?.updatedAt).toBe(10)
   })
 
-  it('shows builtins in the interface language and pins the rosary for Polish', async () => {
+  it('shows builtins of both languages together (both focus) and pins the rosary for Polish', async () => {
     await seedBuiltins()
-    expect(await visibleTexts()).toEqual(['pl.aniele-bozy', 'pl.chwala-ojcu', 'pl.ojcze-nasz', 'pl.poranek', 'pl.zdrowas-maryjo'])
+    expect(await visibleTexts()).toEqual([
+      'en.glory-be',
+      'en.hail-mary',
+      'en.lords-prayer',
+      'en.morning',
+      'en.psalm-23',
+      'en.psalm-91',
+      'en.through-christ',
+      'en.verses-of-strength',
+      'pl.aniele-bozy',
+      'pl.chwala-ojcu',
+      'pl.ojcze-nasz',
+      'pl.poranek',
+      'pl.przez-jezusa-chrystusa',
+      'pl.zdrowas-maryjo',
+    ])
     const rosary = await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca'))
     expect(rosary).toMatchObject({ pinned: true, archived: false, source: 'builtin' })
     expect(rosary?.items).toEqual([
@@ -59,16 +74,32 @@ describe('seedBuiltins', () => {
 describe('applyContentPreferences', () => {
   beforeEach(() => seedBuiltins())
 
-  it('English + affirmations shows only the English morning set and pins it', async () => {
+  it('affirmations focus shows affirmation texts in both languages and pins the English morning set', async () => {
     await applyContentPreferences('en', 'affirmations')
-    expect(await visibleTexts()).toEqual(['en.morning'])
+    expect(await visibleTexts()).toEqual(['en.morning', 'en.through-christ', 'pl.poranek', 'pl.przez-jezusa-chrystusa'])
     const sessions = (await db.sessionTemplates.toArray()).filter((s) => !s.archived)
-    expect(sessions.map((s) => [s.builtinKey, s.pinned])).toEqual([['en.morning-affirmations', true]])
+    expect(sessions.map((s) => [s.builtinKey, s.pinned])).toEqual([
+      ['en.morning-affirmations', true],
+      ['en.through-christ-session', false],
+      ['pl.poranne-afirmacje', false],
+      ['pl.przez-jezusa-chrystusa-sesja', false],
+    ])
   })
 
-  it('Polish prayers hides affirmations', async () => {
+  it('prayers focus shows prayer texts in both languages', async () => {
     await applyContentPreferences('pl', 'prayers')
-    expect(await visibleTexts()).toEqual(['pl.aniele-bozy', 'pl.chwala-ojcu', 'pl.ojcze-nasz', 'pl.zdrowas-maryjo'])
+    expect(await visibleTexts()).toEqual([
+      'en.glory-be',
+      'en.hail-mary',
+      'en.lords-prayer',
+      'en.psalm-23',
+      'en.psalm-91',
+      'en.verses-of-strength',
+      'pl.aniele-bozy',
+      'pl.chwala-ojcu',
+      'pl.ojcze-nasz',
+      'pl.zdrowas-maryjo',
+    ])
   })
 
   it('own texts hides every builtin', async () => {
