@@ -1,6 +1,6 @@
-import { CircleCheck, HardDriveDownload, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
@@ -76,10 +76,10 @@ export function WhisperSettings() {
             {state.status === 'ready' && (
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="flex items-center gap-2 text-sm font-semibold text-ok">
-                  <CircleCheck aria-hidden className="size-4" />
+                  <Icon name="check-circle" size={16} />
                   {t('settings.whisperReady')}
                 </p>
-                <Button size="sm" variant="ghost" icon={<Trash2 aria-hidden className="size-4" />} onClick={() => void remove(selected)}>
+                <Button size="sm" variant="ghost" icon="trash" onClick={() => void remove(selected)}>
                   {t('settings.whisperDelete')}
                 </Button>
               </div>
@@ -109,7 +109,7 @@ export function WhisperSettings() {
                 <Button
                   variant="secondary"
                   disabled={busy}
-                  icon={<HardDriveDownload aria-hidden className="size-4" />}
+                  icon="download-simple"
                   onClick={() => setConfirm({ model: selected, bytes: state.missingBytes })}
                 >
                   {t('settings.whisperDownload', { size: size(state.missingBytes) })}
@@ -147,7 +147,7 @@ export function WhisperSettings() {
             <Button variant="ghost" onClick={() => setConfirm(null)}>
               {t('common.cancel')}
             </Button>
-            <Button icon={<HardDriveDownload aria-hidden className="size-4" />} onClick={() => confirm && void download(confirm.model)}>
+            <Button icon="download-simple" onClick={() => confirm && void download(confirm.model)}>
               {t('settings.whisperConfirm')}
             </Button>
           </>

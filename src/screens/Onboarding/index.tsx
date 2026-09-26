@@ -1,11 +1,17 @@
-import { Check, ShieldCheck } from 'lucide-react'
-import { useState, type ReactNode } from 'react'
+import { Fragment, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { TeleoMark } from '@/components/Ornaments'
+import { Character } from '@/components/brand/Character'
+import { CharacterPicker } from '@/components/brand/CharacterPicker'
+import { Guardian, type GuardianMood } from '@/components/brand/Guardian'
+import { GuideBubble } from '@/components/brand/GuideBubble'
+import { Icon, type IconName } from '@/components/icons/Icon'
 import { MicButton } from '@/components/speech/MicButton'
 import { speechVendor } from '@/components/speech/vendor'
+import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Button } from '@/components/ui/Button'
+import { Chip } from '@/components/ui/Chip'
+import { IconHalo, type HaloTone } from '@/components/ui/IconHalo'
 import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
 import { evaluate } from '@/domain/matcher'
@@ -18,27 +24,25 @@ import { applyContentPreferences, applyGrammaticalForm } from '@/services/seed'
 import { DAILY_GOAL, updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
 
-const STEPS = 4
+const STEPS = 5
 
-function Choice({ selected, onClick, title, body }: { selected: boolean; onClick: () => void; title: string; body?: string }) {
+const FOCUS: ReadonlyArray<{ value: ContentFocus; key: 'Prayers' | 'Affirmations' | 'Both' | 'Own'; icon: IconName; tone: HaloTone }> = [
+  { value: 'prayers', key: 'Prayers', icon: 'praying-hands', tone: 'gold' },
+  { value: 'affirmations', key: 'Affirmations', icon: 'radiant-heart', tone: 'sunk' },
+  { value: 'both', key: 'Both', icon: 'mandorla-star', tone: 'lapis' },
+  { value: 'own', key: 'Own', icon: 'scroll-ribbon', tone: 'sunk' },
+]
+
+/** A centred step: the Guardian (or a window), a serif title and a line of body text. */
+function Lead({ figure, title, body }: { figure: ReactNode; title: string; body?: ReactNode }) {
   return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={onClick}
-      className={cn(
-        'flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-colors',
-        selected ? 'border-primary bg-surface shadow-md' : 'border-line bg-surface/60 hover:border-line-strong',
-      )}
-    >
-      <span className={cn('mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full border-2', selected ? 'border-primary bg-primary text-on-primary' : 'border-line-strong')}>
-        {selected && <Check aria-hidden className="size-3" strokeWidth={3} />}
-      </span>
-      <span>
-        <span className="block font-serif text-xl font-semibold">{title}</span>
-        {body && <span className="mt-0.5 block text-sm text-ink-soft">{body}</span>}
-      </span>
-    </button>
+    <>
+      {figure}
+      <h1 id="step-title" className="mt-4 text-center text-[1.9rem] leading-[1.1] font-semibold">
+        {title}
+      </h1>
+      {body && <p className="mx-auto mt-2 max-w-[22rem] text-center text-ink-soft">{body}</p>}
+    </>
   )
 }
 
@@ -58,27 +62,33 @@ function MicStep({ lang, onHeard }: { lang: Lang; onHeard: () => void }) {
     },
   })
   const vendor = t(`speech.privacy.vendor${speechVendor()}`)
+  const mood: GuardianMood = verdict === 'ok' ? 'celebrate' : verdict === 'retry' ? 'encourage' : 'listen'
   return (
     <div className="flex flex-col items-center text-center">
-      <p className="flex gap-3 rounded-2xl bg-surface p-4 text-left text-sm text-ink-soft">
-        <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-leaf" />
-        <span>
-          {t('speech.privacy.body', { vendor })} {engineState.status === 'ready' && engineState.onDevice && t('speech.privacy.onDevice')}
-        </span>
-      </p>
-      <p className="mt-6 text-ink-soft">{t('onboarding.micBody')}</p>
-      <p className="scripture mt-2">{phrase}</p>
-      <div className="mt-6">
+      <Lead
+        figure={<Guardian mood={mood} size={180} decorative />}
+        title={t('onboarding.micTitle')}
+        body={verdict === 'ok' ? t('onboarding.micOk') : t('onboarding.micBody')}
+      />
+      <p className="scripture mandorla mt-3 w-full py-2.5">{phrase}</p>
+      <div className="mt-2">
         <MicButton listening={capture.phase === 'listening'} busy={capture.phase === 'starting' || capture.phase === 'stopping'} disabled={!engine} onClick={capture.toggle} />
       </div>
       <p aria-live="polite" className={cn('mt-4 min-h-6 font-semibold', verdict === 'ok' ? 'text-ok' : 'text-near')}>
-        {verdict === 'ok' ? t('onboarding.micOk') : verdict === 'retry' ? t('onboarding.micRetry') : capture.transcript}
+        {verdict === 'retry' ? t('onboarding.micRetry') : verdict === 'ok' ? '' : capture.transcript}
       </p>
       {(capture.error || engineState.status === 'unsupported') && (
         <p role="alert" className="mt-2 text-sm text-bad">
           {t(`speech.errors.${capture.error ?? 'not-supported'}`)}
         </p>
       )}
+      {/* Spec §5.2: say who processes the audio before the microphone is used for the first time. */}
+      <p className="mt-4 flex gap-3 rounded-2xl border border-line bg-surface p-4 text-left text-sm text-ink-soft">
+        <Icon name="shield-cross" size={20} className="mt-0.5 text-primary" />
+        <span>
+          {t('speech.privacy.body', { vendor })} {engineState.status === 'ready' && engineState.onDevice && t('speech.privacy.onDevice')}
+        </span>
+      </p>
     </div>
   )
 }
@@ -102,132 +112,158 @@ export default function Onboarding() {
     navigate('/', { replace: true })
   }
 
-  const screens: Array<{ title: string; body?: string; content: ReactNode }> = [
-    {
-      title: t('onboarding.langTitle'),
-      body: t('onboarding.langBody'),
-      content: (
-        <div className="space-y-3">
-          <Choice selected={app.uiLang === 'pl'} onClick={() => void updateAppSettings({ uiLang: 'pl' })} title="Polski" />
-          <Choice selected={app.uiLang === 'en'} onClick={() => void updateAppSettings({ uiLang: 'en' })} title="English" />
-        </div>
-      ),
-    },
-    {
-      title: t('onboarding.focusTitle'),
-      content: (
-        <div className="space-y-3">
-          {(['prayers', 'affirmations', 'both', 'own'] as const).map((value) => {
-            const key = value.charAt(0).toUpperCase() + value.slice(1)
-            return (
-              <Choice
-                key={value}
-                selected={focus === value}
-                onClick={() => setFocus(value)}
-                title={t(`onboarding.focus${key}` as 'onboarding.focusPrayers')}
-                body={t(`onboarding.focus${key}Body` as 'onboarding.focusPrayersBody')}
-              />
-            )
-          })}
-          {app.uiLang === 'pl' && (focus === 'affirmations' || focus === 'both') && (
-            <div className="rounded-2xl border border-line bg-surface/60 p-4">
-              <Segmented<GrammaticalForm>
-                label={t('onboarding.formTitle')}
-                value={form}
-                onChange={setForm}
-                options={[
-                  { value: 'm', label: t('settings.formM') },
-                  { value: 'f', label: t('settings.formF') },
-                  { value: 'n', label: t('settings.formN') },
-                ]}
-              />
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
-      title: t('onboarding.micTitle'),
-      content: <MicStep lang={app.uiLang} onHeard={() => void updateAppSettings({ speechPrivacyAcknowledged: true })} />,
-    },
-    {
-      title: t('onboarding.goalTitle'),
-      body: t('onboarding.goalBody'),
-      content: (
-        <div className="flex flex-col items-center gap-5">
-          <div className="flex flex-wrap justify-center gap-2">
-            {[5, 10, 20, 30].map((preset) => (
-              <button
-                key={preset}
-                type="button"
-                aria-pressed={goal === preset}
-                onClick={() => setGoal(preset)}
-                className={cn(
-                  'rounded-full border px-4 py-2 font-semibold',
-                  goal === preset ? 'border-primary bg-primary text-on-primary' : 'border-line bg-surface hover:border-line-strong',
-                )}
-              >
-                {t('onboarding.goalSentences', { count: preset })}
-              </button>
-            ))}
+  const steps: ReactNode[] = [
+    // 1 · welcome, with the interface language
+    <Fragment key="welcome">
+      <Lead
+        figure={
+          <ArchFrame glow className="px-3 pt-6">
+            <Guardian mood="welcome" size={210} decorative className="mx-auto" />
+          </ArchFrame>
+        }
+        title={t('onboarding.welcomeTitle')}
+        body={t('onboarding.welcomeBody')}
+      />
+      <div className="mt-6 flex flex-col items-center text-center">
+        <Segmented<Lang>
+          label={t('onboarding.langTitle')}
+          value={app.uiLang}
+          options={[
+            { value: 'pl', label: 'Polski' },
+            { value: 'en', label: 'English' },
+          ]}
+          onChange={(uiLang) => void updateAppSettings({ uiLang })}
+        />
+        <p className="mt-2 text-sm text-ink-soft">{t('onboarding.langBody')}</p>
+      </div>
+    </Fragment>,
+    // 2 · the figure that stands for the user
+    <Fragment key="character">
+      <h1 id="step-title" className="sr-only">
+        {t('onboarding.characterTitle')}
+      </h1>
+      <GuideBubble mood="point" size={96} compact>
+        {t('onboarding.characterGuide')}
+      </GuideBubble>
+      <div className="mt-4 flex justify-center">
+        <ArchFrame glow shape="lancet" className="w-[170px] px-2 pt-[18px]">
+          <Character id={app.character} pose="praying" size={154} decorative />
+        </ArchFrame>
+      </div>
+      <div className="mt-4">
+        <CharacterPicker label={t('onboarding.characterTitle')} hideLabel value={app.character} onChange={(character) => void updateAppSettings({ character })} />
+      </div>
+    </Fragment>,
+    // 3 · what to practise (+ the Polish grammatical form)
+    <Fragment key="focus">
+      <h1 id="step-title" className="sr-only">
+        {t('onboarding.focusTitle')}
+      </h1>
+      <GuideBubble mood="teach" size={96} compact>
+        {t('onboarding.focusGuide')}
+      </GuideBubble>
+      <div className="mt-4 grid gap-2.5">
+        {FOCUS.map(({ value, key, icon, tone }) => {
+          const selected = focus === value
+          return (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => setFocus(value)}
+              className={cn('card flex items-center gap-3.5 p-3.5 text-left transition-colors', selected ? 'card-framed border-primary' : 'hover:border-line-strong')}
+            >
+              <IconHalo icon={icon} tone={tone} size={46} />
+              <span className="flex-1">
+                <span className="block font-serif text-[1.2rem] font-semibold">{t(`onboarding.focus${key}`)}</span>
+                <span className="block text-sm text-ink-soft">{t(`onboarding.focus${key}Body`)}</span>
+              </span>
+            </button>
+          )
+        })}
+        {app.uiLang === 'pl' && (focus === 'affirmations' || focus === 'both') && (
+          <div className="card p-4">
+            <Segmented<GrammaticalForm>
+              label={t('onboarding.formTitle')}
+              value={form}
+              onChange={setForm}
+              options={[
+                { value: 'm', label: t('settings.formM') },
+                { value: 'f', label: t('settings.formF') },
+                { value: 'n', label: t('settings.formN') },
+              ]}
+            />
           </div>
-          <Stepper label={t('settings.dailyGoal')} value={goal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={setGoal} />
-          <p className="flex items-center gap-2 text-sm text-ink-soft">
-            <ShieldCheck aria-hidden className="size-4 text-leaf" />
-            {t('onboarding.privacyNote')}{' '}
-            <a className="font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
-              {t('onboarding.privacyLink')}
-            </a>
-          </p>
-        </div>
-      ),
-    },
+        )}
+      </div>
+    </Fragment>,
+    // 4 · microphone test
+    <MicStep key="mic" lang={app.uiLang} onHeard={() => void updateAppSettings({ speechPrivacyAcknowledged: true })} />,
+    // 5 · daily goal
+    <div key="goal" className="flex flex-col items-center">
+      <Lead figure={<Guardian mood="encourage" size={180} decorative />} title={t('onboarding.goalTitle')} body={t('onboarding.goalBody')} />
+      <div className="mt-5 flex flex-wrap justify-center gap-2">
+        {[5, 10, 20, 30].map((preset) => (
+          <Chip key={preset} pressed={goal === preset} onClick={() => setGoal(preset)}>
+            {t('onboarding.goalSentences', { count: preset })}
+          </Chip>
+        ))}
+      </div>
+      <div className="mt-4">
+        <Stepper label={t('settings.dailyGoal')} value={goal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={setGoal} />
+      </div>
+      <p className="mt-5 flex items-center gap-2 text-center text-[0.8rem] text-ink-soft">
+        <Icon name="shield-cross" size={16} className="text-primary" />
+        <span>
+          {t('onboarding.privacyNote')}{' '}
+          <a className="font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
+            {t('onboarding.privacyLink')}
+          </a>
+        </span>
+      </p>
+    </div>,
   ]
-  const current = screens[step]!
   const last = step === STEPS - 1
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-lg flex-col px-6 pt-[max(env(safe-area-inset-top),1.5rem)] pb-[max(env(safe-area-inset-bottom),1.5rem)]">
+    <main className="mx-auto flex min-h-dvh max-w-lg flex-col px-5 pt-[max(env(safe-area-inset-top),1.25rem)] pb-[max(env(safe-area-inset-bottom),1.5rem)]">
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-2 text-primary">
-          <TeleoMark className="size-8" />
-          <span className="rubric">{t('app.name')}</span>
-        </span>
+        <p className="rubric">{t('onboarding.step', { current: step + 1, total: STEPS })}</p>
         <Button variant="ghost" size="sm" onClick={() => void finish()} disabled={busy}>
           {t('onboarding.skip')}
         </Button>
       </div>
 
-      {step === 0 && (
-        <div className="mt-8 animate-rise">
-          <h1 className="text-4xl leading-tight font-semibold">{t('onboarding.welcomeTitle')}</h1>
-          <p className="mt-3 text-ink-soft">{t('onboarding.welcomeBody')}</p>
-        </div>
-      )}
-
-      <section key={step} className="mt-8 flex-1 animate-rise" aria-labelledby="step-title">
-        <p className="rubric">{t('onboarding.step', { current: step + 1, total: STEPS })}</p>
-        <h2 id="step-title" className="mt-1 text-2xl font-semibold">
-          {current.title}
-        </h2>
-        {current.body && <p className="mt-2 text-ink-soft">{current.body}</p>}
-        <div className="mt-6">{current.content}</div>
+      <section key={step} className="flex-1 pt-3 animate-rise" aria-labelledby="step-title">
+        {steps[step]}
       </section>
 
-      <div className="mt-8 flex items-center justify-between gap-3">
-        <div className="flex gap-1.5" aria-hidden>
-          {screens.map((_, i) => (
-            <span key={i} className={cn('h-1.5 rounded-full transition-all', i === step ? 'w-6 bg-primary' : 'w-1.5 bg-line-strong')} />
+      <div className="mt-6 flex flex-col items-center gap-3.5">
+        <div className="flex gap-2" aria-hidden>
+          {steps.map((_, i) => (
+            <span
+              key={i}
+              className={cn(
+                'size-2.5 rounded-full transition-colors',
+                i === step ? 'bg-gold shadow-[0_0_0_3px_var(--gold-soft)]' : i < step ? 'bg-primary' : 'bg-line-strong',
+              )}
+            />
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className="flex w-full gap-2.5">
           {step > 0 && (
-            <Button variant="ghost" onClick={() => setStep((s) => s - 1)}>
+            <Button variant="secondary" size="lg" onClick={() => setStep((s) => s - 1)}>
               {t('onboarding.back')}
             </Button>
           )}
-          <Button size="lg" disabled={busy} onClick={() => (last ? void finish() : setStep((s) => s + 1))}>
-            {last ? t('onboarding.start') : t('onboarding.next')}
+          <Button
+            size="lg"
+            block
+            disabled={busy}
+            iconEnd={last ? undefined : 'caret-right'}
+            onClick={() => (last ? void finish() : setStep((s) => s + 1))}
+          >
+            {step === 0 ? t('onboarding.start') : last ? t('onboarding.begin') : t('onboarding.next')}
           </Button>
         </div>
       </div>

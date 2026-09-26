@@ -74,7 +74,13 @@
     "backupBody": "Everything lives only on this device. Export a copy every month so nothing gets lost.",
     "backupAction": "Export backup",
     "later": "Later",
-    "nothingToStart": "Add a text or a session to begin."
+    "nothingToStart": "Add a text or a session to begin.",
+    "yourCharacter": "Your character: {{name}}",
+    "guideStart": "Say the first sentence whenever you’re ready. I’ll be listening.",
+    "guideLeft_one": "One more sentence and today’s goal is complete. I’ll be listening.",
+    "guideLeft_other": "{{count}} more sentences and today’s goal is complete. I’ll be listening.",
+    "guideDone": "Your goal is complete. Rest now — or keep going, if your heart wants to.",
+    "guideEmpty": "Add a text you’d like to say aloud, and I’ll help you keep count."
   },
   "library": {
     "rubric": "Library",
@@ -424,7 +430,10 @@
     "whisperDeleteOther": "Delete {{model}}",
     "whisperConfirmTitle": "Download the Whisper model?",
     "whisperConfirmBody": "Teleo will download about {{size}} once: the model from Hugging Face (huggingface.co) and the speech engine from Teleo’s site. On mobile data this can be costly — use Wi-Fi if you can. Afterwards recognition works offline and your audio never leaves the device.",
-    "whisperConfirm": "Download"
+    "whisperConfirm": "Download",
+    "sectionCharacter": "Your character",
+    "characterHint": "Choose the figure that stands for you in Teleo.",
+    "character": "Character"
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -452,7 +461,7 @@
     "back": "Back",
     "step": "Step {{current}} of {{total}}",
     "welcomeTitle": "Speak it. Complete it.",
-    "welcomeBody": "Teleo listens as you say your prayers and affirmations aloud, checks every sentence and keeps count — privately, on this device.",
+    "welcomeBody": "I am your Guardian. I’ll listen as you say your prayers and affirmations aloud, check every sentence and keep count — privately, on this device.",
     "langTitle": "Which language should Teleo speak?",
     "langBody": "You can say texts in Polish and English either way.",
     "focusTitle": "What would you like to practise?",
@@ -468,14 +477,18 @@
     "micTitle": "Let’s test the microphone",
     "micBody": "Tap the microphone and say the phrase below.",
     "micPhrase": "Teleo",
-    "micOk": "Heard you — everything works.",
+    "micOk": "I heard you — everything works.",
     "micRetry": "Not quite — try once more, or skip this step.",
     "goalTitle": "How many sentences a day?",
     "goalBody": "A small daily goal keeps the habit alive. You can change it any time.",
     "goalSentences_one": "{{count}} sentence",
     "goalSentences_other": "{{count}} sentences",
     "privacyNote": "No account, no server: your data stays on this device.",
-    "privacyLink": "Privacy policy"
+    "privacyLink": "Privacy policy",
+    "characterTitle": "Choose your character",
+    "characterGuide": "Choose the figure that stands for you. You can change it any time.",
+    "focusGuide": "What would you like to practise? I’ll prepare your library.",
+    "begin": "Begin"
   },
   "textTypes": {
     "affirmation": "Affirmation",
@@ -846,5 +859,22 @@
         "desc": "Nothing is shown. Completing a text this way earns “By Heart”."
       }
     }
+  },
+  "guardian": {
+    "name": "The Guardian",
+    "extra": "Almost — a word slipped in that isn’t in the text. Breathe, and say it once more.",
+    "wrong": "Almost — one word came out differently. Breathe, and say it once more.",
+    "missing": "Almost — a word stayed unsaid. Take your time and say it once more.",
+    "stuck": "This sentence is a stubborn one. Try once more — or skip it and go on; that is all right too."
+  },
+  "characters": {
+    "anna": "Anna",
+    "maria": "Maria",
+    "grace": "Grace",
+    "ewa": "Ewa",
+    "jan": "Jan",
+    "michal": "Michał",
+    "david": "David",
+    "piotr": "Piotr"
   }
 }

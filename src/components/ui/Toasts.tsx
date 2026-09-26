@@ -1,15 +1,20 @@
-import { CheckCircle2, Info, TriangleAlert, X } from 'lucide-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { cn } from '@/lib/cn'
 import { useUiStore, type Toast } from '@/stores/ui'
 
-const ICONS = { info: Info, success: CheckCircle2, error: TriangleAlert } as const
+const HALOS = {
+  info: { icon: 'info', tone: 'gold', color: 'text-gold-ink' },
+  success: { icon: 'check-circle', tone: 'sunk', color: 'text-ok' },
+  error: { icon: 'warning', tone: 'cinnabar', color: 'text-bad' },
+} as const
 
 function ToastItem({ toast }: { toast: Toast }) {
   const dismiss = useUiStore((s) => s.dismissToast)
   const { t } = useTranslation()
-  const Icon = ICONS[toast.kind]
+  const halo = HALOS[toast.kind]
 
   useEffect(() => {
     if (toast.timeoutMs === null) return
@@ -24,9 +29,13 @@ function ToastItem({ toast }: { toast: Toast }) {
         toast.kind === 'error' ? 'border-bad/40' : 'border-line',
       )}
     >
-      <Icon
-        aria-hidden
-        className={cn('mt-0.5 size-5 shrink-0', toast.kind === 'error' ? 'text-bad' : toast.kind === 'success' ? 'text-ok' : 'text-gold-ink')}
+      <IconHalo
+        icon={halo.icon}
+        tone={halo.tone}
+        size={32}
+        iconSize={18}
+        iconTone={toast.kind === 'info' ? 'gilded' : 'plain'}
+        className={cn('-mt-0.5', halo.color)}
       />
       <div className="min-w-0 flex-1">
         <p className="font-semibold text-ink">{toast.title}</p>
@@ -50,7 +59,7 @@ function ToastItem({ toast }: { toast: Toast }) {
         aria-label={t('common.close')}
         className="-m-1 inline-flex size-8 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-sunk"
       >
-        <X aria-hidden className="size-4" />
+        <Icon name="x" size={16} />
       </button>
     </li>
   )

@@ -1,6 +1,6 @@
-import { Combine, Pencil, Scissors, TriangleAlert, Info } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
 import { MAX_WORDS_PER_SEGMENT, type SegmentIssue } from '@/domain/segmenter'
 import { cn } from '@/lib/cn'
@@ -95,7 +95,7 @@ export function SegmentRow({ index, content, issues, isLast, onSplit, onMergeNex
                   key={issue.kind}
                   className={cn('flex flex-wrap items-center gap-x-2 gap-y-1 text-sm', issue.kind === 'tooLong' ? 'text-bad' : 'text-near')}
                 >
-                  {issue.kind === 'tooLong' ? <TriangleAlert aria-hidden className="size-4" /> : <Info aria-hidden className="size-4" />}
+                  {issue.kind === 'tooLong' ? <Icon name="warning" size={16} /> : <Icon name="info" size={16} />}
                   <span>
                     {issue.kind === 'long' && t('editor.issueLong', { words: issue.words })}
                     {issue.kind === 'tooLong' && t('editor.issueTooLong', { words: issue.words, max: MAX_WORDS_PER_SEGMENT })}
@@ -123,10 +123,10 @@ export function SegmentRow({ index, content, issues, isLast, onSplit, onMergeNex
 
           {mode === 'view' && (
             <div className="-ml-2.5 mt-2 flex flex-wrap gap-0.5">
-              <Button size="xs" variant="ghost" disabled={words.length < 2} onClick={() => setMode('split')} icon={<Scissors aria-hidden className="size-4" />}>
+              <Button size="xs" variant="ghost" disabled={words.length < 2} onClick={() => setMode('split')} icon="scissors">
                 {t('editor.splitHere')}
               </Button>
-              <Button size="xs" variant="ghost" disabled={isLast} onClick={onMergeNext} icon={<Combine aria-hidden className="size-4" />}>
+              <Button size="xs" variant="ghost" disabled={isLast} onClick={onMergeNext} icon="arrows-merge">
                 {t('editor.mergeNext')}
               </Button>
               <Button
@@ -136,7 +136,7 @@ export function SegmentRow({ index, content, issues, isLast, onSplit, onMergeNex
                   setDraft(content)
                   setMode('edit')
                 }}
-                icon={<Pencil aria-hidden className="size-4" />}
+                icon="pencil-simple"
               >
                 {t('editor.editSegment')}
               </Button>

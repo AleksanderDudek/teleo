@@ -2,7 +2,7 @@ import type { AppSettings, ThemePreference } from '@/db/types'
 import { i18n } from '@/i18n'
 import { useSettingsStore } from '@/stores/settings'
 
-const THEME_COLOR = { light: '#f7f2e7', dark: '#0f1713' } as const
+const THEME_COLOR = { light: '#f4ecda', dark: '#0d1128' } as const
 
 function prefersDark(): boolean {
   return window.matchMedia('(prefers-color-scheme: dark)').matches

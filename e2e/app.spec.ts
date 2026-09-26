@@ -5,21 +5,25 @@ import { finishOnboarding, installFakeSpeech } from './fakeSpeech.ts'
 test.describe('onboarding', () => {
   test.use({ locale: 'pl-PL' })
 
-  test('English + affirmations + goal 20 shapes the library and the Start button', async ({ page }) => {
+  test('English + a character + affirmations + goal 20 shape the library, the avatar and the Start button', async ({ page }) => {
     // Playwright's headless shell has no speech service and crashes on SpeechRecognition.available().
     await installFakeSpeech(page)
     await page.goto('./')
-    await page.getByRole('button', { name: 'English' }).click()
-    await expect(page.getByRole('heading', { name: 'Which language should Teleo speak?' })).toBeVisible()
+    await page.getByText('English', { exact: true }).click()
+    await expect(page.getByRole('heading', { name: 'Speak it. Complete it.' })).toBeVisible()
+    await page.getByRole('button', { name: 'Get started' }).click()
+    await page.getByText('Michał', { exact: true }).click()
+    await expect(page.getByRole('radio', { name: 'Michał' })).toBeChecked()
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: /^Affirmations/ }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await expect(page.getByRole('heading', { name: 'Let’s test the microphone' })).toBeVisible()
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: '20 sentences' }).click()
-    await page.getByRole('button', { name: 'Get started' }).click()
+    await page.getByRole('button', { name: 'Begin' }).click()
 
     await expect(page).toHaveURL(/#\/$/)
+    await expect(page.getByRole('link', { name: 'Your character: Michał' })).toBeVisible()
     await expect(page.getByText('Morning affirmations · 10 sentences')).toBeVisible()
     await expect(page.getByRole('progressbar', { name: 'Today’s goal' })).toHaveAttribute('aria-valuemax', '20')
     await page.getByRole('navigation').getByRole('link', { name: 'Library' }).click()

@@ -4,6 +4,7 @@ import { FirstTryChart } from '@/components/progress/FirstTryChart'
 import { Heatmap } from '@/components/progress/Heatmap'
 import { Plant } from '@/components/progress/Plant'
 import { StatTile } from '@/components/progress/StatTile'
+import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Card } from '@/components/ui/Card'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar } from '@/components/ui/Progress'
@@ -36,11 +37,12 @@ export default function Progress() {
     <>
       <PageHeader rubric={t('progress.rubric')} title={t('progress.title')} />
 
-      <Card className="overflow-hidden p-0">
-        <div className="bg-[radial-gradient(70%_80%_at_50%_45%,var(--gold-soft),transparent_75%)] px-4 pt-4">
-          <Plant level={info.level} className="mx-auto h-56 w-full max-w-md" />
+      {/* The garden grows in a stained-glass window. */}
+      <ArchFrame glow>
+        <div className="px-4 pt-10">
+          <Plant level={info.level} className="mx-auto h-50 w-full max-w-md" />
         </div>
-        <div className="px-5 pt-2 pb-5">
+        <div className="px-5 pt-2 pb-5 text-center">
           <p className="rubric">{t('level.label', { level: info.level })}</p>
           <p className="mt-1 font-serif text-3xl font-semibold">{levelName(t, info.level)}</p>
           <ProgressBar className="mt-3" tone="gold" value={info.xpIntoLevel} max={info.xpForNext} label={t('level.toNext', { xp: info.nextThreshold - game.totalXp, name: levelName(t, info.level + 1) })} />
@@ -48,7 +50,7 @@ export default function Progress() {
             {t('level.xp', { xp: number(game.totalXp) })} · {t('level.toNext', { xp: number(info.nextThreshold - game.totalXp), name: levelName(t, info.level + 1) })}
           </p>
         </div>
-      </Card>
+      </ArchFrame>
 
       <section className="mt-8" aria-labelledby="metrics-heading">
         <h2 id="metrics-heading" className="mb-3 text-2xl font-semibold">

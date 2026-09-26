@@ -1,7 +1,8 @@
-import { CalendarPlus, Download, Mic, ShieldCheck, Trash2, Upload } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
+import { CharacterPicker } from '@/components/brand/CharacterPicker'
+import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Dialog } from '@/components/ui/Dialog'
@@ -88,6 +89,11 @@ export default function Settings() {
     <>
       <PageHeader rubric={t('settings.rubric')} title={t('settings.title')} />
       <div className="space-y-10">
+        <Section id="character" title={t('settings.sectionCharacter')}>
+          <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
+          <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
+        </Section>
+
         <Section id="appearance" title={t('settings.sectionAppearance')}>
           <Segmented<Lang>
             label={t('settings.language')}
@@ -159,7 +165,7 @@ export default function Settings() {
               description={t('settings.saveTranscriptsHint')}
             />
           </div>
-          <ButtonLink to="/settings/mic-test" variant="secondary" icon={<Mic aria-hidden className="size-4" />}>
+          <ButtonLink to="/settings/mic-test" variant="secondary" icon="mic-halo">
             {t('settings.micTest')}
           </ButtonLink>
         </Section>
@@ -236,7 +242,7 @@ export default function Settings() {
             />
           </label>
           <Hint>{t('settings.reminderHint')}</Hint>
-          <Button variant="secondary" onClick={reminder} icon={<CalendarPlus aria-hidden className="size-4" />}>
+          <Button variant="secondary" onClick={reminder} icon="calendar-plus">
             {t('settings.reminderDownload')}
           </Button>
         </Section>
@@ -245,10 +251,10 @@ export default function Settings() {
           <p className="text-sm text-ink-soft">{t('settings.backupHint')}</p>
           <p className="text-sm font-medium">{meta.lastBackupAt ? t('settings.lastBackup', { date: date(meta.lastBackupAt) }) : t('settings.neverBackedUp')}</p>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => void exportNow()} icon={<Download aria-hidden className="size-4" />}>
+            <Button onClick={() => void exportNow()} icon="download-simple">
               {t('settings.export')}
             </Button>
-            <Button variant="secondary" onClick={() => fileInput.current?.click()} icon={<Upload aria-hidden className="size-4" />}>
+            <Button variant="secondary" onClick={() => fileInput.current?.click()} icon="upload-simple">
               {t('settings.import')}
             </Button>
             <input
@@ -268,7 +274,7 @@ export default function Settings() {
 
         <Section id="privacy" title={t('settings.sectionPrivacy')}>
           <p className="flex gap-3 text-sm text-ink-soft">
-            <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-leaf" />
+            <Icon name="shield-cross" size={20} className="mt-0.5 shrink-0 text-primary" />
             {t('settings.privacyHint')}
           </p>
           <a className="inline-block font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
@@ -286,7 +292,7 @@ export default function Settings() {
               )}
             </div>
           )}
-          <Button variant="danger" onClick={() => setDeleting(true)} icon={<Trash2 aria-hidden className="size-4" />}>
+          <Button variant="danger" onClick={() => setDeleting(true)} icon="trash">
             {t('settings.deleteAll')}
           </Button>
         </Section>

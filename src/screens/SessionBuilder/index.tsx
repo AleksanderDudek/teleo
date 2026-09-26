@@ -1,7 +1,6 @@
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Plus } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
@@ -131,7 +130,7 @@ export default function SessionBuilder() {
             <EmptyState
               title={t('builder.noItems')}
               action={
-                <Button onClick={() => setPicking(true)} icon={<Plus aria-hidden className="size-4" />}>
+                <Button onClick={() => setPicking(true)} icon="plus">
                   {t('builder.addText')}
                 </Button>
               }
@@ -158,7 +157,7 @@ export default function SessionBuilder() {
             </DndContext>
           )}
           {items.length > 0 && (
-            <Button variant="secondary" className="mt-4" onClick={() => setPicking(true)} icon={<Plus aria-hidden className="size-4" />}>
+            <Button variant="secondary" className="mt-4" onClick={() => setPicking(true)} icon="plus">
               {t('builder.addText')}
             </Button>
           )}

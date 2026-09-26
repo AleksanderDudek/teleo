@@ -1,5 +1,5 @@
-import { Minus, Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 
 interface StepperProps {
   value: number
@@ -24,7 +24,7 @@ export function Stepper({ value, min, max, onChange, label, step = 1, format }: 
         aria-label={`${label}: −${step}`}
         className="inline-flex size-9 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
       >
-        <Minus aria-hidden className="size-4" />
+        <Icon name="minus" size={16} />
       </button>
       <output aria-live="polite" className="tabular min-w-12 text-center font-semibold text-ink">
         {format ? format(value) : value}
@@ -37,7 +37,7 @@ export function Stepper({ value, min, max, onChange, label, step = 1, format }: 
         title={t('common.add')}
         className="inline-flex size-9 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
       >
-        <Plus aria-hidden className="size-4" />
+        <Icon name="plus" size={16} />
       </button>
     </div>
   )
