@@ -63,7 +63,8 @@ test.describe('data', () => {
     await expect(page.getByText('1 dzień z rzędu')).toBeVisible({ timeout: 15_000 })
   })
 
-  test('the installed app shell opens offline and explains that speech needs the internet', async ({ page, context }) => {
+  test('the installed app shell opens offline and explains that speech needs the internet', async ({ page, context, browserName }) => {
+    test.skip(browserName === 'webkit', 'Playwright WebKit cannot reload through a service worker while emulating offline')
     await installFakeSpeech(page)
     await finishOnboarding(page)
     await page.evaluate(async () => {
@@ -107,5 +108,18 @@ test.describe('session builder', () => {
     await expect(card).toContainText('6 segmentów')
     await card.getByRole('button', { name: 'Rozpocznij' }).click()
     await expect(page.getByText('Chwała Ojcu · 1/3')).toBeVisible()
+  })
+})
+
+test.describe('browser without Web Speech', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('Firefox explains the missing recogniser and points to the offline engine', async ({ page, browserName }) => {
+    test.skip(browserName !== 'firefox', 'only Firefox ships without SpeechRecognition')
+    await finishOnboarding(page) // no fake: the real browser API is used
+    await page.getByRole('button', { name: 'Rozpocznij', exact: true }).click()
+    await expect(page.getByText(/Ta przeglądarka nie rozpoznaje mowy/)).toBeVisible()
+    await page.getByRole('link', { name: /Ustawienia|Whisper/ }).first().click()
+    await expect(page).toHaveURL(/#\/settings\?section=speech/)
   })
 })

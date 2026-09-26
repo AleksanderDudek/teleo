@@ -230,7 +230,11 @@ function Player({ data }: { data: PlayerData }) {
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [liveSession, capture])
 
-  const blocker = useBlocker(({ nextLocation }) => !allowLeave.current && !finished && !nextLocation.pathname.endsWith('/summary'))
+  // Only a run with progress is worth a "pause this session?" question; an untouched one just closes.
+  const hasProgress = run.entries.some((entry) => entry.status !== 'pending' || entry.attempts > 0)
+  const blocker = useBlocker(
+    ({ nextLocation }) => hasProgress && !allowLeave.current && !finished && !nextLocation.pathname.endsWith('/summary'),
+  )
   const leaveDialogOpen = leaving || blocker.state === 'blocked'
   const stay = () => {
     setLeaving(false)
@@ -298,7 +302,7 @@ function Player({ data }: { data: PlayerData }) {
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 px-4 pt-[max(env(safe-area-inset-top),0.75rem)] pb-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-2xl items-center gap-3">
-          <IconButton label={t('player.close')} onClick={() => setLeaving(true)}>
+          <IconButton label={t('player.close')} onClick={() => (hasProgress ? setLeaving(true) : void leave())}>
             <X aria-hidden className="size-5" />
           </IconButton>
           <div className="min-w-0 flex-1">

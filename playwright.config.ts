@@ -15,6 +15,9 @@ export default defineConfig({
   projects: [
     { name: 'mobile-pl', use: { ...devices['Pixel 7'], locale: 'pl-PL' } },
     { name: 'desktop-en', use: { ...devices['Desktop Chrome'], locale: 'en-US' } },
+    // Safari's engine (iOS/macOS) and Firefox: app logic, layout and storage — speech is faked.
+    { name: 'iphone-webkit', use: { ...devices['iPhone 15'], locale: 'pl-PL' } },
+    { name: 'desktop-firefox', use: { ...devices['Desktop Firefox'], locale: 'en-US' } },
   ],
   webServer: {
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
