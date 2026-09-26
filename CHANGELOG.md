@@ -2,6 +2,18 @@
 
 All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
+## Unreleased — redesign "the gilded icon"
+
+- New visual language from the *Teleo Design System*: vellum, lapis and gold leaf drawn from Byzantine icons and
+  stained glass; dark theme "Vigil" with a faint star field; Alegreya SC inscriptions; halo, icon-frame, arch and
+  gilt-rule motifs.
+- Phosphor Duotone icons (gilded fill under an ink outline) and 20 custom Teleo Glyphs replace lucide-react.
+- The Guardian, a guiding angel, greets you on Today, encourages you after a slip, and appears in dialogs, empty
+  states, onboarding and the summary. Choose your own character (four women, four men); it becomes your avatar.
+- Onboarding in five steps; the summary and the garden sit in stained-glass windows.
+- Fix: padding given to a card is no longer overridden by the card's default.
+- New screenshots for the install sheet and README.
+
 ## 1.1.1 — 2026-09-26
 
 - End-to-end suite also runs in WebKit (iPhone) and Firefox; CI installs all three engines.

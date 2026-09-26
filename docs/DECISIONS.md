@@ -230,3 +230,37 @@ Each entry: **decision** — why.
     speech recogniser's language sentence to sentence. Manually built sessions/texts (library, "say now", custom
     templates) are unaffected and can mix or pick the other language freely.
 
+
+## Redesign "the gilded icon" (Claude Design project *Teleo Design System*, 2026-09-26)
+
+67. **The design system leads the visual language** (tokens, type, icons, motifs, the illustrated cast), the spec keeps
+    leading behaviour. The spec's "calm palette (warm white / deep green / gold)" (§11) is superseded by the design's
+    palette drawn from the devotional imagery: vellum/umber, lapis for actions, gold leaf for the sacred and the earned,
+    cinnabar for the live voice and errors, verdigris for growth, azure for a streak freeze; dark theme "Vigil" (night
+    lapis, gold becomes the action colour). The previous palette is kept in the design project's `guidelines/legacy/`.
+68. **Phosphor Duotone is generated, not shipped as a font or a React package.** `npm run icons:phosphor` extracts the
+    duotone paths of the icons Teleo uses from `@phosphor-icons/core` (MIT, devDependency) into
+    `src/components/icons/phosphor.ts`; `<Icon>` renders them and the 20 custom Teleo Glyphs through the same two layers
+    (gilded fill + ink outline). Versus the design's icon font: no font-display flash, no whole-font precache, icon names
+    are type-checked. Versus `@phosphor-icons/react`: that package carries all six weights per icon (~5× the bytes).
+    `lucide-react` is removed.
+69. **The devotional photographs of the design (`assets/imagery/`) are not shipped.** Their provenance and licence are
+    unverified, and spec §13 allows only public-domain or own content. `ArchFrame` supports an image; the windows hold the
+    Guardian and the garden instead, which the design also shows.
+70. **The illustrated cast is drawn in code** (`components/brand/Figure.tsx`): fixed pigments, no bitmaps, no network.
+    The user's figure is a new preference `AppSettings.character` (default `anna`); backups without it still import
+    (validator treats it as optional), an unknown value is rejected.
+71. **The Guardian's voice** (first person, warm, never scolding) is limited to: the Today greeting line, the
+    encouragement after a rejected attempt (`guardianLine`: extra / different / missing word, or the way out after three
+    failures — the precise reason stays in the feedback card below), dialogs about pausing and "How do we check?", empty
+    states and onboarding. Nothing is said for an empty recognition — the card's "I didn't hear anything" already is.
+72. **Onboarding follows the design's five steps** (welcome · character · what to practise · microphone · goal) but keeps
+    what the spec requires and the design left out: the interface language (on the welcome step), the Polish grammatical
+    form (on the practise step) and the recogniser's privacy notice before the first use of the microphone (§5.2, on the
+    microphone step). The character picker is a radio group (single choice), not the design's pressed buttons.
+73. **Accessibility over literal fidelity where they conflict.** The microphone's inner gold hairline is a span, not an
+    `outline` (which would have hidden the focus ring); the stop icon on the cinnabar disc uses the paper colour (the
+    design's fixed ivory failed 3:1 on the dark theme's lighter cinnabar). Figures are `role="img"` with a name, or
+    hidden when the name is already written next to them.
+74. **`<Card>`'s default padding lives in the components layer** (`.card-pad`), so a padding utility passed by a screen
+    wins. Before, `cn` joined `p-5` and e.g. `p-0` without merging and the CSS order silently kept `p-5`.

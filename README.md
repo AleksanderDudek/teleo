@@ -85,7 +85,7 @@ Pull requests run `.github/workflows/ci.yml` (lint, type-check, unit and e2e tes
 src/domain/     pure business rules (segmenter, matcher, gamification, sessions, time) + unit tests
 src/db/         Dexie (IndexedDB) schema and row types
 src/services/   DB-coupled use cases (one transaction per user event)
-src/screens/    route screens · src/components/ shared UI · src/i18n/ PL + EN strings
+src/screens/    route screens · src/components/ shared UI (ui/ primitives, brand/ figures, icons/) · src/i18n/ PL + EN strings
 public/         icons, privacy policy · e2e/ Playwright tests
 ```
 
@@ -94,4 +94,5 @@ public/         icons, privacy policy · e2e/ Playwright tests
 © 2026 Aleksander Dudek — **all rights reserved** (see [LICENSE](LICENSE)). The code is public to read,
 but it may not be used, copied, modified or redistributed without prior written agreement. Builtin texts are traditional public-domain prayers (Polish liturgical wording, English
 traditional wording, Psalm 23 KJV) and original affirmations written for this project. Fonts:
-Alegreya and Instrument Sans (SIL Open Font License).
+Alegreya, Alegreya SC and Instrument Sans (SIL Open Font License). Icons: Phosphor Icons (MIT) and
+custom Teleo Glyphs; the illustrated figures are drawn in code for this project.
