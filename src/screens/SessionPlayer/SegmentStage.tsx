@@ -1,5 +1,5 @@
-import { Award, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { maskWords, type MemoryLevel } from '@/domain/memory/mask'
 import { cn } from '@/lib/cn'
 import type { RepetitionLabel } from './repetition'
@@ -38,13 +38,13 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
       <div className="flex min-h-9 flex-col items-center justify-center gap-1.5">
         {praiseKey > 0 && (
           <span key={praiseKey} className="inline-flex items-center gap-2 rounded-full bg-ok px-4 py-1.5 font-semibold text-paper shadow-md animate-rise">
-            <Check aria-hidden className="size-4" strokeWidth={3} />
+            <Icon name="check" size={16} tone="plain" fillOpacity={0.3} />
             {t('player.great')}
           </span>
         )}
         {unlockLines.map((line) => (
           <span key={line} className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-ink animate-fade">
-            <Award aria-hidden className="size-4" />
+            <Icon name="crown-jewel" size={16} />
             {line}
           </span>
         ))}
@@ -52,7 +52,7 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
 
       <p className="flex min-h-12 max-w-xl items-start justify-center gap-2 font-serif text-lg text-ink-soft">
         {previous && <span className="sr-only">{t('player.previous')}: </span>}
-        {previous && previousDone && <Check aria-hidden className="mt-1 size-4 shrink-0 text-ok" strokeWidth={3} />}
+        {previous && previousDone && <Icon name="check" size={16} tone="plain" fillOpacity={0.3} className="mt-1 text-ok" />}
         <span className="line-clamp-2">{previous}</span>
       </p>
 
@@ -77,7 +77,8 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
         </div>
       )}
 
-      <p data-testid="segment-text" className="scripture">
+      {/* The sentence sits in a soft gold mandorla. */}
+      <p data-testid="segment-text" className="scripture mandorla px-2 py-[18px]">
         {masked
           ? masked.map((word, i) => (
               <span key={i} className={cn('transition-colors duration-300', word.masked ? 'tracking-[0.08em] text-ink-faint' : 'text-ink')}>

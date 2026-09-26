@@ -1,8 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { ChevronDown, ChevronUp, GripVertical, ListChecks, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { IconButton } from '@/components/ui/Button'
 import { Stepper } from '@/components/ui/Stepper'
 import type { Segment, TextItem } from '@/db/types'
@@ -52,7 +52,7 @@ export function ItemRow({ item, index, count, text, segments, onChange, onRemove
           {...attributes}
           {...listeners}
         >
-          <GripVertical aria-hidden className="size-5" />
+          <Icon name="dots-six-vertical" size={20} />
         </button>
         <div className="min-w-0 flex-1">
           <p className="truncate font-serif text-lg font-semibold">{text?.title ?? t('sessions.missingText')}</p>
@@ -73,10 +73,10 @@ export function ItemRow({ item, index, count, text, segments, onChange, onRemove
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-1 pl-11">
         <IconButton label={t('common.moveUp')} disabled={index === 0} onClick={() => onMove(-1)} className="size-8">
-          <ChevronUp aria-hidden className="size-4" />
+          <Icon name="caret-up" size={16} />
         </IconButton>
         <IconButton label={t('common.moveDown')} disabled={index === count - 1} onClick={() => onMove(1)} className="size-8">
-          <ChevronDown aria-hidden className="size-4" />
+          <Icon name="caret-down" size={16} />
         </IconButton>
         <button
           type="button"
@@ -85,12 +85,12 @@ export function ItemRow({ item, index, count, text, segments, onChange, onRemove
           disabled={segments.length < 2}
           className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-sm font-semibold text-ink-soft hover:bg-sunk hover:text-ink disabled:opacity-40"
         >
-          <ListChecks aria-hidden className="size-4" />
+          <Icon name="list-checks" size={16} />
           {t('builder.chooseSegments')}
         </button>
         <span className="flex-1" />
         <IconButton label={t('builder.remove')} onClick={onRemove} className="size-8">
-          <X aria-hidden className="size-4" />
+          <Icon name="x" size={16} />
         </IconButton>
       </div>
       {choosing && (

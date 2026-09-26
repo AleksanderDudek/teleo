@@ -25,3 +25,15 @@ export function resultMessage(result: MatchResult, t: TFunction): string {
     }
   }
 }
+
+/**
+ * What the Guardian says after a rejected attempt: warm and never scolding, while the precise
+ * reason stays in the feedback card. `null` when there is nothing to encourage (nothing was heard).
+ */
+export function guardianLine(result: MatchResult, failedAttempts: number, t: TFunction): string | null {
+  if (result.accepted || result.reason === 'empty' || result.reason === 'emptySource') return null
+  if (failedAttempts >= 3) return t('guardian.stuck')
+  if (result.reason === 'extra') return t('guardian.extra')
+  if (result.reason === 'wrong') return t('guardian.wrong')
+  return t('guardian.missing')
+}

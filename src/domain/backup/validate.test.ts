@@ -190,9 +190,34 @@ describe('validateBackup: acceptance', () => {
           reminderTime: '07:00',
           onboardingCompleted: true,
           speechPrivacyAcknowledged: true,
+          character: 'michal',
         },
       },
     ]
+    expect(validateBackup(backupWith(data)).ok).toBe(true)
+  })
+
+  it('accepts AppSettings exported before characters existed', () => {
+    const data = realisticData()
+    const legacy = {
+      uiLang: 'en',
+      theme: 'dark',
+      engine: 'webspeech',
+      whisperModel: 'base',
+      strictness: 'lenient',
+      dayStartHour: 0,
+      dailyGoal: 5,
+      handsFree: true,
+      saveTranscripts: false,
+      fontSize: 'lg',
+      listenFirst: true,
+      grammaticalForm: 'f',
+      contentFocus: 'prayers',
+      reminderTime: '21:30',
+      onboardingCompleted: true,
+      speechPrivacyAcknowledged: false,
+    }
+    data.settings = [{ key: 'app', value: legacy as never }]
     expect(validateBackup(backupWith(data)).ok).toBe(true)
   })
 
@@ -374,6 +399,34 @@ describe('validateBackup: per-table field rejection', () => {
       },
     },
     {
+      name: 'settings: unknown character',
+      path: 'data.settings[0].value.character',
+      mutate: (d) => {
+        d.settings[0] = {
+          key: 'app',
+          value: {
+            uiLang: 'pl',
+            theme: 'system',
+            engine: 'auto',
+            whisperModel: 'tiny',
+            strictness: 'strict',
+            dayStartHour: 3,
+            dailyGoal: 20,
+            handsFree: false,
+            saveTranscripts: true,
+            fontSize: 'md',
+            listenFirst: false,
+            grammaticalForm: 'm',
+            contentFocus: 'both',
+            reminderTime: '07:00',
+            onboardingCompleted: true,
+            speechPrivacyAcknowledged: true,
+            character: 'zeus' as never,
+          },
+        }
+      },
+    },
+    {
       name: 'settings: bad field inside an app settings value',
       path: 'data.settings[0].value.theme',
       mutate: (d) => {
@@ -396,6 +449,7 @@ describe('validateBackup: per-table field rejection', () => {
             reminderTime: '07:00',
             onboardingCompleted: true,
             speechPrivacyAcknowledged: true,
+            character: 'anna',
           },
         }
       },

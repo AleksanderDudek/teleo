@@ -10,6 +10,7 @@ import type {
   TextStats,
   XpLedgerRow,
 } from '@/db/types'
+import { CHARACTER_IDS } from '@/domain/types'
 
 export const BACKUP_APP = 'teleo'
 export const BACKUP_SCHEMA_VERSION = 1
@@ -170,6 +171,8 @@ const appSettings: Checker = objectFields([
   ['reminderTime', string_],
   ['onboardingCompleted', boolean_],
   ['speechPrivacyAcknowledged', boolean_],
+  // Added in v1.2; older backups omit it and get the default on import.
+  ['character', optional(enumOf(...CHARACTER_IDS))],
 ])
 
 const gameState: Checker = objectFields([

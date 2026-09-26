@@ -1,6 +1,6 @@
-import { Check } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { MEMORY_LEVELS, type MemoryLevel } from '@/domain/memory/mask'
@@ -38,12 +38,12 @@ export function MemoryStartDialog({ open, onClose, onStart }: MemoryStartDialogP
             key={value}
             className={cn(
               'flex cursor-pointer items-start gap-3 rounded-2xl border p-3 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-gold',
-              level === value ? 'border-primary bg-paper' : 'border-line hover:border-line-strong',
+              level === value ? 'card-framed border-primary bg-surface' : 'border-line hover:border-line-strong',
             )}
           >
             <input type="radio" name="memory-level" value={value} checked={level === value} onChange={() => setLevel(value)} className="sr-only" />
             <span className={cn('mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full border-2', level === value ? 'border-primary bg-primary text-on-primary' : 'border-line-strong')}>
-              {level === value && <Check aria-hidden className="size-3" strokeWidth={3} />}
+              {level === value && <Icon name="check" size={12} tone="plain" />}
             </span>
             <span>
               <span className="block font-semibold text-ink">{t(`memory.levels.${value}.name`)}</span>

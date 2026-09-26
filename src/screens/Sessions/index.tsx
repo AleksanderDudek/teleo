@@ -1,7 +1,7 @@
-import { Brain, Copy, Eye, EyeOff, Pencil, Pin, PinOff, Play, Plus, RotateCcw, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Chip } from '@/components/ui/Chip'
@@ -59,7 +59,7 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
             <h2 className="font-serif text-xl font-semibold text-ink">{template.name}</h2>
             {template.pinned && (
               <span className="inline-flex items-center gap-1 text-xs font-semibold text-gold-ink">
-                <Pin aria-hidden className="size-3" /> {t('sessions.pinned')}
+                <Icon name="push-pin" size={12} /> {t('sessions.pinned')}
               </span>
             )}
           </div>
@@ -68,7 +68,7 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
           </p>
           <p className="mt-2 line-clamp-2 text-sm text-ink-soft">{itemsSummary(entry, t)}</p>
         </div>
-        <Button onClick={() => void start()} disabled={busy || entry.segmentCount === 0} icon={<Play aria-hidden className="size-4" />}>
+        <Button onClick={() => void start()} disabled={busy || entry.segmentCount === 0} icon="play">
           {t('sessions.start')}
         </Button>
       </div>
@@ -77,22 +77,22 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
           size="sm"
           variant="ghost"
           onClick={() => void setTemplatePinned(template.id, !template.pinned)}
-          icon={template.pinned ? <PinOff aria-hidden className="size-4" /> : <Pin aria-hidden className="size-4" />}
+          icon={template.pinned ? 'push-pin-slash' : 'push-pin'}
         >
           {template.pinned ? t('sessions.unpin') : t('sessions.pin')}
         </Button>
         {template.source === 'user' && (
-          <ButtonLink size="sm" variant="ghost" to={`/sessions/${encodeURIComponent(template.id)}/edit`} icon={<Pencil aria-hidden className="size-4" />}>
+          <ButtonLink size="sm" variant="ghost" to={`/sessions/${encodeURIComponent(template.id)}/edit`} icon="pencil-simple">
             {t('sessions.edit')}
           </ButtonLink>
         )}
-        <Button size="sm" variant="ghost" disabled={entry.segmentCount === 0} onClick={() => setChoosingMemory(true)} icon={<Brain aria-hidden className="size-4" />}>
+        <Button size="sm" variant="ghost" disabled={entry.segmentCount === 0} onClick={() => setChoosingMemory(true)} icon="brain">
           {t('memory.button')}
         </Button>
         <Button
           size="sm"
           variant="ghost"
-          icon={<Copy aria-hidden className="size-4" />}
+          icon="copy"
           onClick={async () => {
             const copy = await duplicateTemplate(template.id, t('sessions.duplicateName', { name: template.name }))
             navigate(`/sessions/${encodeURIComponent(copy.id)}/edit`)
@@ -105,12 +105,12 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
             size="sm"
             variant="ghost"
             onClick={() => void setTemplateArchived(template.id, !template.archived)}
-            icon={template.archived ? <Eye aria-hidden className="size-4" /> : <EyeOff aria-hidden className="size-4" />}
+            icon={template.archived ? 'eye' : 'eye-slash'}
           >
             {template.archived ? t('sessions.unhide') : t('sessions.hide')}
           </Button>
         ) : (
-          <Button size="sm" variant="ghost" onClick={() => onDelete(template)} icon={<Trash2 aria-hidden className="size-4" />}>
+          <Button size="sm" variant="ghost" onClick={() => onDelete(template)} icon="trash">
             {t('sessions.delete')}
           </Button>
         )}
@@ -143,7 +143,7 @@ export default function Sessions() {
         rubric={t('sessions.rubric')}
         title={t('sessions.title')}
         actions={
-          <ButtonLink to="/sessions/new" size="sm" icon={<Plus aria-hidden className="size-4" />}>
+          <ButtonLink to="/sessions/new" size="sm" icon="plus">
             {t('sessions.add')}
           </ButtonLink>
         }
@@ -158,7 +158,7 @@ export default function Sessions() {
               <p className="text-sm text-ink-soft">{t('sessions.progressOf', { done, total: resumable.plan.length })}</p>
             </div>
             <Button
-              icon={<RotateCcw aria-hidden className="size-4" />}
+              icon="arrow-counter-clockwise"
               onClick={async () => {
                 await resumeRun(resumable.id)
                 navigate(`/play/${resumable.id}`)
@@ -182,7 +182,7 @@ export default function Sessions() {
           title={t('sessions.emptyTitle')}
           body={t('sessions.emptyBody')}
           action={
-            <ButtonLink to="/sessions/new" icon={<Plus aria-hidden className="size-4" />}>
+            <ButtonLink to="/sessions/new" icon="plus">
               {t('sessions.add')}
             </ButtonLink>
           }

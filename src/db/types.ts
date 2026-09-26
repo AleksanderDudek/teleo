@@ -1,6 +1,7 @@
 import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
 import type {
+  CharacterId,
   ContentFocus,
   DayKey,
   EngineId,
@@ -182,6 +183,8 @@ export interface AppSettings {
   reminderTime: string
   onboardingCompleted: boolean
   speechPrivacyAcknowledged: boolean
+  /** The figure shown as the user's avatar. */
+  character: CharacterId
 }
 
 export interface GameState {

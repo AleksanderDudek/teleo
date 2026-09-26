@@ -1,15 +1,16 @@
-import { BookOpen, Layers, Settings2, Sprout, Sun, type LucideIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet } from 'react-router'
+import { Icon, type IconName } from '@/components/icons/Icon'
 import { TeleoMark } from '@/components/Ornaments'
 import { cn } from '@/lib/cn'
 
-const TABS: ReadonlyArray<{ to: string; key: 'today' | 'library' | 'sessions' | 'progress' | 'settings'; Icon: LucideIcon }> = [
-  { to: '/', key: 'today', Icon: Sun },
-  { to: '/library', key: 'library', Icon: BookOpen },
-  { to: '/sessions', key: 'sessions', Icon: Layers },
-  { to: '/progress', key: 'progress', Icon: Sprout },
-  { to: '/settings', key: 'settings', Icon: Settings2 },
+/** Teleo Glyphs: sunrise, a jewelled gospel cover, a rosary, a lily, sliders with haloed knobs. */
+const TABS: ReadonlyArray<{ to: string; key: 'today' | 'library' | 'sessions' | 'progress' | 'settings'; icon: IconName }> = [
+  { to: '/', key: 'today', icon: 'sunrise' },
+  { to: '/library', key: 'library', icon: 'gospel' },
+  { to: '/sessions', key: 'sessions', icon: 'rosary' },
+  { to: '/progress', key: 'progress', icon: 'lily' },
+  { to: '/settings', key: 'settings', icon: 'sliders-halo' },
 ]
 
 function TabBar() {
@@ -24,10 +25,10 @@ function TabBar() {
     >
       <div className="mb-8 hidden flex-col items-center gap-1 text-primary lg:flex">
         <TeleoMark className="size-9" />
-        <span className="rubric text-[0.6rem]">{t('app.name')}</span>
+        <span className="rubric text-[0.8rem]">{t('app.name')}</span>
       </div>
       <ul className="mx-auto flex max-w-lg justify-around px-2 pt-1.5 lg:flex-col lg:items-center lg:gap-3">
-        {TABS.map(({ to, key, Icon }) => (
+        {TABS.map(({ to, key, icon }) => (
           <li key={key}>
             <NavLink
               to={to}
@@ -44,11 +45,19 @@ function TabBar() {
                   <span
                     aria-hidden
                     className={cn(
-                      'absolute -top-1.5 h-0.5 w-6 rounded-full bg-gold transition-opacity lg:top-1/2 lg:-left-3 lg:h-6 lg:w-0.5 lg:-translate-y-1/2',
+                      'absolute -top-1.5 h-0.5 w-7 rounded-full bg-gold transition-opacity lg:top-1/2 lg:-left-3 lg:h-7 lg:w-0.5 lg:-translate-y-1/2',
                       isActive ? 'opacity-100' : 'opacity-0',
                     )}
                   />
-                  <Icon aria-hidden className="size-[1.35rem]" strokeWidth={isActive ? 2.1 : 1.7} />
+                  {/* Active: a gold-soft halo pill and a gilded icon; inactive: a quiet same-colour fill. */}
+                  <span
+                    className={cn(
+                      'grid h-8 w-10 place-items-center rounded-full transition-[background-color,box-shadow] duration-200',
+                      isActive && 'bg-gold-soft shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_55%,transparent)]',
+                    )}
+                  >
+                    <Icon name={icon} size={24} tone={isActive ? 'gilded' : 'plain'} fillOpacity={isActive ? 0.8 : 0.14} />
+                  </span>
                   <span>{t(`nav.${key}`)}</span>
                 </>
               )}

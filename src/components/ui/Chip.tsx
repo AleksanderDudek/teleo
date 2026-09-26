@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '@/lib/cn'
 
-/** Toggleable filter chip (`aria-pressed`). */
+/** Toggleable filter chip (`aria-pressed`). Pressed = lapis with an inner gilt ring. */
 export function Chip({
   pressed,
   className,
@@ -15,7 +15,7 @@ export function Chip({
       className={cn(
         'inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-sm font-medium whitespace-nowrap transition-colors',
         pressed
-          ? 'border-primary bg-primary text-on-primary'
+          ? 'border-primary bg-primary text-on-primary shadow-[inset_0_0_0_2px_var(--primary),inset_0_0_0_3px_color-mix(in_oklab,var(--gold)_55%,transparent)]'
           : 'border-line bg-surface text-ink-soft hover:border-line-strong hover:text-ink',
         className,
       )}

@@ -1,9 +1,9 @@
-import { HandHeart, ScrollText, Sunrise } from 'lucide-react'
+import { Icon, type IconName, type IconTone } from '@/components/icons/Icon'
 import type { TextType } from '@/domain/types'
 
-const ICONS = { prayer: HandHeart, affirmation: Sunrise, text: ScrollText } as const
+const ICONS: Record<TextType, IconName> = { prayer: 'praying-hands', affirmation: 'radiant-heart', text: 'scroll-ribbon' }
 
-export function TextTypeIcon({ type, className }: { type: TextType; className?: string }) {
-  const Icon = ICONS[type]
-  return <Icon aria-hidden className={className} strokeWidth={1.6} />
+/** Prayer → praying hands, affirmation → radiant heart, text → scroll (gilded duotone). */
+export function TextTypeIcon({ type, size, tone, className }: { type: TextType; size?: number; tone?: IconTone; className?: string }) {
+  return <Icon name={ICONS[type]} size={size} tone={tone} className={className} />
 }

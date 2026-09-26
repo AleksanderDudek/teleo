@@ -41,7 +41,10 @@ export function Switch({ checked, onChange, label, description, disabled }: Swit
           aria-hidden
           className={cn(
             'inline-block size-5 rounded-full shadow transition-transform duration-200',
-            checked ? 'translate-x-6 bg-on-primary' : 'translate-x-1 bg-surface',
+            // On: a gold-leaf coin with a dark rim, like a stud on a book cover.
+            checked
+              ? 'translate-x-6 bg-[radial-gradient(circle_at_50%_40%,#ecd08a,#c9962b_75%)] shadow-[inset_0_0_0_1.5px_#8a5e12,inset_0_0_0_3px_rgb(236_208_138/0.6)]'
+              : 'translate-x-1 bg-surface',
           )}
         />
       </button>

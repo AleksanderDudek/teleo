@@ -80,7 +80,15 @@
     "backupBody": "Wszystko jest zapisane tylko na tym urządzeniu. Raz w miesiącu wyeksportuj kopię, by nic nie przepadło.",
     "backupAction": "Eksportuj kopię",
     "later": "Później",
-    "nothingToStart": "Dodaj tekst lub sesję, aby zacząć."
+    "nothingToStart": "Dodaj tekst lub sesję, aby zacząć.",
+    "yourCharacter": "Twoja postać: {{name}}",
+    "guideStart": "Powiedz pierwsze zdanie, gdy tylko zechcesz. Będę słuchać.",
+    "guideLeft_one": "Jeszcze jedno zdanie i dzisiejszy cel będzie wypełniony. Będę słuchać.",
+    "guideLeft_few": "Jeszcze {{count}} zdania i dzisiejszy cel będzie wypełniony. Będę słuchać.",
+    "guideLeft_many": "Jeszcze {{count}} zdań i dzisiejszy cel będzie wypełniony. Będę słuchać.",
+    "guideLeft_other": "Jeszcze {{count}} zdania i dzisiejszy cel będzie wypełniony. Będę słuchać.",
+    "guideDone": "Cel na dziś wypełniony. Odpocznij – albo mów dalej, jeśli serce tego chce.",
+    "guideEmpty": "Dodaj tekst, który chcesz mówić na głos, a pomogę Ci liczyć."
   },
   "library": {
     "rubric": "Biblioteka",
@@ -432,7 +440,10 @@
     "whisperDeleteOther": "Usuń {{model}}",
     "whisperConfirmTitle": "Pobrać model Whisper?",
     "whisperConfirmBody": "Teleo jednorazowo pobierze ok. {{size}}: model z Hugging Face (huggingface.co) i silnik rozpoznawania ze strony Teleo. Przy transmisji komórkowej może to być kosztowne – jeśli możesz, użyj Wi-Fi. Potem rozpoznawanie działa offline, a nagranie nigdy nie opuszcza urządzenia.",
-    "whisperConfirm": "Pobierz"
+    "whisperConfirm": "Pobierz",
+    "sectionCharacter": "Twoja postać",
+    "characterHint": "Wybierz postać, która reprezentuje Cię w Teleo.",
+    "character": "Postać"
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -460,7 +471,7 @@
     "back": "Wstecz",
     "step": "Krok {{current}} z {{total}}",
     "welcomeTitle": "Wypowiedz. Wypełnij.",
-    "welcomeBody": "Teleo słucha, gdy wypowiadasz modlitwy i afirmacje na głos, sprawdza każde zdanie i liczy powtórzenia – prywatnie, na tym urządzeniu.",
+    "welcomeBody": "Jestem Twoim Aniołem Stróżem. Będę słuchać, gdy wypowiadasz modlitwy i afirmacje na głos, sprawdzę każde zdanie i policzę powtórzenia – prywatnie, na tym urządzeniu.",
     "langTitle": "W jakim języku ma mówić Teleo?",
     "langBody": "Teksty możesz wypowiadać po polsku i po angielsku niezależnie od tego wyboru.",
     "focusTitle": "Co chcesz praktykować?",
@@ -485,7 +496,11 @@
     "goalSentences_many": "{{count}} zdań",
     "goalSentences_other": "{{count}} zdania",
     "privacyNote": "Bez konta i bez serwera: Twoje dane zostają na tym urządzeniu.",
-    "privacyLink": "Polityka prywatności"
+    "privacyLink": "Polityka prywatności",
+    "characterTitle": "Wybierz swoją postać",
+    "characterGuide": "Wybierz postać, która będzie Cię reprezentować. Zmienisz ją w każdej chwili.",
+    "focusGuide": "Co chcesz praktykować? Przygotuję Twoją bibliotekę.",
+    "begin": "Rozpocznij"
   },
   "textTypes": {
     "affirmation": "Afirmacja",
@@ -864,5 +879,22 @@
         "desc": "Nic nie widać. Ukończenie tekstu w tym trybie daje osiągnięcie „Na pamięć”."
       }
     }
+  },
+  "guardian": {
+    "name": "Anioł Stróż",
+    "extra": "Prawie – wkradło się słowo, którego nie ma w tekście. Weź oddech i powiedz to jeszcze raz.",
+    "wrong": "Prawie – jedno słowo zabrzmiało inaczej. Weź oddech i powiedz to jeszcze raz.",
+    "missing": "Prawie – jedno słowo zostało niewypowiedziane. Nie spiesz się i powiedz to jeszcze raz.",
+    "stuck": "To zdanie jest wyjątkowo uparte. Spróbuj jeszcze raz – albo je pomiń i idź dalej; to też jest w porządku."
+  },
+  "characters": {
+    "anna": "Anna",
+    "maria": "Maria",
+    "grace": "Grace",
+    "ewa": "Ewa",
+    "jan": "Jan",
+    "michal": "Michał",
+    "david": "Dawid",
+    "piotr": "Piotr"
   }
 }

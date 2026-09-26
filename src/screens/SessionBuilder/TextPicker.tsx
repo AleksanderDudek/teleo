@@ -1,6 +1,6 @@
-import { Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { Dialog } from '@/components/ui/Dialog'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
 import type { TextItem } from '@/db/types'
@@ -29,7 +29,7 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
     <Dialog open={open} onClose={onClose} title={t('builder.pickTitle')}>
       <label className="relative mb-3 block">
         <span className="sr-only">{t('builder.pickSearch')}</span>
-        <Search aria-hidden className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-ink-faint" />
+        <Icon name="magnifying-glass" size={16} className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-ink-faint" />
         <input
           type="search"
           value={query}
@@ -52,7 +52,7 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
                 }}
                 className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left hover:bg-sunk"
               >
-                <TextTypeIcon type={text.type} className="size-5 shrink-0 text-leaf" />
+                <TextTypeIcon type={text.type} size={20} className="text-gold-ink" />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-serif text-lg font-semibold">{text.title}</span>
                   <span className="block text-xs text-ink-soft">

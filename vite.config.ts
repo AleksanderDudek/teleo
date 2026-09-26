@@ -118,8 +118,8 @@ export default defineConfig({
         start_url: BASE,
         scope: BASE,
         display: 'standalone',
-        theme_color: '#1f4a3a',
-        background_color: '#f7f2e7',
+        theme_color: '#1f3b8c',
+        background_color: '#f4ecda',
         categories: ['lifestyle', 'education', 'health'],
         icons: [
           { src: 'icons/pwa-64x64.png', sizes: '64x64', type: 'image/png' },

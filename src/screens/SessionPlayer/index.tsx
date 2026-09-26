@@ -1,11 +1,12 @@
-import { Eye, Radio, Volume2, X } from 'lucide-react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useBlocker, useNavigate, useParams } from 'react-router'
+import { GuideBubble } from '@/components/brand/GuideBubble'
+import { Icon } from '@/components/icons/Icon'
 import { DiffLegend, DiffView } from '@/components/speech/DiffView'
 import { HowWeCount } from '@/components/speech/HowWeCount'
 import { MicButton } from '@/components/speech/MicButton'
-import { resultMessage } from '@/components/speech/resultMessage'
+import { guardianLine, resultMessage } from '@/components/speech/resultMessage'
 import { SpeechPrivacyDialog } from '@/components/speech/SpeechPrivacyDialog'
 import { pointsToSpeechSettings } from '@/components/speech/speechErrors'
 import { SpeechSettingsLink } from '@/components/speech/SpeechSettingsLink'
@@ -281,6 +282,7 @@ function Player({ data }: { data: PlayerData }) {
   const covered = live && listening ? liveSession.progress?.covered : undefined
   const memoryBadge = memoryLevel ? t('memory.badge', { level: t(`memory.levels.${memoryLevel}.name`) }) : null
   const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
+  const encouragement = visibleFeedback ? guardianLine(visibleFeedback.result, failed, t) : null
 
   const status = speaking
     ? t('player.listening')
@@ -302,9 +304,7 @@ function Player({ data }: { data: PlayerData }) {
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 px-4 pt-[max(env(safe-area-inset-top),0.75rem)] pb-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-2xl items-center gap-3">
-          <IconButton label={t('player.close')} onClick={() => (hasProgress ? setLeaving(true) : void leave())}>
-            <X aria-hidden className="size-5" />
-          </IconButton>
+          <IconButton label={t('player.close')} icon="x" onClick={() => (hasProgress ? setLeaving(true) : void leave())} />
           <div className="min-w-0 flex-1">
             <p className="truncate font-serif text-lg font-semibold">{run.title}</p>
             <ProgressBar className="mt-1" value={done} max={total} label={t('player.progress', { current: Math.min(done + 1, total), total })} />
@@ -331,7 +331,7 @@ function Player({ data }: { data: PlayerData }) {
                 app.handsFree ? 'border-ok/40 bg-ok-soft text-ok' : 'border-line bg-surface text-ink-soft',
               )}
             >
-              <Radio aria-hidden className="size-3.5" />
+              <Icon name="radiance" size={14} />
               {t('player.liveMode')}
             </button>
             )}
@@ -367,8 +367,13 @@ function Player({ data }: { data: PlayerData }) {
           <p key={praiseKey} className="sr-only">
             {praiseKey > 0 ? [t('player.great'), ...unlockLines].join('. ') : ''}
           </p>
+          {encouragement && (
+            <GuideBubble mood="encourage" size={80} compact className="mb-3 animate-rise">
+              {encouragement}
+            </GuideBubble>
+          )}
           {visibleFeedback && (
-            <div className="card space-y-3 p-4 text-left animate-rise">
+            <div className="card card-framed space-y-3 p-4 text-left animate-rise">
               <p className="font-semibold text-bad">{visibleFeedback.message}</p>
               <DiffView parts={visibleFeedback.diff} className="text-lg" />
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -403,9 +408,7 @@ function Player({ data }: { data: PlayerData }) {
         )}
         <div className="flex items-center gap-5">
           {ttsSupported() && segment ? (
-            <IconButton label={t('player.listen')} onClick={() => void readAloud(false)} disabled={speaking || finished} className="size-12 border border-line bg-surface">
-              <Volume2 aria-hidden className="size-5" />
-            </IconButton>
+            <IconButton outlined label={t('player.listen')} icon="bell" onClick={() => void readAloud(false)} disabled={speaking || finished} />
           ) : (
             <span className="size-12" />
           )}
@@ -427,7 +430,7 @@ function Player({ data }: { data: PlayerData }) {
               }}
               className={cn('inline-flex size-12 touch-none items-center justify-center rounded-full border border-line bg-surface text-ink-soft select-none', hint && 'border-gold text-gold-ink')}
             >
-              <Eye aria-hidden className="size-5" />
+              <Icon name="eye-almond" size={20} />
             </button>
           ) : (
             <span className="size-12" />
@@ -459,6 +462,7 @@ function Player({ data }: { data: PlayerData }) {
       <Dialog
         open={leaveDialogOpen}
         onClose={stay}
+        guide="rest"
         title={t('player.leaveTitle')}
         description={t('player.leaveBody')}
         actions={

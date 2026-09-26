@@ -1,5 +1,5 @@
-import { ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { speechVendor } from './vendor'
@@ -35,7 +35,7 @@ export function SpeechPrivacyDialog({ open, onDevice, onAccept, onClose }: Speec
     >
       <div className="space-y-3 text-ink-soft">
         <p className="flex gap-3">
-          <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-leaf" />
+          <Icon name="shield-cross" size={20} className="mt-0.5 text-primary" />
           <span>{onDevice ? t('speech.privacy.bodyOnDevice') : t('speech.privacy.body', { vendor: vendorName })}</span>
         </p>
         {!onDevice && <p className="text-sm">{t('speech.privacy.whisper')}</p>}

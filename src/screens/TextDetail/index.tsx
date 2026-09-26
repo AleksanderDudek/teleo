@@ -1,4 +1,3 @@
-import { Brain, Copy, Eye, EyeOff, Mic, Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
@@ -69,27 +68,27 @@ export default function TextDetail() {
         title={text.title}
         subtitle={
           <span className="inline-flex items-center gap-2 text-sm">
-            <TextTypeIcon type={text.type} className="size-4 text-leaf" />
+            <TextTypeIcon type={text.type} size={16} className="text-gold-ink" />
             {t('counts.segments', { count: segments.length })} · {text.source === 'builtin' ? t('library.builtin') : t('library.own')}
           </span>
         }
       />
 
       <div className="flex flex-wrap items-center gap-2">
-        <Button size="lg" onClick={() => void sayNow()} disabled={starting || segments.length === 0} icon={<Mic aria-hidden className="size-5" />}>
+        <Button size="lg" onClick={() => void sayNow()} disabled={starting || segments.length === 0} icon="mic-halo">
           {t('textDetail.sayNow')}
         </Button>
-        <Button variant="secondary" onClick={() => setChoosingMemory(true)} disabled={starting || segments.length === 0} icon={<Brain aria-hidden className="size-4" />}>
+        <Button variant="secondary" onClick={() => setChoosingMemory(true)} disabled={starting || segments.length === 0} icon="brain">
           {t('memory.button')}
         </Button>
         {text.source === 'user' ? (
-          <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon={<Pencil aria-hidden className="size-4" />}>
+          <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon="pencil-simple">
             {t('common.edit')}
           </ButtonLink>
         ) : (
           <Button
             variant="secondary"
-            icon={<Copy aria-hidden className="size-4" />}
+            icon="copy"
             onClick={async () => {
               const copy = await copyTextAsOwn(text.id, t('textDetail.copyTitle', { title: text.title }))
               toast({ kind: 'success', title: t('textDetail.copied') })
@@ -101,13 +100,13 @@ export default function TextDetail() {
         )}
         <Button
           variant="ghost"
-          icon={text.archived ? <Eye aria-hidden className="size-4" /> : <EyeOff aria-hidden className="size-4" />}
+          icon={text.archived ? 'eye' : 'eye-slash'}
           onClick={() => void setTextArchived(text.id, !text.archived)}
         >
           {text.archived ? t('textDetail.unhide') : t('textDetail.hide')}
         </Button>
         {text.source === 'user' && (
-          <Button variant="ghost" icon={<Trash2 aria-hidden className="size-4" />} onClick={() => setConfirmDelete(true)}>
+          <Button variant="ghost" icon="trash" onClick={() => setConfirmDelete(true)}>
             {t('textDetail.delete')}
           </Button>
         )}

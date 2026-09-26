@@ -1,10 +1,13 @@
-import { Flame, Play, RotateCcw, ShieldCheck, Snowflake, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { Avatar } from '@/components/brand/Avatar'
+import { GuideBubble } from '@/components/brand/GuideBubble'
 import { LevelBar } from '@/components/LevelBar'
+import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressRing } from '@/components/ui/Progress'
 import { dayKeyToLocalDate } from '@/domain/time/dayKey'
@@ -76,13 +79,27 @@ export default function Today() {
     .map((day) => new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'long' }).format(dayKeyToLocalDate(day)))
     .join(', ')
 
+  const guide = !data.hasTexts ? t('today.guideEmpty') : left === 0 ? t('today.guideDone') : done === 0 ? t('today.guideStart') : t('today.guideLeft', { count: left })
+
   return (
     <>
-      <PageHeader rubric={date} title={t(greetingKey(new Date(now).getHours()))} />
+      <PageHeader
+        rubric={date}
+        title={t(greetingKey(new Date(now).getHours()))}
+        actions={
+          <Link
+            to="/settings?section=character"
+            aria-label={t('today.yourCharacter', { name: t(`characters.${app.character}`) })}
+            className="rounded-full transition-transform hover:-translate-y-0.5"
+          >
+            <Avatar id={app.character} size={48} decorative />
+          </Link>
+        }
+      />
 
       {game.pendingFreezeNotice.length > 0 && (
         <Card className="mb-4 flex items-start gap-3 border-frost/40 bg-frost-soft animate-rise">
-          <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-frost" />
+          <IconHalo icon="shield-cross" tone="frost" size={36} iconSize={20} className="-mt-1" />
           <p className="flex-1 text-sm font-medium text-ink">{t('today.freezeNotice', { count: game.pendingFreezeNotice.length, days: freezeDays })}</p>
           <Button size="sm" variant="ghost" onClick={() => void updateGameState({ pendingFreezeNotice: [] })}>
             {t('common.close')}
@@ -90,14 +107,12 @@ export default function Today() {
         </Card>
       )}
 
-      <section className="card relative overflow-hidden p-6 animate-rise">
+      <section className="card card-framed relative overflow-hidden p-6 animate-rise">
         <div aria-hidden className="pointer-events-none absolute -top-20 -right-16 size-56 rounded-full bg-gold-soft/60 blur-3xl" />
         <div className="relative flex items-center justify-between gap-6">
           <div className="min-w-0">
             <div className="flex items-center gap-3">
-              <span className="inline-flex size-12 items-center justify-center rounded-full bg-gold-soft text-gold-ink">
-                <Flame aria-hidden className="size-6" />
-              </span>
+              <IconHalo icon="candle" size={52} iconSize={26} />
               <div>
                 <p className="text-4xl leading-none font-semibold">{data.streak.current}</p>
                 <p className="mt-1 text-sm font-semibold text-ink-soft">
@@ -108,7 +123,7 @@ export default function Today() {
             {data.streak.atRisk && <p className="mt-3 text-sm text-near">{t('today.atRisk')}</p>}
             {game.freezesAvailable > 0 && (
               <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-frost">
-                <Snowflake aria-hidden className="size-4" /> {t('today.freezes', { count: game.freezesAvailable })}
+                <Icon name="shield-cross" size={16} tone="plain" /> {t('today.freezes', { count: game.freezesAvailable })}
               </p>
             )}
           </div>
@@ -124,17 +139,21 @@ export default function Today() {
 
       <div className="mt-6 animate-rise [animation-delay:80ms]">
         <Button
-          size="lg"
+          size="hero"
           block
-          className="h-16 text-xl"
           disabled={starting || (!data.hasTexts && data.start.kind === 'daily')}
           onClick={() => void begin()}
-          icon={data.start.kind === 'resume' ? <RotateCcw aria-hidden className="size-6" /> : <Play aria-hidden className="size-6" fill="currentColor" />}
+          icon={data.start.kind === 'resume' ? 'arrow-counter-clockwise' : 'play'}
+          iconFill={data.start.kind !== 'resume'}
         >
           {data.start.kind === 'resume' ? t('today.resume') : t('today.start')}
         </Button>
         <p className="mt-2 text-center text-sm text-ink-soft">{data.hasTexts || data.start.kind !== 'daily' ? startHint : t('today.nothingToStart')}</p>
       </div>
+
+      <GuideBubble mood="welcome" size={92} compact className="mt-6 animate-rise [animation-delay:110ms]">
+        {guide}
+      </GuideBubble>
 
       <Card className="mt-6 animate-rise [animation-delay:140ms]">
         <LevelBar totalXp={game.totalXp} />
@@ -167,11 +186,9 @@ export default function Today() {
                     const run = await startRun({ kind: 'template', templateId: template.id })
                     navigate(`/play/${run.id}`)
                   }}
-                  className="card flex w-full items-center gap-4 p-4 text-left transition-transform hover:-translate-y-0.5"
+                  className="card card-lift flex w-full items-center gap-4 p-4 text-left"
                 >
-                  <span className="inline-flex size-10 items-center justify-center rounded-full bg-primary text-on-primary">
-                    <Play aria-hidden className="size-4" fill="currentColor" />
-                  </span>
+                  <IconHalo icon="play" tone="lapis" size={44} iconSize={18} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-serif text-lg font-semibold">{template.name}</span>
                     <span className="block text-sm text-ink-soft">{t('counts.segments', { count: segmentCount })}</span>
@@ -186,9 +203,7 @@ export default function Today() {
       {data.hasTexts && (
         <section className="mt-8">
           <Card className="flex items-start gap-4">
-            <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-gold-ink">
-              <Sparkles aria-hidden className="size-5" />
-            </span>
+            <IconHalo icon="mandorla-star" size={44} iconSize={22} />
             <div className="min-w-0 flex-1">
               <h2 className="font-serif text-xl font-semibold">{t('today.daily')}</h2>
               <p className="mt-1 text-sm text-ink-soft">{t('today.dailyBody')}</p>

@@ -1,4 +1,3 @@
-import { Plus, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextCard } from '@/components/TextCard'
@@ -6,6 +5,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { SearchField } from '@/components/ui/SearchField'
 import { Segmented } from '@/components/ui/Segmented'
 import { ACHIEVEMENT_RULES, buildTextMetrics, nextTextMilestone } from '@/domain/gamification'
 import { TEXT_TYPES, type Lang, type TextType } from '@/domain/types'
@@ -59,24 +59,14 @@ export default function Library() {
         rubric={t('library.rubric')}
         title={t('library.title')}
         actions={
-          <ButtonLink to="/library/new" size="sm" icon={<Plus aria-hidden className="size-4" />}>
+          <ButtonLink to="/library/new" size="sm" icon="plus">
             {t('library.add')}
           </ButtonLink>
         }
       />
 
       <div className="space-y-4">
-        <label className="relative block">
-          <span className="sr-only">{t('common.search')}</span>
-          <Search aria-hidden className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-ink-faint" />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={t('library.searchPlaceholder')}
-            className="h-12 w-full rounded-full border border-line bg-surface pr-4 pl-11 text-ink placeholder:text-ink-faint focus:border-line-strong focus:outline-none focus-visible:outline-2 focus-visible:outline-gold"
-          />
-        </label>
+        <SearchField value={query} onChange={setQuery} label={t('common.search')} placeholder={t('library.searchPlaceholder')} />
 
         <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label={t('library.filterType')}>
           {TEXT_TYPES.map((type) => (
@@ -115,7 +105,7 @@ export default function Library() {
             title={t('library.emptyTitle')}
             body={t('library.emptyBody')}
             action={
-              <ButtonLink to="/library/new" icon={<Plus aria-hidden className="size-4" />}>
+              <ButtonLink to="/library/new" icon="plus">
                 {t('library.add')}
               </ButtonLink>
             }
