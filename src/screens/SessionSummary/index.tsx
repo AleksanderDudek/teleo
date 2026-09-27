@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 import { AchievementBadge } from '@/components/AchievementBadge'
@@ -29,6 +29,7 @@ export default function SessionSummary() {
   const game = useGameState()
   const clearToasts = useUiStore((s) => s.clearToasts)
   const bibleShare = useBibleShare()
+  const [startingNext, setStartingNext] = useState(false)
   // Celebration toasts from the last sentence would cover this screen, which lists them anyway.
   useEffect(() => clearToasts(), [clearToasts])
   const data = useLiveQuery(async () => {
@@ -146,12 +147,15 @@ export default function SessionSummary() {
             size="lg"
             icon="play"
             iconFill
+            disabled={startingNext}
             onClick={async () => {
+              setStartingNext(true)
               try {
                 const next = await startNextReading(t, bible.translation)
                 navigate(next ? `/play/${next.id}` : '/bible', { replace: true })
               } catch {
                 toast({ kind: 'error', title: t('bible.loadError') })
+                setStartingNext(false)
               }
             }}
           >
