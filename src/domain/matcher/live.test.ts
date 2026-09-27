@@ -8,8 +8,8 @@ const PL_20 =
 const EN_20 =
   'Every morning I choose to breathe slowly, listen carefully, speak kindly and walk calmly toward the goals that matter most.'
 
-const pl: PrefixOptions = { lang: 'pl', strictness: 'strict' }
-const en: PrefixOptions = { lang: 'en', strictness: 'strict' }
+const pl: PrefixOptions = { lang: 'pl' }
+const en: PrefixOptions = { lang: 'en' }
 
 /** The words of a sentence as a transcript would have them: lowercase, no punctuation. */
 const spokenWords = (sentence: string) => sentence.toLowerCase().replace(/[.,]/g, '').split(' ')
@@ -86,14 +86,23 @@ describe('matchPrefix', () => {
     expect(matchPrefix('I am calm', 'I am calm um', en)?.consumedRawWords).toBe(3)
   })
 
-  it('accepts a wrong word inside the sentence only in lenient mode', () => {
+  it('accepts a misheard word inside the sentence as a word not said', () => {
     const said = spokenWords(EN_20).map((word, index) => (index === 12 ? 'run' : word))
     const window = [...said, 'amen'].join(' ')
-    expect(matchPrefix(EN_20, window, { ...en, strictness: 'lenient' })).toMatchObject({
+    expect(matchPrefix(EN_20, window, en)).toMatchObject({
       consumedRawWords: 20,
       result: { accepted: true, wrong: 1, coverage: 0.95 },
     })
-    expect(matchPrefix(EN_20, window, en)).toBeNull()
+  })
+
+  it('follows the coverage it is given (the rung of the ladder)', () => {
+    const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+    const window = 'każdego dnia rano wcześnie i za nowy dzień chleba naszego'
+    expect(matchPrefix(TEN, window, pl)).toBeNull()
+    expect(matchPrefix(TEN, window, { ...pl, threshold: 0.8 })).toMatchObject({
+      consumedRawWords: 8,
+      result: { accepted: true, missing: 2, threshold: 0.8 },
+    })
   })
 
   it('has nothing to accept without words on either side', () => {
@@ -169,7 +178,7 @@ describe('progressOf', () => {
 })
 
 describe('live mode — speech-recognition artefacts', () => {
-  const plOptions = { lang: 'pl' as const, strictness: 'strict' as const }
+  const plOptions = { lang: 'pl' as const }
 
   it('ends the sentence when two words arrive merged', () => {
     const match = matchPrefix('Ojcze nasz, któryś jest w niebie.', 'ojcze nasz któryś jest wniebie święć się', plOptions)

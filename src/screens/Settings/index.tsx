@@ -15,7 +15,7 @@ import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
 import { parseBackup } from '@/domain/backup'
 import { buildDailyReminderIcs } from '@/domain/reminders/ics'
 import { dayKeyFor } from '@/domain/time/dayKey'
-import type { ContentFocus, GrammaticalForm, Lang, Strictness } from '@/domain/types'
+import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { downloadText } from '@/lib/download'
 import { newId } from '@/lib/id'
 import { backupFileName, exportBackup, importBackupJson, markBackupDone, requestPersistentStorage, wipeAllData } from '@/services/backup'
@@ -182,16 +182,8 @@ export default function Settings() {
           </div>
           <WhisperSettings />
           <div>
-            <Segmented<Strictness>
-              label={t('settings.strictness')}
-              value={app.strictness}
-              options={[
-                { value: 'strict', label: t('settings.strict') },
-                { value: 'lenient', label: t('settings.lenient') },
-              ]}
-              onChange={(strictness) => set({ strictness })}
-            />
-            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.strictHint')}</p>
+            <p className="font-medium text-ink">{t('settings.checking')}</p>
+            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.checkingHint')}</p>
           </div>
           <div className="divide-y divide-line">
             <Switch checked={app.handsFree} onChange={(handsFree) => set({ handsFree })} label={t('settings.handsFree')} description={t('settings.handsFreeHint')} />

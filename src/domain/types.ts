@@ -10,7 +10,6 @@ export type TextType = 'affirmation' | 'prayer' | 'text'
 export const TEXT_TYPES = ['affirmation', 'prayer', 'text'] as const satisfies readonly TextType[]
 
 export type SplitMode = 'sentence' | 'line'
-export type Strictness = 'strict' | 'lenient'
 export type EngineId = 'webspeech' | 'whisper'
 export type Tier = 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond'
 export type GrammaticalForm = 'm' | 'f' | 'n'

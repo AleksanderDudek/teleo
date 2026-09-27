@@ -168,7 +168,6 @@ const appSettings: Checker = objectFields([
   ['theme', enumOf('system', 'light', 'dark')],
   ['engine', enumOf('auto', 'webspeech', 'whisper')],
   ['whisperModel', enumOf('tiny', 'base')],
-  ['strictness', enumOf('strict', 'lenient')],
   ['dayStartHour', finiteNumber],
   ['dailyGoal', finiteNumber],
   ['handsFree', boolean_],
@@ -293,7 +292,8 @@ const attempts: Checker = objectFields([
   ['wrong', finiteNumber],
   ['accepted', boolean_],
   ['firstTry', boolean_],
-  ['strictness', enumOf('strict', 'lenient')],
+  // The coverage the attempt needed; attempts before the coverage ladder (2026-09-27) kept a strictness instead.
+  ['threshold', optional(finiteNumber)],
   ['engine', enumOf('webspeech', 'whisper')],
   ['durationMs', finiteNumber],
   ['transcript', optional(string_)],

@@ -1,6 +1,7 @@
 # Polish recognition: words said but not counted — plan
 
-**Status (2026-09-27): implemented** — DECISIONS #89–#90.
+**Status (2026-09-27): implemented** — DECISIONS #89–#90 (the gentle mode of #90 was later replaced by the coverage
+ladder, #93–#94).
 
 Owner report (2026-09-27): reading Polish aloud, some words are not counted although they were said. Options
 proposed: (1) a better model for spoken Polish, (2) a lower pass threshold for the words of a sentence.

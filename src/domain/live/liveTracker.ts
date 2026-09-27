@@ -1,10 +1,15 @@
-import { compareWords, evaluate, matchPrefix, normalize, progressOf, removeFillers, type LiveProgress, type MatchResult } from '@/domain/matcher'
-import type { Lang, Strictness } from '@/domain/types'
+import { COVERAGE_LADDER, compareWords, evaluate, matchPrefix, normalize, progressOf, removeFillers, type LiveProgress, type MatchResult } from '@/domain/matcher'
+import type { Lang } from '@/domain/types'
 
 /** The sentence currently expected in live mode. */
 export interface LiveTarget {
   entryIndex: number
   source: string
+  /**
+   * Coverage it needs now — its rung of the coverage ladder (default: the first). After a rejection the
+   * caller sets the same sentence again with the next rung, and the words already heard are checked again.
+   */
+  threshold?: number
 }
 
 export type LiveEvent =
@@ -30,7 +35,6 @@ export interface LiveTracker {
 
 export interface LiveTrackerOptions {
   lang: Lang
-  strictness: Strictness
   /** Reject once the window holds this many more tokens than the sentence without a match. */
   overflowWords?: number
 }
@@ -52,7 +56,7 @@ const splitWords = (text: string) => text.split(/\s+/u).filter(Boolean)
  * (unmatched words are carried over into the next recognition).
  */
 export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
-  const { lang, strictness, overflowWords = 8 } = options
+  const { lang, overflowWords = 8 } = options
   /** Unmatched words carried over from recognitions that ended. */
   let carry: string[] = []
   /** Words of the current recognition (best hypothesis) and of its alternatives. */
@@ -63,7 +67,7 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
   let target: LiveTarget | null = null
   let previousTail: string[] = []
   /** Where the last accepted sentence started (to re-locate its end after revisions). */
-  let lastAccepted: { start: number; source: string; tail: string[] } | null = null
+  let lastAccepted: { start: number; source: string; threshold: number; tail: string[] } | null = null
 
   const allWords = () => (carry.length ? [...carry, ...current] : current)
   const windowText = () => allWords().slice(consumed).join(' ')
@@ -102,14 +106,17 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
     return null
   }
 
+  const thresholdOf = (sentence: LiveTarget) => sentence.threshold ?? COVERAGE_LADDER[0]
+
   const check = (): LiveEvent[] => {
     const sentence = target
     if (!sentence) return []
     const window = windowText()
     const tailBefore = previousTail
-    const match = window ? matchPrefix(sentence.source, window, { lang, strictness, previousTail: tailBefore }) : null
+    const threshold = thresholdOf(sentence)
+    const match = window ? matchPrefix(sentence.source, window, { lang, threshold, previousTail: tailBefore }) : null
     if (match) {
-      lastAccepted = { start: consumed, source: sentence.source, tail: tailBefore }
+      lastAccepted = { start: consumed, source: sentence.source, threshold, tail: tailBefore }
       consumed += match.consumedRawWords
       return accept(sentence, match.result, match.result.transcript)
     }
@@ -122,14 +129,14 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       consumed += restart
       lastAccepted = null
       if (interrupted) return check()
-      const result = evaluate(sentence.source, [slip], { lang, strictness })
+      const result = evaluate(sentence.source, [slip], { lang, threshold })
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: slip, cause: 'restart' }, ...check()]
     }
 
     const sourceTokens = normalize(sentence.source, lang).length
     const heard = spokenTokens(window, sentence.source)
     if (heard.length > sourceTokens + overflowWords) {
-      const result = evaluate(sentence.source, [window], { lang, strictness })
+      const result = evaluate(sentence.source, [window], { lang, threshold })
       discardWindow()
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: window, cause: 'overflow' }]
     }
@@ -150,7 +157,7 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       if (lastAccepted && lastAccepted.start >= carry.length) {
         const again = matchPrefix(lastAccepted.source, words.slice(lastAccepted.start).join(' '), {
           lang,
-          strictness,
+          threshold: lastAccepted.threshold,
           previousTail: lastAccepted.tail,
         })
         if (again) consumed = lastAccepted.start + again.consumedRawWords
@@ -174,7 +181,7 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       ].filter(Boolean)
       // A plain evaluation also accepts a long sentence whose final word was dropped,
       // which the prefix rule deliberately waits on while the speaker might continue.
-      const result = evaluate(sentence.source, windows, { lang, strictness })
+      const result = evaluate(sentence.source, windows, { lang, threshold: thresholdOf(sentence) })
       discardWindow()
       if (result.accepted) return accept(sentence, result, result.transcript)
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: window, cause: 'pause' }]

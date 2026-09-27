@@ -14,7 +14,13 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 - Words the recogniser writes together or apart (“w niebie” → “wniebie”, “niekształtowna” → “nie kształtowna”) and
   the same sound spelled differently (“Bóg” → “bug”, “morze” → “może”) now count as said.
-- Gentle checking is genuinely gentle: 85% of the words is enough. After two nearly-right tries the Guardian offers it.
+
+### Checking that gets gentler with each try
+
+- A sentence needs 90% of its words on the first try, 80% on the second and 70% from the third on; each new sentence
+  starts at 90% again. After a failed try the card says what the next one needs.
+- A word heard as a different one only counts as not said; a word added to the text still fails the try.
+- Replaces the Strict/Gentle setting: one rule for everyone.
 
 ### The Bible challenge, golden quarter-hour, leaderboard
 

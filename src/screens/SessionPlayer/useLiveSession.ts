@@ -2,17 +2,18 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { createLiveTracker, type LiveEvent, type LiveTracker } from '@/domain/live/liveTracker'
 import type { LiveProgress, MatchResult } from '@/domain/matcher'
 import { SpeechError, type SpeechEngine, type SpeechErrorCode } from '@/domain/speech/SpeechEngine'
-import { SPEECH_LANG, type Lang, type Strictness } from '@/domain/types'
+import { SPEECH_LANG, type Lang } from '@/domain/types'
 
 export interface LiveSentence {
   entryIndex: number
   source: string
   lang: Lang
+  /** Coverage the sentence needs now (its rung of the coverage ladder). */
+  threshold: number
 }
 
 interface LiveSessionOptions {
   engine: SpeechEngine | null
-  strictness: Strictness
   /** Sentence expected now; `null` when the session is over. */
   target: LiveSentence | null
   /** Resolves once the attempt is stored; the next target arrives through `target`. */
@@ -26,7 +27,7 @@ export type LivePhase = 'idle' | 'starting' | 'listening'
  * LiveTracker deciding sentence by sentence, verdicts recorded strictly in order.
  * Restarts recognition only when the language of the expected sentence changes.
  */
-export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSessionOptions) {
+export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions) {
   const [phase, setPhase] = useState<LivePhase>('idle')
   const [progress, setProgress] = useState<LiveProgress | null>(null)
   const [error, setError] = useState<SpeechErrorCode | null>(null)
@@ -87,7 +88,7 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
     if (!engine || !current || phaseRef.current !== 'idle') return
     setError(null)
     setPhaseBoth('starting')
-    const liveTracker = createLiveTracker({ lang: current.lang, strictness })
+    const liveTracker = createLiveTracker({ lang: current.lang })
     tracker.current = liveTracker
     listeningLang.current = current.lang
     try {
@@ -111,10 +112,11 @@ export function useLiveSession({ engine, strictness, target, onVerdict }: LiveSe
       if (code !== 'aborted') setError(code)
       setPhaseBoth('idle')
     }
-  }, [engine, handle, stop, strictness])
+  }, [engine, handle, stop])
 
-  // A new expected sentence: check words already heard (spill-over) right away.
-  const targetKey = target ? `${target.entryIndex}\u0000${target.source}` : ''
+  // A new expected sentence — or the same one on a lower rung after a rejection: check the words
+  // already heard (spill-over, a fresh start after a slip) right away.
+  const targetKey = target ? `${target.entryIndex}\u0000${target.source}\u0000${target.threshold}` : ''
   useEffect(() => {
     const live = tracker.current
     if (!live) return

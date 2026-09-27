@@ -5,9 +5,11 @@ import type { DiffPart, EvaluateOptions, MatchResult } from '@/domain/matcher'
 describe('matcher public API', () => {
   it('exports exactly the documented functions', () => {
     expect(Object.keys(matcher).sort()).toEqual([
+      'COVERAGE_LADDER',
       'align',
       'buildDiff',
       'compareWords',
+      'coverageNeeded',
       'evaluate',
       'levenshtein',
       'matchPrefix',
@@ -20,7 +22,7 @@ describe('matcher public API', () => {
 
   it('evaluates an utterance and describes it for the UI', () => {
     const source = 'Ojcze nasz, któryś jest w niebie'
-    const options: EvaluateOptions = { lang: 'pl', strictness: 'strict' }
+    const options: EvaluateOptions = { lang: 'pl' }
     const said = 'ojcze nasz ktorys jest w niebie'
     const result: MatchResult = matcher.evaluate(source, [said], options)
     const parts: DiffPart[] = matcher.buildDiff(source, options.lang, result)

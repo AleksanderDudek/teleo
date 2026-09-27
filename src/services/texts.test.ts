@@ -35,7 +35,7 @@ function attemptFor(segmentId: string, textId: string): Attempt {
     wrong: 0,
     accepted: true,
     firstTry: true,
-    strictness: 'strict',
+    threshold: 0.9,
     engine: 'webspeech',
     durationMs: 1000,
   }

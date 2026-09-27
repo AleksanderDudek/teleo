@@ -34,7 +34,8 @@ npm run typecheck    # tsc -b
 - Code, comments, commits in English. Imports use the `@/` alias for `src/`.
 - No `enum`/`namespace`; prefer string-literal unions and `as const` objects.
 - Matcher = heart of the app: change it only test-first (`src/domain/matcher/*.test.ts`).
-- Key modules: `src/domain/matcher` (evaluate, diff, live `matchPrefix`/`progressOf`),
+- Key modules: `src/domain/matcher` (evaluate, diff, live `matchPrefix`/`progressOf`; the coverage a try needs comes
+  from the ladder `coverageNeeded(failedTries)` — 90/80/70 %, DECISIONS #93),
   `src/domain/live/liveTracker.ts` (continuous-listening state machine), `src/services/practice.ts`
   (one transaction per attempt: stats, XP ledger, streaks/freezes, achievements),
   `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first),

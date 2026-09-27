@@ -43,7 +43,7 @@ export default function MicTest() {
   const capture = useTapCapture({
     engine,
     lang: SPEECH_LANG[lang],
-    onResult: (speech) => setOutcome({ speech, result: evaluate(target, speech.alternatives, { lang, strictness: app.strictness }) }),
+    onResult: (speech) => setOutcome({ speech, result: evaluate(target, speech.alternatives, { lang }) }),
   })
 
   useEffect(() => {

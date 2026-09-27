@@ -10,7 +10,6 @@ import type {
   GrammaticalForm,
   Lang,
   SplitMode,
-  Strictness,
   TextType,
   Tier,
 } from '@/domain/types'
@@ -101,7 +100,8 @@ export interface Attempt {
   wrong: number
   accepted: boolean
   firstTry: boolean
-  strictness: Strictness
+  /** The coverage this attempt needed (spec §6.4: stored for honest statistics); absent before 2026-09-27. */
+  threshold?: number
   engine: EngineId
   durationMs: number
 }
@@ -197,7 +197,6 @@ export interface AppSettings {
   theme: ThemePreference
   engine: 'auto' | EngineId
   whisperModel: 'tiny' | 'base'
-  strictness: Strictness
   /** Hour (0–6) at which a new day starts. */
   dayStartHour: number
   /** Accepted segments per day (1–150). */

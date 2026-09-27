@@ -128,10 +128,10 @@ test.describe('English', () => {
   })
 })
 
-test.describe('gentle checking', () => {
+test.describe('coverage ladder', () => {
   test.use({ locale: 'pl-PL' })
 
-  test('after two nearly-right tries the Guardian offers gentle checking, which then accepts', async ({ page }) => {
+  test('a sentence missing four words fails at 90 % and passes on the next try at 80 %', async ({ page }, testInfo) => {
     test.setTimeout(120_000)
     await installFakeSpeech(page)
     await finishOnboarding(page)
@@ -139,24 +139,19 @@ test.describe('gentle checking', () => {
     await page.getByRole('link', { name: /Ojcze nasz/ }).click()
     await page.getByRole('button', { name: 'Powiedz teraz' }).click()
     await page.getByRole('switch', { name: 'Na żywo' }).click()
-    // 21 of 23 words: not enough for strict checking (95 %), enough for gentle (85 %).
-    const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie tak i na ziemi'
+    // 19 of 23 words (82 %): the first try needs 21, the second 19.
+    const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie na ziemi'
     await page.evaluate((text) => {
       const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
-      fake.queue.push(text, text, text)
+      fake.queue.push(text, text)
     }, almost)
 
     const mic = page.getByRole('button', { name: 'Mów' })
     await mic.click()
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
-    await expect(page.getByText(/Pominięte słowa/)).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Sprawdzaj łagodniej' })).toHaveCount(0)
-
-    await expect(mic).toBeEnabled()
-    await mic.click()
-    const offer = page.getByRole('button', { name: 'Sprawdzaj łagodniej' })
-    await expect(offer).toBeVisible()
-    await offer.click()
+    await expect(page.getByText('Dopasowano 82% słów – potrzeba 90%.')).toBeVisible()
+    await expect(page.getByText('Następna próba: wystarczy 80% słów.')).toBeVisible()
+    await page.screenshot({ path: testInfo.outputPath('ladder-feedback.png'), fullPage: true })
 
     await expect(mic).toBeEnabled()
     await mic.click()

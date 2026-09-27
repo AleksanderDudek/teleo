@@ -1,6 +1,6 @@
 import type { Lang } from '@/domain/types'
 import { alignmentTable } from './align'
-import { requiredCoverage, thresholdFor, verdictOf, type Verdict } from './evaluate'
+import { COVERAGE_LADDER, requiredCoverage, verdictOf, type Verdict } from './evaluate'
 import { removeFillers } from './fillers'
 import { normalize, rawWords } from './normalize'
 import type { LiveProgress, OpEntry, PrefixMatch, PrefixOptions, Token } from './types'
@@ -35,7 +35,7 @@ export function matchPrefix(
   window: string,
   options: PrefixOptions,
 ): PrefixMatch | null {
-  const { lang, strictness, threshold = thresholdFor(strictness), previousTail = [] } = options
+  const { lang, threshold = COVERAGE_LADDER[0], previousTail = [] } = options
   const sourceWords = normalize(source, lang).map((token) => token.text)
   if (sourceWords.length === 0) return null
 
@@ -52,7 +52,7 @@ export function matchPrefix(
     const cost = table.cost(sourceWords.length, end)
     if (best && cost >= best.cost) continue
     const ops = table.ops(sourceWords.length, end)
-    const verdict = verdictOf(ops, sourceWords.length, strictness, threshold)
+    const verdict = verdictOf(ops, sourceWords.length, threshold)
     // The live rule; at 100% coverage the last word is said anyway.
     const last = ops.findLast((entry) => entry.sourceIndex !== undefined)
     if (verdict.accepted && last && isSaid(last)) best = { end, cost, verdict }

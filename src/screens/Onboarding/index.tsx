@@ -14,7 +14,7 @@ import { Chip } from '@/components/ui/Chip'
 import { IconHalo, type HaloTone } from '@/components/ui/IconHalo'
 import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
-import { evaluate } from '@/domain/matcher'
+import { COVERAGE_LADDER, evaluate } from '@/domain/matcher'
 import { SPEECH_LANG, type ContentFocus, type GrammaticalForm, type Lang } from '@/domain/types'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
@@ -56,7 +56,8 @@ function MicStep({ lang, onHeard }: { lang: Lang; onHeard: () => void }) {
     engine,
     lang: SPEECH_LANG[lang],
     onResult: (speech) => {
-      const ok = evaluate(phrase, speech.alternatives, { lang, strictness: 'lenient' }).accepted
+      // A microphone check, not a test: the most forgiving rung of the coverage ladder.
+      const ok = evaluate(phrase, speech.alternatives, { lang, threshold: COVERAGE_LADDER.at(-1) }).accepted
       setVerdict(ok ? 'ok' : 'retry')
       if (ok) onHeard()
     },

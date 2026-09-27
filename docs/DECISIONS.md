@@ -352,3 +352,22 @@ Each entry: **decision** — why.
     for Polish. On a language switch, if no session of the new language is pinned, its default one is pinned so Start
     offers something straight away. The language switch itself names each language in its own language
     ("Polski", "English") so everyone can find theirs.
+
+## Coverage ladder (owner request, 2026-09-27)
+
+93. **Each try of a sentence is gentler: 90 % → 80 % → 70 %** (supersedes spec §6.1's 95 %, the §6.4 strict/gentle
+    modes and #90). The coverage a try needs follows the rejected tries on that sentence in this run
+    (`run.entries[i].attempts`, so it survives pause/resume): 90 % on the first, 80 % on the second, 70 % on the third
+    and every later one; each new sentence — and each repetition of it — starts at 90 % again. "At least" stays
+    literal (`ceil`), so a sentence under 10 words needs every word on its first try and a 2–3-word one needs every
+    word on every rung. `COVERAGE_LADDER` / `coverageNeeded` in `domain/matcher/evaluate.ts`; the live tracker takes the
+    rung with its target, and the player re-sets the same sentence with the next rung after a rejection so the words
+    already heard (a fresh start after a slip) are checked again at once. The skip-after-three-fails rule stays.
+    The spec §6.6 cases keep their inputs; on the first try two words left out of 20 (90 %) now pass, three (85 %) fail.
+94. **A misheard word is a word not said, on every rung** (the old gentle-mode rule for everyone): it lowers coverage but
+    never rejects on its own — the recogniser often writes a word said differently. A word *added* to the text still
+    fails the try (spec §6.1/2); so does a word glued to a neighbour. The Strict/Gentle setting and the Guardian's
+    "Check more gently" offer are gone; Settings explains the ladder, the feedback card says what the next try needs,
+    "How do we check?" describes it. Each attempt stores the coverage it needed (`Attempt.threshold`, replacing
+    `strictness`, per spec §6.4's "stored with every attempt"); older rows and backups keep their `strictness` key
+    and still import. The onboarding microphone check uses the last rung (70 %); the mic test the first (90 %).

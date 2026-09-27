@@ -261,8 +261,7 @@
     "praiseLovely": "Lovely!",
     "combo_one": "{{count}} in a row",
     "combo_other": "{{count}} in a row",
-    "gentleOffer": "Check more gently",
-    "gentleOn": "Gentle checking is on — you can change it any time in Settings."
+    "nextTry": "Next try: {{percent}}% of the words is enough."
   },
   "summary": {
     "title": "Well done",
@@ -356,10 +355,8 @@
     "engineAuto": "Automatic",
     "engineWeb": "Browser",
     "engineWhisper": "Offline Whisper",
-    "strictness": "How strict",
-    "strict": "Strict",
-    "lenient": "Gentle",
-    "strictHint": "Strict: every word counts, a different word is rejected. Gentle: 85% of the words is enough and a different word counts only as missing — helpful when recognition often loses or mishears words (accent, noise, old wording).",
+    "checking": "How we check",
+    "checkingHint": "Every try of a sentence is gentler than the one before: the first needs 90% of its words, the second 80%, and from the third on 70%. A word heard as a different one counts as not said; a word added to the text still fails the try.",
     "handsFree": "Live listening (hands-free)",
     "handsFreeHint": "Keep listening through the whole session and check each sentence as you speak.",
     "saveTranscripts": "Save transcripts",
@@ -540,7 +537,7 @@
       "coverage": "{{percent}}% of the words matched — {{needed}}% needed."
     },
     "howWeCount": "How do we check?",
-    "howWeCountBody": "A sentence counts when at least 95% of its words were said and you added no extra words. For sentences shorter than 20 words this means every word — one skipped word is tolerated only from 20 words up. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); filler sounds like “um” are ignored. In Gentle mode (Settings) 85% of the words is enough.",
+    "howWeCountBody": "A sentence counts when enough of its words were said and you added no extra words. The first try needs 90% of the words, the second 80%, and every try after that 70% — so a short sentence may need every word at first. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); a word heard as a different one only counts as not said, and filler sounds like “um” are ignored.",
     "legendMatch": "said",
     "legendNear": "close enough",
     "legendMissing": "missing",
@@ -945,8 +942,7 @@
     "extra": "Almost — a word slipped in that isn’t in the text. Breathe, and say it once more.",
     "wrong": "Almost — one word came out differently. Breathe, and say it once more.",
     "missing": "Almost — a word stayed unsaid. Take your time and say it once more.",
-    "stuck": "This sentence is a stubborn one. Try once more — or skip it and go on; that is all right too.",
-    "gentle": "I may be mishearing you — the words were nearly all there. Shall I check more gently? Then 85% of the words is enough."
+    "stuck": "This sentence is a stubborn one. Try once more — or skip it and go on; that is all right too."
   },
   "characters": {
     "anna": "Anna",

@@ -4,7 +4,7 @@
 
 Teleo is a free, local-first Progressive Web App that helps you speak prayers, affirmations and
 passages **aloud**, sentence by sentence. Speech recognition transcribes what you said, a matcher
-compares it with the source text (≥ 95% of the words, zero extra words) and only verified sentences
+compares it with the source text (≥ 90% of the words, then 80% and 70% on later tries; zero extra words) and only verified sentences
 count. Repetitions, streaks, levels and achievements grow a quiet little garden — no accounts, no
 servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 
@@ -29,8 +29,9 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
   sentence is checked as you speak it; heard words ink in, a finished sentence gets a quiet “Great!”
   and the next one is already listening. Repeated items show a counter (`Zdrowaś Maryjo · 3/10`).
   Tap mode (one utterance per tap) is one switch away.
-- **Honest checking:** a sentence counts when ≥ 95 % of its words were said and nothing was added
-  (small recognition slips such as missing Polish letters are forgiven; fillers like “um” ignored).
+- **Honest checking:** a sentence counts when enough of its words were said and nothing was added — 90 % on
+  the first try, 80 % on the second, 70 % from the third on (recognition slips such as missing Polish letters,
+  words written together or apart and misheard words are forgiven; fillers like “um” ignored).
 - **Texts & sessions:** builtin public-domain prayers (PL/EN, incl. the Rosary decade and Psalm 23)
   and original affirmations, your own texts with automatic sentence/line splitting and manual
   split/merge, sessions of up to 150 sentences with repetitions and drag-and-drop ordering.
