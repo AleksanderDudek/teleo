@@ -184,7 +184,6 @@ const appSettings: Checker = objectFields([
   ['character', optional(enumOf(...CHARACTER_IDS))],
   ['sounds', optional(boolean_)],
   ['displayName', optional(string_)],
-  ['bibleTranslation', optional(enumOf(...BIBLE_TRANSLATIONS))],
 ])
 
 const gameState: Checker = objectFields([

@@ -64,7 +64,7 @@ export default function TextDetail() {
     <>
       <PageHeader
         backTo="/library"
-        rubric={`${t(`textTypes.${text.type}`)} · ${t(`langs.${text.lang}`)}`}
+        rubric={t(`textTypes.${text.type}`)}
         title={text.title}
         subtitle={
           <span className="inline-flex items-center gap-2 text-sm">

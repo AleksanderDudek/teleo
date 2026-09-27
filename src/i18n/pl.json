@@ -116,8 +116,6 @@
     "fieldTitle": "Tytuł",
     "titlePlaceholder": "np. Moje poranne afirmacje",
     "fieldType": "Rodzaj",
-    "fieldLang": "Język tekstu",
-    "fieldLangHint": "W tym języku będzie działać rozpoznawanie mowy.",
     "fieldSplit": "Podział na",
     "splitSentence": "Zdania",
     "splitLine": "Linie",
@@ -492,8 +490,6 @@
     "step": "Krok {{current}} z {{total}}",
     "welcomeTitle": "Wypowiedz. Wypełnij.",
     "welcomeBody": "Jestem Twoim Aniołem Stróżem. Będę słuchać, gdy wypowiadasz modlitwy i afirmacje na głos, sprawdzę każde zdanie i policzę powtórzenia – prywatnie, na tym urządzeniu.",
-    "langTitle": "W jakim języku ma mówić Teleo?",
-    "langBody": "Teksty możesz wypowiadać po polsku i po angielsku niezależnie od tego wyboru.",
     "focusTitle": "Co chcesz praktykować?",
     "focusPrayers": "Modlitwy",
     "focusPrayersBody": "Ojcze nasz, Zdrowaś Maryjo, dziesiątka różańca",
@@ -531,14 +527,6 @@
     "affirmation": "Afirmacje",
     "prayer": "Modlitwy",
     "text": "Teksty"
-  },
-  "langs": {
-    "pl": "Polski",
-    "en": "Angielski"
-  },
-  "langShort": {
-    "pl": "PL",
-    "en": "EN"
   },
   "counts": {
     "segments_one": "{{count}} segment",
@@ -1116,9 +1104,6 @@
     "title": "Całe Pismo, na głos",
     "lead": "Każde zdanie wypowiedziane na głos i sprawdzone – w czytaniach po około minucie, które zawsze kończą się na pełnym zdaniu.",
     "yearHint": "Około {{days}} dni po 15 minut dziennie – złoty kwadrans.",
-    "translation": "Przekład",
-    "kjv": "King James · English",
-    "pbg": "Gdańska · polski",
     "progress": "{{done}} z {{total}} czytań",
     "percent": "{{percent}} przeczytane na głos",
     "left_one": "Jeszcze około {{count}} dzień po 15 min",

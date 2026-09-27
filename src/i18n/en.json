@@ -108,8 +108,6 @@
     "fieldTitle": "Title",
     "titlePlaceholder": "e.g. My morning affirmations",
     "fieldType": "Type",
-    "fieldLang": "Language of the text",
-    "fieldLangHint": "Speech recognition listens in this language.",
     "fieldSplit": "Split into",
     "splitSentence": "Sentences",
     "splitLine": "Lines",
@@ -480,8 +478,6 @@
     "step": "Step {{current}} of {{total}}",
     "welcomeTitle": "Speak it. Complete it.",
     "welcomeBody": "I am your Guardian. I’ll listen as you say your prayers and affirmations aloud, check every sentence and keep count — privately, on this device.",
-    "langTitle": "Which language should Teleo speak?",
-    "langBody": "You can say texts in Polish and English either way.",
     "focusTitle": "What would you like to practise?",
     "focusPrayers": "Prayers",
     "focusPrayersBody": "Our Father, Hail Mary, the Rosary, Psalm 23",
@@ -517,14 +513,6 @@
     "affirmation": "Affirmations",
     "prayer": "Prayers",
     "text": "Texts"
-  },
-  "langs": {
-    "pl": "Polish",
-    "en": "English"
-  },
-  "langShort": {
-    "pl": "PL",
-    "en": "EN"
   },
   "counts": {
     "segments_one": "{{count}} segment",
@@ -1082,9 +1070,6 @@
     "title": "The whole Bible, aloud",
     "lead": "Every sentence said aloud and checked, in readings of about one minute that always end on a finished sentence.",
     "yearHint": "About {{days}} days at 15 minutes a day — the golden quarter-hour.",
-    "translation": "Translation",
-    "kjv": "King James · English",
-    "pbg": "Gdańska · Polski",
     "progress": "{{done}} of {{total}} readings",
     "percent": "{{percent}} read aloud",
     "left_one": "About {{count}} day left at 15 min a day",

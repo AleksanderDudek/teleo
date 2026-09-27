@@ -10,10 +10,12 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar } from '@/components/ui/Progress'
 import { db } from '@/db/schema'
-import { isListedText, type Segment } from '@/db/types'
+import type { Segment } from '@/db/types'
+import { isListedText } from '@/domain/text/visibility'
 import { countTemplateSegments, MAX_SESSION_SEGMENTS } from '@/domain/session'
 import { newId } from '@/lib/id'
 import { createTemplate, SessionError, updateTemplate } from '@/services/sessions'
+import { useAppSettings } from '@/stores/settings'
 import { toast } from '@/stores/ui'
 import { ItemRow, type DraftItem } from './ItemRow'
 import { TextPicker } from './TextPicker'
@@ -22,6 +24,7 @@ export default function SessionBuilder() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { templateId } = useParams()
+  const uiLang = useAppSettings().uiLang
   const data = useLiveQuery(async () => {
     const [texts, segments, template] = await Promise.all([
       db.texts.toArray(),
@@ -32,8 +35,8 @@ export default function SessionBuilder() {
     for (const segment of segments.filter((s) => !s.archived).sort((a, b) => a.order - b.order)) {
       byText.set(segment.textId, [...(byText.get(segment.textId) ?? []), segment])
     }
-    return { texts: texts.filter(isListedText), byText, template: template ?? null }
-  }, [templateId])
+    return { texts: texts.filter((text) => isListedText(text, uiLang)), byText, template: template ?? null }
+  }, [templateId, uiLang])
 
   const [name, setName] = useState('')
   const [items, setItems] = useState<DraftItem[]>([])

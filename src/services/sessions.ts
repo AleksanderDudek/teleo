@@ -1,5 +1,6 @@
 import { db } from '@/db/schema'
-import { isListedText, type Segment, type SessionRun, type SessionTemplate } from '@/db/types'
+import type { Segment, SessionRun, SessionTemplate } from '@/db/types'
+import { isListedText } from '@/domain/text/visibility'
 import {
   countTemplateSegments,
   expandTemplate,
@@ -112,9 +113,8 @@ async function dailyItems(now: number): Promise<TemplateItem[]> {
   const practicedToday = new Set(todayAttempts.filter((a) => a.accepted).map((a) => a.textId))
   const doneToday = (await db.dailyStats.get(today))?.segmentsAccepted ?? 0
   const candidates = []
-  // Both languages can be visible at once (DECISIONS #64); the auto-generated daily
-  // session stays in the interface language so a run never mixes recognisers.
-  for (const text of texts.filter((t) => !t.archived && isListedText(t) && t.lang === app.uiLang)) {
+  // One language at a time (DECISIONS #92): the texts of the interface language.
+  for (const text of texts.filter((t) => !t.archived && isListedText(t, app.uiLang))) {
     candidates.push({
       id: text.id,
       segmentCount: (await getActiveSegments(text.id)).length,

@@ -36,7 +36,7 @@ export default function Today() {
   const app = useSettingsStore((s) => s.app)
   const game = useSettingsStore((s) => s.game)
   const meta = useSettingsStore((s) => s.meta)
-  const data = useToday(app.dayStartHour)
+  const data = useToday(app.dayStartHour, app.uiLang)
   const bibleShare = useBibleShare()
   const [now] = useState(() => Date.now())
   const [starting, setStarting] = useState(false)

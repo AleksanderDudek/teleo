@@ -24,6 +24,7 @@ import {
   setTemplatePinned,
   startRun,
 } from '@/services/sessions'
+import { useAppSettings } from '@/stores/settings'
 import { toast } from '@/stores/ui'
 
 function itemsSummary(entry: TemplateEntry, t: TFunction): string {
@@ -131,7 +132,7 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
 export default function Sessions() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const entries = useTemplates()
+  const entries = useTemplates(useAppSettings().uiLang)
   const resumable = useResumableRun()
   const [showHidden, setShowHidden] = useState(false)
   const [toDelete, setToDelete] = useState<SessionTemplate | null>(null)

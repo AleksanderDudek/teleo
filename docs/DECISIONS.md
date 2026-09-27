@@ -337,3 +337,18 @@ Each entry: **decision** — why.
 90. **Gentle mode needs 85 % of the words** (was 95 % like strict; a different word still only counts as missing, extra
     words still fail). One word may be lost from 7 words up. Opt-in: the Guardian offers "Check more gently" after two
     failed tries on one sentence that were nearly right (nothing extra, ≥ 75 % of the words said).
+
+## One language at a time (owner request, 2026-09-27)
+
+91. **The language comes from the browser**, not an onboarding question: the first launch takes Polish when the
+    browser prefers it, English otherwise (`detectUiLang`); Settings can change it later. The onboarding welcome step
+    no longer shows a language picker.
+92. **One language at a time** (supersedes #64): the interface language is also the language of the prayers and
+    texts, the sessions, the Bible translation (KJV for English, Gdańska for Polish), the text editor and the
+    microphone test. Other-language texts, sessions and Bible progress stay stored (and in backups) and come back
+    when the language is switched. Listing rules live in `domain/text/visibility.ts` (a user session takes the
+    language of its texts). Removed from the interface: the library's language chips, PL/EN labels on text cards,
+    the language choice in the editor, the mic test and the Bible screen; the Polish grammatical form is shown only
+    for Polish. On a language switch, if no session of the new language is pinned, its default one is pinned so Start
+    offers something straight away. The language switch itself names each language in its own language
+    ("Polski", "English") so everyone can find theirs.

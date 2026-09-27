@@ -4,6 +4,12 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### One language at a time
+
+- No language question at the start: Teleo follows the browser's language, and Settings can change it.
+- Each language has its own prayers, texts, sessions and Bible: in Polish no English texts appear (and vice versa).
+  Language filters and PL/EN labels are gone from the library, editor, microphone test and Bible screen.
+
 ### Polish recognition
 
 - Words the recogniser writes together or apart (“w niebie” → “wniebie”, “niekształtowna” → “nie kształtowna”) and

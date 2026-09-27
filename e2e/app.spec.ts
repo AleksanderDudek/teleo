@@ -3,14 +3,15 @@ import { expect, test } from '@playwright/test'
 import { finishOnboarding, installFakeSpeech } from './fakeSpeech.ts'
 
 test.describe('onboarding', () => {
-  test.use({ locale: 'pl-PL' })
+  test.use({ locale: 'en-US' })
 
-  test('English + a character + affirmations + goal 20 shape the library, the avatar and the Start button', async ({ page }) => {
+  test('the browser language + a character + affirmations + goal 20 shape the library, the avatar and the Start button', async ({ page }) => {
     // Playwright's headless shell has no speech service and crashes on SpeechRecognition.available().
     await installFakeSpeech(page)
     await page.goto('./')
-    await page.getByText('English', { exact: true }).click()
+    // No language question: it comes from the browser (and can be changed in Settings).
     await expect(page.getByRole('heading', { name: 'Speak it. Complete it.' })).toBeVisible()
+    await expect(page.getByRole('radio', { name: 'Polski' })).toHaveCount(0)
     await page.getByRole('button', { name: 'Get started' }).click()
     await page.getByText('Michał', { exact: true }).click()
     await expect(page.getByRole('radio', { name: 'Michał' })).toBeChecked()
@@ -125,5 +126,27 @@ test.describe('browser without Web Speech', () => {
     await expect(page.getByText(/Ta przeglądarka nie rozpoznaje mowy/)).toBeVisible()
     await page.getByRole('link', { name: /Ustawienia|Whisper/ }).first().click()
     await expect(page).toHaveURL(/#\/settings\?section=speech/)
+  })
+})
+
+test.describe('one language at a time', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('Polish shows only Polish prayers; switching to English shows only English ones', async ({ page }) => {
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    await expect(page.getByRole('link', { name: /Ojcze nasz/ })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Lord’s Prayer|Hail Mary/ })).toHaveCount(0)
+    await page.getByRole('navigation').getByRole('link', { name: 'Sesje' }).click()
+    await expect(page.getByRole('heading', { name: 'Dziesiątka różańca' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Decade of the Rosary|Morning affirmations/ })).toHaveCount(0)
+
+    await page.getByRole('navigation').getByRole('link', { name: 'Ustawienia' }).click()
+    await page.getByText('English', { exact: true }).click()
+    await page.getByRole('navigation').getByRole('link', { name: 'Library' }).click()
+    await expect(page.getByRole('link', { name: /Lord’s Prayer/ })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Ojcze nasz/ })).toHaveCount(0)
+    await page.getByRole('navigation').getByRole('link', { name: 'Today' }).click()
+    await expect(page.getByText(/Morning affirmations · 10 sentences/)).toBeVisible()
   })
 })

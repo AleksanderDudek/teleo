@@ -56,7 +56,7 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-serif text-lg font-semibold">{text.title}</span>
                   <span className="block text-xs text-ink-soft">
-                    {t(`langShort.${text.lang}`)} · {t('counts.segments', { count: segmentCounts.get(text.id) ?? 0 })}
+                    {t('counts.segments', { count: segmentCounts.get(text.id) ?? 0 })}
                   </span>
                 </span>
               </button>

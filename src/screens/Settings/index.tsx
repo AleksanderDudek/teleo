@@ -19,7 +19,7 @@ import type { ContentFocus, GrammaticalForm, Lang, Strictness } from '@/domain/t
 import { downloadText } from '@/lib/download'
 import { newId } from '@/lib/id'
 import { backupFileName, exportBackup, importBackupJson, markBackupDone, requestPersistentStorage, wipeAllData } from '@/services/backup'
-import { applyContentPreferences, applyGrammaticalForm } from '@/services/seed'
+import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
@@ -136,7 +136,10 @@ export default function Settings() {
               { value: 'pl', label: 'Polski' },
               { value: 'en', label: 'English' },
             ]}
-            onChange={(uiLang) => set({ uiLang })}
+            onChange={async (uiLang) => {
+              await updateAppSettings({ uiLang })
+              await applyLanguage(uiLang, app.contentFocus)
+            }}
           />
           <Segmented<ThemePreference>
             label={t('settings.theme')}
@@ -248,22 +251,25 @@ export default function Settings() {
             />
             <p className="mt-1.5 text-sm text-ink-soft">{t('settings.focusHint')}</p>
           </div>
-          <div>
-            <Segmented<GrammaticalForm>
-              label={t('settings.form')}
-              value={app.grammaticalForm}
-              options={[
-                { value: 'm', label: t('settings.formM') },
-                { value: 'f', label: t('settings.formF') },
-                { value: 'n', label: t('settings.formN') },
-              ]}
-              onChange={async (grammaticalForm) => {
-                await updateAppSettings({ grammaticalForm })
-                await applyGrammaticalForm(grammaticalForm)
-              }}
-            />
-            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.formHint')}</p>
-          </div>
+          {/* Only Polish affirmations are gendered. */}
+          {app.uiLang === 'pl' && (
+            <div>
+              <Segmented<GrammaticalForm>
+                label={t('settings.form')}
+                value={app.grammaticalForm}
+                options={[
+                  { value: 'm', label: t('settings.formM') },
+                  { value: 'f', label: t('settings.formF') },
+                  { value: 'n', label: t('settings.formN') },
+                ]}
+                onChange={async (grammaticalForm) => {
+                  await updateAppSettings({ grammaticalForm })
+                  await applyGrammaticalForm(grammaticalForm)
+                }}
+              />
+              <p className="mt-1.5 text-sm text-ink-soft">{t('settings.formHint')}</p>
+            </div>
+          )}
         </Section>
 
         <Section id="reminders" title={t('settings.sectionReminders')}>

@@ -113,7 +113,7 @@ export default function Onboarding() {
   }
 
   const steps: ReactNode[] = [
-    // 1 · welcome, with the interface language
+    // 1 · welcome (the language comes from the browser; Settings can change it)
     <Fragment key="welcome">
       <Lead
         figure={
@@ -124,18 +124,6 @@ export default function Onboarding() {
         title={t('onboarding.welcomeTitle')}
         body={t('onboarding.welcomeBody')}
       />
-      <div className="mt-6 flex flex-col items-center text-center">
-        <Segmented<Lang>
-          label={t('onboarding.langTitle')}
-          value={app.uiLang}
-          options={[
-            { value: 'pl', label: 'Polski' },
-            { value: 'en', label: 'English' },
-          ]}
-          onChange={(uiLang) => void updateAppSettings({ uiLang })}
-        />
-        <p className="mt-2 text-sm text-ink-soft">{t('onboarding.langBody')}</p>
-      </div>
     </Fragment>,
     // 2 · the figure that stands for the user
     <Fragment key="character">

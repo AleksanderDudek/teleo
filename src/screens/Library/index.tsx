@@ -10,19 +10,20 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { SearchField } from '@/components/ui/SearchField'
 import { Segmented } from '@/components/ui/Segmented'
 import { ACHIEVEMENT_RULES, buildTextMetrics, nextTextMilestone } from '@/domain/gamification'
-import { TEXT_TYPES, type Lang, type TextType } from '@/domain/types'
+import { TEXT_TYPES, type TextType } from '@/domain/types'
 import { achievementName } from '@/i18n/dynamic'
 import { useLibrary } from '@/hooks/useLibrary'
 import { searchKey } from '@/lib/search'
+import { useAppSettings } from '@/stores/settings'
 
 type SourceFilter = 'all' | 'builtin' | 'user'
 
 export default function Library() {
   const { t } = useTranslation()
-  const entries = useLibrary()
+  const app = useAppSettings()
+  const entries = useLibrary(app.uiLang)
   const [query, setQuery] = useState('')
   const [types, setTypes] = useState<ReadonlySet<TextType>>(new Set())
-  const [langs, setLangs] = useState<ReadonlySet<Lang>>(new Set())
   const [source, setSource] = useState<SourceFilter>('all')
   const [showHidden, setShowHidden] = useState(false)
 
@@ -32,12 +33,11 @@ export default function Library() {
     return entries.filter(({ text, preview }) => {
       if (!showHidden && text.archived) return false
       if (types.size && !types.has(text.type)) return false
-      if (langs.size && !langs.has(text.lang)) return false
       if (source !== 'all' && text.source !== source) return false
       if (q && !searchKey(`${text.title} ${text.body} ${preview}`).includes(q)) return false
       return true
     })
-  }, [entries, query, types, langs, source, showHidden])
+  }, [entries, query, types, source, showHidden])
 
   const toggle = <T,>(set: ReadonlySet<T>, value: T): ReadonlySet<T> => {
     const next = new Set(set)
@@ -82,12 +82,6 @@ export default function Library() {
           {TEXT_TYPES.map((type) => (
             <Chip key={type} pressed={types.has(type)} onClick={() => setTypes((s) => toggle(s, type))}>
               {t(`textTypesPlural.${type}`)}
-            </Chip>
-          ))}
-          <span aria-hidden className="mx-1 w-px shrink-0 bg-line" />
-          {(['pl', 'en'] as const).map((lang) => (
-            <Chip key={lang} pressed={langs.has(lang)} onClick={() => setLangs((s) => toggle(s, lang))}>
-              {t(`langs.${lang}`)}
             </Chip>
           ))}
           <span aria-hidden className="mx-1 w-px shrink-0 bg-line" />

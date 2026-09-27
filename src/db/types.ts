@@ -37,11 +37,6 @@ export interface TextItem {
   bible?: { translation: BibleTranslation; book: string; index: number; ofBook: number }
 }
 
-/** Texts the library, pickers and the session of the day offer (Bible readings have their own screen). */
-export function isListedText(text: Pick<TextItem, 'source'>): boolean {
-  return text.source !== 'bible'
-}
-
 export interface Segment {
   id: string
   textId: string
@@ -223,8 +218,6 @@ export interface AppSettings {
   sounds: boolean
   /** Name on shared cards and friends' leaderboards; empty = the character's name. */
   displayName: string
-  /** Bible challenge translation; unset = the one in the interface language. */
-  bibleTranslation?: BibleTranslation
 }
 
 export interface GameState {

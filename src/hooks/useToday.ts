@@ -1,9 +1,11 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import { isListedText, type DailyStats, type SessionRun, type SessionTemplate } from '@/db/types'
+import type { DailyStats, SessionRun, SessionTemplate } from '@/db/types'
 import { computeStreak, dayMarksFrom, type StreakInfo } from '@/domain/gamification'
 import { countTemplateSegments } from '@/domain/session'
+import { isListedTemplate, isListedText } from '@/domain/text/visibility'
 import { dayKeyFor } from '@/domain/time/dayKey'
+import type { Lang } from '@/domain/types'
 import { findResumableRun, segmentsByText } from '@/services/sessions'
 
 export interface StartChoice {
@@ -24,16 +26,18 @@ export interface TodayData {
 }
 
 /** Everything the Today screen shows; the Start button follows spec §8.2 (resume → last used → pinned → daily). */
-export function useToday(dayStartHour: number): TodayData | undefined {
+export function useToday(dayStartHour: number, lang: Lang): TodayData | undefined {
   return useLiveQuery(async () => {
     const today = dayKeyFor(Date.now(), dayStartHour)
-    const [daily, templates, visibleTexts, resumable] = await Promise.all([
+    const [daily, templates, texts, resumable] = await Promise.all([
       db.dailyStats.toArray(),
       db.sessionTemplates.toArray(),
-      db.texts.filter((t) => !t.archived && isListedText(t)).count(),
+      db.texts.toArray(),
       findResumableRun(),
     ])
-    const usable = templates.filter((t) => !t.archived)
+    const textLangs = new Map(texts.map((t) => [t.id, t]))
+    const visibleTexts = texts.filter((t) => !t.archived && isListedText(t, lang)).length
+    const usable = templates.filter((t) => !t.archived && isListedTemplate(t, textLangs, lang))
     const sized = []
     for (const template of usable) {
       sized.push({ template, segmentCount: countTemplateSegments(template.items, await segmentsByText(template.items)) })
@@ -56,5 +60,5 @@ export function useToday(dayStartHour: number): TodayData | undefined {
       hasTexts: visibleTexts > 0,
       hasActivity: daily.some((d) => d.segmentsAccepted > 0),
     }
-  }, [dayStartHour])
+  }, [dayStartHour, lang])
 }

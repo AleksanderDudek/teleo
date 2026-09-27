@@ -43,7 +43,9 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Memory mode & listen first:** say a text from memory (first letters → every other word → hidden;
   words appear as you say them) and optionally hear each sentence read aloud before you say it.
 - **Progress:** heatmap, weekly first-try success, per-text statistics, achievement gallery.
-- **Yours only:** JSON backup export/import, calendar (.ics) reminders, delete-everything, PL/EN UI,
+- **One language at a time:** Polish or English, taken from the browser and changeable in Settings; each language
+  has its own prayers, texts, sessions and Bible.
+- **Yours only:** JSON backup export/import, calendar (.ics) reminders, delete-everything,
   light/dark theme, three text sizes, keyboard (Space = microphone), screen stays on in sessions.
 
 Changes: [CHANGELOG.md](CHANGELOG.md) · Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)

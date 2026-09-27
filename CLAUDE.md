@@ -28,6 +28,8 @@ npm run typecheck    # tsc -b
 - `src/db/` — Dexie schema + row types. `src/services/` — DB-coupled orchestration (one Dexie
   transaction per user event), tested with `fake-indexeddb`.
 - `src/screens/<Name>/` — route screens; `src/components/` — shared UI; `src/hooks/`, `src/stores/`.
+- One language at a time: the interface language decides which texts/sessions/Bible are listed — use
+  `isListedText` / `isListedTemplate` (`src/domain/text/visibility.ts`) whenever texts or sessions are listed.
 - UI strings only via i18n keys (`src/i18n/pl.json` + `en.json`, identical key sets — enforced by a test).
 - Code, comments, commits in English. Imports use the `@/` alias for `src/`.
 - No `enum`/`namespace`; prefer string-literal unions and `as const` objects.

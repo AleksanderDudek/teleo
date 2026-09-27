@@ -11,7 +11,6 @@ import { isIosStandalone } from '@/components/speech/vendor'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { Segmented } from '@/components/ui/Segmented'
 import { buildDiff, evaluate, type MatchResult } from '@/domain/matcher'
 import type { OnDeviceStatus, SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type Lang } from '@/domain/types'
@@ -31,7 +30,7 @@ const PHRASES: Record<Lang, string[]> = {
 export default function MicTest() {
   const { t } = useTranslation()
   const app = useAppSettings()
-  const [lang, setLang] = useState<Lang>(app.uiLang)
+  const lang: Lang = app.uiLang
   const [phrase, setPhrase] = useState(PHRASES[app.uiLang][1] ?? '')
   const [custom, setCustom] = useState('')
   const [outcome, setOutcome] = useState<{ result: MatchResult; speech: SpeechResult } | null>(null)
@@ -72,19 +71,6 @@ export default function MicTest() {
       <PageHeader backTo="/settings" rubric={t('micTest.rubric')} title={t('micTest.title')} subtitle={t('micTest.intro')} />
 
       <Card className="space-y-5">
-        <Segmented<Lang>
-          label={t('editor.fieldLang')}
-          value={lang}
-          onChange={(next) => {
-            setLang(next)
-            setPhrase(PHRASES[next][1] ?? '')
-            setOutcome(null)
-          }}
-          options={[
-            { value: 'pl', label: t('langs.pl') },
-            { value: 'en', label: t('langs.en') },
-          ]}
-        />
         <fieldset>
           <legend className="mb-2 font-medium">{t('micTest.phrase')}</legend>
           <div className="flex flex-wrap gap-2">

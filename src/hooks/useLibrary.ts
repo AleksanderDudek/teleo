@@ -1,6 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import { isListedText, type TextItem, type TextStats } from '@/db/types'
+import type { TextItem, TextStats } from '@/db/types'
+import { isListedText } from '@/domain/text/visibility'
+import type { Lang } from '@/domain/types'
 
 export interface LibraryEntry {
   text: TextItem
@@ -10,8 +12,8 @@ export interface LibraryEntry {
   preview: string
 }
 
-/** All texts with their stats and active segment counts, kept live. `undefined` while loading. */
-export function useLibrary(): LibraryEntry[] | undefined {
+/** The texts of one language with their stats and active segment counts, kept live. `undefined` while loading. */
+export function useLibrary(lang: Lang): LibraryEntry[] | undefined {
   return useLiveQuery(async () => {
     const [texts, stats, segments] = await Promise.all([
       db.texts.toArray(),
@@ -28,7 +30,7 @@ export function useLibrary(): LibraryEntry[] | undefined {
       if (!current || segment.order < current.order) previews.set(segment.textId, segment)
     }
     return texts
-      .filter(isListedText)
+      .filter((text) => isListedText(text, lang))
       .map((text) => ({
         text,
         stats: statsById.get(text.id),
@@ -36,5 +38,5 @@ export function useLibrary(): LibraryEntry[] | undefined {
         preview: previews.get(text.id)?.content ?? '',
       }))
       .sort((a, b) => a.text.title.localeCompare(b.text.title))
-  }, [])
+  }, [lang])
 }

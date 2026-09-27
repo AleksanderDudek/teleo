@@ -113,7 +113,6 @@ test.describe('English', () => {
     test.setTimeout(120_000)
     await installFakeSpeech(page, { live: true, wordDelayMs: 20 })
     await page.goto('./')
-    await page.getByText('English', { exact: true }).click()
     await page.getByRole('button', { name: 'Get started' }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: /^Affirmations/ }).click()
