@@ -38,7 +38,7 @@ export async function importBackupJson(json: string): Promise<ImportResult> {
       for (const name of ALL_TABLES) {
         const table = db.table(name)
         await table.clear()
-        await table.bulkAdd(data[name] as unknown[])
+        await table.bulkAdd((data[name] ?? []) as unknown[])
       }
     })
   } catch (error) {

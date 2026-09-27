@@ -7,31 +7,8 @@ import { dayKeyToLocalDate } from '@/domain/time/dayKey'
 import type { CharacterId } from '@/domain/types'
 import { download } from '@/lib/download'
 import { drawShareCard, standaloneSvg } from './shareCard'
+import { systemShare, type ShareResult } from './shareSheet'
 import { formatShare, shareLinks, shareText, type DayShare } from './shareText'
-
-type Result = 'shared' | 'cancelled' | 'copied' | 'unsupported'
-
-/** The share sheet can be closed by a gesture the browser never reports; don't wait for it forever. */
-const withTimeout = <T,>(promise: Promise<T>, ms: number, fallback: T): Promise<T> =>
-  Promise.race([promise, new Promise<T>((resolve) => window.setTimeout(() => resolve(fallback), ms))])
-
-async function share(text: string, title: string, png: Blob | null, fileName: string): Promise<Result> {
-  if (navigator.share) {
-    try {
-      const file = png ? new File([png], fileName, { type: 'image/png' }) : null
-      const payload = file && navigator.canShare?.({ files: [file] }) ? { files: [file], text } : { title, text }
-      if (await withTimeout(navigator.share(payload).then(() => true), 20_000, false)) return 'shared'
-    } catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') return 'cancelled'
-    }
-  }
-  try {
-    await withTimeout(navigator.clipboard.writeText(text), 3_000, undefined)
-    return 'copied'
-  } catch {
-    return 'unsupported'
-  }
-}
 
 /**
  * "Share today": a square picture of the day (the user's figure, minutes, sentences, streak, points)
@@ -72,9 +49,11 @@ export function ShareDayButton({ day, character, className }: { day: DayShare; c
   const go = async () => {
     setBusy(true)
     setNote(null)
-    let result: Result
+    let result: ShareResult
     try {
-      result = await share(text, t('share.cardTitle'), await card(), t('share.fileName'))
+      const png = await card()
+      const file = png ? new File([png], t('share.fileName'), { type: 'image/png' }) : null
+      result = await systemShare({ text, title: t('share.cardTitle'), file })
     } catch {
       result = 'unsupported'
     } finally {

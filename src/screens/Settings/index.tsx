@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
@@ -33,6 +33,36 @@ function Section({ id, title, children }: { id: string; title: string; children:
       </h2>
       <Card className="space-y-5">{children}</Card>
     </section>
+  )
+}
+
+/** Name on shared cards; saved when the field is left (not on every keystroke). */
+function DisplayName({ value, placeholder, onSave }: { value: string; placeholder: string; onSave: (name: string) => void }) {
+  const { t } = useTranslation()
+  const [draft, setDraft] = useState(value)
+  const id = useId()
+  const save = () => {
+    const name = draft.trim().slice(0, 40)
+    if (name !== value) onSave(name)
+  }
+  return (
+    <div>
+      <label htmlFor={id} className="font-medium text-ink">
+        {t('settings.displayName')}
+      </label>
+      <input
+        id={id}
+        value={draft}
+        maxLength={40}
+        placeholder={placeholder}
+        autoComplete="off"
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={save}
+        onKeyDown={(e) => e.key === 'Enter' && save()}
+        className="mt-2 h-11 w-full rounded-2xl border border-line bg-surface px-4 text-ink placeholder:text-ink-faint focus:border-line-strong focus:outline-none"
+      />
+      <p className="mt-1.5 text-sm text-ink-soft">{t('settings.displayNameHint')}</p>
+    </div>
   )
 }
 
@@ -95,6 +125,7 @@ export default function Settings() {
         <Section id="character" title={t('settings.sectionCharacter')}>
           <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
           <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
+          <DisplayName value={app.displayName} placeholder={t(`characters.${app.character}`)} onSave={(displayName) => set({ displayName })} />
         </Section>
 
         <Section id="appearance" title={t('settings.sectionAppearance')}>

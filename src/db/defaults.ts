@@ -19,6 +19,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   speechPrivacyAcknowledged: false,
   character: 'anna',
   sounds: true,
+  displayName: '',
 }
 
 export const DEFAULT_GAME: GameState = {

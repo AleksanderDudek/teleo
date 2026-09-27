@@ -39,6 +39,7 @@ export const routes: RouteObject[] = [
       { path: 'play/:runId', ...screen(() => import('@/screens/SessionPlayer')) },
       { path: 'play/:runId/summary', ...screen(() => import('@/screens/SessionSummary')) },
       { path: 'onboarding', ...screen(() => import('@/screens/Onboarding')) },
+      { path: 'friend', ...screen(() => import('@/screens/Friend')) },
       { path: '*', element: <NotFound /> },
     ],
   },

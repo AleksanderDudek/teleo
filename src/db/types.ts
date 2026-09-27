@@ -1,3 +1,5 @@
+import type { BibleTranslation } from '@/domain/bible/types'
+import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
 import type {
@@ -150,6 +152,28 @@ export interface AchievementRow {
   unlockedAt: number
 }
 
+/** A Bible reading said to the end (every sentence accepted, or skipped after three tries). */
+export interface BibleReadingRow {
+  /** `<translation>.<BOOK>.<index>` */
+  readingId: string
+  translation: BibleTranslation
+  /** Book code, e.g. `GEN`. */
+  book: string
+  /** 0-based reading within the book. */
+  index: number
+  /** Readings in the whole book (lets book completion be counted without the book file). */
+  ofBook: number
+  completedAt: number
+  dayKey: DayKey
+  /** Sentences skipped after three failed tries. */
+  skipped: number
+}
+
+/** The latest card received from a friend (friends' leaderboard, no server). */
+export interface FriendRow extends FriendCard {
+  receivedAt: number
+}
+
 export type XpReason = 'segment' | 'textComplete' | 'sessionComplete' | 'dailyGoal' | 'achievement'
 
 export interface XpLedgerRow {
@@ -189,6 +213,8 @@ export interface AppSettings {
   character: CharacterId
   /** Chime for every accepted sentence. */
   sounds: boolean
+  /** Name on shared cards and friends' leaderboards; empty = the character's name. */
+  displayName: string
 }
 
 export interface GameState {
@@ -210,6 +236,8 @@ export interface MetaState {
   installedAt: number
   lastBackupAt?: number
   backupReminderSnoozedAt?: number
+  /** Random id of this install on friend cards, so a friend's board updates instead of duplicating. */
+  shareId?: string
 }
 
 export type SettingsRow =
