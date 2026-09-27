@@ -6,7 +6,7 @@ import { AchievementBadge } from '@/components/AchievementBadge'
 import { Guardian } from '@/components/brand/Guardian'
 import { StatTile } from '@/components/progress/StatTile'
 import { ShareDayButton } from '@/components/share/ShareDayButton'
-import { sharedMinutes } from '@/components/share/shareText'
+import { formatShare, sharedMinutes } from '@/components/share/shareText'
 import { SupportCard } from '@/components/support/SupportCard'
 import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -18,15 +18,17 @@ import { dayKeyFor } from '@/domain/time/dayKey'
 import { achievementDescription, achievementName, levelName } from '@/i18n/dynamic'
 import { startRun, type StartRunInput } from '@/services/sessions'
 import { useAppSettings, useGameState } from '@/stores/settings'
-import { useUiStore } from '@/stores/ui'
+import { startNextReading, useBibleShare } from '@/screens/Bible/useBible'
+import { toast, useUiStore } from '@/stores/ui'
 
 export default function SessionSummary() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { runId } = useParams()
   const app = useAppSettings()
   const game = useGameState()
   const clearToasts = useUiStore((s) => s.clearToasts)
+  const bibleShare = useBibleShare()
   // Celebration toasts from the last sentence would cover this screen, which lists them anyway.
   useEffect(() => clearToasts(), [clearToasts])
   const data = useLiveQuery(async () => {
@@ -41,7 +43,8 @@ export default function SessionSummary() {
         : db.achievements.where('unlockedAt').between(run.startedAt, until, true, true).toArray(),
       db.texts.toArray(),
     ])
-    return { run, daily, achievements, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
+    const bible = run.textId ? texts.find((x) => x.id === run.textId)?.bible : undefined
+    return { run, daily, achievements, bible, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
   }, [runId, app.dayStartHour])
 
   if (data === undefined) return null
@@ -54,7 +57,7 @@ export default function SessionSummary() {
     )
   }
 
-  const { run, daily, achievements, titles, today } = data
+  const { run, daily, achievements, titles, today, bible } = data
   const summary = summarizeRun(run.plan, run.entries)
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
@@ -79,6 +82,10 @@ export default function SessionSummary() {
           <p className="mx-auto mt-4 inline-flex rounded-full bg-gold-soft px-4 py-1.5 font-semibold text-gold-ink shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_45%,transparent)] animate-rise">
             {t('level.up', { name: levelName(t, levelNow) })}
           </p>
+        )}
+
+        {bible && bibleShare !== undefined && (
+          <p className="mt-3 font-semibold text-primary">{t('summary.biblePercent', { percent: formatShare(bibleShare, i18n.language) })}</p>
         )}
 
         <div className="mt-7 flex justify-center">
@@ -126,6 +133,7 @@ export default function SessionSummary() {
           sentences: todayStats?.segmentsAccepted ?? 0,
           streak,
           points: todayStats?.xp ?? 0,
+          bibleShare,
         }}
       />
 
@@ -133,7 +141,24 @@ export default function SessionSummary() {
       <SupportCard dayKey={today} figure={false} className="mt-8 text-left" />
 
       <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        {again && (
+        {bible && (
+          <Button
+            size="lg"
+            icon="play"
+            iconFill
+            onClick={async () => {
+              try {
+                const next = await startNextReading(t, bible.translation)
+                navigate(next ? `/play/${next.id}` : '/bible', { replace: true })
+              } catch {
+                toast({ kind: 'error', title: t('bible.loadError') })
+              }
+            }}
+          >
+            {t('summary.nextReading')}
+          </Button>
+        )}
+        {again && !bible && (
           <Button
             variant="secondary"
             size="lg"
@@ -146,7 +171,7 @@ export default function SessionSummary() {
             {t('summary.again')}
           </Button>
         )}
-        <ButtonLink to="/" size="lg" icon="house-simple">
+        <ButtonLink to="/" size="lg" icon="house-simple" variant={bible ? 'secondary' : 'primary'}>
           {t('summary.home')}
         </ButtonLink>
       </div>

@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router'
 import { TextCard } from '@/components/TextCard'
 import { ButtonLink } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { SearchField } from '@/components/ui/SearchField'
 import { Segmented } from '@/components/ui/Segmented'
@@ -64,6 +66,14 @@ export default function Library() {
           </ButtonLink>
         }
       />
+
+      <Link to="/bible" className="card card-lift card-framed mb-5 flex items-center gap-4 p-4">
+        <IconHalo icon="gospel" size={44} iconSize={22} />
+        <span className="min-w-0 flex-1">
+          <span className="block font-serif text-xl font-semibold">{t('bible.libraryTitle')}</span>
+          <span className="block text-sm text-ink-soft">{t('bible.libraryBody')}</span>
+        </span>
+      </Link>
 
       <div className="space-y-4">
         <SearchField value={query} onChange={setQuery} label={t('common.search')} placeholder={t('library.searchPlaceholder')} />

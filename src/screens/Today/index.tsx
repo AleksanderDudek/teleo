@@ -19,6 +19,8 @@ import { resumeRun, SessionError, startRun } from '@/services/sessions'
 import { updateGameState, updateMeta } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
+import { BibleCard } from '@/screens/Bible/BibleCard'
+import { useBibleShare } from '@/screens/Bible/useBible'
 
 const BACKUP_EVERY_MS = 30 * 86_400_000
 
@@ -35,6 +37,7 @@ export default function Today() {
   const game = useSettingsStore((s) => s.game)
   const meta = useSettingsStore((s) => s.meta)
   const data = useToday(app.dayStartHour)
+  const bibleShare = useBibleShare()
   const [now] = useState(() => Date.now())
   const [starting, setStarting] = useState(false)
 
@@ -174,8 +177,13 @@ export default function Today() {
             sentences: done,
             streak: data.streak.current,
             points: data.todayStats?.xp ?? 0,
+            bibleShare,
           }}
         />
+      )}
+
+      {(bibleShare !== undefined || app.contentFocus === 'prayers' || app.contentFocus === 'both') && (
+        <BibleCard className="mt-6" />
       )}
 
       {showBackup && (

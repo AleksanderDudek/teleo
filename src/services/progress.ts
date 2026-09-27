@@ -9,13 +9,14 @@ import {
   TIER_XP,
   type TextMetric,
 } from '@/domain/gamification'
+import { bibleMetrics } from '@/domain/bible/progress'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import type { DayKey } from '@/domain/types'
 import { useSettingsStore } from '@/stores/settings'
 import { readSettings } from './settings'
 
 /** Tables an achievement evaluation reads or writes — include them in the caller's transaction. */
-export const PROGRESS_TABLES = [db.achievements, db.xpLedger, db.dailyStats, db.textStats, db.texts, db.segments, db.settings] as const
+export const PROGRESS_TABLES = [db.achievements, db.xpLedger, db.dailyStats, db.textStats, db.texts, db.segments, db.settings, db.bibleReadings] as const
 
 export interface UnlockedAchievement {
   key: string
@@ -60,6 +61,7 @@ export async function unlockAchievements(input: {
   const { game, dayKey, now } = input
   const unlockedKeys = new Set((await db.achievements.toCollection().primaryKeys()) as string[])
   const ownTexts = await db.texts.where('source').equals('user').count()
+  const bible = bibleMetrics(await db.bibleReadings.toArray())
   const texts: Array<{ textId: string; metrics: Record<TextMetric, number> }> = []
   for (const textId of input.textIds) {
     const stats = await db.textStats.get(textId)
@@ -71,7 +73,7 @@ export async function unlockAchievements(input: {
   const all: UnlockedAchievement[] = []
   for (let round = 0; round < 5; round++) {
     const daily = await db.dailyStats.toArray()
-    const global = buildGlobalMetrics({ daily, game, ownTexts, level: levelInfo(game.totalXp).level, today: dayKey })
+    const global = buildGlobalMetrics({ daily, game, ownTexts, level: levelInfo(game.totalXp).level, today: dayKey, bible })
     const fresh = evaluateAchievements({ rules: ACHIEVEMENT_RULES, global, texts, unlocked: unlockedKeys })
     if (fresh.length === 0) break
 

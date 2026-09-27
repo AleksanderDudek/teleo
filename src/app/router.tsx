@@ -32,6 +32,8 @@ export const routes: RouteObject[] = [
           { path: 'sessions/new', ...screen(() => import('@/screens/SessionBuilder')) },
           { path: 'sessions/:templateId/edit', ...screen(() => import('@/screens/SessionBuilder')) },
           { path: 'progress', ...screen(() => import('@/screens/Progress')) },
+          { path: 'bible', ...screen(() => import('@/screens/Bible')) },
+          { path: 'bible/:translation/:book', ...screen(() => import('@/screens/Bible/Book')) },
           { path: 'settings', ...screen(() => import('@/screens/Settings')) },
           { path: 'settings/mic-test', ...screen(() => import('@/screens/MicTest')) },
         ],

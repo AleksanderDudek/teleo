@@ -16,7 +16,8 @@
     "lint": "oxlint",
     "typecheck": "tsc -b",
     "icons": "node scripts/generate-icons.mjs",
-    "icons:phosphor": "node scripts/generate-phosphor-icons.mjs"
+    "icons:phosphor": "node scripts/generate-phosphor-icons.mjs",
+    "bible": "node scripts/build-bible.mts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

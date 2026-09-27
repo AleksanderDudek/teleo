@@ -184,6 +184,7 @@ const appSettings: Checker = objectFields([
   ['character', optional(enumOf(...CHARACTER_IDS))],
   ['sounds', optional(boolean_)],
   ['displayName', optional(string_)],
+  ['bibleTranslation', optional(enumOf(...BIBLE_TRANSLATIONS))],
 ])
 
 const gameState: Checker = objectFields([
@@ -213,13 +214,24 @@ const texts: Checker = objectFields([
   ['body', string_],
   ['type', enumOf('affirmation', 'prayer', 'text')],
   ['lang', enumOf('pl', 'en')],
-  ['source', enumOf('builtin', 'user')],
+  ['source', enumOf('builtin', 'user', 'bible')],
   ['archived', boolean_],
   ['splitMode', enumOf('sentence', 'line')],
   ['createdAt', finiteNumber],
   ['updatedAt', finiteNumber],
   ['tags', stringArray],
   ['builtinKey', optional(string_)],
+  [
+    'bible',
+    optional(
+      objectFields([
+        ['translation', enumOf(...BIBLE_TRANSLATIONS)],
+        ['book', string_],
+        ['index', nonNegativeInt],
+        ['ofBook', nonNegativeInt],
+      ]),
+    ),
+  ],
 ])
 
 const segments: Checker = objectFields([

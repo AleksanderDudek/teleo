@@ -23,7 +23,8 @@ export interface TextItem {
   type: TextType
   lang: Lang
   body: string
-  source: 'builtin' | 'user'
+  /** `bible`: a Bible-challenge reading, materialised when started; hidden from the library and pickers. */
+  source: 'builtin' | 'user' | 'bible'
   tags: string[]
   /** Hidden from the library and pickers (builtin texts can only be hidden, never deleted). */
   archived: boolean
@@ -32,6 +33,13 @@ export interface TextItem {
   updatedAt: number
   /** Stable identifier of builtin content, used for idempotent seeding. */
   builtinKey?: string
+  /** Where a Bible reading comes from. */
+  bible?: { translation: BibleTranslation; book: string; index: number; ofBook: number }
+}
+
+/** Texts the library, pickers and the session of the day offer (Bible readings have their own screen). */
+export function isListedText(text: Pick<TextItem, 'source'>): boolean {
+  return text.source !== 'bible'
 }
 
 export interface Segment {
@@ -215,6 +223,8 @@ export interface AppSettings {
   sounds: boolean
   /** Name on shared cards and friends' leaderboards; empty = the character's name. */
   displayName: string
+  /** Bible challenge translation; unset = the one in the interface language. */
+  bibleTranslation?: BibleTranslation
 }
 
 export interface GameState {

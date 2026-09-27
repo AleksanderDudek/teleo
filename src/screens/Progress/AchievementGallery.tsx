@@ -12,7 +12,7 @@ import {
 } from '@/domain/gamification'
 import { achievementName } from '@/i18n/dynamic'
 
-const CATEGORY_ORDER: AchievementCategory[] = ['streak', 'consistency', 'daily', 'volume', 'sessions', 'time', 'other', 'level']
+const CATEGORY_ORDER: AchievementCategory[] = ['streak', 'golden', 'bible', 'consistency', 'daily', 'volume', 'sessions', 'time', 'other', 'level']
 
 interface GalleryProps {
   global: Record<GlobalMetric, number>

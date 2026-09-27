@@ -34,7 +34,9 @@ describe('sharedMinutes', () => {
 })
 
 describe('formatShare', () => {
-  it('shows one decimal below 10 % and whole percents above', () => {
+  it('shows two decimals below 1 %, one below 10 % and whole percents above', () => {
+    expect(formatShare(1 / 5079, 'en')).toBe('0.02%')
+    expect(formatShare(0, 'en')).toBe('0%')
     expect(formatShare(0.0456, 'en')).toBe('4.6%')
     expect(formatShare(0.456, 'en')).toBe('46%')
     expect(formatShare(0.0456, 'pl')).toBe('4,6%')

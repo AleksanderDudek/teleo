@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import type { DailyStats, SessionRun, SessionTemplate } from '@/db/types'
+import { isListedText, type DailyStats, type SessionRun, type SessionTemplate } from '@/db/types'
 import { computeStreak, dayMarksFrom, type StreakInfo } from '@/domain/gamification'
 import { countTemplateSegments } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
@@ -30,7 +30,7 @@ export function useToday(dayStartHour: number): TodayData | undefined {
     const [daily, templates, visibleTexts, resumable] = await Promise.all([
       db.dailyStats.toArray(),
       db.sessionTemplates.toArray(),
-      db.texts.filter((t) => !t.archived).count(),
+      db.texts.filter((t) => !t.archived && isListedText(t)).count(),
       findResumableRun(),
     ])
     const usable = templates.filter((t) => !t.archived)

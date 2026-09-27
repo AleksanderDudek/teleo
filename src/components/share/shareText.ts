@@ -19,10 +19,11 @@ export function sharedMinutes(readingMs: number): number {
   return readingMs > 0 ? Math.max(1, Math.round(readingMs / 60_000)) : 0
 }
 
-/** "1.3%" style, one decimal below 10 %. */
+/** "0.02%", "1.3%", "46%": enough decimals that the first readings already show. */
 export function formatShare(share: number, lang: string): string {
   const percent = share * 100
-  return new Intl.NumberFormat(lang, { style: 'percent', maximumFractionDigits: percent < 10 ? 1 : 0 }).format(share)
+  const digits = percent > 0 && percent < 1 ? 2 : percent < 10 ? 1 : 0
+  return new Intl.NumberFormat(lang, { style: 'percent', maximumFractionDigits: digits }).format(share)
 }
 
 /**
