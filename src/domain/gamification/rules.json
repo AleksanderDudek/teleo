@@ -55,5 +55,21 @@
 
   { "id": "level.5", "scope": "global", "metric": "level", "threshold": 5, "tier": "silver", "category": "level" },
   { "id": "level.10", "scope": "global", "metric": "level", "threshold": 10, "tier": "gold", "category": "level" },
-  { "id": "level.20", "scope": "global", "metric": "level", "threshold": 20, "tier": "diamond", "category": "level" }
+  { "id": "level.20", "scope": "global", "metric": "level", "threshold": 20, "tier": "diamond", "category": "level" },
+  { "id": "golden.days.1", "scope": "global", "metric": "goldenDays", "threshold": 1, "tier": "bronze", "category": "golden" },
+  { "id": "golden.days.7", "scope": "global", "metric": "goldenDays", "threshold": 7, "tier": "silver", "category": "golden" },
+  { "id": "golden.days.30", "scope": "global", "metric": "goldenDays", "threshold": 30, "tier": "gold", "category": "golden" },
+  { "id": "golden.days.100", "scope": "global", "metric": "goldenDays", "threshold": 100, "tier": "platinum", "category": "golden" },
+  { "id": "golden.days.365", "scope": "global", "metric": "goldenDays", "threshold": 365, "tier": "diamond", "category": "golden" },
+  { "id": "bible.readings.1", "scope": "global", "metric": "bibleReadings", "threshold": 1, "tier": "bronze", "category": "bible" },
+  { "id": "bible.readings.7", "scope": "global", "metric": "bibleReadings", "threshold": 7, "tier": "bronze", "category": "bible" },
+  { "id": "bible.readings.30", "scope": "global", "metric": "bibleReadings", "threshold": 30, "tier": "silver", "category": "bible" },
+  { "id": "bible.readings.100", "scope": "global", "metric": "bibleReadings", "threshold": 100, "tier": "silver", "category": "bible" },
+  { "id": "bible.readings.365", "scope": "global", "metric": "bibleReadings", "threshold": 365, "tier": "gold", "category": "bible" },
+  { "id": "bible.readings.1000", "scope": "global", "metric": "bibleReadings", "threshold": 1000, "tier": "platinum", "category": "bible" },
+  { "id": "bible.books.1", "scope": "global", "metric": "bibleBooks", "threshold": 1, "tier": "silver", "category": "bible" },
+  { "id": "bible.books.10", "scope": "global", "metric": "bibleBooks", "threshold": 10, "tier": "gold", "category": "bible" },
+  { "id": "bible.nt", "scope": "global", "metric": "bibleNewTestament", "threshold": 1, "tier": "platinum", "category": "bible" },
+  { "id": "bible.ot", "scope": "global", "metric": "bibleOldTestament", "threshold": 1, "tier": "platinum", "category": "bible" },
+  { "id": "bible.whole", "scope": "global", "metric": "bibleWhole", "threshold": 1, "tier": "diamond", "category": "bible" }
 ]

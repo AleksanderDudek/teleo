@@ -14,6 +14,7 @@ import { isIosStandalone } from '@/components/speech/vendor'
 import { Button, ButtonLink, IconButton } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
+import { goldenMultiplier } from '@/domain/gamification'
 import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
@@ -38,7 +39,8 @@ const SKIP_AFTER_FAILS = 3
 
 export default function SessionPlayer() {
   const { runId } = useParams()
-  const data = usePlayerData(runId)
+  const dayStartHour = useAppSettings().dayStartHour
+  const data = usePlayerData(runId, dayStartHour)
   const { t } = useTranslation()
   if (data === undefined) return null
   if (data === null || data.run.plan.length === 0) {
@@ -283,6 +285,7 @@ function Player({ data }: { data: PlayerData }) {
   const memoryBadge = memoryLevel ? t('memory.badge', { level: t(`memory.levels.${memoryLevel}.name`) }) : null
   const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
   const encouragement = visibleFeedback ? guardianLine(visibleFeedback.result, failed, t) : null
+  const golden = goldenMultiplier(data.readingMsToday) > 1
 
   const status = speaking
     ? t('player.listening')
@@ -313,7 +316,14 @@ function Player({ data }: { data: PlayerData }) {
             <p className="tabular text-sm font-semibold text-ink">
               {Math.min(done + 1, total)}/{total}
             </p>
-            <p className="tabular text-xs font-semibold text-gold-ink">{t('player.xp', { xp: run.xpEarned })}</p>
+            <p className="tabular flex items-center justify-end gap-1 text-xs font-semibold text-gold-ink">
+              {golden && (
+                <span title={t('golden.badgeTitle')} className="rounded-full bg-gold-soft px-1.5 font-bold shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_55%,transparent)]">
+                  {t('golden.badge')}
+                </span>
+              )}
+              {t('player.xp', { xp: run.xpEarned })}
+            </p>
           </div>
         </div>
         {(engine?.id === 'webspeech' || memoryBadge) && (

@@ -58,6 +58,12 @@ describe('metric names', () => {
       'bilingualDays',
       'comebacks',
       'level',
+      'goldenDays',
+      'bibleReadings',
+      'bibleBooks',
+      'bibleOldTestament',
+      'bibleNewTestament',
+      'bibleWhole',
     ])
     expectTypeOf<GlobalMetric>().toEqualTypeOf<
       | 'bestStreak'
@@ -74,6 +80,12 @@ describe('metric names', () => {
       | 'bilingualDays'
       | 'comebacks'
       | 'level'
+      | 'goldenDays'
+      | 'bibleReadings'
+      | 'bibleBooks'
+      | 'bibleOldTestament'
+      | 'bibleNewTestament'
+      | 'bibleWhole'
     >()
   })
 
@@ -151,7 +163,29 @@ describe('buildGlobalMetrics', () => {
       bilingualDays: 1,
       comebacks: 3,
       level: 7,
+      goldenDays: 0,
+      bibleReadings: 0,
+      bibleBooks: 0,
+      bibleOldTestament: 0,
+      bibleNewTestament: 0,
+      bibleWhole: 0,
     })
+  })
+
+  it('counts golden days: days with at least 15 minutes of reading', () => {
+    const daily = [
+      dayRow('2026-09-20', { segmentsAccepted: 40, readingMs: 15 * 60_000 }),
+      dayRow('2026-09-21', { segmentsAccepted: 30, readingMs: 14 * 60_000 }),
+      dayRow('2026-09-22', { segmentsAccepted: 90, readingMs: 40 * 60_000 }),
+      dayRow('2026-09-23', { segmentsAccepted: 5 }), // written before reading time was tracked
+    ]
+    expect(buildGlobalMetrics({ daily, game: NO_COUNTERS, ownTexts: 0, level: 1, today: '2026-09-23' }).goldenDays).toBe(2)
+  })
+
+  it('passes the Bible progress through', () => {
+    const bible = { readings: 120, books: 3, oldTestament: 0, newTestament: 1, whole: 0 }
+    const metrics = buildGlobalMetrics({ daily: [], game: NO_COUNTERS, ownTexts: 0, level: 1, today: '2026-09-23', bible })
+    expect(metrics).toMatchObject({ bibleReadings: 120, bibleBooks: 3, bibleOldTestament: 0, bibleNewTestament: 1, bibleWhole: 0 })
   })
 
   it('derives the streak metrics from active and frozen days', () => {

@@ -119,6 +119,8 @@ export interface DailyStats {
   /** Had an accepted segment at/after 21:00 (or after midnight, before the day start). */
   evening: boolean
   firstTryAccepted: number
+  /** Estimated time spent reading aloud (accepted sentences); missing on rows from before v1.3. */
+  readingMs?: number
 }
 
 export interface TextStats {

@@ -12,6 +12,7 @@ import {
   textCompletionXp,
   XP_RULES,
 } from '@/domain/gamification'
+import { readingMs } from '@/domain/reading/pace'
 import { blockEntries, isBlockComplete } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import type { DayKey, EngineId } from '@/domain/types'
@@ -53,6 +54,10 @@ export interface AttemptOutcome extends ProgressOutcome {
   accepted: boolean
   firstTry: boolean
   segmentXp: number
+  /** Golden quarter-hour multiplier applied to this sentence (1 outside the window). */
+  golden: number
+  /** Today's estimated reading time after this attempt. */
+  readingMs: number
   run: SessionRun
   textCompleted?: { textId: string; bonusXp: number; perfect: boolean }
   /** Failed attempts on this entry so far (drives the "skip after 3" rule). */
@@ -189,6 +194,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       accepted,
       firstTry,
       segmentXp: 0,
+      golden: 1,
+      readingMs: daily.readingMs ?? 0,
       run,
       failedAttempts: entry.attempts - (accepted ? 1 : 0),
       xpGained: 0,
@@ -237,7 +244,10 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       result.freezeEarned = award.award > 0
     }
 
-    const xp = segmentXp(segment.wordCount, firstTry, streak).total
+    const readBefore = daily.readingMs ?? 0
+    const breakdown = segmentXp(segment.wordCount, firstTry, streak, readBefore)
+    const xp = breakdown.total
+    daily.readingMs = readBefore + readingMs(segment.wordCount, text.lang)
     await db.xpLedger.add({ timestamp: now, dayKey, reason: 'segment', amount: xp, refId: attempt.id })
     let gained = xp
     entry.status = 'accepted'
@@ -295,6 +305,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     const levelAfter = levelInfo(game.totalXp).level
     Object.assign(result, {
       segmentXp: xp,
+      golden: breakdown.golden,
+      readingMs: daily.readingMs,
       xpGained: gained + achievementXp,
       unlocked,
       streak,

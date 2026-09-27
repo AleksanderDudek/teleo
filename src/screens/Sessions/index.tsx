@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
@@ -25,7 +26,7 @@ import {
 } from '@/services/sessions'
 import { toast } from '@/stores/ui'
 
-function itemsSummary(entry: TemplateEntry, t: ReturnType<typeof useTranslation>['t']): string {
+function itemsSummary(entry: TemplateEntry, t: TFunction): string {
   return entry.template.items
     .map((item) => `${entry.texts.get(item.textId)?.title ?? t('sessions.missingText')} ×${item.repeat}`)
     .join(' · ')

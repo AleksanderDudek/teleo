@@ -18,6 +18,12 @@ export const GLOBAL_METRICS = [
   'bilingualDays',
   'comebacks',
   'level',
+  'goldenDays',
+  'bibleReadings',
+  'bibleBooks',
+  'bibleOldTestament',
+  'bibleNewTestament',
+  'bibleWhole',
 ] as const
 export type GlobalMetric = (typeof GLOBAL_METRICS)[number]
 
@@ -54,7 +60,21 @@ export interface DailyStatsLike {
   langs: readonly Lang[]
   morning: boolean
   evening: boolean
+  /** Estimated reading time; missing on rows written before it was tracked. */
+  readingMs?: number
 }
+
+/** Bible challenge progress (see `bibleProgress` in `@/domain/bible`); 0/1 flags for testaments. */
+export interface BibleMetricsLike {
+  readings: number
+  books: number
+  oldTestament: number
+  newTestament: number
+  whole: number
+}
+
+/** A day on which the whole golden quarter-hour was read. */
+export const GOLDEN_DAY_MS = 15 * 60_000
 
 /** Counters of the `game` settings row that cannot be derived from daily stats. */
 export interface GameCountersLike {
@@ -85,8 +105,9 @@ export function buildGlobalMetrics(input: {
   ownTexts: number
   level: number
   today: DayKey
+  bible?: BibleMetricsLike
 }): Record<GlobalMetric, number> {
-  const { daily, game, ownTexts, level, today } = input
+  const { daily, game, ownTexts, level, today, bible } = input
   const marks = dayMarksFrom(daily)
   const count = (test: (day: DailyStatsLike) => boolean) => daily.filter(test).length
   const sum = (value: (day: DailyStatsLike) => number) =>
@@ -106,6 +127,12 @@ export function buildGlobalMetrics(input: {
     bilingualDays: count((day) => day.langs.includes('pl') && day.langs.includes('en')),
     comebacks: game.comebacks,
     level,
+    goldenDays: count((day) => (day.readingMs ?? 0) >= GOLDEN_DAY_MS),
+    bibleReadings: bible?.readings ?? 0,
+    bibleBooks: bible?.books ?? 0,
+    bibleOldTestament: bible?.oldTestament ?? 0,
+    bibleNewTestament: bible?.newTestament ?? 0,
+    bibleWhole: bible?.whole ?? 0,
   }
 }
 

@@ -316,7 +316,9 @@
       "time": "Time of day",
       "other": "More",
       "level": "Levels",
-      "text": "Texts"
+      "text": "Texts",
+      "golden": "Golden quarter-hour",
+      "bible": "Bible"
     },
     "textsHeading": "Texts",
     "colText": "Text",
@@ -794,6 +796,80 @@
         "name": "Level 20",
         "desc": "Reached level 20 — Teleo"
       }
+    },
+    "golden": {
+      "days": {
+        "1": {
+          "name": "Golden Quarter-Hour",
+          "desc": "15 minutes of reading aloud in one day"
+        },
+        "7": {
+          "name": "Seven Golden Days",
+          "desc": "The golden quarter-hour on 7 days"
+        },
+        "30": {
+          "name": "Golden Month",
+          "desc": "The golden quarter-hour on 30 days"
+        },
+        "100": {
+          "name": "Hundred Golden Days",
+          "desc": "The golden quarter-hour on 100 days"
+        },
+        "365": {
+          "name": "A Golden Year",
+          "desc": "The golden quarter-hour on 365 days"
+        }
+      }
+    },
+    "bible": {
+      "readings": {
+        "1": {
+          "name": "Take Up and Read",
+          "desc": "Your first Bible reading said aloud"
+        },
+        "7": {
+          "name": "Seven Readings",
+          "desc": "7 Bible readings said aloud"
+        },
+        "30": {
+          "name": "A Month in the Word",
+          "desc": "30 Bible readings said aloud"
+        },
+        "100": {
+          "name": "Hundred Readings",
+          "desc": "100 Bible readings said aloud"
+        },
+        "365": {
+          "name": "A Year of Scripture",
+          "desc": "365 Bible readings said aloud"
+        },
+        "1000": {
+          "name": "Thousand Readings",
+          "desc": "1000 Bible readings said aloud"
+        }
+      },
+      "books": {
+        "1": {
+          "name": "First Book",
+          "desc": "A whole book of the Bible read aloud"
+        },
+        "10": {
+          "name": "Ten Books",
+          "desc": "10 books of the Bible read aloud"
+        }
+      },
+      "nt": {
+        "name": "The New Testament",
+        "desc": "All 27 books of the New Testament read aloud"
+      },
+      "ot": {
+        "name": "The Old Testament",
+        "desc": "All 39 books of the Old Testament read aloud"
+      },
+      "whole": {
+        "name": "The Whole Bible",
+        "desc": "Every book of the Bible read aloud"
+      }
     }
   },
   "tiers": {
@@ -876,5 +952,18 @@
     "michal": "Michał",
     "david": "David",
     "piotr": "Piotr"
+  },
+  "golden": {
+    "title": "Golden quarter-hour",
+    "before": "{{minutes}} of 5 min — from minute 5, every sentence counts double.",
+    "inside": "×2 points now — {{left}} min of the golden quarter-hour left.",
+    "done": "Golden quarter-hour complete — {{minutes}} min read today.",
+    "label": "Read aloud today: {{minutes}} of 15 minutes",
+    "badge": "×2",
+    "badgeTitle": "Golden quarter-hour: every sentence counts double",
+    "hint": "5–15 minutes a day earn double points — the golden quarter-hour.",
+    "tickStart": "0",
+    "tickGolden": "5",
+    "tickEnd": "15 min"
   }
 }

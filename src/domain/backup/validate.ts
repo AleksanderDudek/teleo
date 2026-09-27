@@ -289,6 +289,7 @@ const dailyStats: Checker = objectFields([
   ['morning', boolean_],
   ['evening', boolean_],
   ['firstTryAccepted', finiteNumber],
+  ['readingMs', optional(finiteNumber)],
   ['firstActivityAt', optional(finiteNumber)],
   ['lastActivityAt', optional(finiteNumber)],
 ])

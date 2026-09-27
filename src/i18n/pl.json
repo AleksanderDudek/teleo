@@ -326,7 +326,9 @@
       "time": "Pora dnia",
       "other": "Inne",
       "level": "Poziomy",
-      "text": "Teksty"
+      "text": "Teksty",
+      "golden": "Złoty kwadrans",
+      "bible": "Biblia"
     },
     "textsHeading": "Teksty",
     "colText": "Tekst",
@@ -814,6 +816,80 @@
         "name": "Poziom 20",
         "desc": "Osiągnięty poziom 20 – Teleo"
       }
+    },
+    "golden": {
+      "days": {
+        "1": {
+          "name": "Złoty kwadrans",
+          "desc": "15 minut czytania na głos w jeden dzień"
+        },
+        "7": {
+          "name": "Siedem złotych dni",
+          "desc": "Złoty kwadrans w 7 dni"
+        },
+        "30": {
+          "name": "Złoty miesiąc",
+          "desc": "Złoty kwadrans w 30 dni"
+        },
+        "100": {
+          "name": "Sto złotych dni",
+          "desc": "Złoty kwadrans w 100 dni"
+        },
+        "365": {
+          "name": "Złoty rok",
+          "desc": "Złoty kwadrans w 365 dni"
+        }
+      }
+    },
+    "bible": {
+      "readings": {
+        "1": {
+          "name": "Weź i czytaj",
+          "desc": "Pierwsze czytanie Biblii na głos"
+        },
+        "7": {
+          "name": "Siedem czytań",
+          "desc": "7 czytań Biblii na głos"
+        },
+        "30": {
+          "name": "Miesiąc ze Słowem",
+          "desc": "30 czytań Biblii na głos"
+        },
+        "100": {
+          "name": "Sto czytań",
+          "desc": "100 czytań Biblii na głos"
+        },
+        "365": {
+          "name": "Rok z Pismem",
+          "desc": "365 czytań Biblii na głos"
+        },
+        "1000": {
+          "name": "Tysiąc czytań",
+          "desc": "1000 czytań Biblii na głos"
+        }
+      },
+      "books": {
+        "1": {
+          "name": "Pierwsza księga",
+          "desc": "Cała księga Biblii przeczytana na głos"
+        },
+        "10": {
+          "name": "Dziesięć ksiąg",
+          "desc": "10 ksiąg Biblii przeczytanych na głos"
+        }
+      },
+      "nt": {
+        "name": "Nowy Testament",
+        "desc": "Wszystkie 27 ksiąg Nowego Testamentu przeczytane na głos"
+      },
+      "ot": {
+        "name": "Stary Testament",
+        "desc": "Wszystkie 39 ksiąg Starego Testamentu przeczytane na głos"
+      },
+      "whole": {
+        "name": "Całe Pismo Święte",
+        "desc": "Każda księga Biblii przeczytana na głos"
+      }
     }
   },
   "tiers": {
@@ -896,5 +972,18 @@
     "michal": "Michał",
     "david": "Dawid",
     "piotr": "Piotr"
+  },
+  "golden": {
+    "title": "Złoty kwadrans",
+    "before": "{{minutes}} z 5 min – od 5. minuty każde zdanie liczy się podwójnie.",
+    "inside": "Teraz ×2 punkty – zostało {{left}} min złotego kwadransu.",
+    "done": "Złoty kwadrans wypełniony – dziś {{minutes}} min czytania.",
+    "label": "Dziś na głos: {{minutes}} z 15 minut",
+    "badge": "×2",
+    "badgeTitle": "Złoty kwadrans: każde zdanie liczy się podwójnie",
+    "hint": "5–15 minut dziennie daje podwójne punkty – to złoty kwadrans.",
+    "tickStart": "0",
+    "tickGolden": "5",
+    "tickEnd": "15 min"
   }
 }

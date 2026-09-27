@@ -14,6 +14,8 @@ export const ACHIEVEMENT_CATEGORIES = [
   'time',
   'other',
   'level',
+  'golden',
+  'bible',
 ] as const
 export type AchievementCategory = (typeof ACHIEVEMENT_CATEGORIES)[number]
 

@@ -39,6 +39,7 @@ export function emptyDailyStats(dayKey: DayKey): DailyStats {
     morning: false,
     evening: false,
     firstTryAccepted: 0,
+    readingMs: 0,
   }
 }
 

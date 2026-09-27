@@ -27,12 +27,26 @@ export function streakMultiplier(streak: number): number {
   return 1
 }
 
+/**
+ * The golden quarter-hour: sentences said while today's reading time is between 5 and 15 minutes earn
+ * double XP. It rewards a daily habit of 5–15 minutes without penalising shorter or longer days.
+ */
+export const GOLDEN_WINDOW = { startMs: 5 * 60_000, endMs: 15 * 60_000, multiplier: 2 } as const
+
+/** Multiplier for a sentence started after `readingMsBefore` of reading today. */
+export function goldenMultiplier(readingMsBefore: number): number {
+  return readingMsBefore >= GOLDEN_WINDOW.startMs && readingMsBefore < GOLDEN_WINDOW.endMs ? GOLDEN_WINDOW.multiplier : 1
+}
+
 export interface SegmentXpBreakdown {
   /** `5 + words`, capped at 30 (a negative word count counts as 0). */
   base: number
   /** First-try bonus (added after the cap). */
   bonus: number
+  /** Streak multiplier. */
   multiplier: number
+  /** Golden quarter-hour multiplier. */
+  golden: number
   total: number
 }
 
@@ -40,12 +54,15 @@ export function segmentXp(
   wordCount: number,
   firstTry: boolean,
   streak: number,
+  /** Today's estimated reading time before this sentence. */
+  readingMsBefore = 0,
 ): SegmentXpBreakdown {
   const words = Math.max(0, wordCount)
   const base = Math.min(XP_RULES.segmentBase + words, XP_RULES.segmentCap)
   const bonus = firstTry ? XP_RULES.firstTryBonus : 0
   const multiplier = streakMultiplier(streak)
-  return { base, bonus, multiplier, total: Math.round((base + bonus) * multiplier) }
+  const golden = goldenMultiplier(readingMsBefore)
+  return { base, bonus, multiplier, golden, total: Math.round((base + bonus) * multiplier * golden) }
 }
 
 /** Bonus for completing a whole text: 20% of the XP its segments earned in that run. */
