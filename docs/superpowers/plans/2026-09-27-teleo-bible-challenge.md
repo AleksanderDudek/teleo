@@ -1,5 +1,7 @@
 # Bible challenge, golden quarter-hour, leaderboard, sharing, support — plan
 
+**Status (2026-09-27): implemented** on branch `bible-challenge` — see docs/DECISIONS.md #75–#88.
+
 Owner request (2026-09-27): support link like gym-training-tracker, day/week/month leaderboard, gamified
 reading of the whole Bible aloud in ~1-minute readings that always end on a finished sentence, a point
 multiplier that promotes 5–15 minutes of reading a day, sharing the day's result to social media, more
