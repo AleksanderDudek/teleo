@@ -444,7 +444,8 @@
     "characterHint": "Choose the figure that stands for you in Teleo.",
     "character": "Character",
     "sounds": "Sound effects",
-    "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal."
+    "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal.",
+    "sectionSupport": "Support Teleo"
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -974,5 +975,49 @@
     "tickStart": "0",
     "tickGolden": "5",
     "tickEnd": "15 min"
+  },
+  "support": {
+    "rubric": "A word for today",
+    "line": "Teleo is free, with no ads and no tracking. If it helps you, you can buy its author a coffee.",
+    "button": "Buy a coffee",
+    "buttonLabel": "Buy the author a coffee — opens buycoffee.to in a new tab",
+    "note": "buycoffee.to · opens in a new tab",
+    "compact": "Teleo is free and stays that way. A coffee for the author says thank you.",
+    "tip1": "Say each sentence at your own pace. I wait for you — never the other way round.",
+    "tip2": "Five to fifteen minutes a day is the golden quarter-hour: enough to grow, short enough to keep.",
+    "tip3": "Stuck on a name? Say it once more, slowly. After three tries you may skip it — that is all right.",
+    "tip4": "Learning a new text? Turn on “Listen first” and hear each sentence before you say it.",
+    "tip5": "Same time, same place: a habit grows best in the same soil.",
+    "tip6": "Memory mode hides the words a little at a time — a gentle way to learn by heart.",
+    "tip7": "A streak freeze covers a missed day. Rest does not undo the way you have walked.",
+    "tip8": "Morning or evening — find the quiet part of your day and keep it for this.",
+    "tip9": "Long sentences are split for you. Take a breath at each comma.",
+    "tip10": "Words said aloud stay with you longer than words only read."
+  },
+  "share": {
+    "button": "Share today",
+    "preparing": "Preparing…",
+    "preview": "What will be shared",
+    "copied": "Copied — paste it wherever you like.",
+    "unsupported": "This browser can't share by itself — pick a service or download the picture.",
+    "download": "Download picture",
+    "x": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "t1_one": "Today I read aloud for {{minutes}} min — {{count}} sentence, checked word by word. {{points}} pts.",
+    "t1_other": "Today I read aloud for {{minutes}} min — {{count}} sentences, each checked word by word. {{points}} pts.",
+    "t2_one": "Day {{streak}} of my streak: {{count}} sentence said aloud, {{minutes}} min in all.",
+    "t2_other": "Day {{streak}} of my streak: {{count}} sentences said aloud, {{minutes}} min in all.",
+    "t3_one": "{{count}} sentence said aloud today and {{points}} points. Day {{streak}} in a row.",
+    "t3_other": "{{count}} sentences said aloud today and {{points}} points. Day {{streak}} in a row.",
+    "bible": "The Bible read aloud so far: {{percent}}.",
+    "cta": "Speak it. Complete it.",
+    "cardTitle": "My day with Teleo",
+    "cardMinutes": "min read aloud",
+    "cardSentences": "sentences",
+    "cardStreak": "days in a row",
+    "cardPoints": "points",
+    "cardBible": "of the Bible read aloud",
+    "fileName": "teleo-today.png"
   }
 }

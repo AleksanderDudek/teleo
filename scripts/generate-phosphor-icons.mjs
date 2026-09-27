@@ -9,7 +9,7 @@ const NAMES = [
   'caret-down', 'caret-left', 'caret-right', 'caret-up', 'check', 'copy', 'dots-six-vertical', 'dots-three',
   'download-simple', 'export', 'eye', 'eye-slash', 'funnel', 'list', 'list-checks', 'lock-simple',
   'magnifying-glass', 'minus', 'pencil-simple', 'plus', 'push-pin', 'push-pin-slash', 'scissors', 'trash',
-  'upload-simple', 'x',
+  'upload-simple', 'x', 'share-network', 'link', 'arrow-up-right',
   // status
   'check-circle', 'info', 'question', 'warning', 'warning-circle',
   // tabs and places
@@ -25,13 +25,15 @@ const NAMES = [
   'calendar-blank', 'calendar-plus', 'clock', 'globe', 'hard-drives', 'hourglass', 'moon', 'translate',
   // devotional vocabulary
   'bird', 'church', 'cross', 'feather', 'flower-lotus', 'heart', 'infinity', 'key', 'tree',
+  // support, leaderboard, Bible
+  'coffee', 'ranking', 'users', 'user-plus', 'book-open',
 ]
 
 const SOURCE = new URL('../node_modules/@phosphor-icons/core/assets/duotone/', import.meta.url)
 const OUT = new URL('../src/components/icons/phosphor.ts', import.meta.url)
 
 const entries = []
-for (const name of [...NAMES].sort()) {
+for (const name of [...new Set(NAMES)].sort()) {
   const svg = await readFile(new URL(`${name}-duotone.svg`, SOURCE), 'utf8')
   const body = svg.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '')
   const fill = []

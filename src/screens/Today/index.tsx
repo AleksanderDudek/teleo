@@ -5,6 +5,8 @@ import { Avatar } from '@/components/brand/Avatar'
 import { GuideBubble } from '@/components/brand/GuideBubble'
 import { GoldenQuarterHour } from '@/components/GoldenQuarterHour'
 import { LevelBar } from '@/components/LevelBar'
+import { ShareDayButton } from '@/components/share/ShareDayButton'
+import { sharedMinutes } from '@/components/share/shareText'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -161,6 +163,20 @@ export default function Today() {
       <Card className="mt-6 animate-rise [animation-delay:140ms]">
         <LevelBar totalXp={game.totalXp} />
       </Card>
+
+      {done > 0 && (
+        <ShareDayButton
+          className="mt-4"
+          character={app.character}
+          day={{
+            dayKey: data.today,
+            minutes: sharedMinutes(data.todayStats?.readingMs ?? 0),
+            sentences: done,
+            streak: data.streak.current,
+            points: data.todayStats?.xp ?? 0,
+          }}
+        />
+      )}
 
       {showBackup && (
         <Card className="mt-6 border-gold/50">

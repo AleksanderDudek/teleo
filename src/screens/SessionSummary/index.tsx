@@ -5,6 +5,9 @@ import { useNavigate, useParams } from 'react-router'
 import { AchievementBadge } from '@/components/AchievementBadge'
 import { Guardian } from '@/components/brand/Guardian'
 import { StatTile } from '@/components/progress/StatTile'
+import { ShareDayButton } from '@/components/share/ShareDayButton'
+import { sharedMinutes } from '@/components/share/shareText'
+import { SupportCard } from '@/components/support/SupportCard'
 import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { ProgressRing } from '@/components/ui/Progress'
@@ -113,6 +116,21 @@ export default function SessionSummary() {
           </ul>
         </section>
       )}
+
+      <ShareDayButton
+        className="mt-8 text-left"
+        character={app.character}
+        day={{
+          dayKey: today,
+          minutes: sharedMinutes(todayStats?.readingMs ?? 0),
+          sentences: todayStats?.segmentsAccepted ?? 0,
+          streak,
+          points: todayStats?.xp ?? 0,
+        }}
+      />
+
+      {/* The only moment the app has just done something for someone: the coffee asks here, once. */}
+      <SupportCard dayKey={today} figure={false} className="mt-8 text-left" />
 
       <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
         {again && (
