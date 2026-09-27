@@ -212,6 +212,10 @@ export default function Onboarding() {
       <div className="mt-4">
         <Stepper label={t('settings.dailyGoal')} value={goal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={setGoal} />
       </div>
+      <p className="mt-4 flex items-center gap-2 text-center text-sm font-medium text-gold-ink">
+        <Icon name="mandorla-star" size={16} />
+        {t('golden.hint')}
+      </p>
       <p className="mt-5 flex items-center gap-2 text-center text-[0.8rem] text-ink-soft">
         <Icon name="shield-cross" size={16} className="text-primary" />
         <span>

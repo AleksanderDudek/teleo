@@ -83,6 +83,34 @@ describe('a full PL rosary decade', () => {
   })
 })
 
+describe('the golden quarter-hour', () => {
+  const chwala = builtinTextId('pl.chwala-ojcu') // first sentence: 7 Polish words ≈ 3.8 s at 110 words/min
+  const todayRow = async (readingMs: number) => {
+    await db.dailyStats.put({ ...(await import('./progress')).emptyDailyStats('2026-09-25'), segmentsAccepted: 1, readingMs })
+  }
+
+  it('adds the estimated reading time of accepted sentences only', async () => {
+    const run = await startRun({ kind: 'text', textId: chwala }, at(25))
+    await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: bad, engine: 'webspeech', durationMs: 5000, now: at(25, 12, 1) })
+    expect((await db.dailyStats.get('2026-09-25'))?.readingMs ?? 0).toBe(0)
+    const outcome = await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: ok, engine: 'webspeech', durationMs: 5000, now: at(25, 12, 2) })
+    expect((await db.dailyStats.get('2026-09-25'))?.readingMs).toBe(3818)
+    expect(outcome).toMatchObject({ golden: 1, readingMs: 3818 })
+  })
+
+  it('doubles sentence XP between 5 and 15 minutes of reading, and only then', async () => {
+    await todayRow(6 * 60_000)
+    const run = await startRun({ kind: 'text', textId: chwala }, at(25))
+    const inside = await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: ok, engine: 'webspeech', durationMs: 1, now: at(25, 12, 1) })
+    expect(inside).toMatchObject({ golden: 2, segmentXp: 2 * (5 + 7 + 2) })
+
+    await todayRow(15 * 60_000)
+    const after = await startRun({ kind: 'text', textId: chwala }, at(25))
+    const late = await recordAttempt({ runId: after.id, entryIndex: 0, evaluation: ok, engine: 'webspeech', durationMs: 1, now: at(25, 12, 5) })
+    expect(late).toMatchObject({ golden: 1, segmentXp: 5 + 7 + 2 })
+  })
+})
+
 describe('skips and completion', () => {
   it('a skipped segment breaks that repetition and the session bonus', async () => {
     const run = await startRun({ kind: 'text', textId: builtinTextId('pl.aniele-bozy') }, at(25))

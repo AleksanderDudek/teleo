@@ -2,6 +2,8 @@ import Dexie, { type EntityTable, type Table } from 'dexie'
 import type {
   AchievementRow,
   Attempt,
+  BibleReadingRow,
+  FriendRow,
   DailyStats,
   Segment,
   SessionRun,
@@ -13,7 +15,7 @@ import type {
 } from './types'
 
 export const DB_NAME = 'teleo'
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -30,10 +32,12 @@ export class TeleoDB extends Dexie {
   declare achievements: EntityTable<AchievementRow, 'key'>
   declare xpLedger: EntityTable<XpLedgerRow, 'id'>
   declare settings: Table<SettingsRow, SettingsRow['key']>
+  declare bibleReadings: EntityTable<BibleReadingRow, 'readingId'>
+  declare friends: EntityTable<FriendRow, 'id'>
 
   constructor(name = DB_NAME) {
     super(name)
-    this.version(SCHEMA_VERSION).stores({
+    this.version(1).stores({
       texts: 'id, lang, type, source, updatedAt',
       segments: 'id, textId, [textId+order]',
       sessionTemplates: 'id, updatedAt',
@@ -44,6 +48,11 @@ export class TeleoDB extends Dexie {
       achievements: 'key, ruleId, textId, unlockedAt',
       xpLedger: '++id, timestamp, reason',
       settings: 'key',
+    })
+    // v1.3: Bible challenge progress and the friends' leaderboard (new tables only, no data migration).
+    this.version(2).stores({
+      bibleReadings: 'readingId, [translation+book], dayKey',
+      friends: 'id',
     })
   }
 }
@@ -62,4 +71,6 @@ export const ALL_TABLES = [
   'achievements',
   'xpLedger',
   'settings',
+  'bibleReadings',
+  'friends',
 ] as const

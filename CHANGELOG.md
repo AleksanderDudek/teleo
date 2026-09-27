@@ -2,7 +2,23 @@
 
 All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
-## Unreleased — redesign "the gilded icon"
+## Unreleased
+
+### The Bible challenge, golden quarter-hour, leaderboard
+
+- **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska, public domain), sentence by sentence, in
+  readings of about one minute that always end on a finished sentence — about a year at 15 minutes a day. Progress by
+  book and testament, "Read next", Bible achievements, available offline once a book is loaded.
+- **Golden quarter-hour:** every sentence counts double between 5 and 15 minutes of reading a day; a track on Today, a
+  ×2 badge in the player, achievements for golden days.
+- **More joy per sentence:** a gold chime that climbs with each sentence in a row, sparks, the XP earned, combos; a
+  "Sound effects" switch. Heard words in live mode are clearly marked in gold.
+- **Leaderboard:** points by day, week and month against your own best, and against friends who share their card by link
+  (no accounts, no server).
+- **Share your day:** a gilded picture card with your figure and numbers, shared through the system sheet or social links.
+- **Support the author:** a coffee link (buycoffee.to) on the summary and in Settings, after the Guardian's word for today.
+
+### Redesign "the gilded icon"
 
 - New visual language from the *Teleo Design System*: vellum, lapis and gold leaf drawn from Byzantine icons and
   stained glass; dark theme "Vigil" with a faint star field; Alegreya SC inscriptions; halo, icon-frame, arch and

@@ -1,0 +1,408 @@
+{
+ "translation": "kjv",
+ "lang": "en",
+ "name": "King James Version (Pure Cambridge Edition)",
+ "license": "Public domain",
+ "source": "https://github.com/scrollmapper/bible_databases",
+ "wordsPerMinute": 140,
+ "readings": 5079,
+ "words": 790889,
+ "books": [
+  {
+   "b": "GEN",
+   "chapters": 50,
+   "words": 38262,
+   "readings": 245
+  },
+  {
+   "b": "EXO",
+   "chapters": 40,
+   "words": 32687,
+   "readings": 207
+  },
+  {
+   "b": "LEV",
+   "chapters": 27,
+   "words": 24543,
+   "readings": 152
+  },
+  {
+   "b": "NUM",
+   "chapters": 36,
+   "words": 32897,
+   "readings": 202
+  },
+  {
+   "b": "DEU",
+   "chapters": 34,
+   "words": 28355,
+   "readings": 174
+  },
+  {
+   "b": "JOS",
+   "chapters": 24,
+   "words": 18854,
+   "readings": 118
+  },
+  {
+   "b": "JDG",
+   "chapters": 21,
+   "words": 18966,
+   "readings": 123
+  },
+  {
+   "b": "RUT",
+   "chapters": 4,
+   "words": 2574,
+   "readings": 17
+  },
+  {
+   "b": "1SA",
+   "chapters": 31,
+   "words": 25050,
+   "readings": 162
+  },
+  {
+   "b": "2SA",
+   "chapters": 24,
+   "words": 20601,
+   "readings": 134
+  },
+  {
+   "b": "1KI",
+   "chapters": 22,
+   "words": 24516,
+   "readings": 152
+  },
+  {
+   "b": "2KI",
+   "chapters": 25,
+   "words": 23519,
+   "readings": 147
+  },
+  {
+   "b": "1CH",
+   "chapters": 29,
+   "words": 20365,
+   "readings": 127
+  },
+  {
+   "b": "2CH",
+   "chapters": 36,
+   "words": 26072,
+   "readings": 166
+  },
+  {
+   "b": "EZR",
+   "chapters": 10,
+   "words": 7442,
+   "readings": 47
+  },
+  {
+   "b": "NEH",
+   "chapters": 13,
+   "words": 10481,
+   "readings": 64
+  },
+  {
+   "b": "EST",
+   "chapters": 10,
+   "words": 5633,
+   "readings": 35
+  },
+  {
+   "b": "JOB",
+   "chapters": 42,
+   "words": 18100,
+   "readings": 122
+  },
+  {
+   "b": "PSA",
+   "chapters": 150,
+   "words": 43717,
+   "readings": 305
+  },
+  {
+   "b": "PRO",
+   "chapters": 31,
+   "words": 15038,
+   "readings": 102
+  },
+  {
+   "b": "ECC",
+   "chapters": 12,
+   "words": 5580,
+   "readings": 36
+  },
+  {
+   "b": "SNG",
+   "chapters": 8,
+   "words": 2658,
+   "readings": 17
+  },
+  {
+   "b": "ISA",
+   "chapters": 66,
+   "words": 37036,
+   "readings": 242
+  },
+  {
+   "b": "JER",
+   "chapters": 52,
+   "words": 42654,
+   "readings": 265
+  },
+  {
+   "b": "LAM",
+   "chapters": 5,
+   "words": 3411,
+   "readings": 22
+  },
+  {
+   "b": "EZK",
+   "chapters": 48,
+   "words": 39402,
+   "readings": 250
+  },
+  {
+   "b": "DAN",
+   "chapters": 12,
+   "words": 11602,
+   "readings": 72
+  },
+  {
+   "b": "HOS",
+   "chapters": 14,
+   "words": 5174,
+   "readings": 35
+  },
+  {
+   "b": "JOL",
+   "chapters": 3,
+   "words": 2033,
+   "readings": 13
+  },
+  {
+   "b": "AMO",
+   "chapters": 9,
+   "words": 4216,
+   "readings": 29
+  },
+  {
+   "b": "OBA",
+   "chapters": 1,
+   "words": 669,
+   "readings": 5
+  },
+  {
+   "b": "JON",
+   "chapters": 4,
+   "words": 1320,
+   "readings": 9
+  },
+  {
+   "b": "MIC",
+   "chapters": 7,
+   "words": 3152,
+   "readings": 21
+  },
+  {
+   "b": "NAM",
+   "chapters": 3,
+   "words": 1284,
+   "readings": 9
+  },
+  {
+   "b": "HAB",
+   "chapters": 3,
+   "words": 1475,
+   "readings": 10
+  },
+  {
+   "b": "ZEP",
+   "chapters": 3,
+   "words": 1616,
+   "readings": 11
+  },
+  {
+   "b": "HAG",
+   "chapters": 2,
+   "words": 1130,
+   "readings": 7
+  },
+  {
+   "b": "ZEC",
+   "chapters": 14,
+   "words": 6443,
+   "readings": 41
+  },
+  {
+   "b": "MAL",
+   "chapters": 4,
+   "words": 1781,
+   "readings": 12
+  },
+  {
+   "b": "MAT",
+   "chapters": 28,
+   "words": 23685,
+   "readings": 157
+  },
+  {
+   "b": "MRK",
+   "chapters": 16,
+   "words": 15166,
+   "readings": 101
+  },
+  {
+   "b": "LUK",
+   "chapters": 24,
+   "words": 25939,
+   "readings": 167
+  },
+  {
+   "b": "JHN",
+   "chapters": 21,
+   "words": 19095,
+   "readings": 128
+  },
+  {
+   "b": "ACT",
+   "chapters": 28,
+   "words": 24247,
+   "readings": 156
+  },
+  {
+   "b": "ROM",
+   "chapters": 16,
+   "words": 9439,
+   "readings": 60
+  },
+  {
+   "b": "1CO",
+   "chapters": 16,
+   "words": 9482,
+   "readings": 62
+  },
+  {
+   "b": "2CO",
+   "chapters": 13,
+   "words": 6083,
+   "readings": 39
+  },
+  {
+   "b": "GAL",
+   "chapters": 6,
+   "words": 3090,
+   "readings": 20
+  },
+  {
+   "b": "EPH",
+   "chapters": 6,
+   "words": 3030,
+   "readings": 16
+  },
+  {
+   "b": "PHP",
+   "chapters": 4,
+   "words": 2193,
+   "readings": 14
+  },
+  {
+   "b": "COL",
+   "chapters": 4,
+   "words": 1990,
+   "readings": 11
+  },
+  {
+   "b": "1TH",
+   "chapters": 5,
+   "words": 1848,
+   "readings": 12
+  },
+  {
+   "b": "2TH",
+   "chapters": 3,
+   "words": 1032,
+   "readings": 6
+  },
+  {
+   "b": "1TI",
+   "chapters": 6,
+   "words": 2261,
+   "readings": 14
+  },
+  {
+   "b": "2TI",
+   "chapters": 4,
+   "words": 1694,
+   "readings": 11
+  },
+  {
+   "b": "TIT",
+   "chapters": 3,
+   "words": 915,
+   "readings": 6
+  },
+  {
+   "b": "PHM",
+   "chapters": 1,
+   "words": 439,
+   "readings": 3
+  },
+  {
+   "b": "HEB",
+   "chapters": 13,
+   "words": 6905,
+   "readings": 46
+  },
+  {
+   "b": "JAS",
+   "chapters": 5,
+   "words": 2304,
+   "readings": 16
+  },
+  {
+   "b": "1PE",
+   "chapters": 5,
+   "words": 2477,
+   "readings": 15
+  },
+  {
+   "b": "2PE",
+   "chapters": 3,
+   "words": 1553,
+   "readings": 9
+  },
+  {
+   "b": "1JN",
+   "chapters": 5,
+   "words": 2517,
+   "readings": 17
+  },
+  {
+   "b": "2JN",
+   "chapters": 1,
+   "words": 298,
+   "readings": 2
+  },
+  {
+   "b": "3JN",
+   "chapters": 1,
+   "words": 294,
+   "readings": 2
+  },
+  {
+   "b": "JUD",
+   "chapters": 1,
+   "words": 608,
+   "readings": 4
+  },
+  {
+   "b": "REV",
+   "chapters": 22,
+   "words": 11997,
+   "readings": 78
+  }
+ ]
+}

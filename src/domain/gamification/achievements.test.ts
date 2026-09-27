@@ -87,6 +87,26 @@ const SPEC_GLOBAL_RULES: SpecRow<GlobalMetric>[] = [
   ['level.20', 'level', 20, 'diamond', 'level'],
 ]
 
+/** Owner request 2026-09-27: the golden quarter-hour and the Bible challenge (DECISIONS). */
+const ADDED_GLOBAL_RULES: SpecRow<GlobalMetric>[] = [
+  ['golden.days.1', 'goldenDays', 1, 'bronze', 'golden'],
+  ['golden.days.7', 'goldenDays', 7, 'silver', 'golden'],
+  ['golden.days.30', 'goldenDays', 30, 'gold', 'golden'],
+  ['golden.days.100', 'goldenDays', 100, 'platinum', 'golden'],
+  ['golden.days.365', 'goldenDays', 365, 'diamond', 'golden'],
+  ['bible.readings.1', 'bibleReadings', 1, 'bronze', 'bible'],
+  ['bible.readings.7', 'bibleReadings', 7, 'bronze', 'bible'],
+  ['bible.readings.30', 'bibleReadings', 30, 'silver', 'bible'],
+  ['bible.readings.100', 'bibleReadings', 100, 'silver', 'bible'],
+  ['bible.readings.365', 'bibleReadings', 365, 'gold', 'bible'],
+  ['bible.readings.1000', 'bibleReadings', 1000, 'platinum', 'bible'],
+  ['bible.books.1', 'bibleBooks', 1, 'silver', 'bible'],
+  ['bible.books.10', 'bibleBooks', 10, 'gold', 'bible'],
+  ['bible.nt', 'bibleNewTestament', 1, 'platinum', 'bible'],
+  ['bible.ot', 'bibleOldTestament', 1, 'platinum', 'bible'],
+  ['bible.whole', 'bibleWhole', 1, 'diamond', 'bible'],
+]
+
 const SPEC_HIDDEN = ['comeback', 'time.evening.7', 'time.morning.7']
 
 function specRule(scope: 'global' | 'text') {
@@ -126,8 +146,9 @@ describe('ACHIEVEMENT_RULES', () => {
     const expected = [
       ...SPEC_TEXT_RULES.map(specRule('text')),
       ...SPEC_GLOBAL_RULES.map(specRule('global')),
+      ...ADDED_GLOBAL_RULES.map(specRule('global')),
     ]
-    expect(ACHIEVEMENT_RULES).toHaveLength(49)
+    expect(ACHIEVEMENT_RULES).toHaveLength(65)
     expect([...ACHIEVEMENT_RULES].sort(byId)).toEqual(expected.sort(byId))
   })
 
@@ -166,6 +187,8 @@ describe('ACHIEVEMENT_RULES', () => {
       'time',
       'other',
       'level',
+      'golden',
+      'bible',
     ])
   })
 })

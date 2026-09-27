@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import type { TextItem, TextStats } from '@/db/types'
+import { isListedText, type TextItem, type TextStats } from '@/db/types'
 
 export interface LibraryEntry {
   text: TextItem
@@ -28,6 +28,7 @@ export function useLibrary(): LibraryEntry[] | undefined {
       if (!current || segment.order < current.order) previews.set(segment.textId, segment)
     }
     return texts
+      .filter(isListedText)
       .map((text) => ({
         text,
         stats: statsById.get(text.id),

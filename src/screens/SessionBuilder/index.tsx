@@ -10,7 +10,7 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar } from '@/components/ui/Progress'
 import { db } from '@/db/schema'
-import type { Segment } from '@/db/types'
+import { isListedText, type Segment } from '@/db/types'
 import { countTemplateSegments, MAX_SESSION_SEGMENTS } from '@/domain/session'
 import { newId } from '@/lib/id'
 import { createTemplate, SessionError, updateTemplate } from '@/services/sessions'
@@ -32,7 +32,7 @@ export default function SessionBuilder() {
     for (const segment of segments.filter((s) => !s.archived).sort((a, b) => a.order - b.order)) {
       byText.set(segment.textId, [...(byText.get(segment.textId) ?? []), segment])
     }
-    return { texts, byText, template: template ?? null }
+    return { texts: texts.filter(isListedText), byText, template: template ?? null }
   }, [templateId])
 
   const [name, setName] = useState('')

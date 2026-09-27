@@ -12,6 +12,7 @@ import {
   textCompletionXp,
   XP_RULES,
 } from '@/domain/gamification'
+import { readingMs } from '@/domain/reading/pace'
 import { blockEntries, isBlockComplete } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import type { DayKey, EngineId } from '@/domain/types'
@@ -53,6 +54,10 @@ export interface AttemptOutcome extends ProgressOutcome {
   accepted: boolean
   firstTry: boolean
   segmentXp: number
+  /** Golden quarter-hour multiplier applied to this sentence (1 outside the window). */
+  golden: number
+  /** Today's estimated reading time after this attempt. */
+  readingMs: number
   run: SessionRun
   textCompleted?: { textId: string; bonusXp: number; perfect: boolean }
   /** Failed attempts on this entry so far (drives the "skip after 3" rule). */
@@ -62,6 +67,8 @@ export interface AttemptOutcome extends ProgressOutcome {
 export interface FinishOutcome extends ProgressOutcome {
   run: SessionRun
   clean: boolean
+  /** Set when the run finished a Bible reading (`first`: counted now, not read before). */
+  bibleReading?: { readingId: string; first: boolean }
 }
 
 export type PracticeErrorCode = 'runNotFound' | 'notRunning' | 'outOfOrder' | 'segmentMissing'
@@ -189,6 +196,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       accepted,
       firstTry,
       segmentXp: 0,
+      golden: 1,
+      readingMs: daily.readingMs ?? 0,
       run,
       failedAttempts: entry.attempts - (accepted ? 1 : 0),
       xpGained: 0,
@@ -237,7 +246,10 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       result.freezeEarned = award.award > 0
     }
 
-    const xp = segmentXp(segment.wordCount, firstTry, streak).total
+    const readBefore = daily.readingMs ?? 0
+    const breakdown = segmentXp(segment.wordCount, firstTry, streak, readBefore)
+    const xp = breakdown.total
+    daily.readingMs = readBefore + readingMs(segment.wordCount, text.lang)
     await db.xpLedger.add({ timestamp: now, dayKey, reason: 'segment', amount: xp, refId: attempt.id })
     let gained = xp
     entry.status = 'accepted'
@@ -286,7 +298,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     await db.dailyStats.put(daily)
     await db.textStats.put(textStats)
 
-    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: [text.id] })
+    // Bible readings are not texts one repeats: no per-text achievements for them (they would flood the gallery).
+    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: text.source === 'bible' ? [] : [text.id] })
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
     run.xpEarned += achievementXp
     if (unlocked.length > 0) run.unlocked = [...(run.unlocked ?? []), ...unlocked.map((u) => u.key)]
@@ -295,6 +308,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     const levelAfter = levelInfo(game.totalXp).level
     Object.assign(result, {
       segmentXp: xp,
+      golden: breakdown.golden,
+      readingMs: daily.readingMs,
       xpGained: gained + achievementXp,
       unlocked,
       streak,
@@ -362,6 +377,20 @@ export async function finishRun(runId: string, now = Date.now()): Promise<Finish
     run.lastActivityAt = now
     let gained = 0
     let unlocked: UnlockedAchievement[] = []
+
+    // A Bible reading counts once every sentence was said or skipped (skips need three failed tries:
+    // unusual names can defeat a recogniser). It still earns XP only for the sentences said.
+    const text = run.textId ? await db.texts.get(run.textId) : undefined
+    let bibleReading: FinishOutcome['bibleReading']
+    if (text?.bible && accepted > 0 && run.entries.every((e) => e.status !== 'pending')) {
+      const readingId = text.id.replace(/^bible:/, '')
+      const first = !(await db.bibleReadings.get(readingId))
+      if (first) {
+        await db.bibleReadings.add({ readingId, ...text.bible, completedAt: now, dayKey, skipped })
+      }
+      bibleReading = { readingId, first }
+    }
+
     if (clean && !alreadyCompleted) {
       await db.xpLedger.add({ timestamp: now, dayKey, reason: 'sessionComplete', amount: XP_RULES.sessionComplete, refId: run.id })
       gained = XP_RULES.sessionComplete
@@ -371,6 +400,8 @@ export async function finishRun(runId: string, now = Date.now()): Promise<Finish
       if (run.plan.length >= 10 && run.entries.every((e) => e.firstTry)) game.perfectSessions += 1
       if (run.plan.length >= 150) game.fullSessions += 1
       await db.dailyStats.put(daily)
+      unlocked = await unlockAchievements({ game, dayKey, now, textIds: [] })
+    } else if (bibleReading?.first) {
       unlocked = await unlockAchievements({ game, dayKey, now, textIds: [] })
     }
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
@@ -382,6 +413,7 @@ export async function finishRun(runId: string, now = Date.now()): Promise<Finish
     return {
       run,
       clean,
+      bibleReading,
       xpGained: gained + achievementXp,
       unlocked,
       levelUp: levelAfter > levelBefore ? { from: levelBefore, to: levelAfter } : undefined,

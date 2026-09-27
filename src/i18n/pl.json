@@ -263,7 +263,16 @@
     "pausedLive": "Słuchanie wstrzymane",
     "listen": "Posłuchaj zdania",
     "listening": "Czytam na głos…",
-    "segmentMissing": "Tego zdania już nie ma (jego tekst zmieniono lub usunięto). Pomiń je, aby kontynuować."
+    "segmentMissing": "Tego zdania już nie ma (jego tekst zmieniono lub usunięto). Pomiń je, aby kontynuować.",
+    "praiseGreat": "Świetnie!",
+    "praiseBeautiful": "Pięknie!",
+    "praiseWellSaid": "Dobrze powiedziane!",
+    "praiseYes": "Tak!",
+    "praiseLovely": "Wspaniale!",
+    "combo_one": "{{count}} z rzędu",
+    "combo_few": "{{count}} z rzędu",
+    "combo_many": "{{count}} z rzędu",
+    "combo_other": "{{count}} z rzędu"
   },
   "summary": {
     "title": "Pięknie",
@@ -281,7 +290,9 @@
     "skipped_one": "{{count}} zdanie pominięte",
     "skipped_few": "{{count}} zdania pominięte",
     "skipped_many": "{{count}} zdań pominiętych",
-    "skipped_other": "{{count}} zdania pominiętego"
+    "skipped_other": "{{count}} zdania pominiętego",
+    "nextReading": "Następne czytanie",
+    "biblePercent": "{{percent}} Biblii przeczytane na głos"
   },
   "progress": {
     "rubric": "Postępy",
@@ -326,7 +337,9 @@
       "time": "Pora dnia",
       "other": "Inne",
       "level": "Poziomy",
-      "text": "Teksty"
+      "text": "Teksty",
+      "golden": "Złoty kwadrans",
+      "bible": "Biblia"
     },
     "textsHeading": "Teksty",
     "colText": "Tekst",
@@ -443,7 +456,12 @@
     "whisperConfirm": "Pobierz",
     "sectionCharacter": "Twoja postać",
     "characterHint": "Wybierz postać, która reprezentuje Cię w Teleo.",
-    "character": "Postać"
+    "character": "Postać",
+    "sounds": "Efekty dźwiękowe",
+    "soundsHint": "Delikatny złoty dzwonek po każdym wypowiedzianym zdaniu; pełniejszy po ukończeniu tekstu lub celu.",
+    "sectionSupport": "Wesprzyj Teleo",
+    "displayName": "Imię na udostępnianych kartach",
+    "displayNameHint": "Znajomi zobaczą je na swojej tablicy. Puste = imię Twojej postaci."
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -814,6 +832,80 @@
         "name": "Poziom 20",
         "desc": "Osiągnięty poziom 20 – Teleo"
       }
+    },
+    "golden": {
+      "days": {
+        "1": {
+          "name": "Złoty kwadrans",
+          "desc": "15 minut czytania na głos w jeden dzień"
+        },
+        "7": {
+          "name": "Siedem złotych dni",
+          "desc": "Złoty kwadrans w 7 dni"
+        },
+        "30": {
+          "name": "Złoty miesiąc",
+          "desc": "Złoty kwadrans w 30 dni"
+        },
+        "100": {
+          "name": "Sto złotych dni",
+          "desc": "Złoty kwadrans w 100 dni"
+        },
+        "365": {
+          "name": "Złoty rok",
+          "desc": "Złoty kwadrans w 365 dni"
+        }
+      }
+    },
+    "bible": {
+      "readings": {
+        "1": {
+          "name": "Weź i czytaj",
+          "desc": "Pierwsze czytanie Biblii na głos"
+        },
+        "7": {
+          "name": "Siedem czytań",
+          "desc": "7 czytań Biblii na głos"
+        },
+        "30": {
+          "name": "Miesiąc ze Słowem",
+          "desc": "30 czytań Biblii na głos"
+        },
+        "100": {
+          "name": "Sto czytań",
+          "desc": "100 czytań Biblii na głos"
+        },
+        "365": {
+          "name": "Rok z Pismem",
+          "desc": "365 czytań Biblii na głos"
+        },
+        "1000": {
+          "name": "Tysiąc czytań",
+          "desc": "1000 czytań Biblii na głos"
+        }
+      },
+      "books": {
+        "1": {
+          "name": "Pierwsza księga",
+          "desc": "Cała księga Biblii przeczytana na głos"
+        },
+        "10": {
+          "name": "Dziesięć ksiąg",
+          "desc": "10 ksiąg Biblii przeczytanych na głos"
+        }
+      },
+      "nt": {
+        "name": "Nowy Testament",
+        "desc": "Wszystkie 27 ksiąg Nowego Testamentu przeczytane na głos"
+      },
+      "ot": {
+        "name": "Stary Testament",
+        "desc": "Wszystkie 39 ksiąg Starego Testamentu przeczytane na głos"
+      },
+      "whole": {
+        "name": "Całe Pismo Święte",
+        "desc": "Każda księga Biblii przeczytana na głos"
+      }
     }
   },
   "tiers": {
@@ -896,5 +988,226 @@
     "michal": "Michał",
     "david": "Dawid",
     "piotr": "Piotr"
+  },
+  "golden": {
+    "title": "Złoty kwadrans",
+    "before": "{{minutes}} z 5 min – od 5. minuty każde zdanie liczy się podwójnie.",
+    "inside": "Teraz ×2 punkty – zostało {{left}} min złotego kwadransu.",
+    "done": "Złoty kwadrans wypełniony – dziś {{minutes}} min czytania.",
+    "label": "Dziś na głos: {{minutes}} z 15 minut",
+    "badge": "×2",
+    "badgeTitle": "Złoty kwadrans: każde zdanie liczy się podwójnie",
+    "hint": "5–15 minut dziennie daje podwójne punkty – to złoty kwadrans.",
+    "tickStart": "0",
+    "tickGolden": "5",
+    "tickEnd": "15 min"
+  },
+  "support": {
+    "rubric": "Słowo na dziś",
+    "line": "Teleo jest darmowe, bez reklam i śledzenia. Jeśli Ci pomaga, możesz postawić autorowi kawę.",
+    "button": "Postaw kawę",
+    "buttonLabel": "Postaw autorowi kawę – otwiera buycoffee.to w nowej karcie",
+    "note": "buycoffee.to · otwiera się w nowej karcie",
+    "compact": "Teleo jest darmowe i takie zostanie. Kawa dla autora to dobre „dziękuję”.",
+    "tip1": "Wypowiadaj każde zdanie we własnym tempie. To ja czekam na Ciebie – nigdy odwrotnie.",
+    "tip2": "Od pięciu do piętnastu minut dziennie to złoty kwadrans: dość, by wzrastać, i dość krótko, by wytrwać.",
+    "tip3": "Imię nie chce przejść? Powiedz je jeszcze raz, powoli. Po trzech próbach możesz je pominąć – to w porządku.",
+    "tip4": "Uczysz się nowego tekstu? Włącz „Posłuchaj najpierw” i usłysz zdanie, zanim je powiesz.",
+    "tip5": "Ta sama pora, to samo miejsce: nawyk najlepiej rośnie w tej samej glebie.",
+    "tip6": "Tryb pamięciowy ukrywa słowa po trochu – łagodny sposób, by nauczyć się na pamięć.",
+    "tip7": "Zamrożenie serii chroni dzień przerwy. Odpoczynek nie cofa przebytej drogi.",
+    "tip8": "Rano czy wieczorem – znajdź cichą część dnia i zachowaj ją na to.",
+    "tip9": "Długie zdania dzielimy za Ciebie. Weź oddech przy każdym przecinku.",
+    "tip10": "Słowa wypowiedziane na głos zostają z nami dłużej niż tylko przeczytane."
+  },
+  "share": {
+    "button": "Udostępnij dzień",
+    "preparing": "Przygotowuję…",
+    "preview": "Co zostanie udostępnione",
+    "copied": "Skopiowane – wklej, gdzie chcesz.",
+    "unsupported": "Ta przeglądarka nie udostępnia sama – wybierz serwis albo pobierz obrazek.",
+    "download": "Pobierz obrazek",
+    "x": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "t1_one": "Dziś {{minutes}} min czytania na głos – {{count}} zdanie, sprawdzone słowo po słowie. {{points}} pkt.",
+    "t1_few": "Dziś {{minutes}} min czytania na głos – {{count}} zdania, każde sprawdzone słowo po słowie. {{points}} pkt.",
+    "t1_many": "Dziś {{minutes}} min czytania na głos – {{count}} zdań, każde sprawdzone słowo po słowie. {{points}} pkt.",
+    "t1_other": "Dziś {{minutes}} min czytania na głos – {{count}} zdania, każde sprawdzone słowo po słowie. {{points}} pkt.",
+    "t2_one": "{{streak}}. dzień z rzędu: {{count}} zdanie na głos, razem {{minutes}} min.",
+    "t2_few": "{{streak}}. dzień z rzędu: {{count}} zdania na głos, razem {{minutes}} min.",
+    "t2_many": "{{streak}}. dzień z rzędu: {{count}} zdań na głos, razem {{minutes}} min.",
+    "t2_other": "{{streak}}. dzień z rzędu: {{count}} zdania na głos, razem {{minutes}} min.",
+    "t3_one": "Dziś {{count}} zdanie na głos i {{points}} pkt. {{streak}}. dzień z rzędu.",
+    "t3_few": "Dziś {{count}} zdania na głos i {{points}} pkt. {{streak}}. dzień z rzędu.",
+    "t3_many": "Dziś {{count}} zdań na głos i {{points}} pkt. {{streak}}. dzień z rzędu.",
+    "t3_other": "Dziś {{count}} zdania na głos i {{points}} pkt. {{streak}}. dzień z rzędu.",
+    "bible": "Biblia przeczytana na głos: {{percent}}.",
+    "cta": "Wypowiedz. Wypełnij.",
+    "cardTitle": "Mój dzień z Teleo",
+    "cardMinutes": "min na głos",
+    "cardSentences": "zdania",
+    "cardStreak": "dni z rzędu",
+    "cardPoints": "punkty",
+    "cardBible": "Biblii przeczytane na głos",
+    "fileName": "teleo-dzis.png"
+  },
+  "leaderboard": {
+    "title": "Tablica punktów",
+    "period": "Okres",
+    "periodDay": "Dzień",
+    "periodWeek": "Tydzień",
+    "periodMonth": "Miesiąc",
+    "currentDay": "Dziś",
+    "currentWeek": "Ten tydzień",
+    "currentMonth": "Ten miesiąc",
+    "points": "{{points}} pkt",
+    "best": "Twój rekord: {{points}} pkt",
+    "rankDay_one": "{{rank}}. miejsce spośród {{count}} dnia",
+    "rankDay_few": "{{rank}}. miejsce spośród {{count}} Twoich dni",
+    "rankDay_many": "{{rank}}. miejsce spośród {{count}} Twoich dni",
+    "rankDay_other": "{{rank}}. miejsce spośród {{count}} Twoich dni",
+    "rankWeek_one": "{{rank}}. miejsce spośród {{count}} tygodnia",
+    "rankWeek_few": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
+    "rankWeek_many": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
+    "rankWeek_other": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
+    "rankMonth_one": "{{rank}}. miejsce spośród {{count}} miesiąca",
+    "rankMonth_few": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
+    "rankMonth_many": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
+    "rankMonth_other": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
+    "friendsHeading": "Ty i znajomi",
+    "you": "Ty",
+    "stale": "brak karty z tego okresu",
+    "noFriends": "Nie ma tu jeszcze znajomych – rzuć wyzwanie, a ich karta pojawi się, gdy ją odeślą.",
+    "challenge": "Rzuć wyzwanie znajomemu",
+    "challengeHint": "Twoja karta podróżuje w linku: bez kont i bez serwera. Gdy znajomy odeśle swoją, dołączy do tej tablicy.",
+    "challengeText": "Moje punkty w Teleo – dziś {{day}}, w tym tygodniu {{week}}, w tym miesiącu {{month}}. Dodaj mnie do swojej tablicy i odeślij swoje:",
+    "copied": "Link skopiowany – wyślij go znajomemu.",
+    "remove": "Usuń: {{name}}",
+    "bestDays": "Twoje najlepsze dni",
+    "bestWeeks": "Twoje najlepsze tygodnie",
+    "bestMonths": "Twoje najlepsze miesiące",
+    "weekOf": "Tydzień od {{date}}",
+    "unit": "pkt"
+  },
+  "friend": {
+    "rubric": "Karta znajomego",
+    "title": "Punkty w Teleo: {{name}}",
+    "today": "dziś",
+    "week": "w tym tygodniu",
+    "month": "w tym miesiącu",
+    "streak": "dni z rzędu",
+    "cardFrom": "Karta z {{date}}",
+    "add": "Dodaj do mojej tablicy",
+    "update": "Zaktualizuj na mojej tablicy",
+    "notNow": "Nie teraz",
+    "added": "{{name}} jest na Twojej tablicy.",
+    "older": "Masz już nowszą kartę: {{name}}.",
+    "self": "To Twoja własna karta.",
+    "invalid": "Ten link nie zawiera poprawnej karty.",
+    "privacy": "Nic nie jest nigdzie wysyłane: karta jest zapisana w linku i zostaje tylko na tym urządzeniu.",
+    "sendBack": "Odeślij swoją kartę"
+  },
+  "bible": {
+    "rubric": "Wyzwanie biblijne",
+    "title": "Całe Pismo, na głos",
+    "lead": "Każde zdanie wypowiedziane na głos i sprawdzone – w czytaniach po około minucie, które zawsze kończą się na pełnym zdaniu.",
+    "yearHint": "Około {{days}} dni po 15 minut dziennie – złoty kwadrans.",
+    "translation": "Przekład",
+    "kjv": "King James · English",
+    "pbg": "Gdańska · polski",
+    "progress": "{{done}} z {{total}} czytań",
+    "percent": "{{percent}} przeczytane na głos",
+    "left_one": "Jeszcze około {{count}} dzień po 15 min",
+    "left_few": "Jeszcze około {{count}} dni po 15 min",
+    "left_many": "Jeszcze około {{count}} dni po 15 min",
+    "left_other": "Jeszcze około {{count}} dnia po 15 min",
+    "readNext": "Czytaj dalej",
+    "nextHint": "{{title}} · około {{minutes}} min",
+    "allDone": "Wszystkie czytania za Tobą – całe Pismo, na głos.",
+    "ot": "Stary Testament",
+    "nt": "Nowy Testament",
+    "bookProgress": "{{done}}/{{total}}",
+    "bookDone": "Przeczytana do końca",
+    "readings": "Czytania",
+    "readingDone": "Przeczytane",
+    "readingNext": "Następne",
+    "minutes": "około {{minutes}} min",
+    "loadError": "Nie udało się wczytać tekstu. Połącz się raz z internetem, by pobrać tę księgę; potem działa bez sieci.",
+    "sourceNote": "{{name}} · domena publiczna",
+    "todayBody": "{{percent}} Biblii przeczytane na głos",
+    "todayStart": "Przeczytaj całą Biblię na głos – po minucie.",
+    "open": "Wyzwanie biblijne",
+    "libraryTitle": "Biblia",
+    "libraryBody": "Przeczytaj ją całą na głos, po minucie.",
+    "reference": "{{book}} {{range}}",
+    "books": {
+      "GEN": "Księga Rodzaju",
+      "EXO": "Księga Wyjścia",
+      "LEV": "Księga Kapłańska",
+      "NUM": "Księga Liczb",
+      "DEU": "Księga Powtórzonego Prawa",
+      "JOS": "Księga Jozuego",
+      "JDG": "Księga Sędziów",
+      "RUT": "Księga Rut",
+      "1SA": "1 Księga Samuela",
+      "2SA": "2 Księga Samuela",
+      "1KI": "1 Księga Królewska",
+      "2KI": "2 Księga Królewska",
+      "1CH": "1 Księga Kronik",
+      "2CH": "2 Księga Kronik",
+      "EZR": "Księga Ezdrasza",
+      "NEH": "Księga Nehemiasza",
+      "EST": "Księga Estery",
+      "JOB": "Księga Hioba",
+      "PSA": "Księga Psalmów",
+      "PRO": "Księga Przysłów",
+      "ECC": "Księga Koheleta",
+      "SNG": "Pieśń nad Pieśniami",
+      "ISA": "Księga Izajasza",
+      "JER": "Księga Jeremiasza",
+      "LAM": "Lamentacje",
+      "EZK": "Księga Ezechiela",
+      "DAN": "Księga Daniela",
+      "HOS": "Księga Ozeasza",
+      "JOL": "Księga Joela",
+      "AMO": "Księga Amosa",
+      "OBA": "Księga Abdiasza",
+      "JON": "Księga Jonasza",
+      "MIC": "Księga Micheasza",
+      "NAM": "Księga Nahuma",
+      "HAB": "Księga Habakuka",
+      "ZEP": "Księga Sofoniasza",
+      "HAG": "Księga Aggeusza",
+      "ZEC": "Księga Zachariasza",
+      "MAL": "Księga Malachiasza",
+      "MAT": "Ewangelia według Mateusza",
+      "MRK": "Ewangelia według Marka",
+      "LUK": "Ewangelia według Łukasza",
+      "JHN": "Ewangelia według Jana",
+      "ACT": "Dzieje Apostolskie",
+      "ROM": "List do Rzymian",
+      "1CO": "1 List do Koryntian",
+      "2CO": "2 List do Koryntian",
+      "GAL": "List do Galatów",
+      "EPH": "List do Efezjan",
+      "PHP": "List do Filipian",
+      "COL": "List do Kolosan",
+      "1TH": "1 List do Tesaloniczan",
+      "2TH": "2 List do Tesaloniczan",
+      "1TI": "1 List do Tymoteusza",
+      "2TI": "2 List do Tymoteusza",
+      "TIT": "List do Tytusa",
+      "PHM": "List do Filemona",
+      "HEB": "List do Hebrajczyków",
+      "JAS": "List Jakuba",
+      "1PE": "1 List Piotra",
+      "2PE": "2 List Piotra",
+      "1JN": "1 List Jana",
+      "2JN": "2 List Jana",
+      "3JN": "3 List Jana",
+      "JUD": "List Judy",
+      "REV": "Apokalipsa"
+    }
   }
 }

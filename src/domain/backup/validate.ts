@@ -1,6 +1,8 @@
 import type {
   AchievementRow,
   Attempt,
+  BibleReadingRow,
+  FriendRow,
   DailyStats,
   Segment,
   SessionRun,
@@ -10,6 +12,7 @@ import type {
   TextStats,
   XpLedgerRow,
 } from '@/db/types'
+import { BIBLE_TRANSLATIONS } from '@/domain/bible/types'
 import { CHARACTER_IDS } from '@/domain/types'
 
 export const BACKUP_APP = 'teleo'
@@ -30,6 +33,10 @@ export const BACKUP_TABLES = [
 
 export type BackupTable = (typeof BACKUP_TABLES)[number]
 
+/** Tables added after the first backup format: optional on import (read as empty when missing). */
+export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends'] as const
+export type OptionalBackupTable = (typeof OPTIONAL_BACKUP_TABLES)[number]
+
 export interface BackupData {
   texts: TextItem[]
   segments: Segment[]
@@ -41,6 +48,8 @@ export interface BackupData {
   achievements: AchievementRow[]
   xpLedger: XpLedgerRow[]
   settings: SettingsRow[]
+  bibleReadings?: BibleReadingRow[]
+  friends?: FriendRow[]
 }
 
 export interface BackupFile {
@@ -173,6 +182,9 @@ const appSettings: Checker = objectFields([
   ['speechPrivacyAcknowledged', boolean_],
   // Added in v1.2; older backups omit it and get the default on import.
   ['character', optional(enumOf(...CHARACTER_IDS))],
+  ['sounds', optional(boolean_)],
+  ['displayName', optional(string_)],
+  ['bibleTranslation', optional(enumOf(...BIBLE_TRANSLATIONS))],
 ])
 
 const gameState: Checker = objectFields([
@@ -191,6 +203,7 @@ const metaState: Checker = objectFields([
   ['installedAt', finiteNumber],
   ['lastBackupAt', optional(finiteNumber)],
   ['backupReminderSnoozedAt', optional(finiteNumber)],
+  ['shareId', optional(string_)],
 ])
 
 // --- Table row checkers ------------------------------------------------------
@@ -201,13 +214,24 @@ const texts: Checker = objectFields([
   ['body', string_],
   ['type', enumOf('affirmation', 'prayer', 'text')],
   ['lang', enumOf('pl', 'en')],
-  ['source', enumOf('builtin', 'user')],
+  ['source', enumOf('builtin', 'user', 'bible')],
   ['archived', boolean_],
   ['splitMode', enumOf('sentence', 'line')],
   ['createdAt', finiteNumber],
   ['updatedAt', finiteNumber],
   ['tags', stringArray],
   ['builtinKey', optional(string_)],
+  [
+    'bible',
+    optional(
+      objectFields([
+        ['translation', enumOf(...BIBLE_TRANSLATIONS)],
+        ['book', string_],
+        ['index', nonNegativeInt],
+        ['ofBook', nonNegativeInt],
+      ]),
+    ),
+  ],
 ])
 
 const segments: Checker = objectFields([
@@ -289,6 +313,7 @@ const dailyStats: Checker = objectFields([
   ['morning', boolean_],
   ['evening', boolean_],
   ['firstTryAccepted', finiteNumber],
+  ['readingMs', optional(finiteNumber)],
   ['firstActivityAt', optional(finiteNumber)],
   ['lastActivityAt', optional(finiteNumber)],
 ])
@@ -334,6 +359,34 @@ const settings: Checker = (v) => {
   return withPrefix('value', valueChecker(v.value))
 }
 
+const bibleReadings: Checker = objectFields([
+  ['readingId', string_],
+  ['translation', enumOf(...BIBLE_TRANSLATIONS)],
+  ['book', string_],
+  ['index', nonNegativeInt],
+  ['ofBook', nonNegativeInt],
+  ['completedAt', finiteNumber],
+  ['dayKey', dayKey],
+  ['skipped', nonNegativeInt],
+])
+
+const periodPoints = (key: Checker): Checker => objectFields([['k', key], ['p', finiteNumber]])
+
+const friends: Checker = objectFields([
+  ['v', finiteNumber],
+  ['id', string_],
+  ['name', string_],
+  ['character', enumOf(...CHARACTER_IDS)],
+  ['at', finiteNumber],
+  ['streak', nonNegativeInt],
+  ['day', periodPoints(dayKey)],
+  ['week', periodPoints(dayKey)],
+  ['month', periodPoints(string_)],
+  ['receivedAt', finiteNumber],
+])
+
+const OPTIONAL_ROW_CHECKERS: Record<OptionalBackupTable, Checker> = { bibleReadings, friends }
+
 const ROW_CHECKERS: Record<BackupTable, Checker> = {
   texts,
   segments,
@@ -374,7 +427,19 @@ export function validateBackup(value: unknown): BackupValidation {
     }
   }
 
-  return { ok: true, backup: value as unknown as BackupFile }
+  const normalized: Record<string, unknown> = { ...data }
+  for (const table of OPTIONAL_BACKUP_TABLES) {
+    const rows = data[table]
+    if (rows === undefined) {
+      normalized[table] = []
+      continue
+    }
+    if (!Array.isArray(rows)) return { ok: false, code: 'invalidShape', path: `data.${table}` }
+    const sub = arrayOf(OPTIONAL_ROW_CHECKERS[table])(rows)
+    if (sub !== undefined) return { ok: false, code: 'invalidShape', path: `data.${table}${sub}` }
+  }
+
+  return { ok: true, backup: { ...(value as unknown as BackupFile), data: normalized as unknown as BackupData } }
 }
 
 export function parseBackup(json: string): BackupValidation {

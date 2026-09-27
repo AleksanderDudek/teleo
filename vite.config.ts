@@ -159,6 +159,13 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: { cacheName: ORT_CACHE, cacheableResponse: { statuses: [200] } },
           },
+          {
+            // Bible texts (≈ 9 MB in all) are fetched book by book when read and kept for offline use;
+            // never precached. Stale-while-revalidate picks up a regenerated file on a later visit.
+            urlPattern: new RegExp(`${BASE}bible/`.replaceAll('/', '\\/')),
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'teleo-bible', cacheableResponse: { statuses: [200] } },
+          },
         ],
       },
     }),

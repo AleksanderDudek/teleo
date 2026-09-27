@@ -1,5 +1,5 @@
 import { db } from '@/db/schema'
-import type { Segment, SessionRun, SessionTemplate } from '@/db/types'
+import { isListedText, type Segment, type SessionRun, type SessionTemplate } from '@/db/types'
 import {
   countTemplateSegments,
   expandTemplate,
@@ -114,7 +114,7 @@ async function dailyItems(now: number): Promise<TemplateItem[]> {
   const candidates = []
   // Both languages can be visible at once (DECISIONS #64); the auto-generated daily
   // session stays in the interface language so a run never mixes recognisers.
-  for (const text of texts.filter((t) => !t.archived && t.lang === app.uiLang)) {
+  for (const text of texts.filter((t) => !t.archived && isListedText(t) && t.lang === app.uiLang)) {
     candidates.push({
       id: text.id,
       segmentCount: (await getActiveSegments(text.id)).length,

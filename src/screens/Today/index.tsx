@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { Avatar } from '@/components/brand/Avatar'
 import { GuideBubble } from '@/components/brand/GuideBubble'
+import { GoldenQuarterHour } from '@/components/GoldenQuarterHour'
 import { LevelBar } from '@/components/LevelBar'
+import { ShareDayButton } from '@/components/share/ShareDayButton'
+import { sharedMinutes } from '@/components/share/shareText'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -16,6 +19,8 @@ import { resumeRun, SessionError, startRun } from '@/services/sessions'
 import { updateGameState, updateMeta } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
+import { BibleCard } from '@/screens/Bible/BibleCard'
+import { useBibleShare } from '@/screens/Bible/useBible'
 
 const BACKUP_EVERY_MS = 30 * 86_400_000
 
@@ -32,6 +37,7 @@ export default function Today() {
   const game = useSettingsStore((s) => s.game)
   const meta = useSettingsStore((s) => s.meta)
   const data = useToday(app.dayStartHour)
+  const bibleShare = useBibleShare()
   const [now] = useState(() => Date.now())
   const [starting, setStarting] = useState(false)
 
@@ -135,6 +141,8 @@ export default function Today() {
         <p className="relative mt-4 text-sm font-medium text-ink-soft">
           {t('today.goal')}: {left === 0 ? t('today.goalDone') : t('today.goalLeft', { count: left })}
         </p>
+        <div aria-hidden className="gilt-rule relative my-4" />
+        <GoldenQuarterHour readingMs={data.todayStats?.readingMs ?? 0} className="relative" />
       </section>
 
       <div className="mt-6 animate-rise [animation-delay:80ms]">
@@ -158,6 +166,25 @@ export default function Today() {
       <Card className="mt-6 animate-rise [animation-delay:140ms]">
         <LevelBar totalXp={game.totalXp} />
       </Card>
+
+      {done > 0 && (
+        <ShareDayButton
+          className="mt-4"
+          character={app.character}
+          day={{
+            dayKey: data.today,
+            minutes: sharedMinutes(data.todayStats?.readingMs ?? 0),
+            sentences: done,
+            streak: data.streak.current,
+            points: data.todayStats?.xp ?? 0,
+            bibleShare,
+          }}
+        />
+      )}
+
+      {(bibleShare !== undefined || app.contentFocus === 'prayers' || app.contentFocus === 'both') && (
+        <BibleCard className="mt-6" />
+      )}
 
       {showBackup && (
         <Card className="mt-6 border-gold/50">

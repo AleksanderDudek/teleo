@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import type { AchievementRow, DailyStats, TextItem, TextStats } from '@/db/types'
+import { isListedText, type AchievementRow, type DailyStats, type TextItem, type TextStats } from '@/db/types'
 import { dayKeyFor } from '@/domain/time/dayKey'
 
 export interface ProgressData {
@@ -28,7 +28,7 @@ export function useProgress(dayStartHour: number): ProgressData | undefined {
       today: dayKeyFor(Date.now(), dayStartHour),
       daily,
       textStats,
-      texts: new Map(texts.map((t) => [t.id, t])),
+      texts: new Map(texts.filter(isListedText).map((t) => [t.id, t])),
       achievements: new Map(achievements.map((a) => [a.key, a])),
       segmentCounts,
       ownTexts: texts.filter((t) => t.source === 'user').length,

@@ -255,7 +255,14 @@
     "pausedLive": "Listening paused",
     "listen": "Listen to the sentence",
     "listening": "Reading aloud…",
-    "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue."
+    "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue.",
+    "praiseGreat": "Great!",
+    "praiseBeautiful": "Beautiful!",
+    "praiseWellSaid": "Well said!",
+    "praiseYes": "Yes!",
+    "praiseLovely": "Lovely!",
+    "combo_one": "{{count}} in a row",
+    "combo_other": "{{count}} in a row"
   },
   "summary": {
     "title": "Well done",
@@ -271,7 +278,9 @@
     "again": "Once more",
     "home": "Back to Today",
     "skipped_one": "{{count}} sentence skipped",
-    "skipped_other": "{{count}} sentences skipped"
+    "skipped_other": "{{count}} sentences skipped",
+    "nextReading": "Next reading",
+    "biblePercent": "{{percent}} of the Bible read aloud"
   },
   "progress": {
     "rubric": "Progress",
@@ -316,7 +325,9 @@
       "time": "Time of day",
       "other": "More",
       "level": "Levels",
-      "text": "Texts"
+      "text": "Texts",
+      "golden": "Golden quarter-hour",
+      "bible": "Bible"
     },
     "textsHeading": "Texts",
     "colText": "Text",
@@ -433,7 +444,12 @@
     "whisperConfirm": "Download",
     "sectionCharacter": "Your character",
     "characterHint": "Choose the figure that stands for you in Teleo.",
-    "character": "Character"
+    "character": "Character",
+    "sounds": "Sound effects",
+    "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal.",
+    "sectionSupport": "Support Teleo",
+    "displayName": "Name on shared cards",
+    "displayNameHint": "Friends see it on their leaderboard. Empty = your character's name."
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -794,6 +810,80 @@
         "name": "Level 20",
         "desc": "Reached level 20 — Teleo"
       }
+    },
+    "golden": {
+      "days": {
+        "1": {
+          "name": "Golden Quarter-Hour",
+          "desc": "15 minutes of reading aloud in one day"
+        },
+        "7": {
+          "name": "Seven Golden Days",
+          "desc": "The golden quarter-hour on 7 days"
+        },
+        "30": {
+          "name": "Golden Month",
+          "desc": "The golden quarter-hour on 30 days"
+        },
+        "100": {
+          "name": "Hundred Golden Days",
+          "desc": "The golden quarter-hour on 100 days"
+        },
+        "365": {
+          "name": "A Golden Year",
+          "desc": "The golden quarter-hour on 365 days"
+        }
+      }
+    },
+    "bible": {
+      "readings": {
+        "1": {
+          "name": "Take Up and Read",
+          "desc": "Your first Bible reading said aloud"
+        },
+        "7": {
+          "name": "Seven Readings",
+          "desc": "7 Bible readings said aloud"
+        },
+        "30": {
+          "name": "A Month in the Word",
+          "desc": "30 Bible readings said aloud"
+        },
+        "100": {
+          "name": "Hundred Readings",
+          "desc": "100 Bible readings said aloud"
+        },
+        "365": {
+          "name": "A Year of Scripture",
+          "desc": "365 Bible readings said aloud"
+        },
+        "1000": {
+          "name": "Thousand Readings",
+          "desc": "1000 Bible readings said aloud"
+        }
+      },
+      "books": {
+        "1": {
+          "name": "First Book",
+          "desc": "A whole book of the Bible read aloud"
+        },
+        "10": {
+          "name": "Ten Books",
+          "desc": "10 books of the Bible read aloud"
+        }
+      },
+      "nt": {
+        "name": "The New Testament",
+        "desc": "All 27 books of the New Testament read aloud"
+      },
+      "ot": {
+        "name": "The Old Testament",
+        "desc": "All 39 books of the Old Testament read aloud"
+      },
+      "whole": {
+        "name": "The Whole Bible",
+        "desc": "Every book of the Bible read aloud"
+      }
     }
   },
   "tiers": {
@@ -876,5 +966,212 @@
     "michal": "Michał",
     "david": "David",
     "piotr": "Piotr"
+  },
+  "golden": {
+    "title": "Golden quarter-hour",
+    "before": "{{minutes}} of 5 min — from minute 5, every sentence counts double.",
+    "inside": "×2 points now — {{left}} min of the golden quarter-hour left.",
+    "done": "Golden quarter-hour complete — {{minutes}} min read today.",
+    "label": "Read aloud today: {{minutes}} of 15 minutes",
+    "badge": "×2",
+    "badgeTitle": "Golden quarter-hour: every sentence counts double",
+    "hint": "5–15 minutes a day earn double points — the golden quarter-hour.",
+    "tickStart": "0",
+    "tickGolden": "5",
+    "tickEnd": "15 min"
+  },
+  "support": {
+    "rubric": "A word for today",
+    "line": "Teleo is free, with no ads and no tracking. If it helps you, you can buy its author a coffee.",
+    "button": "Buy a coffee",
+    "buttonLabel": "Buy the author a coffee — opens buycoffee.to in a new tab",
+    "note": "buycoffee.to · opens in a new tab",
+    "compact": "Teleo is free and stays that way. A coffee for the author says thank you.",
+    "tip1": "Say each sentence at your own pace. I wait for you — never the other way round.",
+    "tip2": "Five to fifteen minutes a day is the golden quarter-hour: enough to grow, short enough to keep.",
+    "tip3": "Stuck on a name? Say it once more, slowly. After three tries you may skip it — that is all right.",
+    "tip4": "Learning a new text? Turn on “Listen first” and hear each sentence before you say it.",
+    "tip5": "Same time, same place: a habit grows best in the same soil.",
+    "tip6": "Memory mode hides the words a little at a time — a gentle way to learn by heart.",
+    "tip7": "A streak freeze covers a missed day. Rest does not undo the way you have walked.",
+    "tip8": "Morning or evening — find the quiet part of your day and keep it for this.",
+    "tip9": "Long sentences are split for you. Take a breath at each comma.",
+    "tip10": "Words said aloud stay with you longer than words only read."
+  },
+  "share": {
+    "button": "Share today",
+    "preparing": "Preparing…",
+    "preview": "What will be shared",
+    "copied": "Copied — paste it wherever you like.",
+    "unsupported": "This browser can't share by itself — pick a service or download the picture.",
+    "download": "Download picture",
+    "x": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "t1_one": "Today I read aloud for {{minutes}} min — {{count}} sentence, checked word by word. {{points}} pts.",
+    "t1_other": "Today I read aloud for {{minutes}} min — {{count}} sentences, each checked word by word. {{points}} pts.",
+    "t2_one": "Day {{streak}} of my streak: {{count}} sentence said aloud, {{minutes}} min in all.",
+    "t2_other": "Day {{streak}} of my streak: {{count}} sentences said aloud, {{minutes}} min in all.",
+    "t3_one": "{{count}} sentence said aloud today and {{points}} points. Day {{streak}} in a row.",
+    "t3_other": "{{count}} sentences said aloud today and {{points}} points. Day {{streak}} in a row.",
+    "bible": "The Bible read aloud so far: {{percent}}.",
+    "cta": "Speak it. Complete it.",
+    "cardTitle": "My day with Teleo",
+    "cardMinutes": "min read aloud",
+    "cardSentences": "sentences",
+    "cardStreak": "days in a row",
+    "cardPoints": "points",
+    "cardBible": "of the Bible read aloud",
+    "fileName": "teleo-today.png"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "period": "Period",
+    "periodDay": "Day",
+    "periodWeek": "Week",
+    "periodMonth": "Month",
+    "currentDay": "Today",
+    "currentWeek": "This week",
+    "currentMonth": "This month",
+    "points": "{{points}} pts",
+    "best": "Your best: {{points}} pts",
+    "rankDay_one": "Place {{rank}} among your {{count}} day",
+    "rankDay_other": "Place {{rank}} among your {{count}} days",
+    "rankWeek_one": "Place {{rank}} among your {{count}} week",
+    "rankWeek_other": "Place {{rank}} among your {{count}} weeks",
+    "rankMonth_one": "Place {{rank}} among your {{count}} month",
+    "rankMonth_other": "Place {{rank}} among your {{count}} months",
+    "friendsHeading": "You and your friends",
+    "you": "you",
+    "stale": "no card for this period yet",
+    "noFriends": "No friends here yet — challenge one and their card will appear when they send it back.",
+    "challenge": "Challenge a friend",
+    "challengeHint": "Your card travels in a link: no accounts, no server. When a friend sends theirs back, they join this board.",
+    "challengeText": "My Teleo points — today {{day}}, this week {{week}}, this month {{month}}. Add me to your leaderboard and send me yours:",
+    "copied": "Link copied — send it to a friend.",
+    "remove": "Remove {{name}}",
+    "bestDays": "Your best days",
+    "bestWeeks": "Your best weeks",
+    "bestMonths": "Your best months",
+    "weekOf": "Week of {{date}}",
+    "unit": "pts"
+  },
+  "friend": {
+    "rubric": "A friend's card",
+    "title": "Teleo points of {{name}}",
+    "today": "today",
+    "week": "this week",
+    "month": "this month",
+    "streak": "days in a row",
+    "cardFrom": "Card from {{date}}",
+    "add": "Add to my leaderboard",
+    "update": "Update on my leaderboard",
+    "notNow": "Not now",
+    "added": "{{name}} is on your leaderboard.",
+    "older": "You already have a newer card from {{name}}.",
+    "self": "This is your own card.",
+    "invalid": "This link doesn't hold a valid card.",
+    "privacy": "Nothing is sent anywhere: the card lives in the link and is kept only on this device.",
+    "sendBack": "Send your card back"
+  },
+  "bible": {
+    "rubric": "Bible challenge",
+    "title": "The whole Bible, aloud",
+    "lead": "Every sentence said aloud and checked, in readings of about one minute that always end on a finished sentence.",
+    "yearHint": "About {{days}} days at 15 minutes a day — the golden quarter-hour.",
+    "translation": "Translation",
+    "kjv": "King James · English",
+    "pbg": "Gdańska · Polski",
+    "progress": "{{done}} of {{total}} readings",
+    "percent": "{{percent}} read aloud",
+    "left_one": "About {{count}} day left at 15 min a day",
+    "left_other": "About {{count}} days left at 15 min a day",
+    "readNext": "Read next",
+    "nextHint": "{{title}} · about {{minutes}} min",
+    "allDone": "Every reading is done — the whole Bible, aloud.",
+    "ot": "Old Testament",
+    "nt": "New Testament",
+    "bookProgress": "{{done}}/{{total}}",
+    "bookDone": "Read to the end",
+    "readings": "Readings",
+    "readingDone": "Read",
+    "readingNext": "Next",
+    "minutes": "about {{minutes}} min",
+    "loadError": "The text could not be loaded. Connect to the internet once to download this book; afterwards it works offline.",
+    "sourceNote": "{{name}} · public domain",
+    "todayBody": "{{percent}} of the Bible read aloud",
+    "todayStart": "Read the whole Bible aloud — about a minute at a time.",
+    "open": "Bible challenge",
+    "libraryTitle": "The Bible",
+    "libraryBody": "Read it all aloud, a minute at a time.",
+    "reference": "{{book}} {{range}}",
+    "books": {
+      "GEN": "Genesis",
+      "EXO": "Exodus",
+      "LEV": "Leviticus",
+      "NUM": "Numbers",
+      "DEU": "Deuteronomy",
+      "JOS": "Joshua",
+      "JDG": "Judges",
+      "RUT": "Ruth",
+      "1SA": "1 Samuel",
+      "2SA": "2 Samuel",
+      "1KI": "1 Kings",
+      "2KI": "2 Kings",
+      "1CH": "1 Chronicles",
+      "2CH": "2 Chronicles",
+      "EZR": "Ezra",
+      "NEH": "Nehemiah",
+      "EST": "Esther",
+      "JOB": "Job",
+      "PSA": "Psalms",
+      "PRO": "Proverbs",
+      "ECC": "Ecclesiastes",
+      "SNG": "Song of Solomon",
+      "ISA": "Isaiah",
+      "JER": "Jeremiah",
+      "LAM": "Lamentations",
+      "EZK": "Ezekiel",
+      "DAN": "Daniel",
+      "HOS": "Hosea",
+      "JOL": "Joel",
+      "AMO": "Amos",
+      "OBA": "Obadiah",
+      "JON": "Jonah",
+      "MIC": "Micah",
+      "NAM": "Nahum",
+      "HAB": "Habakkuk",
+      "ZEP": "Zephaniah",
+      "HAG": "Haggai",
+      "ZEC": "Zechariah",
+      "MAL": "Malachi",
+      "MAT": "Matthew",
+      "MRK": "Mark",
+      "LUK": "Luke",
+      "JHN": "John",
+      "ACT": "Acts",
+      "ROM": "Romans",
+      "1CO": "1 Corinthians",
+      "2CO": "2 Corinthians",
+      "GAL": "Galatians",
+      "EPH": "Ephesians",
+      "PHP": "Philippians",
+      "COL": "Colossians",
+      "1TH": "1 Thessalonians",
+      "2TH": "2 Thessalonians",
+      "1TI": "1 Timothy",
+      "2TI": "2 Timothy",
+      "TIT": "Titus",
+      "PHM": "Philemon",
+      "HEB": "Hebrews",
+      "JAS": "James",
+      "1PE": "1 Peter",
+      "2PE": "2 Peter",
+      "1JN": "1 John",
+      "2JN": "2 John",
+      "3JN": "3 John",
+      "JUD": "Jude",
+      "REV": "Revelation"
+    }
   }
 }

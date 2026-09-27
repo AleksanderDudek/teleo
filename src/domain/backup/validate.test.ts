@@ -121,6 +121,21 @@ function realisticData(): BackupData {
     achievements: [{ key: 'k1', ruleId: 'r1', tier: 'bronze', xp: 10, unlockedAt: 1000 }],
     xpLedger: [{ timestamp: 1000, dayKey: '2026-09-25', reason: 'segment', amount: 5 }],
     settings: [{ key: 'meta', value: { schemaVersion: 1, seedVersion: 1, installedAt: 1000 } }],
+    bibleReadings: [{ readingId: 'kjv.GEN.0', translation: 'kjv', book: 'GEN', index: 0, ofBook: 60, completedAt: 1000, dayKey: '2026-09-25', skipped: 0 }],
+    friends: [
+      {
+        v: 1,
+        id: 'abc123',
+        name: 'Jan',
+        character: 'jan',
+        at: 900,
+        streak: 2,
+        day: { k: '2026-09-25', p: 40 },
+        week: { k: '2026-09-21', p: 120 },
+        month: { k: '2026-09', p: 400 },
+        receivedAt: 950,
+      },
+    ],
   }
 }
 
@@ -131,6 +146,42 @@ function cloneJson<T>(value: T): T {
 function backupWith(data: BackupData): unknown {
   return cloneJson({ app: BACKUP_APP, schemaVersion: BACKUP_SCHEMA_VERSION, exportedAt: 1000, data })
 }
+
+describe('validateBackup: tables added later (v1.3)', () => {
+  const reading = { readingId: 'kjv.GEN.1', translation: 'kjv', book: 'GEN', index: 0, ofBook: 64, completedAt: 1000, dayKey: '2026-09-27', skipped: 0 }
+  const friend = {
+    v: 1,
+    id: 'f7c1a2b3',
+    name: 'Michał',
+    character: 'michal',
+    at: 1000,
+    streak: 3,
+    day: { k: '2026-09-27', p: 10 },
+    week: { k: '2026-09-21', p: 50 },
+    month: { k: '2026-09', p: 90 },
+    receivedAt: 2000,
+  }
+
+  it('reads backups made before they existed as empty', () => {
+    const result = validateBackup(backupWith(emptyData()))
+    expect(result.ok && result.backup.data.bibleReadings).toEqual([])
+    expect(result.ok && result.backup.data.friends).toEqual([])
+  })
+
+  it('accepts valid Bible readings and friends', () => {
+    const result = validateBackup(backupWith({ ...emptyData(), bibleReadings: [reading], friends: [friend] } as BackupData))
+    expect(result.ok).toBe(true)
+  })
+
+  it('rejects malformed rows with a precise path', () => {
+    const badReading = validateBackup(backupWith({ ...emptyData(), bibleReadings: [{ ...reading, translation: 'nrsv' }] } as unknown as BackupData))
+    expect(badReading).toEqual({ ok: false, code: 'invalidShape', path: 'data.bibleReadings[0].translation' })
+    const badFriend = validateBackup(backupWith({ ...emptyData(), friends: [{ ...friend, week: { k: 3 } }] } as unknown as BackupData))
+    expect(badFriend).toMatchObject({ ok: false, path: 'data.friends[0].week.k' })
+    const notArray = validateBackup(backupWith({ ...emptyData(), friends: {} } as unknown as BackupData))
+    expect(notArray).toEqual({ ok: false, code: 'invalidShape', path: 'data.friends' })
+  })
+})
 
 describe('validateBackup: acceptance', () => {
   it('accepts a minimal backup with every table empty', () => {
@@ -191,6 +242,8 @@ describe('validateBackup: acceptance', () => {
           onboardingCompleted: true,
           speechPrivacyAcknowledged: true,
           character: 'michal',
+          sounds: true,
+          displayName: '',
         },
       },
     ]
@@ -422,6 +475,8 @@ describe('validateBackup: per-table field rejection', () => {
             onboardingCompleted: true,
             speechPrivacyAcknowledged: true,
             character: 'zeus' as never,
+            sounds: true,
+            displayName: '',
           },
         }
       },
@@ -450,6 +505,8 @@ describe('validateBackup: per-table field rejection', () => {
             onboardingCompleted: true,
             speechPrivacyAcknowledged: true,
             character: 'anna',
+            sounds: true,
+            displayName: '',
           },
         }
       },

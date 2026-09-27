@@ -264,3 +264,59 @@ Each entry: **decision** — why.
     hidden when the name is already written next to them.
 74. **`<Card>`'s default padding lives in the components layer** (`.card-pad`), so a padding utility passed by a screen
     wins. Before, `cn` joined `p-5` and e.g. `p-0` without merging and the CSS order silently kept `p-5`.
+
+## Bible challenge, golden quarter-hour, leaderboard, sharing (owner request, 2026-09-27)
+
+75. **Golden quarter-hour** (all content): sentences said while today's reading time is between 5 and 15 minutes earn
+    ×2 XP, stacked on the streak multiplier; before and after it XP is plain (no penalty, spec §9.1). It promotes a daily
+    5–15 minute habit without punishing short or long days. Achievements for days with ≥ 15 minutes (1/7/30/100/365).
+76. **Reading time is an estimate from accepted words** (EN 140, PL 110 words/min; `domain/reading/pace.ts`), stored as
+    `DailyStats.readingMs` (optional for old rows and backups). Recogniser durations differ between live and tap mode and
+    engines, and pauses would pad them; words said cannot be padded. The same pace sizes Bible readings.
+77. **Gratification per sentence**: a synthesized Web Audio chime (no audio files) that climbs a pentatonic scale with
+    first-try sentences in a row (pentatonic: consecutive notes never clash), a fuller chord for a finished text, goal or
+    level; gold sparks; the XP just earned; a combo pill from 3 in a row. "Sound effects" switch, on by default; audio is
+    unlocked by the microphone tap and never plays while the page is hidden. The chime is soft on purpose: in live mode the
+    microphone is open (echo cancellation and the recogniser ignore short tones in practice).
+78. **Heard words in live mode** get a gilded marker (gold-soft background, gold underline, joined across spaces) plus a
+    coverage bar; unheard words keep ≥ 3:1 contrast (large text). The marker and bar live outside the sentence's text
+    node so its text stays exactly the sentence (e2e fake speech reads it).
+79. **Sharing** follows gym-training-tracker: system share sheet with a 1080×1080 card drawn on canvas (square fits every
+    feed uncropped), else copy + X/Facebook/WhatsApp links + download, and a preview of the exact text first. Polish posts
+    use nominal phrasing or plurals keyed on the sentence count, so no gendered verbs are needed. The card uses the user's
+    figure (fixed pigments serialise cleanly into an image).
+80. **Support link** `https://buycoffee.to/uriel` (same as gym-training-tracker), with the same rules: never during a
+    session, never blocking, once per screen — the session summary (without a second Guardian) and Settings. The Guardian
+    offers a practice tip that changes daily first, so the block is worth reading on its own.
+81. **No global leaderboard.** There is no server (project principle), and religious practice is GDPR art. 9 special-
+    category data; a global board would need accounts and a processor. Instead: a **personal board** (current day/week/
+    month vs your own periods; weeks Monday–Sunday) and a **friends board built from links**: a challenge link carries a
+    small versioned card (name, figure, streak, current day/week/month points, a random per-install id); opening it adds or
+    updates that friend on this device only. Cards are strictly validated (size, keys, ranges); your own and older cards
+    are ignored; a friend's card from an earlier period counts as 0. `/friend` is reachable before onboarding.
+82. **Bible texts**: KJV Pure Cambridge Edition (EN) and Biblia Gdańska 1881 (PL), both public domain (spec §13), from
+    scrollmapper/bible_databases. Not the "KJV" module there (GPL because of its Strong's markup); the four verses empty in
+    the PCE file are filled with the same public-domain words from the 1769 KJV file. Modern Polish Catholic translations
+    are copyrighted, so Gdańska is the public-domain choice. All-caps chapter openings ("IN the beginning") are normalised;
+    divine names printed in capitals (LORD, GOD) are kept.
+83. **Readings of about one minute that always end on a finished sentence** (the "free edition" length; one constant, so a
+    longer paid length could be added without changing ids): the planner closes at the first sentence end after a minute
+    of words, at a chapter end once 60 % of a minute is read, at a `;`/`:` after 2.5 minutes, at any verse end after 4, and
+    folds a short book tail into the previous reading. It runs at build time (`npm run bible`) and the plan ships as data,
+    so reading ids (`<translation>.<BOOK>.<index>`) are stable. Result: ≈ 5,000 readings per translation, median ≈ 1.1 min
+    ≈ the whole Bible in about a year at 15 minutes a day.
+84. **Bible files are fetched on demand and runtime-cached** (stale-while-revalidate, `teleo-bible` cache), never
+    precached: ≈ 9 MB in all. A book read once works offline.
+85. **A reading is materialised as a hidden text** (`source: 'bible'`, sentences as segments, long ones split like spec
+    §7.2) when started, and played as an ordinary run, so the matcher, XP, streaks, goal and golden quarter-hour need no
+    special case. Hidden from the library, pickers and the session of the day (`isListedText`). Per-text achievements are
+    not evaluated for readings (they would add ~13 rules × 5,000 texts to the gallery).
+86. **A reading counts when every sentence was said or skipped** (skipping needs three failed tries; unusual names can
+    defeat a recogniser), stored once in `bibleReadings`; XP comes only from sentences said, and a run with a skip gets no
+    session bonus. Books count in whichever translation they were finished; testaments and the whole Bible follow from
+    books. The next reading continues after the last one finished, wrapping round to any left behind.
+87. **Where the challenge appears**: its own screen `/bible` (reached from Library and Today) instead of a sixth tab. The
+    Today card shows for users who chose prayers (or both) in onboarding, or who already started — worldview neutrality
+    (spec §1) for users who chose affirmations only.
+88. **Storage v2**: Dexie version 2 adds `bibleReadings` and `friends` (new tables only, no data migration). Backups list
+    them as optional tables: older backups still import (read as empty), and older app versions ignore the extra keys.

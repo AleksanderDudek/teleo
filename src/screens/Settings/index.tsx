@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
+import { SupportCard } from '@/components/support/SupportCard'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -13,6 +14,7 @@ import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
 import { parseBackup } from '@/domain/backup'
 import { buildDailyReminderIcs } from '@/domain/reminders/ics'
+import { dayKeyFor } from '@/domain/time/dayKey'
 import type { ContentFocus, GrammaticalForm, Lang, Strictness } from '@/domain/types'
 import { downloadText } from '@/lib/download'
 import { newId } from '@/lib/id'
@@ -34,6 +36,36 @@ function Section({ id, title, children }: { id: string; title: string; children:
   )
 }
 
+/** Name on shared cards; saved when the field is left (not on every keystroke). */
+function DisplayName({ value, placeholder, onSave }: { value: string; placeholder: string; onSave: (name: string) => void }) {
+  const { t } = useTranslation()
+  const [draft, setDraft] = useState(value)
+  const id = useId()
+  const save = () => {
+    const name = draft.trim().slice(0, 40)
+    if (name !== value) onSave(name)
+  }
+  return (
+    <div>
+      <label htmlFor={id} className="font-medium text-ink">
+        {t('settings.displayName')}
+      </label>
+      <input
+        id={id}
+        value={draft}
+        maxLength={40}
+        placeholder={placeholder}
+        autoComplete="off"
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={save}
+        onKeyDown={(e) => e.key === 'Enter' && save()}
+        className="mt-2 h-11 w-full rounded-2xl border border-line bg-surface px-4 text-ink placeholder:text-ink-faint focus:border-line-strong focus:outline-none"
+      />
+      <p className="mt-1.5 text-sm text-ink-soft">{t('settings.displayNameHint')}</p>
+    </div>
+  )
+}
+
 const Hint = ({ children }: { children: ReactNode }) => <p className="-mt-3 text-sm text-ink-soft">{children}</p>
 
 export default function Settings() {
@@ -47,6 +79,7 @@ export default function Settings() {
   const [deleting, setDeleting] = useState(false)
   const [deleteWord, setDeleteWord] = useState('')
   const [persisted, setPersisted] = useState<boolean | null>(null)
+  const [now] = useState(() => Date.now())
   const date = (ms: number) => new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(ms)
 
   useEffect(() => {
@@ -92,6 +125,7 @@ export default function Settings() {
         <Section id="character" title={t('settings.sectionCharacter')}>
           <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
           <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
+          <DisplayName value={app.displayName} placeholder={t(`characters.${app.character}`)} onSave={(displayName) => set({ displayName })} />
         </Section>
 
         <Section id="appearance" title={t('settings.sectionAppearance')}>
@@ -193,6 +227,7 @@ export default function Settings() {
             <p className="mt-1.5 text-sm text-ink-soft">{t('settings.dayStartHint')}</p>
           </div>
           <Switch checked={app.listenFirst} onChange={(listenFirst) => set({ listenFirst })} label={t('settings.listenFirst')} description={t('settings.listenFirstHint')} />
+          <Switch checked={app.sounds} onChange={(sounds) => set({ sounds })} label={t('settings.sounds')} description={t('settings.soundsHint')} />
         </Section>
 
         <Section id="content" title={t('settings.sectionContent')}>
@@ -296,6 +331,13 @@ export default function Settings() {
             {t('settings.deleteAll')}
           </Button>
         </Section>
+
+        <section id="support" aria-labelledby="support-title" className="scroll-mt-6">
+          <h2 id="support-title" className="mb-3 text-2xl font-semibold">
+            {t('settings.sectionSupport')}
+          </h2>
+          <SupportCard dayKey={dayKeyFor(now, app.dayStartHour)} />
+        </section>
 
         <Section id="about" title={t('settings.sectionAbout')}>
           <p className="text-sm text-ink-soft">{t('settings.about', { version: __APP_VERSION__ })}</p>

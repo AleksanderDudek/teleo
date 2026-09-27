@@ -13,6 +13,7 @@ import { successMetrics, weeklyFirstTry } from '@/domain/stats'
 import { levelName } from '@/i18n/dynamic'
 import { useSettingsStore } from '@/stores/settings'
 import { AchievementGallery } from './AchievementGallery'
+import { Leaderboard } from './Leaderboard'
 import { useProgress } from './useProgress'
 
 export default function Progress() {
@@ -51,6 +52,8 @@ export default function Progress() {
           </p>
         </div>
       </ArchFrame>
+
+      <Leaderboard />
 
       <section className="mt-8" aria-labelledby="metrics-heading">
         <h2 id="metrics-heading" className="mb-3 text-2xl font-semibold">

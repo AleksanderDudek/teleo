@@ -1,3 +1,5 @@
+import type { BibleTranslation } from '@/domain/bible/types'
+import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
 import type {
@@ -21,7 +23,8 @@ export interface TextItem {
   type: TextType
   lang: Lang
   body: string
-  source: 'builtin' | 'user'
+  /** `bible`: a Bible-challenge reading, materialised when started; hidden from the library and pickers. */
+  source: 'builtin' | 'user' | 'bible'
   tags: string[]
   /** Hidden from the library and pickers (builtin texts can only be hidden, never deleted). */
   archived: boolean
@@ -30,6 +33,13 @@ export interface TextItem {
   updatedAt: number
   /** Stable identifier of builtin content, used for idempotent seeding. */
   builtinKey?: string
+  /** Where a Bible reading comes from. */
+  bible?: { translation: BibleTranslation; book: string; index: number; ofBook: number }
+}
+
+/** Texts the library, pickers and the session of the day offer (Bible readings have their own screen). */
+export function isListedText(text: Pick<TextItem, 'source'>): boolean {
+  return text.source !== 'bible'
 }
 
 export interface Segment {
@@ -119,6 +129,8 @@ export interface DailyStats {
   /** Had an accepted segment at/after 21:00 (or after midnight, before the day start). */
   evening: boolean
   firstTryAccepted: number
+  /** Estimated time spent reading aloud (accepted sentences); missing on rows from before v1.3. */
+  readingMs?: number
 }
 
 export interface TextStats {
@@ -146,6 +158,28 @@ export interface AchievementRow {
   tier: Tier
   xp: number
   unlockedAt: number
+}
+
+/** A Bible reading said to the end (every sentence accepted, or skipped after three tries). */
+export interface BibleReadingRow {
+  /** `<translation>.<BOOK>.<index>` */
+  readingId: string
+  translation: BibleTranslation
+  /** Book code, e.g. `GEN`. */
+  book: string
+  /** 0-based reading within the book. */
+  index: number
+  /** Readings in the whole book (lets book completion be counted without the book file). */
+  ofBook: number
+  completedAt: number
+  dayKey: DayKey
+  /** Sentences skipped after three failed tries. */
+  skipped: number
+}
+
+/** The latest card received from a friend (friends' leaderboard, no server). */
+export interface FriendRow extends FriendCard {
+  receivedAt: number
 }
 
 export type XpReason = 'segment' | 'textComplete' | 'sessionComplete' | 'dailyGoal' | 'achievement'
@@ -185,6 +219,12 @@ export interface AppSettings {
   speechPrivacyAcknowledged: boolean
   /** The figure shown as the user's avatar. */
   character: CharacterId
+  /** Chime for every accepted sentence. */
+  sounds: boolean
+  /** Name on shared cards and friends' leaderboards; empty = the character's name. */
+  displayName: string
+  /** Bible challenge translation; unset = the one in the interface language. */
+  bibleTranslation?: BibleTranslation
 }
 
 export interface GameState {
@@ -206,6 +246,8 @@ export interface MetaState {
   installedAt: number
   lastBackupAt?: number
   backupReminderSnoozedAt?: number
+  /** Random id of this install on friend cards, so a friend's board updates instead of duplicating. */
+  shareId?: string
 }
 
 export type SettingsRow =

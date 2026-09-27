@@ -34,8 +34,12 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Texts & sessions:** builtin public-domain prayers (PL/EN, incl. the Rosary decade and Psalm 23)
   and original affirmations, your own texts with automatic sentence/line splitting and manual
   split/merge, sessions of up to 150 sentences with repetitions and drag-and-drop ordering.
-- **Calm gamification:** XP, 20 plant-themed levels (then “circles”), 49 achievements (every text gets
+- **Calm gamification:** XP, 20 plant-themed levels (then “circles”), 65 achievements (every text gets
   its own automatically), streaks with freezes, daily goal, comeback and “steady rhythm” rewards.
+- **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska) in readings of about a minute that always
+  end on a finished sentence — about a year at 15 minutes a day; progress by book, Bible achievements, offline.
+- **Golden quarter-hour & leaderboard:** 5–15 minutes a day earn double points; points by day/week/month against
+  your own best and against friends who send their card by link (no accounts, no server). Share your day as a card.
 - **Memory mode & listen first:** say a text from memory (first letters → every other word → hidden;
   words appear as you say them) and optionally hear each sentence read aloud before you say it.
 - **Progress:** heatmap, weekly first-try success, per-text statistics, achievement gallery.
@@ -95,4 +99,7 @@ public/         icons, privacy policy · e2e/ Playwright tests
 but it may not be used, copied, modified or redistributed without prior written agreement. Builtin texts are traditional public-domain prayers (Polish liturgical wording, English
 traditional wording, Psalm 23 KJV) and original affirmations written for this project. Fonts:
 Alegreya, Alegreya SC and Instrument Sans (SIL Open Font License). Icons: Phosphor Icons (MIT) and
-custom Teleo Glyphs; the illustrated figures are drawn in code for this project.
+custom Teleo Glyphs; the illustrated figures are drawn in code for this project. Bible texts: King James Version (Pure
+Cambridge Edition) and Biblia Gdańska (1881), public domain, via scrollmapper/bible_databases.
+
+Teleo is free, with no ads and no tracking. If it helps you: [buy the author a coffee](https://buycoffee.to/uriel).

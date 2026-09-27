@@ -18,6 +18,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   onboardingCompleted: false,
   speechPrivacyAcknowledged: false,
   character: 'anna',
+  sounds: true,
+  displayName: '',
 }
 
 export const DEFAULT_GAME: GameState = {
