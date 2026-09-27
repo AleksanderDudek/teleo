@@ -193,6 +193,7 @@ export default function Settings() {
             <p className="mt-1.5 text-sm text-ink-soft">{t('settings.dayStartHint')}</p>
           </div>
           <Switch checked={app.listenFirst} onChange={(listenFirst) => set({ listenFirst })} label={t('settings.listenFirst')} description={t('settings.listenFirstHint')} />
+          <Switch checked={app.sounds} onChange={(sounds) => set({ sounds })} label={t('settings.sounds')} description={t('settings.soundsHint')} />
         </Section>
 
         <Section id="content" title={t('settings.sectionContent')}>

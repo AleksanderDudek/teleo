@@ -187,6 +187,8 @@ export interface AppSettings {
   speechPrivacyAcknowledged: boolean
   /** The figure shown as the user's avatar. */
   character: CharacterId
+  /** Chime for every accepted sentence. */
+  sounds: boolean
 }
 
 export interface GameState {

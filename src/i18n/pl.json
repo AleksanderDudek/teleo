@@ -263,7 +263,16 @@
     "pausedLive": "Słuchanie wstrzymane",
     "listen": "Posłuchaj zdania",
     "listening": "Czytam na głos…",
-    "segmentMissing": "Tego zdania już nie ma (jego tekst zmieniono lub usunięto). Pomiń je, aby kontynuować."
+    "segmentMissing": "Tego zdania już nie ma (jego tekst zmieniono lub usunięto). Pomiń je, aby kontynuować.",
+    "praiseGreat": "Świetnie!",
+    "praiseBeautiful": "Pięknie!",
+    "praiseWellSaid": "Dobrze powiedziane!",
+    "praiseYes": "Tak!",
+    "praiseLovely": "Wspaniale!",
+    "combo_one": "{{count}} z rzędu",
+    "combo_few": "{{count}} z rzędu",
+    "combo_many": "{{count}} z rzędu",
+    "combo_other": "{{count}} z rzędu"
   },
   "summary": {
     "title": "Pięknie",
@@ -445,7 +454,9 @@
     "whisperConfirm": "Pobierz",
     "sectionCharacter": "Twoja postać",
     "characterHint": "Wybierz postać, która reprezentuje Cię w Teleo.",
-    "character": "Postać"
+    "character": "Postać",
+    "sounds": "Efekty dźwiękowe",
+    "soundsHint": "Delikatny złoty dzwonek po każdym wypowiedzianym zdaniu; pełniejszy po ukończeniu tekstu lub celu."
   },
   "micTest": {
     "rubric": "Test mikrofonu",

@@ -16,6 +16,7 @@ import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
 import { goldenMultiplier } from '@/domain/gamification'
 import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
+import { firstTryCombo } from '@/domain/session'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
 import { useOnline } from '@/hooks/useOnline'
@@ -24,6 +25,7 @@ import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
 import { useWakeLock } from '@/hooks/useWakeLock'
 import { cn } from '@/lib/cn'
+import { playChime, unlockAudio } from '@/lib/sound'
 import { speak, stopSpeaking, ttsSupported } from '@/lib/tts'
 import { finishRun, markHinted, pauseRun, PracticeError, recordAttempt, skipEntry } from '@/services/practice'
 import { updateAppSettings } from '@/services/settings'
@@ -83,6 +85,7 @@ function Player({ data }: { data: PlayerData }) {
 
   const [feedback, setFeedback] = useState<Feedback | null>(null)
   const [praiseKey, setPraiseKey] = useState(0)
+  const [gain, setGain] = useState<{ xp: number; golden: boolean; combo: number } | undefined>(undefined)
   const [unlockLines, setUnlockLines] = useState<string[]>([])
   const [askPrivacy, setAskPrivacy] = useState(false)
   const [leaving, setLeaving] = useState(false)
@@ -117,6 +120,9 @@ function Player({ data }: { data: PlayerData }) {
     if (result.accepted) {
       navigator.vibrate?.(35)
       setFeedback(null)
+      const combo = firstTryCombo(outcome.run.entries, entryIndex)
+      setGain({ xp: outcome.xpGained, golden: outcome.golden > 1, combo })
+      if (app.sounds) playChime(outcome.goalReached || outcome.levelUp ? 'goal' : outcome.textCompleted ? 'text' : 'sentence', Math.max(0, combo - 1))
       setPraiseKey((k) => k + 1)
       return outcome.run.cursor >= total
     }
@@ -208,6 +214,7 @@ function Player({ data }: { data: PlayerData }) {
 
   const toggleMic = () => {
     if (busy || finished || speaking) return
+    unlockAudio()
     const idle = live ? liveSession.phase === 'idle' : capture.phase === 'idle'
     if (idle && !app.speechPrivacyAcknowledged) return setAskPrivacy(true)
     if (live) {
@@ -370,6 +377,7 @@ function Player({ data }: { data: PlayerData }) {
             repetition={repetition}
             memoryLevel={memoryLevel}
             reveal={hint}
+            gain={gain}
           />
         )}
 

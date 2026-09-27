@@ -21,6 +21,8 @@
   --animate-breathe: breathe 2.6s ease-in-out infinite;
   --animate-unfurl: unfurl 0.9s var(--ease-soft) both;
   --animate-ink: ink 0.5s var(--ease-soft) both;
+  --animate-spark: spark 0.9s var(--ease-soft) both;
+  --animate-float-up: float-up 1.3s var(--ease-soft) both;
 
   @keyframes rise {
     from {
@@ -59,6 +61,38 @@
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+  /* A gold spark flying out of a finished sentence (direction in --dx / --dy). */
+  @keyframes spark {
+    from {
+      opacity: 1;
+      transform: translate(0, 0) scale(0.4) rotate(0deg);
+    }
+    70% {
+      opacity: 0.9;
+    }
+    to {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) scale(1) rotate(80deg);
+    }
+  }
+  /* "+XP" rising and fading above the sentence. */
+  @keyframes float-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    12% {
+      opacity: 1;
+      transform: none;
+    }
+    70% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-14px);
     }
   }
   @keyframes ink {

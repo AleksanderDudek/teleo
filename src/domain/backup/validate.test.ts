@@ -191,6 +191,7 @@ describe('validateBackup: acceptance', () => {
           onboardingCompleted: true,
           speechPrivacyAcknowledged: true,
           character: 'michal',
+          sounds: true,
         },
       },
     ]
@@ -422,6 +423,7 @@ describe('validateBackup: per-table field rejection', () => {
             onboardingCompleted: true,
             speechPrivacyAcknowledged: true,
             character: 'zeus' as never,
+            sounds: true,
           },
         }
       },
@@ -450,6 +452,7 @@ describe('validateBackup: per-table field rejection', () => {
             onboardingCompleted: true,
             speechPrivacyAcknowledged: true,
             character: 'anna',
+            sounds: true,
           },
         }
       },

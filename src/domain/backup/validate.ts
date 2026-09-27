@@ -173,6 +173,7 @@ const appSettings: Checker = objectFields([
   ['speechPrivacyAcknowledged', boolean_],
   // Added in v1.2; older backups omit it and get the default on import.
   ['character', optional(enumOf(...CHARACTER_IDS))],
+  ['sounds', optional(boolean_)],
 ])
 
 const gameState: Checker = objectFields([

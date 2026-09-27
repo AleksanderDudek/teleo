@@ -255,7 +255,14 @@
     "pausedLive": "Listening paused",
     "listen": "Listen to the sentence",
     "listening": "Reading aloud…",
-    "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue."
+    "segmentMissing": "This sentence no longer exists (its text was changed or deleted). Skip it to continue.",
+    "praiseGreat": "Great!",
+    "praiseBeautiful": "Beautiful!",
+    "praiseWellSaid": "Well said!",
+    "praiseYes": "Yes!",
+    "praiseLovely": "Lovely!",
+    "combo_one": "{{count}} in a row",
+    "combo_other": "{{count}} in a row"
   },
   "summary": {
     "title": "Well done",
@@ -435,7 +442,9 @@
     "whisperConfirm": "Download",
     "sectionCharacter": "Your character",
     "characterHint": "Choose the figure that stands for you in Teleo.",
-    "character": "Character"
+    "character": "Character",
+    "sounds": "Sound effects",
+    "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal."
   },
   "micTest": {
     "rubric": "Microphone test",

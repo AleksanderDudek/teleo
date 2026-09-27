@@ -1,3 +1,4 @@
+import { Fragment, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/icons/Icon'
 import { maskWords, type MemoryLevel } from '@/domain/memory/mask'
@@ -21,6 +22,34 @@ interface SegmentStageProps {
   memoryLevel?: MemoryLevel
   /** Hint held down: show the full text. */
   reveal?: boolean
+  /** Reward of the last accepted sentence (shown once per `praiseKey`). */
+  gain?: { xp: number; golden: boolean; combo: number }
+}
+
+const PRAISE = ['player.praiseGreat', 'player.praiseBeautiful', 'player.praiseWellSaid', 'player.praiseYes', 'player.praiseLovely'] as const
+
+/** Twelve sparks on a ring, alternating long and short throws. */
+const SPARKS = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i / 12) * Math.PI * 2 + 0.3
+  const distance = i % 2 ? 70 : 110
+  return { dx: `${Math.round(Math.cos(angle) * distance)}px`, dy: `${Math.round(Math.sin(angle) * distance * 0.6)}px`, size: i % 3 ? 12 : 18 }
+})
+
+/** A burst of gold four-point stars from the middle of the sentence. Decorative. */
+function Sparks() {
+  return (
+    <span aria-hidden className="pointer-events-none absolute inset-0 grid place-items-center">
+      {SPARKS.map((spark, i) => (
+        <span
+          key={i}
+          className="absolute text-gold animate-spark"
+          style={{ '--dx': spark.dx, '--dy': spark.dy, animationDelay: `${(i % 4) * 25}ms` } as CSSProperties}
+        >
+          <Icon name="star-four" size={spark.size} tone="plain" fillOpacity={1} />
+        </span>
+      ))}
+    </span>
+  )
 }
 
 /**
@@ -28,7 +57,7 @@ interface SegmentStageProps {
  * The "Great!" beat never blocks: the next sentence is shown at once, so a
  * fluent speaker can keep going.
  */
-export function SegmentStage({ previous, previousDone, current, next, covered, praiseKey, unlockLines, repetition, memoryLevel, reveal }: SegmentStageProps) {
+export function SegmentStage({ previous, previousDone, current, next, covered, praiseKey, unlockLines, repetition, memoryLevel, reveal, gain }: SegmentStageProps) {
   const { t } = useTranslation()
   const words = current.split(/\s+/)
   const masked = memoryLevel && !reveal ? maskWords(current, memoryLevel, covered) : null
@@ -37,9 +66,22 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
     <div className="relative flex w-full max-w-2xl flex-col items-center gap-5 text-center">
       <div className="flex min-h-9 flex-col items-center justify-center gap-1.5">
         {praiseKey > 0 && (
-          <span key={praiseKey} className="inline-flex items-center gap-2 rounded-full bg-ok px-4 py-1.5 font-semibold text-paper shadow-md animate-rise">
-            <Icon name="check" size={16} tone="plain" fillOpacity={0.3} />
-            {t('player.great')}
+          <span key={praiseKey} className="flex items-center gap-2 animate-rise">
+            <span className="inline-flex items-center gap-2 rounded-full bg-ok px-4 py-1.5 font-semibold text-paper shadow-md">
+              <Icon name="check" size={16} tone="plain" fillOpacity={0.3} />
+              {t(PRAISE[(praiseKey - 1) % PRAISE.length]!)}
+            </span>
+            {gain && gain.xp > 0 && (
+              <span aria-hidden className="text-lg font-bold text-gold-ink tabular animate-float-up [animation-duration:2.2s]">
+                +{gain.xp} XP{gain.golden ? ` ${t('golden.badge')}` : ''}
+              </span>
+            )}
+            {gain && gain.combo >= 3 && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-gold-soft px-3 py-1.5 text-sm font-bold text-gold-ink shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_55%,transparent)]">
+                <Icon name="flame" size={14} />
+                {t('player.combo', { count: gain.combo })}
+              </span>
+            )}
           </span>
         )}
         {unlockLines.map((line) => (
@@ -77,25 +119,49 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
         </div>
       )}
 
-      {/* The sentence sits in a soft gold mandorla. */}
-      <p data-testid="segment-text" className="scripture mandorla px-2 py-[18px]">
-        {masked
-          ? masked.map((word, i) => (
-              <span key={i} className={cn('transition-colors duration-300', word.masked ? 'tracking-[0.08em] text-ink-faint' : 'text-ink')}>
-                {word.text}
-                {i < masked.length - 1 ? ' ' : ''}
-              </span>
-            ))
-          : covered
-          ? words.map((word, i) => (
-              // Unheard words stay readable: ≥ 3:1 is the WCAG AA bar for this large text.
-              <span key={i} className={cn('transition-colors duration-300', covered[i] ? 'text-ink' : 'text-ink-soft/70')}>
-                {word}
-                {i < words.length - 1 ? ' ' : ''}
-              </span>
-            ))
-          : current}
-      </p>
+      {/* The sentence sits in a soft gold mandorla; sparks fly out of it (outside the text node). */}
+      <div className="relative w-full">
+        {praiseKey > 0 && <Sparks key={`s${praiseKey}`} />}
+        <p data-testid="segment-text" className="scripture mandorla px-2 py-[18px]">
+          {masked
+            ? masked.map((word, i) => (
+                <span key={i} className={cn('transition-colors duration-300', word.masked ? 'tracking-[0.08em] text-ink-faint' : 'text-ink')}>
+                  {word.text}
+                  {i < masked.length - 1 ? ' ' : ''}
+                </span>
+              ))
+            : covered
+            ? words.map((word, i) => {
+                // Heard words get a gilded marker (joined across the space to the next heard word); unheard
+                // ones stay readable — ≥ 3:1 is the WCAG AA bar for this large text.
+                const heard = !!covered[i]
+                const joined = heard && !!covered[i + 1]
+                return (
+                  <Fragment key={i}>
+                    <span
+                      className={cn(
+                        'rounded-[3px] transition-colors duration-300 [box-decoration-break:clone]',
+                        heard ? 'bg-gold-soft text-ink shadow-[0_2px_0_var(--gold)]' : 'text-ink-soft/70',
+                      )}
+                    >
+                      {word}
+                      {joined ? ' ' : ''}
+                    </span>
+                    {i < words.length - 1 && !joined ? ' ' : ''}
+                  </Fragment>
+                )
+              })
+            : current}
+        </p>
+        {covered && (
+          <span aria-hidden className="mx-auto mt-1 block h-1 w-40 overflow-hidden rounded-full bg-sunk">
+            <span
+              className="block h-full rounded-full bg-gold transition-[width] duration-300"
+              style={{ width: `${(covered.filter(Boolean).length / Math.max(1, words.length)) * 100}%` }}
+            />
+          </span>
+        )}
+      </div>
 
       <p className="line-clamp-2 min-h-12 max-w-xl font-serif text-lg text-ink-faint">
         {next && <span className="sr-only">{t('player.next')}: </span>}
