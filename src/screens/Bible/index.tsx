@@ -43,7 +43,6 @@ export default function Bible() {
     <>
       <PageHeader rubric={t('bible.rubric')} title={t('bible.title')} subtitle={t('bible.lead')} />
 
-
       {index.error && <p className="mt-2 rounded-2xl bg-bad-soft px-4 py-3 text-bad">{t('bible.loadError')}</p>}
 
       {summary && index.data && (
