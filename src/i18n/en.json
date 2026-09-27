@@ -262,7 +262,9 @@
     "praiseYes": "Yes!",
     "praiseLovely": "Lovely!",
     "combo_one": "{{count}} in a row",
-    "combo_other": "{{count}} in a row"
+    "combo_other": "{{count}} in a row",
+    "gentleOffer": "Check more gently",
+    "gentleOn": "Gentle checking is on — you can change it any time in Settings."
   },
   "summary": {
     "title": "Well done",
@@ -359,7 +361,7 @@
     "strictness": "How strict",
     "strict": "Strict",
     "lenient": "Gentle",
-    "strictHint": "Strict: every word counts, a different word is rejected. Gentle: a different word counts only as missing — helpful when recognition often mishears you.",
+    "strictHint": "Strict: every word counts, a different word is rejected. Gentle: 85% of the words is enough and a different word counts only as missing — helpful when recognition often loses or mishears words (accent, noise, old wording).",
     "handsFree": "Live listening (hands-free)",
     "handsFreeHint": "Keep listening through the whole session and check each sentence as you speak.",
     "saveTranscripts": "Save transcripts",
@@ -550,7 +552,7 @@
       "coverage": "{{percent}}% of the words matched — {{needed}}% needed."
     },
     "howWeCount": "How do we check?",
-    "howWeCountBody": "A sentence counts when at least 95% of its words were said and you added no extra words. For sentences shorter than 20 words this means every word — one skipped word is tolerated only from 20 words up. Small recognition slips (missing Polish letters, one wrong letter in a longer word) are forgiven; filler sounds like “um” are ignored.",
+    "howWeCountBody": "A sentence counts when at least 95% of its words were said and you added no extra words. For sentences shorter than 20 words this means every word — one skipped word is tolerated only from 20 words up. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); filler sounds like “um” are ignored. In Gentle mode (Settings) 85% of the words is enough.",
     "legendMatch": "said",
     "legendNear": "close enough",
     "legendMissing": "missing",
@@ -955,7 +957,8 @@
     "extra": "Almost — a word slipped in that isn’t in the text. Breathe, and say it once more.",
     "wrong": "Almost — one word came out differently. Breathe, and say it once more.",
     "missing": "Almost — a word stayed unsaid. Take your time and say it once more.",
-    "stuck": "This sentence is a stubborn one. Try once more — or skip it and go on; that is all right too."
+    "stuck": "This sentence is a stubborn one. Try once more — or skip it and go on; that is all right too.",
+    "gentle": "I may be mishearing you — the words were nearly all there. Shall I check more gently? Then 85% of the words is enough."
   },
   "characters": {
     "anna": "Anna",

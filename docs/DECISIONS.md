@@ -320,3 +320,20 @@ Each entry: **decision** — why.
     (spec §1) for users who chose affirmations only.
 88. **Storage v2**: Dexie version 2 adds `bibleReadings` and `friends` (new tables only, no data migration). Backups list
     them as optional tables: older backups still import (read as empty), and older app versions ignore the extra keys.
+
+## Polish recognition: words said but not counted (owner report, 2026-09-27)
+
+89. **The matcher, not the model, is the lever.** In Chrome/Edge/Safari the Web Speech engine is the vendor's cloud
+    model — the strongest free Polish recogniser, which the app cannot replace; the in-browser Whisper tiny/base are
+    weaker in Polish and `small` (~250 MB) is too slow on phones. Lowering the pass mark for everyone would break the
+    honest-checking promise (spec §6.1). The failures come from systematic recogniser artefacts, so those are forgiven:
+    - **split / merged words** — one source word said as two spoken words, or two as one (`niekształtowna` →
+      `nie kształtowna`, `w niebie` → `wniebie`), accepted when the pieces make up *exactly* that word (ignoring only
+      diacritics and spellings of one sound), so a short extra word glued to a neighbour is still an extra word;
+    - **Polish sound keys** — `ó`=`u`, `rz`=`ż`, `ch`=`h` (`Bóg`/`bug`, `morze`/`może`) count as a near match at any
+      word length; Polish only (in English `ch` and `h` differ). Compared next to the diacritic-free form, never
+      instead of it (`wiekow` must still match `wieków`).
+    Both apply in strict mode, in tap and live mode and in live highlighting (one alignment for all).
+90. **Gentle mode needs 85 % of the words** (was 95 % like strict; a different word still only counts as missing, extra
+    words still fail). One word may be lost from 7 words up. Opt-in: the Guardian offers "Check more gently" after two
+    failed tries on one sentence that were nearly right (nothing extra, ≥ 75 % of the words said).

@@ -6,6 +6,17 @@ import type { EvaluateOptions, MatchOp, MatchResult, OpEntry, RejectReason } fro
 
 export const DEFAULT_THRESHOLD = 0.95
 
+/**
+ * Gentle mode (spec §6.4, widened 2026-09-27): 85 % of the words, for recognition that often loses a
+ * word (accent, noise, archaic texts). One word may be lost from 7 words up; extra words still fail.
+ */
+export const LENIENT_THRESHOLD = 0.85
+
+/** The coverage a sentence needs in each mode. */
+export function thresholdFor(strictness: Strictness): number {
+  return strictness === 'lenient' ? LENIENT_THRESHOLD : DEFAULT_THRESHOLD
+}
+
 /** The verdict on one alignment, before it is tagged with its alternative and text. */
 export type Verdict = Omit<MatchResult, 'bestAlternativeIndex' | 'transcript'>
 
@@ -106,7 +117,7 @@ export function evaluate(
   alternatives: readonly string[],
   options: EvaluateOptions,
 ): MatchResult {
-  const { lang, strictness, threshold = DEFAULT_THRESHOLD } = options
+  const { lang, strictness, threshold = thresholdFor(strictness) } = options
   const sourceWords = normalize(source, lang).map((token) => token.text)
   if (sourceWords.length === 0) return unmatched('emptySource', 0)
 
@@ -115,7 +126,7 @@ export function evaluate(
   for (const [index, transcript] of alternatives.entries()) {
     const spoken = removeFillers(normalize(transcript, lang), lang, keep).map((token) => token.text)
     if (spoken.length === 0) continue
-    const { ops, cost } = align(sourceWords, spoken)
+    const { ops, cost } = align(sourceWords, spoken, lang)
     const verdict = verdictOf(ops, sourceWords.length, strictness, threshold)
     const candidate = { result: { ...verdict, bestAlternativeIndex: index, transcript }, cost }
     if (!best || isBetter(candidate, best)) best = candidate

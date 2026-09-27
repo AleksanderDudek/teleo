@@ -272,7 +272,9 @@
     "combo_one": "{{count}} z rzędu",
     "combo_few": "{{count}} z rzędu",
     "combo_many": "{{count}} z rzędu",
-    "combo_other": "{{count}} z rzędu"
+    "combo_other": "{{count}} z rzędu",
+    "gentleOffer": "Sprawdzaj łagodniej",
+    "gentleOn": "Łagodne sprawdzanie włączone – zmienisz to w każdej chwili w Ustawieniach."
   },
   "summary": {
     "title": "Pięknie",
@@ -371,7 +373,7 @@
     "strictness": "Rygor oceny",
     "strict": "Ścisły",
     "lenient": "Łagodny",
-    "strictHint": "Ścisły: liczy się każde słowo, inne słowo odrzuca zdanie. Łagodny: inne słowo liczy się tylko jako pominięte – pomocne, gdy rozpoznawanie często Cię myli.",
+    "strictHint": "Ścisły: liczy się każde słowo, inne słowo odrzuca zdanie. Łagodny: wystarczy 85% słów, a inne słowo liczy się tylko jako pominięte – pomocne, gdy rozpoznawanie często gubi lub myli słowa (akcent, szum, dawny język).",
     "handsFree": "Słuchanie na żywo (bez rąk)",
     "handsFreeHint": "Słuchaj przez całą sesję i sprawdzaj każde zdanie na bieżąco.",
     "saveTranscripts": "Zapisuj transkrypcje",
@@ -572,7 +574,7 @@
       "coverage": "Dopasowano {{percent}}% słów – potrzeba {{needed}}%."
     },
     "howWeCount": "Jak liczymy?",
-    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz co najmniej 95% jego słów i nie dodasz żadnego słowa. W zdaniach krótszych niż 20 słów oznacza to wszystkie słowa – jedno pominięte słowo dopuszczamy dopiero od 20 słów. Drobne potknięcia rozpoznawania (brak polskich znaków, jedna litera w dłuższym słowie) wybaczamy, a dźwięki typu „yyy” pomijamy.",
+    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz co najmniej 95% jego słów i nie dodasz żadnego słowa. W zdaniach krótszych niż 20 słów oznacza to wszystkie słowa – jedno pominięte słowo dopuszczamy dopiero od 20 słów. Potknięcia rozpoznawania wybaczamy: brak polskich znaków, jedną literę w dłuższym słowie, inną pisownię tego samego dźwięku („Bóg” → „bug”) oraz słowa zapisane razem lub osobno („w niebie” → „wniebie”); dźwięki typu „yyy” pomijamy. W trybie łagodnym (Ustawienia) wystarczy 85% słów.",
     "legendMatch": "powiedziane",
     "legendNear": "prawie",
     "legendMissing": "pominięte",
@@ -977,7 +979,8 @@
     "extra": "Prawie – wkradło się słowo, którego nie ma w tekście. Weź oddech i powiedz to jeszcze raz.",
     "wrong": "Prawie – jedno słowo zabrzmiało inaczej. Weź oddech i powiedz to jeszcze raz.",
     "missing": "Prawie – jedno słowo zostało niewypowiedziane. Nie spiesz się i powiedz to jeszcze raz.",
-    "stuck": "To zdanie jest wyjątkowo uparte. Spróbuj jeszcze raz – albo je pomiń i idź dalej; to też jest w porządku."
+    "stuck": "To zdanie jest wyjątkowo uparte. Spróbuj jeszcze raz – albo je pomiń i idź dalej; to też jest w porządku.",
+    "gentle": "Być może źle Cię słyszę – słowa były prawie wszystkie. Mam sprawdzać łagodniej? Wtedy wystarczy 85% słów."
   },
   "characters": {
     "anna": "Anna",

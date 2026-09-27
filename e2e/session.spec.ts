@@ -128,3 +128,39 @@ test.describe('English', () => {
     await expect(page.getByText('First Word')).toBeVisible()
   })
 })
+
+test.describe('gentle checking', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('after two nearly-right tries the Guardian offers gentle checking, which then accepts', async ({ page }) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    await page.getByRole('link', { name: /Ojcze nasz/ }).click()
+    await page.getByRole('button', { name: 'Powiedz teraz' }).click()
+    await page.getByRole('switch', { name: 'Na żywo' }).click()
+    // 21 of 23 words: not enough for strict checking (95 %), enough for gentle (85 %).
+    const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie tak i na ziemi'
+    await page.evaluate((text) => {
+      const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
+      fake.queue.push(text, text, text)
+    }, almost)
+
+    const mic = page.getByRole('button', { name: 'Mów' })
+    await mic.click()
+    await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
+    await expect(page.getByText(/Pominięte słowa/)).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Sprawdzaj łagodniej' })).toHaveCount(0)
+
+    await expect(mic).toBeEnabled()
+    await mic.click()
+    const offer = page.getByRole('button', { name: 'Sprawdzaj łagodniej' })
+    await expect(offer).toBeVisible()
+    await offer.click()
+
+    await expect(mic).toBeEnabled()
+    await mic.click()
+    await expect(page.getByRole('progressbar', { name: 'Zdanie 2 z 4' })).toBeVisible({ timeout: 10_000 })
+  })
+})

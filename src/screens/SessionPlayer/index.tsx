@@ -30,6 +30,7 @@ import { speak, stopSpeaking, ttsSupported } from '@/lib/tts'
 import { finishRun, markHinted, pauseRun, PracticeError, recordAttempt, skipEntry } from '@/services/practice'
 import { updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
+import { toast } from '@/stores/ui'
 import { celebrationLines } from './celebrate'
 import { repetitionLabel } from './repetition'
 import { SegmentStage } from './SegmentStage'
@@ -291,7 +292,15 @@ function Player({ data }: { data: PlayerData }) {
   const covered = live && listening ? liveSession.progress?.covered : undefined
   const memoryBadge = memoryLevel ? t('memory.badge', { level: t(`memory.levels.${memoryLevel}.name`) }) : null
   const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
-  const encouragement = visibleFeedback ? guardianLine(visibleFeedback.result, failed, t) : null
+  // Two tries that were nearly right (nothing extra, most words heard) point at the recogniser, not the
+  // reader: the Guardian offers gentle checking instead of another "try again".
+  const offerGentle =
+    !!visibleFeedback &&
+    app.strictness === 'strict' &&
+    failed >= 2 &&
+    visibleFeedback.result.extra === 0 &&
+    visibleFeedback.result.coverage >= 0.75
+  const encouragement = visibleFeedback ? (offerGentle ? t('guardian.gentle') : guardianLine(visibleFeedback.result, failed, t)) : null
   const golden = goldenMultiplier(data.readingMsToday) > 1
 
   const status = speaking
@@ -386,7 +395,27 @@ function Player({ data }: { data: PlayerData }) {
             {praiseKey > 0 ? [t('player.great'), ...unlockLines].join('. ') : ''}
           </p>
           {encouragement && (
-            <GuideBubble mood="encourage" size={80} compact className="mb-3 animate-rise">
+            <GuideBubble
+              mood="encourage"
+              size={80}
+              compact
+              className="mb-3 animate-rise"
+              actions={
+                offerGentle && (
+                  <Button
+                    size="sm"
+                    variant="gold"
+                    onClick={async () => {
+                      await updateAppSettings({ strictness: 'lenient' })
+                      setFeedback(null)
+                      toast({ kind: 'success', title: t('player.gentleOn') })
+                    }}
+                  >
+                    {t('player.gentleOffer')}
+                  </Button>
+                )
+              }
+            >
               {encouragement}
             </GuideBubble>
           )}

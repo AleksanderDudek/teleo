@@ -167,3 +167,22 @@ describe('progressOf', () => {
     })
   })
 })
+
+describe('live mode — speech-recognition artefacts', () => {
+  const plOptions = { lang: 'pl' as const, strictness: 'strict' as const }
+
+  it('ends the sentence when two words arrive merged', () => {
+    const match = matchPrefix('Ojcze nasz, któryś jest w niebie.', 'ojcze nasz któryś jest wniebie święć się', plOptions)
+    expect(match).toMatchObject({ result: { accepted: true }, consumedRawWords: 5 })
+  })
+
+  it('ends the sentence when a word arrives split in two', () => {
+    const match = matchPrefix('A ziemia była niekształtowna.', 'a ziemia była nie kształtowna i ciemność', plOptions)
+    expect(match).toMatchObject({ result: { accepted: true }, consumedRawWords: 5 })
+  })
+
+  it('marks merged and split words as heard', () => {
+    expect(progressOf('Ojcze nasz, któryś jest w niebie.', 'ojcze nasz któryś jest wniebie', 'pl').covered).toEqual([true, true, true, true, true, true])
+    expect(progressOf('A ziemia była niekształtowna.', 'a ziemia była nie kształtowna', 'pl').covered).toEqual([true, true, true, true])
+  })
+})

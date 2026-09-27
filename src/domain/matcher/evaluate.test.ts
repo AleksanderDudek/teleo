@@ -380,3 +380,69 @@ describe('evaluate — choosing among alternatives', () => {
     })
   })
 })
+
+describe('evaluate — speech-recognition artefacts (owner report 2026-09-27)', () => {
+  it('accepts two words the recogniser wrote as one (w niebie → wniebie)', () => {
+    const result = pl('Ojcze nasz, któryś jest w niebie.', 'ojcze nasz któryś jest wniebie')
+    expect(result).toMatchObject({ accepted: true, matched: 6, extra: 0, missing: 0 })
+    expect(result.ops.slice(-2)).toEqual([
+      { op: 'match', source: 'w', spoken: 'wniebie', sourceIndex: 4 },
+      { op: 'match', source: 'niebie', spoken: 'wniebie', sourceIndex: 5 },
+    ])
+  })
+
+  it('accepts one word the recogniser wrote as two (niekształtowna → nie kształtowna)', () => {
+    const result = pl('A ziemia była niekształtowna i próżna.', 'a ziemia była nie kształtowna i próżna')
+    expect(result).toMatchObject({ accepted: true, extra: 0, missing: 0 })
+    expect(result.ops[3]).toEqual({ op: 'match', source: 'niekształtowna', spoken: 'nie kształtowna', sourceIndex: 3 })
+  })
+
+  it('tolerates missing Polish letters in a split or merged word', () => {
+    expect(pl('Na wieki wieków.', 'nawieki wiekow')).toMatchObject({ accepted: true })
+    expect(pl('Była niekształtowna.', 'byla nie ksztaltowna')).toMatchObject({ accepted: true })
+  })
+
+  it('accepts the same sound spelled differently, even in short words (ó/u, rz/ż, ch/h)', () => {
+    expect(pl('Na początku stworzył Bóg niebo i ziemię.', 'na początku stworzył bug niebo i ziemię')).toMatchObject({ accepted: true, near: 1 })
+    expect(pl('Ujrzał morze.', 'ujrzał może')).toMatchObject({ accepted: true, near: 1 })
+    expect(pl('Chleba naszego powszedniego daj nam dzisiaj.', 'hleba naszego powszedniego daj nam dzisiaj')).toMatchObject({ accepted: true })
+  })
+
+  it('still rejects an extra word glued to a neighbour', () => {
+    expect(pl(JESTEM, 'jestem spokojny i pewny siebiebardzo')).toMatchObject({ accepted: false })
+    expect(pl('Jestem spokojny.', 'jestem spokojny i')).toMatchObject({ accepted: false, reason: 'extra' })
+  })
+
+  it('still rejects a missing word next to a similar one', () => {
+    expect(pl('I odpuść nam nasze winy.', 'i odpuść nasze winy')).toMatchObject({ accepted: false, reason: 'coverage', missing: 1 })
+  })
+
+  it('keeps English sounds apart (ch/h only matter in Polish)', () => {
+    expect(en('Wear a hat.', 'wear a chat')).toMatchObject({ accepted: false, reason: 'wrong' })
+  })
+
+  it('accepts an English word split in two, and two English words said as one', () => {
+    expect(en('I will not give up any more.', 'I will not give up anymore')).toMatchObject({ accepted: true })
+    expect(en('It is a new day, every day.', 'it is a new day everyday')).toMatchObject({ accepted: true })
+  })
+})
+
+describe('evaluate — gentle mode is genuinely gentle', () => {
+  const gentle = (source: string, spoken: string) => run('pl', source, [spoken], 'lenient')
+  const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+
+  it('needs 85 % of the words: one word lost in ten is fine, two are not', () => {
+    expect(gentle(TEN, omitting(TEN, 3))).toMatchObject({ accepted: true, missing: 1 })
+    expect(gentle(TEN, omitting(TEN, 3, 6))).toMatchObject({ accepted: false, reason: 'coverage' })
+    expect(pl(TEN, omitting(TEN, 3))).toMatchObject({ accepted: false, reason: 'coverage' })
+  })
+
+  it('counts a misheard word as lost, not as extra', () => {
+    expect(gentle(TEN, replacing(TEN, 3, 'wstałem'))).toMatchObject({ accepted: true, wrong: 1 })
+  })
+
+  it('still needs every word of a short sentence and still rejects extra words', () => {
+    expect(gentle(JESTEM, omitting(JESTEM, 1))).toMatchObject({ accepted: false })
+    expect(gentle(TEN, `${spokenWords(TEN).join(' ')} bardzo`)).toMatchObject({ accepted: false, reason: 'extra' })
+  })
+})

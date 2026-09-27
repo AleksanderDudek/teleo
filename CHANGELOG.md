@@ -4,6 +4,12 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Polish recognition
+
+- Words the recogniser writes together or apart (“w niebie” → “wniebie”, “niekształtowna” → “nie kształtowna”) and
+  the same sound spelled differently (“Bóg” → “bug”, “morze” → “może”) now count as said.
+- Gentle checking is genuinely gentle: 85% of the words is enough. After two nearly-right tries the Guardian offers it.
+
 ### The Bible challenge, golden quarter-hour, leaderboard
 
 - **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska, public domain), sentence by sentence, in
