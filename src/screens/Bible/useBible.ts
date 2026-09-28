@@ -9,10 +9,9 @@ import { LANG_TRANSLATION, type BibleTranslation } from '@/domain/bible/types'
 import { loadBibleBook, loadBibleIndex, startBibleReading, type BibleBook, type BibleIndex } from '@/services/bible'
 import { useSettingsStore } from '@/stores/settings'
 
-/** The translation of the challenge: the chosen one, else the one in the interface language. */
+/** The translation of the challenge: the one in the interface language (one language at a time). */
 export function useBibleTranslation(): BibleTranslation {
-  const app = useSettingsStore((s) => s.app)
-  return app.bibleTranslation ?? LANG_TRANSLATION[app.uiLang]
+  return LANG_TRANSLATION[useSettingsStore((s) => s.app.uiLang)]
 }
 
 type Loaded<T> = { data?: T; error: boolean }

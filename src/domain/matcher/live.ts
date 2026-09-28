@@ -1,6 +1,6 @@
 import type { Lang } from '@/domain/types'
 import { alignmentTable } from './align'
-import { DEFAULT_THRESHOLD, requiredCoverage, verdictOf, type Verdict } from './evaluate'
+import { COVERAGE_LADDER, requiredCoverage, verdictOf, type Verdict } from './evaluate'
 import { removeFillers } from './fillers'
 import { normalize, rawWords } from './normalize'
 import type { LiveProgress, OpEntry, PrefixMatch, PrefixOptions, Token } from './types'
@@ -35,24 +35,24 @@ export function matchPrefix(
   window: string,
   options: PrefixOptions,
 ): PrefixMatch | null {
-  const { lang, strictness, threshold = DEFAULT_THRESHOLD, previousTail = [] } = options
+  const { lang, threshold = COVERAGE_LADDER[0], previousTail = [] } = options
   const sourceWords = normalize(source, lang).map((token) => token.text)
   if (sourceWords.length === 0) return null
 
   const spoken = spokenTokens(window, lang, sourceWords)
   const skippable = leadingTailWords(spoken, previousTail)
-  // An acceptable prefix has no extra words: each of its words is skipped or aligned
-  // with its own source word, and at least the required number are said.
-  const candidates = spoken.slice(0, sourceWords.length + skippable)
-  const table = alignmentTable(sourceWords, candidates.map((token) => token.text), skippable)
+  // An acceptable prefix has no extra words: each of its words is skipped or aligned with its own
+  // source word — or with half of one (a word written as two) or two of them (two written as one).
+  const candidates = spoken.slice(0, 2 * sourceWords.length + skippable)
+  const table = alignmentTable(sourceWords, candidates.map((token) => token.text), skippable, lang)
 
   let best: { end: number; cost: number; verdict: Verdict } | undefined
-  const shortest = Math.max(1, requiredCoverage(sourceWords.length, threshold))
+  const shortest = Math.max(1, Math.ceil(requiredCoverage(sourceWords.length, threshold) / 2))
   for (let end = shortest; end <= candidates.length; end++) {
     const cost = table.cost(sourceWords.length, end)
     if (best && cost >= best.cost) continue
     const ops = table.ops(sourceWords.length, end)
-    const verdict = verdictOf(ops, sourceWords.length, strictness, threshold)
+    const verdict = verdictOf(ops, sourceWords.length, threshold)
     // The live rule; at 100% coverage the last word is said anyway.
     const last = ops.findLast((entry) => entry.sourceIndex !== undefined)
     if (verdict.accepted && last && isSaid(last)) best = { end, cost, verdict }
@@ -88,7 +88,7 @@ export function progressOf(source: string, window: string, lang: Lang): LiveProg
   const sourceTokens = normalize(source, lang)
   const sourceWords = sourceTokens.map((token) => token.text)
   const spoken = spokenTokens(window, lang, sourceWords).map((token) => token.text)
-  const table = alignmentTable(sourceWords, spoken)
+  const table = alignmentTable(sourceWords, spoken, 0, lang)
 
   let end = 0
   for (let i = 1; i <= sourceWords.length; i++) {

@@ -108,8 +108,6 @@
     "fieldTitle": "Title",
     "titlePlaceholder": "e.g. My morning affirmations",
     "fieldType": "Type",
-    "fieldLang": "Language of the text",
-    "fieldLangHint": "Speech recognition listens in this language.",
     "fieldSplit": "Split into",
     "splitSentence": "Sentences",
     "splitLine": "Lines",
@@ -262,7 +260,8 @@
     "praiseYes": "Yes!",
     "praiseLovely": "Lovely!",
     "combo_one": "{{count}} in a row",
-    "combo_other": "{{count}} in a row"
+    "combo_other": "{{count}} in a row",
+    "nextTry": "Next try: {{percent}}% of the words is enough."
   },
   "summary": {
     "title": "Well done",
@@ -356,10 +355,8 @@
     "engineAuto": "Automatic",
     "engineWeb": "Browser",
     "engineWhisper": "Offline Whisper",
-    "strictness": "How strict",
-    "strict": "Strict",
-    "lenient": "Gentle",
-    "strictHint": "Strict: every word counts, a different word is rejected. Gentle: a different word counts only as missing — helpful when recognition often mishears you.",
+    "checking": "How we check",
+    "checkingHint": "Every try of a sentence is gentler than the one before: the first needs 90% of its words, the second 80%, and from the third on 70%. A word heard as a different one counts as not said; a word added to the text still fails the try.",
     "handsFree": "Live listening (hands-free)",
     "handsFreeHint": "Keep listening through the whole session and check each sentence as you speak.",
     "saveTranscripts": "Save transcripts",
@@ -478,8 +475,6 @@
     "step": "Step {{current}} of {{total}}",
     "welcomeTitle": "Speak it. Complete it.",
     "welcomeBody": "I am your Guardian. I’ll listen as you say your prayers and affirmations aloud, check every sentence and keep count — privately, on this device.",
-    "langTitle": "Which language should Teleo speak?",
-    "langBody": "You can say texts in Polish and English either way.",
     "focusTitle": "What would you like to practise?",
     "focusPrayers": "Prayers",
     "focusPrayersBody": "Our Father, Hail Mary, the Rosary, Psalm 23",
@@ -516,14 +511,6 @@
     "prayer": "Prayers",
     "text": "Texts"
   },
-  "langs": {
-    "pl": "Polish",
-    "en": "English"
-  },
-  "langShort": {
-    "pl": "PL",
-    "en": "EN"
-  },
   "counts": {
     "segments_one": "{{count}} segment",
     "segments_other": "{{count}} segments",
@@ -550,7 +537,7 @@
       "coverage": "{{percent}}% of the words matched — {{needed}}% needed."
     },
     "howWeCount": "How do we check?",
-    "howWeCountBody": "A sentence counts when at least 95% of its words were said and you added no extra words. For sentences shorter than 20 words this means every word — one skipped word is tolerated only from 20 words up. Small recognition slips (missing Polish letters, one wrong letter in a longer word) are forgiven; filler sounds like “um” are ignored.",
+    "howWeCountBody": "A sentence counts when enough of its words were said and you added no extra words. The first try needs 90% of the words, the second 80%, and every try after that 70% — so a short sentence may need every word at first. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); a word heard as a different one only counts as not said, and filler sounds like “um” are ignored.",
     "legendMatch": "said",
     "legendNear": "close enough",
     "legendMissing": "missing",
@@ -1079,9 +1066,6 @@
     "title": "The whole Bible, aloud",
     "lead": "Every sentence said aloud and checked, in readings of about one minute that always end on a finished sentence.",
     "yearHint": "About {{days}} days at 15 minutes a day — the golden quarter-hour.",
-    "translation": "Translation",
-    "kjv": "King James · English",
-    "pbg": "Gdańska · Polski",
     "progress": "{{done}} of {{total}} readings",
     "percent": "{{percent}} read aloud",
     "left_one": "About {{count}} day left at 15 min a day",

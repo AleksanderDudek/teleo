@@ -33,7 +33,7 @@ export function TextCard({ entry, footnote }: TextCardProps) {
           {text.archived && <Icon name="eye-slash" size={16} label={t('library.hidden')} className="text-ink-faint" />}
         </span>
         <span className="mt-0.5 block text-[0.8rem] font-medium text-ink-soft">
-          {t(`textTypes.${text.type}`)} · {t(`langShort.${text.lang}`)} · {t('counts.segments', { count: segmentCount })}
+          {t(`textTypes.${text.type}`)} · {t('counts.segments', { count: segmentCount })}
           {text.source === 'user' && <> · {t('library.own')}</>}
         </span>
         {preview && <span className="mt-1.5 line-clamp-1 font-serif text-ink-soft italic">{preview}</span>}

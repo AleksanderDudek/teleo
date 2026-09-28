@@ -5,7 +5,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   theme: 'system',
   engine: 'auto',
   whisperModel: 'base',
-  strictness: 'strict',
   dayStartHour: 3,
   dailyGoal: 10,
   handsFree: true,

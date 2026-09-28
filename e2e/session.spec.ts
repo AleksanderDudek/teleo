@@ -113,7 +113,6 @@ test.describe('English', () => {
     test.setTimeout(120_000)
     await installFakeSpeech(page, { live: true, wordDelayMs: 20 })
     await page.goto('./')
-    await page.getByText('English', { exact: true }).click()
     await page.getByRole('button', { name: 'Get started' }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: /^Affirmations/ }).click()
@@ -126,5 +125,36 @@ test.describe('English', () => {
     await page.waitForURL(/summary$/, { timeout: 60_000 })
     await expect(page.getByText('10/10')).toBeVisible()
     await expect(page.getByText('First Word')).toBeVisible()
+  })
+})
+
+test.describe('coverage ladder', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('a sentence missing four words fails at 90 % and passes on the next try at 80 %', async ({ page }, testInfo) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    await page.getByRole('link', { name: /Ojcze nasz/ }).click()
+    await page.getByRole('button', { name: 'Powiedz teraz' }).click()
+    await page.getByRole('switch', { name: 'Na żywo' }).click()
+    // 19 of 23 words (82 %): the first try needs 21, the second 19.
+    const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie na ziemi'
+    await page.evaluate((text) => {
+      const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
+      fake.queue.push(text, text)
+    }, almost)
+
+    const mic = page.getByRole('button', { name: 'Mów' })
+    await mic.click()
+    await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
+    await expect(page.getByText('Dopasowano 82% słów – potrzeba 90%.')).toBeVisible()
+    await expect(page.getByText('Następna próba: wystarczy 80% słów.')).toBeVisible()
+    await page.screenshot({ path: testInfo.outputPath('ladder-feedback.png'), fullPage: true })
+
+    await expect(mic).toBeEnabled()
+    await mic.click()
+    await expect(page.getByRole('progressbar', { name: 'Zdanie 2 z 4' })).toBeVisible({ timeout: 10_000 })
   })
 })

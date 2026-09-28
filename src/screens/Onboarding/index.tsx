@@ -14,7 +14,7 @@ import { Chip } from '@/components/ui/Chip'
 import { IconHalo, type HaloTone } from '@/components/ui/IconHalo'
 import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
-import { evaluate } from '@/domain/matcher'
+import { COVERAGE_LADDER, evaluate } from '@/domain/matcher'
 import { SPEECH_LANG, type ContentFocus, type GrammaticalForm, type Lang } from '@/domain/types'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
 import { useTapCapture } from '@/hooks/useTapCapture'
@@ -56,7 +56,8 @@ function MicStep({ lang, onHeard }: { lang: Lang; onHeard: () => void }) {
     engine,
     lang: SPEECH_LANG[lang],
     onResult: (speech) => {
-      const ok = evaluate(phrase, speech.alternatives, { lang, strictness: 'lenient' }).accepted
+      // A microphone check, not a test: the most forgiving rung of the coverage ladder.
+      const ok = evaluate(phrase, speech.alternatives, { lang, threshold: COVERAGE_LADDER.at(-1) }).accepted
       setVerdict(ok ? 'ok' : 'retry')
       if (ok) onHeard()
     },
@@ -113,7 +114,7 @@ export default function Onboarding() {
   }
 
   const steps: ReactNode[] = [
-    // 1 · welcome, with the interface language
+    // 1 · welcome (the language comes from the browser; Settings can change it)
     <Fragment key="welcome">
       <Lead
         figure={
@@ -124,18 +125,6 @@ export default function Onboarding() {
         title={t('onboarding.welcomeTitle')}
         body={t('onboarding.welcomeBody')}
       />
-      <div className="mt-6 flex flex-col items-center text-center">
-        <Segmented<Lang>
-          label={t('onboarding.langTitle')}
-          value={app.uiLang}
-          options={[
-            { value: 'pl', label: 'Polski' },
-            { value: 'en', label: 'English' },
-          ]}
-          onChange={(uiLang) => void updateAppSettings({ uiLang })}
-        />
-        <p className="mt-2 text-sm text-ink-soft">{t('onboarding.langBody')}</p>
-      </div>
     </Fragment>,
     // 2 · the figure that stands for the user
     <Fragment key="character">

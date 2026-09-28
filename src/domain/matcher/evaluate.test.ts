@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { Lang, Strictness } from '@/domain/types'
-import { evaluate } from './evaluate'
+import type { Lang } from '@/domain/types'
+import { COVERAGE_LADDER, coverageNeeded, evaluate } from './evaluate'
 import type { EvaluateOptions } from './types'
 
 const JESTEM = 'Jestem spokojny i pewny siebie.'
@@ -9,12 +9,9 @@ const PL_20 =
 const EN_20 =
   'Every morning I choose to breathe slowly, listen carefully, speak kindly and walk calmly toward the goals that matter most.'
 
-const run = (
-  lang: Lang,
-  source: string,
-  alternatives: readonly string[],
-  strictness: Strictness = 'strict',
-) => evaluate(source, alternatives, { lang, strictness })
+/** `failedTries` picks the rung of the coverage ladder; 0 = the first try (90 %). */
+const run = (lang: Lang, source: string, alternatives: readonly string[], failedTries = 0) =>
+  evaluate(source, alternatives, { lang, threshold: coverageNeeded(failedTries) })
 const pl = (source: string, ...alternatives: string[]) => run('pl', source, alternatives)
 const en = (source: string, ...alternatives: string[]) => run('en', source, alternatives)
 
@@ -48,6 +45,7 @@ describe('evaluate — spec §6.6 table', () => {
       ],
       bestAlternativeIndex: 0,
       sourceWords: 5,
+      threshold: 0.9,
       reason: null,
       transcript: 'jestem spokojny i pewny siebie',
     })
@@ -61,7 +59,7 @@ describe('evaluate — spec §6.6 table', () => {
     ])
   })
 
-  it('#3 rejects 80% coverage', () => {
+  it('#3 rejects 80% coverage on the first try', () => {
     expect(pl(JESTEM, 'jestem spokojny pewny siebie')).toMatchObject({
       accepted: false,
       reason: 'coverage',
@@ -80,11 +78,16 @@ describe('evaluate — spec §6.6 table', () => {
     })
   })
 
-  it('#5 rejects two omitted words in a 20-word sentence (90%)', () => {
+  it('#5 accepts two omitted words in a 20-word sentence (90%), not three (85%), on the first try', () => {
     expect(pl(PL_20, omitting(PL_20, 2, 10))).toMatchObject({
+      accepted: true,
+      reason: null,
+      coverage: 0.9,
+    })
+    expect(pl(PL_20, omitting(PL_20, 2, 10, 15))).toMatchObject({
       accepted: false,
       reason: 'coverage',
-      coverage: 0.9,
+      coverage: 0.85,
     })
   })
 
@@ -127,10 +130,10 @@ describe('evaluate — spec §6.6 table', () => {
     })
   })
 
-  it('#12 rejects a different short word', () => {
+  it('#12 rejects a different short word (it counts as not said)', () => {
     expect(en('I am calm', 'I am cold')).toMatchObject({
       accepted: false,
-      reason: 'wrong',
+      reason: 'coverage',
       wrong: 1,
     })
   })
@@ -149,30 +152,25 @@ describe('evaluate — spec §6.6 table', () => {
         ops: [],
         bestAlternativeIndex: -1,
         sourceWords: 3,
+        threshold: 0.9,
         reason: 'empty',
         transcript: '',
       })
     },
   )
 
-  it('#14 lenient mode counts a wrong word as missing', () => {
-    const result = run('en', 'I am calm', ['I am cold'], 'lenient')
-    expect(result).toMatchObject({ accepted: false, reason: 'coverage', wrong: 1 })
+  it('#14 counts a misheard word as not said, never as extra', () => {
+    const result = en('I am calm', 'I am cold')
+    expect(result).toMatchObject({ accepted: false, reason: 'coverage', wrong: 1, extra: 0 })
     expect(result.coverage).toBeCloseTo(2 / 3)
   })
 
-  it('#15 lenient mode accepts one wrong word in 20; strict mode does not', () => {
-    const transcript = replacing(EN_20, 12, 'run')
-    expect(run('en', EN_20, [transcript], 'lenient')).toMatchObject({
+  it('#15 accepts one misheard word in 20 (95%)', () => {
+    expect(en(EN_20, replacing(EN_20, 12, 'run'))).toMatchObject({
       accepted: true,
       reason: null,
       wrong: 1,
       coverage: 0.95,
-    })
-    expect(run('en', EN_20, [transcript], 'strict')).toMatchObject({
-      accepted: false,
-      reason: 'wrong',
-      wrong: 1,
     })
   })
 
@@ -241,6 +239,7 @@ describe('evaluate — spec §6.6 table', () => {
       ops: [],
       bestAlternativeIndex: -1,
       sourceWords: 0,
+      threshold: 0.9,
       reason: 'emptySource',
       transcript: '',
     })
@@ -269,10 +268,11 @@ describe('evaluate — spec §6.6 table', () => {
 })
 
 describe('evaluate — acceptance rule', () => {
-  it('needs every word below 20 words (95% of 19 is more than 18)', () => {
-    const nineteen = spokenWords(PL_20).slice(0, 19).join(' ')
-    const result = pl(nineteen, omitting(nineteen, 0))
-    expect(result).toMatchObject({ accepted: false, reason: 'coverage', sourceWords: 19 })
+  it('needs every word below 10 words on the first try (90% of 9 is more than 8)', () => {
+    const nine = spokenWords(PL_20).slice(0, 9).join(' ')
+    expect(pl(nine, omitting(nine, 0))).toMatchObject({ accepted: false, reason: 'coverage', sourceWords: 9 })
+    const ten = spokenWords(PL_20).slice(0, 10).join(' ')
+    expect(pl(ten, omitting(ten, 0))).toMatchObject({ accepted: true, sourceWords: 10 })
   })
 
   it('counts near matches toward coverage', () => {
@@ -287,19 +287,15 @@ describe('evaluate — acceptance rule', () => {
     })
   })
 
-  it('rejects extra words in lenient mode too', () => {
-    expect(run('en', 'I am calm', ['I am very calm'], 'lenient')).toMatchObject({
+  it('rejects extra words on every rung of the ladder', () => {
+    expect(run('en', 'I am calm', ['I am very calm'], 5)).toMatchObject({
       accepted: false,
       reason: 'extra',
     })
   })
 
   it('honours a custom threshold', () => {
-    const threshold = (value: number): EvaluateOptions => ({
-      lang: 'pl',
-      strictness: 'strict',
-      threshold: value,
-    })
+    const threshold = (value: number): EvaluateOptions => ({ lang: 'pl', threshold: value })
     expect(evaluate(JESTEM, ['jestem spokojny pewny siebie'], threshold(0.8)).accepted).toBe(true)
     expect(evaluate(PL_20, [omitting(PL_20, 2)], threshold(1)).accepted).toBe(false)
   })
@@ -321,7 +317,8 @@ describe('evaluate — acceptance rule', () => {
   it('rejects a long number that is one digit off', () => {
     expect(pl('Mam 10000 kroków', 'mam 10001 kroków')).toMatchObject({
       accepted: false,
-      reason: 'wrong',
+      reason: 'coverage',
+      wrong: 1,
     })
   })
 
@@ -378,5 +375,85 @@ describe('evaluate — choosing among alternatives', () => {
       bestAlternativeIndex: 0,
       transcript: 'I am calm',
     })
+  })
+})
+
+describe('evaluate — speech-recognition artefacts (owner report 2026-09-27)', () => {
+  it('accepts two words the recogniser wrote as one (w niebie → wniebie)', () => {
+    const result = pl('Ojcze nasz, któryś jest w niebie.', 'ojcze nasz któryś jest wniebie')
+    expect(result).toMatchObject({ accepted: true, matched: 6, extra: 0, missing: 0 })
+    expect(result.ops.slice(-2)).toEqual([
+      { op: 'match', source: 'w', spoken: 'wniebie', sourceIndex: 4 },
+      { op: 'match', source: 'niebie', spoken: 'wniebie', sourceIndex: 5 },
+    ])
+  })
+
+  it('accepts one word the recogniser wrote as two (niekształtowna → nie kształtowna)', () => {
+    const result = pl('A ziemia była niekształtowna i próżna.', 'a ziemia była nie kształtowna i próżna')
+    expect(result).toMatchObject({ accepted: true, extra: 0, missing: 0 })
+    expect(result.ops[3]).toEqual({ op: 'match', source: 'niekształtowna', spoken: 'nie kształtowna', sourceIndex: 3 })
+  })
+
+  it('tolerates missing Polish letters in a split or merged word', () => {
+    expect(pl('Na wieki wieków.', 'nawieki wiekow')).toMatchObject({ accepted: true })
+    expect(pl('Była niekształtowna.', 'byla nie ksztaltowna')).toMatchObject({ accepted: true })
+  })
+
+  it('accepts the same sound spelled differently, even in short words (ó/u, rz/ż, ch/h)', () => {
+    expect(pl('Na początku stworzył Bóg niebo i ziemię.', 'na początku stworzył bug niebo i ziemię')).toMatchObject({ accepted: true, near: 1 })
+    expect(pl('Ujrzał morze.', 'ujrzał może')).toMatchObject({ accepted: true, near: 1 })
+    expect(pl('Chleba naszego powszedniego daj nam dzisiaj.', 'hleba naszego powszedniego daj nam dzisiaj')).toMatchObject({ accepted: true })
+  })
+
+  it('still rejects an extra word glued to a neighbour', () => {
+    expect(pl(JESTEM, 'jestem spokojny i pewny siebiebardzo')).toMatchObject({ accepted: false })
+    expect(pl('Jestem spokojny.', 'jestem spokojny i')).toMatchObject({ accepted: false, reason: 'extra' })
+  })
+
+  it('still rejects a missing word next to a similar one', () => {
+    expect(pl('I odpuść nam nasze winy.', 'i odpuść nasze winy')).toMatchObject({ accepted: false, reason: 'coverage', missing: 1 })
+  })
+
+  it('keeps English sounds apart (ch/h only matter in Polish)', () => {
+    expect(en('Wear a hat.', 'wear a chat')).toMatchObject({ accepted: false, wrong: 1 })
+  })
+
+  it('accepts an English word split in two, and two English words said as one', () => {
+    expect(en('I will not give up any more.', 'I will not give up anymore')).toMatchObject({ accepted: true })
+    expect(en('It is a new day, every day.', 'it is a new day everyday')).toMatchObject({ accepted: true })
+  })
+})
+
+describe('evaluate — the coverage ladder (owner request 2026-09-27)', () => {
+  const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+  const tryNo = (failedTries: number, source: string, spoken: string) => run('pl', source, [spoken], failedTries)
+
+  it('needs 90 % on the first try, 80 % on the second, 70 % from the third on', () => {
+    expect(COVERAGE_LADDER).toEqual([0.9, 0.8, 0.7])
+    expect([0, 1, 2, 3, 4, 10].map(coverageNeeded)).toEqual([0.9, 0.8, 0.7, 0.7, 0.7, 0.7])
+  })
+
+  it('lets one more word in ten be lost with each failed try, down to three', () => {
+    expect(tryNo(0, TEN, omitting(TEN, 3))).toMatchObject({ accepted: true, missing: 1 })
+    expect(tryNo(0, TEN, omitting(TEN, 3, 6))).toMatchObject({ accepted: false, reason: 'coverage' })
+    expect(tryNo(1, TEN, omitting(TEN, 3, 6))).toMatchObject({ accepted: true, missing: 2 })
+    expect(tryNo(1, TEN, omitting(TEN, 3, 6, 8))).toMatchObject({ accepted: false, reason: 'coverage' })
+    expect(tryNo(2, TEN, omitting(TEN, 3, 6, 8))).toMatchObject({ accepted: true, missing: 3 })
+    expect(tryNo(7, TEN, omitting(TEN, 1, 3, 6, 8))).toMatchObject({ accepted: false, reason: 'coverage' })
+  })
+
+  it('counts a misheard word as lost, not as extra, on every rung', () => {
+    expect(tryNo(0, TEN, replacing(TEN, 3, 'wstałem'))).toMatchObject({ accepted: true, wrong: 1 })
+  })
+
+  it('reads a percentage as "at least": a short sentence may need every word at first', () => {
+    expect(tryNo(0, JESTEM, omitting(JESTEM, 1))).toMatchObject({ accepted: false, coverage: 0.8 })
+    expect(tryNo(1, JESTEM, omitting(JESTEM, 1))).toMatchObject({ accepted: true, coverage: 0.8 })
+    expect(tryNo(2, 'Ojcze nasz.', 'ojcze')).toMatchObject({ accepted: false, coverage: 0.5 })
+  })
+
+  it('still rejects extra words and reports the coverage it needed', () => {
+    expect(tryNo(2, TEN, `${spokenWords(TEN).join(' ')} bardzo`)).toMatchObject({ accepted: false, reason: 'extra', threshold: 0.7 })
+    expect(tryNo(1, TEN, spokenWords(TEN).join(' '))).toMatchObject({ accepted: true, threshold: 0.8 })
   })
 })

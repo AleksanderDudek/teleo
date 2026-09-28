@@ -1,4 +1,4 @@
-import type { Lang, Strictness } from '@/domain/types'
+import type { Lang } from '@/domain/types'
 
 export type MatchOp = 'match' | 'near' | 'missing' | 'extra' | 'wrong'
 
@@ -13,7 +13,7 @@ export interface OpEntry {
   sourceIndex?: number
 }
 
-export type RejectReason = 'empty' | 'emptySource' | 'extra' | 'wrong' | 'coverage'
+export type RejectReason = 'empty' | 'emptySource' | 'extra' | 'coverage'
 
 export interface MatchResult {
   accepted: boolean
@@ -30,6 +30,8 @@ export interface MatchResult {
   /** -1 when no alternative was usable. */
   bestAlternativeIndex: number
   sourceWords: number
+  /** The coverage this verdict needed (a rung of the coverage ladder). */
+  threshold: number
   /** null when accepted. */
   reason: RejectReason | null
   /** Raw text of the chosen alternative ('' when none). */
@@ -38,8 +40,7 @@ export interface MatchResult {
 
 export interface EvaluateOptions {
   lang: Lang
-  strictness: Strictness
-  /** Minimum coverage, default 0.95. */
+  /** Minimum coverage, default the first rung of the coverage ladder (0.9). */
   threshold?: number
 }
 

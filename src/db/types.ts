@@ -10,7 +10,6 @@ import type {
   GrammaticalForm,
   Lang,
   SplitMode,
-  Strictness,
   TextType,
   Tier,
 } from '@/domain/types'
@@ -35,11 +34,6 @@ export interface TextItem {
   builtinKey?: string
   /** Where a Bible reading comes from. */
   bible?: { translation: BibleTranslation; book: string; index: number; ofBook: number }
-}
-
-/** Texts the library, pickers and the session of the day offer (Bible readings have their own screen). */
-export function isListedText(text: Pick<TextItem, 'source'>): boolean {
-  return text.source !== 'bible'
 }
 
 export interface Segment {
@@ -106,7 +100,8 @@ export interface Attempt {
   wrong: number
   accepted: boolean
   firstTry: boolean
-  strictness: Strictness
+  /** The coverage this attempt needed (spec §6.4: stored for honest statistics); absent before 2026-09-27. */
+  threshold?: number
   engine: EngineId
   durationMs: number
 }
@@ -202,7 +197,6 @@ export interface AppSettings {
   theme: ThemePreference
   engine: 'auto' | EngineId
   whisperModel: 'tiny' | 'base'
-  strictness: Strictness
   /** Hour (0–6) at which a new day starts. */
   dayStartHour: number
   /** Accepted segments per day (1–150). */
@@ -223,8 +217,6 @@ export interface AppSettings {
   sounds: boolean
   /** Name on shared cards and friends' leaderboards; empty = the character's name. */
   displayName: string
-  /** Bible challenge translation; unset = the one in the interface language. */
-  bibleTranslation?: BibleTranslation
 }
 
 export interface GameState {

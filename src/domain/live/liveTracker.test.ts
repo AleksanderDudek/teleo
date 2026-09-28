@@ -11,7 +11,7 @@ const accepted = (events: LiveEvent[]) => events.filter((e) => e.type === 'accep
 
 /** Streams `text` word by word (as interim results), moving to the next target after each accept. */
 function stream(targets: LiveTarget[], text: string, lang: 'pl' | 'en' = 'pl') {
-  const tracker = createLiveTracker({ lang, strictness: 'strict' })
+  const tracker = createLiveTracker({ lang })
   const events: LiveEvent[] = []
   let next = 0
   events.push(...tracker.setTarget(targets[next++] ?? null))
@@ -42,7 +42,7 @@ describe('LiveTracker', () => {
   })
 
   it('reports progress while a sentence is being said', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     const [event] = tracker.update('Jestem spokojny')
     expect(event).toMatchObject({ type: 'progress', entryIndex: 0, progress: { covered: [true, true, false, false, false], errors: 0 } })
@@ -55,7 +55,7 @@ describe('LiveTracker', () => {
   })
 
   it('evaluates spill-over as soon as the next sentence becomes the target', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     const first = tracker.update('Jestem spokojny i pewny siebie Idę dalej z odwagą')
     expect(accepted(first)).toEqual([0])
@@ -63,7 +63,7 @@ describe('LiveTracker', () => {
   })
 
   it('survives interim revisions that shorten the transcript', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     expect(accepted(tracker.update('Jestem spokojny i pewny siebie'))).toEqual([0])
     tracker.setTarget({ entryIndex: 1, source: S2 })
@@ -73,13 +73,13 @@ describe('LiveTracker', () => {
   })
 
   it('ignores filler sounds', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     expect(accepted(tracker.update('yyy jestem spokojny i pewny siebie'))).toEqual([0])
   })
 
   it('rejects on a pause when the sentence had an extra word, then starts a fresh window', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     expect(accepted(tracker.update('jestem bardzo spokojny i pewny siebie'))).toEqual([])
     const [rejection] = tracker.pause()
@@ -89,7 +89,7 @@ describe('LiveTracker', () => {
   })
 
   it('treats an immediate restart of the sentence as a failed attempt followed by a fresh one', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     const events = tracker.update('jestem bardzo spokojny i pewny siebie jestem spokojny i pewny siebie')
     expect(events.map((e) => e.type)).toEqual(['rejected', 'accepted'])
@@ -97,14 +97,14 @@ describe('LiveTracker', () => {
   })
 
   it('handles a stuttered start as a restart', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     const events = tracker.update('jestem jestem spokojny i pewny siebie')
     expect(events.map((e) => e.type)).toEqual(['rejected', 'accepted'])
   })
 
   it('does not mistake a repeated opening word inside a clean sentence for a restart', () => {
-    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'en' })
     tracker.setTarget({ entryIndex: 0, source: 'I am calm and I am strong.' })
     const partial = tracker.update('I am calm and I am')
     expect(partial.map((e) => e.type)).toEqual(['progress'])
@@ -112,7 +112,7 @@ describe('LiveTracker', () => {
   })
 
   it('accepts on a pause when only the last word of a long sentence was dropped', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: TWENTY })
     const withoutLast = TWENTY.replace(/[.,]/g, '').split(' ').slice(0, -1).join(' ')
     expect(accepted(tracker.update(withoutLast))).toEqual([])
@@ -120,7 +120,7 @@ describe('LiveTracker', () => {
   })
 
   it('does not reject a pause when nothing (or only fillers) was said', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     expect(tracker.pause()).toEqual([])
     tracker.update('yyy')
@@ -128,7 +128,7 @@ describe('LiveTracker', () => {
   })
 
   it('rejects when far more words than the sentence arrive without a match', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict', overflowWords: 8 })
+    const tracker = createLiveTracker({ lang: 'pl', overflowWords: 8 })
     tracker.setTarget({ entryIndex: 0, source: S2 })
     const events = tracker.update('to jest zupełnie inny tekst który w ogóle nie pasuje do tego zdania')
     expect(events.at(-1)).toMatchObject({ type: 'rejected', cause: 'overflow' })
@@ -136,7 +136,7 @@ describe('LiveTracker', () => {
   })
 
   it('keeps words heard before a mid-sentence restart', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     tracker.update('Jestem spokojny i')
     tracker.reset()
@@ -146,7 +146,7 @@ describe('LiveTracker', () => {
   })
 
   it('re-locates the end of the last sentence when the recogniser revises its words', () => {
-    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'en' })
     tracker.setTarget({ entryIndex: 0, source: 'I am calm and focused.' })
     expect(accepted(tracker.update('I am calm and focused Every'))).toEqual([0])
     tracker.setTarget({ entryIndex: 1, source: 'Every day I am becoming a better version of myself.' })
@@ -155,14 +155,14 @@ describe('LiveTracker', () => {
   })
 
   it('checks the other recognition hypotheses when a pause settles the sentence', () => {
-    const tracker = createLiveTracker({ lang: 'en', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'en' })
     tracker.setTarget({ entryIndex: 0, source: 'I am calm and focused.' })
     tracker.update('I am come and focused', ['I am calm and focused'])
     expect(accepted(tracker.pause())).toEqual([0])
   })
 
   it('starts over after the recogniser restarts', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     tracker.update('Jestem spokojny i')
     tracker.reset()
@@ -170,7 +170,7 @@ describe('LiveTracker', () => {
   })
 
   it('discards what was heard so far (skip) so the next sentence starts clean', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     tracker.setTarget({ entryIndex: 0, source: S1 })
     tracker.update('jestem jakoś tak')
     tracker.discard()
@@ -178,8 +178,30 @@ describe('LiveTracker', () => {
     expect(accepted(tracker.update('jestem jakoś tak Idę dalej z odwagą'))).toEqual([1])
   })
 
+  it('needs the coverage of its target: the rung of the ladder the sentence is on', () => {
+    const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+    const eightOfTen = 'każdego dnia rano wcześnie i za nowy dzień'
+    const first = createLiveTracker({ lang: 'pl' })
+    first.setTarget({ entryIndex: 0, source: TEN })
+    expect(accepted(first.update(eightOfTen))).toEqual([])
+    expect(first.pause()).toMatchObject([{ type: 'rejected', result: { reason: 'coverage', threshold: 0.9 } }])
+    const second = createLiveTracker({ lang: 'pl' })
+    second.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 })
+    expect(second.update(eightOfTen)).toMatchObject([{ type: 'accepted', result: { missing: 2, threshold: 0.8 } }])
+  })
+
+  it('checks the words already heard again when the same sentence comes back with a lower threshold', () => {
+    const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+    const tracker = createLiveTracker({ lang: 'pl' })
+    tracker.setTarget({ entryIndex: 0, source: TEN })
+    // A slip ("bardzo"), then a fresh start that leaves out two words: rejected once, waiting on 90 %.
+    const events = tracker.update('każdego dnia rano bardzo każdego dnia rano wcześnie i za nowy dzień')
+    expect(events.map((e) => e.type)).toEqual(['rejected', 'progress'])
+    expect(accepted(tracker.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 }))).toEqual([0])
+  })
+
   it('ignores speech when there is no target', () => {
-    const tracker = createLiveTracker({ lang: 'pl', strictness: 'strict' })
+    const tracker = createLiveTracker({ lang: 'pl' })
     expect(tracker.update('Jestem spokojny i pewny siebie')).toEqual([])
     expect(tracker.setTarget(null)).toEqual([])
     expect(tracker.pause()).toEqual([])

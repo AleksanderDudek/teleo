@@ -1,3 +1,5 @@
+import type { Lang } from '@/domain/types'
+
 const COMBINING_MARKS = /\p{M}/gu
 const DIGITS = /^\d+$/u
 
@@ -14,6 +16,19 @@ export function stripDiacritics(word: string): string {
     .replace(COMBINING_MARKS, '')
     .replaceAll('ł', 'l')
     .replaceAll('Ł', 'L')
+}
+
+/**
+ * How a word sounds, for comparing it with a transcript: Polish spellings of one sound are written
+ * alike (`ó`→`u`, `rz`→`ż`, `ch`→`h`) before diacritics are dropped, so `Bóg`/`bug`, `morze`/`może` and
+ * `chleba`/`hleba` share a key. English keeps its letters: there `ch` and `h` are different sounds.
+ * Compare it next to `stripDiacritics`, not instead: a transcript without diacritics (`wiekow`) matches
+ * `wieków` only by the bare form.
+ */
+export function soundKey(word: string, lang: Lang): string {
+  const lower = word.toLocaleLowerCase(lang)
+  if (lang !== 'pl') return stripDiacritics(lower)
+  return stripDiacritics(lower.replaceAll('ó', 'u').replaceAll('rz', 'ż').replaceAll('ch', 'h'))
 }
 
 /**

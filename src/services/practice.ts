@@ -28,6 +28,8 @@ export interface Evaluation {
   extra: number
   wrong: number
   transcript: string
+  /** The coverage the attempt needed (its rung of the coverage ladder), stored with it. */
+  threshold?: number
 }
 
 export interface AttemptInput {
@@ -180,7 +182,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       wrong: input.evaluation.wrong,
       accepted,
       firstTry,
-      strictness: app.strictness,
+      threshold: input.evaluation.threshold,
       engine: input.engine,
       durationMs: input.durationMs,
     }

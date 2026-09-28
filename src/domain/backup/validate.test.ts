@@ -84,7 +84,7 @@ function realisticData(): BackupData {
         wrong: 0,
         accepted: true,
         firstTry: true,
-        strictness: 'strict',
+        threshold: 0.9,
         engine: 'webspeech',
         durationMs: 500,
       },
@@ -229,7 +229,6 @@ describe('validateBackup: acceptance', () => {
           theme: 'system',
           engine: 'auto',
           whisperModel: 'tiny',
-          strictness: 'strict',
           dayStartHour: 3,
           dailyGoal: 20,
           handsFree: false,
@@ -247,6 +246,13 @@ describe('validateBackup: acceptance', () => {
         },
       },
     ]
+    expect(validateBackup(backupWith(data)).ok).toBe(true)
+  })
+
+  it('accepts attempts exported before the coverage ladder (a strictness, no threshold)', () => {
+    const data = realisticData()
+    const { threshold: _threshold, ...rest } = data.attempts[0]!
+    data.attempts = [{ ...rest, strictness: 'strict' } as never]
     expect(validateBackup(backupWith(data)).ok).toBe(true)
   })
 
@@ -403,10 +409,10 @@ describe('validateBackup: per-table field rejection', () => {
       },
     },
     {
-      name: 'attempts: bad strictness enum',
-      path: 'data.attempts[0].strictness',
+      name: 'attempts: threshold not a number',
+      path: 'data.attempts[0].threshold',
       mutate: (d) => {
-        d.attempts[0] = { ...d.attempts[0]!, strictness: 'meh' as never }
+        d.attempts[0] = { ...d.attempts[0]!, threshold: 'high' as never }
       },
     },
     {
@@ -462,7 +468,6 @@ describe('validateBackup: per-table field rejection', () => {
             theme: 'system',
             engine: 'auto',
             whisperModel: 'tiny',
-            strictness: 'strict',
             dayStartHour: 3,
             dailyGoal: 20,
             handsFree: false,
@@ -492,7 +497,6 @@ describe('validateBackup: per-table field rejection', () => {
             theme: 'purple' as never,
             engine: 'auto',
             whisperModel: 'tiny',
-            strictness: 'strict',
             dayStartHour: 3,
             dailyGoal: 20,
             handsFree: false,

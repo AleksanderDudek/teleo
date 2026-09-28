@@ -15,7 +15,7 @@ import { Button, ButtonLink, IconButton } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
 import { goldenMultiplier } from '@/domain/gamification'
-import { buildDiff, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
+import { buildDiff, coverageNeeded, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
 import { firstTryCombo } from '@/domain/session'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
@@ -75,6 +75,9 @@ function Player({ data }: { data: PlayerData }) {
   const segment = segments.get(planEntry.segmentId)
   const text = texts.get(planEntry.textId)
   const lang = text?.lang ?? app.uiLang
+  // The coverage ladder: each failed try on this sentence lowers what the next one needs (90 → 80 → 70 %).
+  const failed = run.entries[index]?.attempts ?? 0
+  const needed = coverageNeeded(failed)
 
   const engineState = useSpeechEngine(SPEECH_LANG[lang])
   const engine = engineState.status === 'ready' ? engineState.engine : null
@@ -133,10 +136,9 @@ function Player({ data }: { data: PlayerData }) {
   }
 
   // --- live mode --------------------------------------------------------------
-  const liveTarget: LiveSentence | null = live && !finished && segment ? { entryIndex: index, source: segment.content, lang } : null
+  const liveTarget: LiveSentence | null = live && !finished && segment ? { entryIndex: index, source: segment.content, lang, threshold: needed } : null
   const liveSession = useLiveSession({
     engine: live ? engine : null,
-    strictness: app.strictness,
     target: liveTarget,
     onVerdict: async (entryIndex, result, durationMs) => {
       const ended = await record(entryIndex, result, durationMs, 'webspeech')
@@ -150,7 +152,7 @@ function Player({ data }: { data: PlayerData }) {
   // --- tap mode ---------------------------------------------------------------
   const onTapResult = async (speech: SpeechResult) => {
     if (!segment) return
-    const result = evaluate(segment.content, speech.alternatives, { lang, strictness: app.strictness })
+    const result = evaluate(segment.content, speech.alternatives, { lang, threshold: needed })
     if (result.reason === 'empty') {
       // Nothing was heard (accidental tap, microphone muted): tell the user, but it is not an attempt.
       setFeedback({ entryIndex: index, result, diff: buildDiff(segment.content, lang, result), message: resultMessage(result, t) })
@@ -282,7 +284,6 @@ function Player({ data }: { data: PlayerData }) {
     await updateAppSettings({ handsFree: !app.handsFree })
   }
 
-  const failed = run.entries[index]?.attempts ?? 0
   const previousEntry = index > 0 ? run.plan[index - 1] : undefined
   const previous = previousEntry ? segments.get(previousEntry.segmentId)?.content : undefined
   const next = index + 1 < total ? segments.get(run.plan[index + 1]!.segmentId)?.content : undefined
@@ -292,6 +293,8 @@ function Player({ data }: { data: PlayerData }) {
   const memoryBadge = memoryLevel ? t('memory.badge', { level: t(`memory.levels.${memoryLevel}.name`) }) : null
   const visibleFeedback = feedback && feedback.entryIndex === index && !(listening && !live) ? feedback : null
   const encouragement = visibleFeedback ? guardianLine(visibleFeedback.result, failed, t) : null
+  // After a failed try, say what the next one needs (only while the ladder still goes down).
+  const nextTry = visibleFeedback && !visibleFeedback.result.accepted && needed < visibleFeedback.result.threshold ? Math.round(needed * 100) : null
   const golden = goldenMultiplier(data.readingMsToday) > 1
 
   const status = speaking
@@ -394,6 +397,12 @@ function Player({ data }: { data: PlayerData }) {
             <div className="card card-framed space-y-3 p-4 text-left animate-rise">
               <p className="font-semibold text-bad">{visibleFeedback.message}</p>
               <DiffView parts={visibleFeedback.diff} className="text-lg" />
+              {nextTry !== null && (
+                <p className="flex items-center gap-2 text-sm font-medium text-gold-ink">
+                  <Icon name="sparkle" size={16} />
+                  {t('player.nextTry', { percent: nextTry })}
+                </p>
+              )}
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <DiffLegend />
                 <HowWeCount />

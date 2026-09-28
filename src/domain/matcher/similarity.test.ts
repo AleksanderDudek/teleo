@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { compareWords, levenshtein, stripDiacritics } from './similarity'
+import { compareWords, levenshtein, soundKey, stripDiacritics } from './similarity'
 
 describe('stripDiacritics', () => {
   it('removes every Polish diacritic, including ł which has no decomposition', () => {
@@ -79,5 +79,19 @@ describe('compareWords', () => {
 
   it('rejects clearly different words', () => {
     expect(compareWords('calm', 'cold')).toBe('none')
+  })
+})
+
+describe('soundKey', () => {
+  it('writes Polish spellings of one sound alike: ó/u, rz/ż, ch/h — and drops diacritics', () => {
+    expect(soundKey('Bóg', 'pl')).toBe(soundKey('bug', 'pl'))
+    expect(soundKey('morze', 'pl')).toBe(soundKey('może', 'pl'))
+    expect(soundKey('chleba', 'pl')).toBe(soundKey('hleba', 'pl'))
+    expect(soundKey('zażółć', 'pl')).toBe('zazulc')
+  })
+
+  it('only drops diacritics in English, where ch and h are different sounds', () => {
+    expect(soundKey('chair', 'en')).toBe('chair')
+    expect(soundKey('chair', 'en')).not.toBe(soundKey('hair', 'en'))
   })
 })

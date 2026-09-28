@@ -5,7 +5,7 @@ import { evaluate } from './evaluate'
 import type { DiffPart, DiffStatus } from './types'
 
 const diff = (lang: Lang, source: string, said: string) =>
-  buildDiff(source, lang, evaluate(source, [said], { lang, strictness: 'strict' }))
+  buildDiff(source, lang, evaluate(source, [said], { lang }))
 const word = (text: string, status: DiffStatus): DiffPart => ({ kind: 'source', text, status })
 const spoken = (text: string, status: 'extra' | 'wrong'): DiffPart => ({
   kind: 'spoken',

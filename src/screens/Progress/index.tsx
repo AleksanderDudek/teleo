@@ -20,7 +20,7 @@ export default function Progress() {
   const { t, i18n } = useTranslation()
   const app = useSettingsStore((s) => s.app)
   const game = useSettingsStore((s) => s.game)
-  const data = useProgress(app.dayStartHour)
+  const data = useProgress(app.dayStartHour, app.uiLang)
   if (!data) return null
 
   const info = levelInfo(game.totalXp)

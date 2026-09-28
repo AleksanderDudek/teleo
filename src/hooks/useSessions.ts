@@ -2,6 +2,8 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
 import type { SessionRun, SessionTemplate, TextItem } from '@/db/types'
 import { countTemplateSegments } from '@/domain/session'
+import { isListedTemplate } from '@/domain/text/visibility'
+import type { Lang } from '@/domain/types'
 import { findResumableRun, segmentsByText } from '@/services/sessions'
 
 export interface TemplateEntry {
@@ -12,13 +14,13 @@ export interface TemplateEntry {
   textSegmentCounts: Map<string, number>
 }
 
-/** Every session template with its expanded size, kept live. */
-export function useTemplates(): TemplateEntry[] | undefined {
+/** The session templates of one language with their expanded size, kept live. */
+export function useTemplates(lang: Lang): TemplateEntry[] | undefined {
   return useLiveQuery(async () => {
     const [templates, texts] = await Promise.all([db.sessionTemplates.toArray(), db.texts.toArray()])
     const textMap = new Map(texts.map((t) => [t.id, t]))
     const entries: TemplateEntry[] = []
-    for (const template of templates) {
+    for (const template of templates.filter((t) => isListedTemplate(t, textMap, lang))) {
       const segments = await segmentsByText(template.items)
       entries.push({
         template,
@@ -33,7 +35,7 @@ export function useTemplates(): TemplateEntry[] | undefined {
         (b.template.lastUsedAt ?? 0) - (a.template.lastUsedAt ?? 0) ||
         a.template.name.localeCompare(b.template.name),
     )
-  }, [])
+  }, [lang])
 }
 
 /** Today's unfinished run (resume banner), `null` when there is none. */

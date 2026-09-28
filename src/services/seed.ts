@@ -10,6 +10,7 @@ import {
 } from '@/content'
 import { db } from '@/db/schema'
 import type { AppSettings, SessionTemplate, TextItem } from '@/db/types'
+import { isListedTemplate } from '@/domain/text/visibility'
 import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { readSettings, updateMeta } from './settings'
 import { replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
@@ -20,7 +21,7 @@ export const SEED_VERSION = 2
 const typeFocus = (def: BuiltinTextDef): 'prayers' | 'affirmations' | null =>
   def.type === 'prayer' ? 'prayers' : def.type === 'affirmation' ? 'affirmations' : null
 
-/** Builtin visibility for a focus choice (DECISIONS #64): both languages show together. */
+/** Builtin visibility for a focus choice; the language gate is applied when listing (DECISIONS #92). */
 function visible(focus: 'prayers' | 'affirmations' | null, prefs: Pick<AppSettings, 'contentFocus'>): boolean {
   if (prefs.contentFocus === 'own') return false
   if (prefs.contentFocus === 'both' || focus === null) return true
@@ -115,6 +116,22 @@ export async function applyContentPreferences(uiLang: Lang, contentFocus: Conten
         pinned: def.key === pinnedKey,
       })
     }
+  })
+}
+
+/**
+ * After the interface language changes (one language at a time, DECISIONS #92): when no session of the
+ * new language is pinned, its default session is pinned, so Start offers something in that language
+ * straight away. Pins of the other language stay for when it is switched back.
+ */
+export async function applyLanguage(uiLang: Lang, contentFocus: ContentFocus): Promise<void> {
+  const key = defaultPinnedSessionKey(uiLang, contentFocus)
+  if (!key) return
+  await db.transaction('rw', [db.texts, db.sessionTemplates], async () => {
+    const [templates, texts] = await Promise.all([db.sessionTemplates.toArray(), db.texts.toArray()])
+    const byId = new Map(texts.map((text) => [text.id, text]))
+    const pinned = templates.some((t) => t.pinned && !t.archived && isListedTemplate(t, byId, uiLang))
+    if (!pinned) await db.sessionTemplates.update(builtinSessionId(key), { pinned: true })
   })
 }
 

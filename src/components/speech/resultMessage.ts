@@ -13,15 +13,14 @@ export function resultMessage(result: MatchResult, t: TFunction): string {
       const words = result.ops.filter((op) => op.op === 'extra').map((op) => op.spoken ?? '')
       return t('speech.result.extra', { count: words.length, words: words.join(', ') })
     }
-    case 'wrong': {
-      const op = result.ops.find((o) => o.op === 'wrong')
-      return t('speech.result.wrong', { spoken: op?.spoken ?? '', expected: op?.source ?? '' })
-    }
     default: {
+      // One word heard as another: say what was heard (a misheard word counts as not said).
+      const misheard = result.wrong === 1 && result.missing === 0 ? result.ops.find((o) => o.op === 'wrong') : undefined
+      if (misheard) return t('speech.result.wrong', { spoken: misheard.spoken ?? '', expected: misheard.source ?? '' })
       const words = result.ops.filter((op) => op.op === 'missing' || op.op === 'wrong').map((op) => op.source ?? '')
       return words.length > 0 && words.length <= 3
         ? t('speech.result.missing', { count: words.length, words: words.join(', ') })
-        : t('speech.result.coverage', { percent: Math.floor(result.coverage * 100), needed: 95 })
+        : t('speech.result.coverage', { percent: Math.floor(result.coverage * 100), needed: Math.round(result.threshold * 100) })
     }
   }
 }
@@ -34,6 +33,6 @@ export function guardianLine(result: MatchResult, failedAttempts: number, t: TFu
   if (result.accepted || result.reason === 'empty' || result.reason === 'emptySource') return null
   if (failedAttempts >= 3) return t('guardian.stuck')
   if (result.reason === 'extra') return t('guardian.extra')
-  if (result.reason === 'wrong') return t('guardian.wrong')
+  if (result.wrong === 1 && result.missing === 0) return t('guardian.wrong')
   return t('guardian.missing')
 }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { builtinSessionId, builtinTextId } from '@/content'
 import { db } from '@/db/schema'
 import { resetDb } from '@/test/db'
-import { applyContentPreferences, applyGrammaticalForm, defaultPinnedSessionKey, SEED_VERSION, seedBuiltins } from './seed'
+import { applyContentPreferences, applyGrammaticalForm, applyLanguage, defaultPinnedSessionKey, SEED_VERSION, seedBuiltins } from './seed'
 import { readSettings, updateAppSettings, updateMeta } from './settings'
 import { getActiveSegments } from './texts'
 
@@ -128,5 +128,26 @@ describe('applyGrammaticalForm', () => {
     const kept = after.filter((segment, i) => segment.id === before[i]?.id)
     expect(kept).toHaveLength(8)
     expect((await db.texts.get(id))?.body.split('\n')[0]).toBe('Jestem spokojna i skupiona.')
+  })
+})
+
+describe('applyLanguage', () => {
+  it('pins the default session of the new language when none of its sessions is pinned', async () => {
+    await updateAppSettings({ uiLang: 'pl', contentFocus: 'both' })
+    await seedBuiltins()
+    expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(true)
+
+    await applyLanguage('en', 'both')
+    expect((await db.sessionTemplates.get(builtinSessionId('en.morning-affirmations')))?.pinned).toBe(true)
+    // The Polish pin stays for when the language is switched back.
+    expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(true)
+  })
+
+  it('leaves the pins alone when the language already has a pinned session', async () => {
+    await updateAppSettings({ uiLang: 'pl', contentFocus: 'both' })
+    await seedBuiltins()
+    await db.sessionTemplates.update(builtinSessionId('en.decade-of-the-rosary'), { pinned: true })
+    await applyLanguage('en', 'both')
+    expect((await db.sessionTemplates.get(builtinSessionId('en.morning-affirmations')))?.pinned).toBe(false)
   })
 })

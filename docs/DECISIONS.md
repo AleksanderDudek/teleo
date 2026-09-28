@@ -320,3 +320,54 @@ Each entry: **decision** — why.
     (spec §1) for users who chose affirmations only.
 88. **Storage v2**: Dexie version 2 adds `bibleReadings` and `friends` (new tables only, no data migration). Backups list
     them as optional tables: older backups still import (read as empty), and older app versions ignore the extra keys.
+
+## Polish recognition: words said but not counted (owner report, 2026-09-27)
+
+89. **The matcher, not the model, is the lever.** In Chrome/Edge/Safari the Web Speech engine is the vendor's cloud
+    model — the strongest free Polish recogniser, which the app cannot replace; the in-browser Whisper tiny/base are
+    weaker in Polish and `small` (~250 MB) is too slow on phones. Lowering the pass mark for everyone would break the
+    honest-checking promise (spec §6.1). The failures come from systematic recogniser artefacts, so those are forgiven:
+    - **split / merged words** — one source word said as two spoken words, or two as one (`niekształtowna` →
+      `nie kształtowna`, `w niebie` → `wniebie`), accepted when the pieces make up *exactly* that word (ignoring only
+      diacritics and spellings of one sound), so a short extra word glued to a neighbour is still an extra word;
+    - **Polish sound keys** — `ó`=`u`, `rz`=`ż`, `ch`=`h` (`Bóg`/`bug`, `morze`/`może`) count as a near match at any
+      word length; Polish only (in English `ch` and `h` differ). Compared next to the diacritic-free form, never
+      instead of it (`wiekow` must still match `wieków`).
+    Both apply in strict mode, in tap and live mode and in live highlighting (one alignment for all).
+90. **Gentle mode needs 85 % of the words** (was 95 % like strict; a different word still only counts as missing, extra
+    words still fail). One word may be lost from 7 words up. Opt-in: the Guardian offers "Check more gently" after two
+    failed tries on one sentence that were nearly right (nothing extra, ≥ 75 % of the words said).
+
+## One language at a time (owner request, 2026-09-27)
+
+91. **The language comes from the browser**, not an onboarding question: the first launch takes Polish when the
+    browser prefers it, English otherwise (`detectUiLang`); Settings can change it later. The onboarding welcome step
+    no longer shows a language picker.
+92. **One language at a time** (supersedes #64): the interface language is also the language of the prayers and
+    texts, the sessions, the Bible translation (KJV for English, Gdańska for Polish), the text editor and the
+    microphone test. Other-language texts, sessions and Bible progress stay stored (and in backups) and come back
+    when the language is switched. Listing rules live in `domain/text/visibility.ts` (a user session takes the
+    language of its texts). Removed from the interface: the library's language chips, PL/EN labels on text cards,
+    the language choice in the editor, the mic test and the Bible screen; the Polish grammatical form is shown only
+    for Polish. On a language switch, if no session of the new language is pinned, its default one is pinned so Start
+    offers something straight away. The language switch itself names each language in its own language
+    ("Polski", "English") so everyone can find theirs.
+
+## Coverage ladder (owner request, 2026-09-27)
+
+93. **Each try of a sentence is gentler: 90 % → 80 % → 70 %** (supersedes spec §6.1's 95 %, the §6.4 strict/gentle
+    modes and #90). The coverage a try needs follows the rejected tries on that sentence in this run
+    (`run.entries[i].attempts`, so it survives pause/resume): 90 % on the first, 80 % on the second, 70 % on the third
+    and every later one; each new sentence — and each repetition of it — starts at 90 % again. "At least" stays
+    literal (`ceil`), so a sentence under 10 words needs every word on its first try and a 2–3-word one needs every
+    word on every rung. `COVERAGE_LADDER` / `coverageNeeded` in `domain/matcher/evaluate.ts`; the live tracker takes the
+    rung with its target, and the player re-sets the same sentence with the next rung after a rejection so the words
+    already heard (a fresh start after a slip) are checked again at once. The skip-after-three-fails rule stays.
+    The spec §6.6 cases keep their inputs; on the first try two words left out of 20 (90 %) now pass, three (85 %) fail.
+94. **A misheard word is a word not said, on every rung** (the old gentle-mode rule for everyone): it lowers coverage but
+    never rejects on its own — the recogniser often writes a word said differently. A word *added* to the text still
+    fails the try (spec §6.1/2); so does a word glued to a neighbour. The Strict/Gentle setting and the Guardian's
+    "Check more gently" offer are gone; Settings explains the ladder, the feedback card says what the next try needs,
+    "How do we check?" describes it. Each attempt stores the coverage it needed (`Attempt.threshold`, replacing
+    `strictness`, per spec §6.4's "stored with every attempt"); older rows and backups keep their `strictness` key
+    and still import. The onboarding microphone check uses the last rung (70 %); the mic test the first (90 %).

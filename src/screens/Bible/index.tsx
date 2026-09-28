@@ -7,11 +7,8 @@ import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Button } from '@/components/ui/Button'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar, ProgressRing } from '@/components/ui/Progress'
-import { Segmented } from '@/components/ui/Segmented'
 import { BIBLE_BOOKS, OLD_TESTAMENT_BOOKS } from '@/domain/bible/books'
-import type { BibleTranslation } from '@/domain/bible/types'
 import { cn } from '@/lib/cn'
-import { updateAppSettings } from '@/services/settings'
 import { toast } from '@/stores/ui'
 import { bibleSummary, bookName, readingMinutes, readingTitle, startReading, useBibleBook, useBibleIndex, useBibleReadings, useBibleTranslation } from './useBible'
 
@@ -46,18 +43,7 @@ export default function Bible() {
     <>
       <PageHeader rubric={t('bible.rubric')} title={t('bible.title')} subtitle={t('bible.lead')} />
 
-      <Segmented<BibleTranslation>
-        label={t('bible.translation')}
-        hideLabel
-        value={translation}
-        onChange={(bibleTranslation) => void updateAppSettings({ bibleTranslation })}
-        options={[
-          { value: 'kjv', label: t('bible.kjv') },
-          { value: 'pbg', label: t('bible.pbg') },
-        ]}
-      />
-
-      {index.error && <p className="mt-6 rounded-2xl bg-bad-soft px-4 py-3 text-bad">{t('bible.loadError')}</p>}
+      {index.error && <p className="mt-2 rounded-2xl bg-bad-soft px-4 py-3 text-bad">{t('bible.loadError')}</p>}
 
       {summary && index.data && (
         <ArchFrame glow className="mt-6 px-5 pt-8 pb-6 text-center">

@@ -4,6 +4,24 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### One language at a time
+
+- No language question at the start: Teleo follows the browser's language, and Settings can change it.
+- Each language has its own prayers, texts, sessions and Bible: in Polish no English texts appear (and vice versa).
+  Language filters and PL/EN labels are gone from the library, editor, microphone test and Bible screen.
+
+### Polish recognition
+
+- Words the recogniser writes together or apart (“w niebie” → “wniebie”, “niekształtowna” → “nie kształtowna”) and
+  the same sound spelled differently (“Bóg” → “bug”, “morze” → “może”) now count as said.
+
+### Checking that gets gentler with each try
+
+- A sentence needs 90% of its words on the first try, 80% on the second and 70% from the third on; each new sentence
+  starts at 90% again. After a failed try the card says what the next one needs.
+- A word heard as a different one only counts as not said; a word added to the text still fails the try.
+- Replaces the Strict/Gentle setting: one rule for everyone.
+
 ### The Bible challenge, golden quarter-hour, leaderboard
 
 - **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska, public domain), sentence by sentence, in

@@ -116,8 +116,6 @@
     "fieldTitle": "Tytuł",
     "titlePlaceholder": "np. Moje poranne afirmacje",
     "fieldType": "Rodzaj",
-    "fieldLang": "Język tekstu",
-    "fieldLangHint": "W tym języku będzie działać rozpoznawanie mowy.",
     "fieldSplit": "Podział na",
     "splitSentence": "Zdania",
     "splitLine": "Linie",
@@ -272,7 +270,8 @@
     "combo_one": "{{count}} z rzędu",
     "combo_few": "{{count}} z rzędu",
     "combo_many": "{{count}} z rzędu",
-    "combo_other": "{{count}} z rzędu"
+    "combo_other": "{{count}} z rzędu",
+    "nextTry": "Następna próba: wystarczy {{percent}}% słów."
   },
   "summary": {
     "title": "Pięknie",
@@ -368,10 +367,8 @@
     "engineAuto": "Automatycznie",
     "engineWeb": "Przeglądarka",
     "engineWhisper": "Whisper offline",
-    "strictness": "Rygor oceny",
-    "strict": "Ścisły",
-    "lenient": "Łagodny",
-    "strictHint": "Ścisły: liczy się każde słowo, inne słowo odrzuca zdanie. Łagodny: inne słowo liczy się tylko jako pominięte – pomocne, gdy rozpoznawanie często Cię myli.",
+    "checking": "Jak sprawdzamy",
+    "checkingHint": "Każda kolejna próba zdania jest łagodniejsza: za pierwszym razem potrzeba 90% jego słów, za drugim 80%, a od trzeciej próby 70%. Słowo usłyszane jako inne liczy się jako pominięte; słowo dodane spoza tekstu nadal nie zalicza próby.",
     "handsFree": "Słuchanie na żywo (bez rąk)",
     "handsFreeHint": "Słuchaj przez całą sesję i sprawdzaj każde zdanie na bieżąco.",
     "saveTranscripts": "Zapisuj transkrypcje",
@@ -490,8 +487,6 @@
     "step": "Krok {{current}} z {{total}}",
     "welcomeTitle": "Wypowiedz. Wypełnij.",
     "welcomeBody": "Jestem Twoim Aniołem Stróżem. Będę słuchać, gdy wypowiadasz modlitwy i afirmacje na głos, sprawdzę każde zdanie i policzę powtórzenia – prywatnie, na tym urządzeniu.",
-    "langTitle": "W jakim języku ma mówić Teleo?",
-    "langBody": "Teksty możesz wypowiadać po polsku i po angielsku niezależnie od tego wyboru.",
     "focusTitle": "Co chcesz praktykować?",
     "focusPrayers": "Modlitwy",
     "focusPrayersBody": "Ojcze nasz, Zdrowaś Maryjo, dziesiątka różańca",
@@ -530,14 +525,6 @@
     "prayer": "Modlitwy",
     "text": "Teksty"
   },
-  "langs": {
-    "pl": "Polski",
-    "en": "Angielski"
-  },
-  "langShort": {
-    "pl": "PL",
-    "en": "EN"
-  },
   "counts": {
     "segments_one": "{{count}} segment",
     "segments_few": "{{count}} segmenty",
@@ -572,7 +559,7 @@
       "coverage": "Dopasowano {{percent}}% słów – potrzeba {{needed}}%."
     },
     "howWeCount": "Jak liczymy?",
-    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz co najmniej 95% jego słów i nie dodasz żadnego słowa. W zdaniach krótszych niż 20 słów oznacza to wszystkie słowa – jedno pominięte słowo dopuszczamy dopiero od 20 słów. Drobne potknięcia rozpoznawania (brak polskich znaków, jedna litera w dłuższym słowie) wybaczamy, a dźwięki typu „yyy” pomijamy.",
+    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz wystarczająco dużo jego słów i nie dodasz żadnego słowa. Za pierwszym razem potrzeba 90% słów, za drugim 80%, a przy każdej kolejnej próbie 70% – w krótkim zdaniu na początku oznacza to wszystkie słowa. Potknięcia rozpoznawania wybaczamy: brak polskich znaków, jedną literę w dłuższym słowie, inną pisownię tego samego dźwięku („Bóg” → „bug”) oraz słowa zapisane razem lub osobno („w niebie” → „wniebie”); słowo usłyszane jako inne liczy się tylko jako pominięte, a dźwięki typu „yyy” pomijamy.",
     "legendMatch": "powiedziane",
     "legendNear": "prawie",
     "legendMissing": "pominięte",
@@ -1113,9 +1100,6 @@
     "title": "Całe Pismo, na głos",
     "lead": "Każde zdanie wypowiedziane na głos i sprawdzone – w czytaniach po około minucie, które zawsze kończą się na pełnym zdaniu.",
     "yearHint": "Około {{days}} dni po 15 minut dziennie – złoty kwadrans.",
-    "translation": "Przekład",
-    "kjv": "King James · English",
-    "pbg": "Gdańska · polski",
     "progress": "{{done}} z {{total}} czytań",
     "percent": "{{percent}} przeczytane na głos",
     "left_one": "Jeszcze około {{count}} dzień po 15 min",

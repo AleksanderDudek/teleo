@@ -35,6 +35,7 @@ export default function TextEditor() {
 
   const [title, setTitle] = useState('')
   const [type, setType] = useState<TextType>('affirmation')
+  // A text speaks the interface language (one language at a time); an existing text keeps its own.
   const [lang, setLang] = useState<Lang>(app.uiLang)
   const [splitMode, setSplitMode] = useState<SplitMode>('sentence')
   const [body, setBody] = useState('')
@@ -148,21 +149,6 @@ export default function TextEditor() {
             onChange={setType}
             options={TEXT_TYPES.map((value) => ({ value, label: t(`textTypes.${value}`) }))}
           />
-          <div>
-            <Segmented<Lang>
-              label={t('editor.fieldLang')}
-              value={lang}
-              onChange={(next) => {
-                setLang(next)
-                if (!manual.current) resplit(body, next, splitMode)
-              }}
-              options={[
-                { value: 'pl', label: t('langs.pl') },
-                { value: 'en', label: t('langs.en') },
-              ]}
-            />
-            <p className="mt-1.5 text-sm text-ink-soft">{t('editor.fieldLangHint')}</p>
-          </div>
           <div>
             <Segmented<SplitMode>
               label={t('editor.fieldSplit')}
