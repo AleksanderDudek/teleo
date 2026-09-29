@@ -456,9 +456,15 @@
     "character": "Postać",
     "sounds": "Efekty dźwiękowe",
     "soundsHint": "Delikatny złoty dzwonek po każdym wypowiedzianym zdaniu; pełniejszy po ukończeniu tekstu lub celu.",
-    "sectionSupport": "Wesprzyj Teleo",
     "displayName": "Imię na udostępnianych kartach",
-    "displayNameHint": "Znajomi zobaczą je na swojej tablicy. Puste = imię Twojej postaci."
+    "displayNameHint": "Znajomi zobaczą je na swojej tablicy. Puste = imię Twojej postaci.",
+    "sectionInstall": "Teleo jako aplikacja",
+    "installBody": "Dodaj Teleo do ekranu głównego: otwiera się na pełnym ekranie jak aplikacja, startuje szybciej i działa bez internetu.",
+    "installButton": "Zainstaluj Teleo",
+    "installDone": "Teleo jest na ekranie głównym.",
+    "installIos1": "W Safari stuknij Udostępnij",
+    "installIosShare": "Udostępnij",
+    "installIos2": "Wybierz „Do ekranu początkowego”, a potem „Dodaj”."
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -995,7 +1001,6 @@
     "button": "Postaw kawę",
     "buttonLabel": "Postaw autorowi kawę – otwiera buycoffee.to w nowej karcie",
     "note": "buycoffee.to · otwiera się w nowej karcie",
-    "compact": "Teleo jest darmowe i takie zostanie. Kawa dla autora to dobre „dziękuję”.",
     "tip1": "Wypowiadaj każde zdanie we własnym tempie. To ja czekam na Ciebie – nigdy odwrotnie.",
     "tip2": "Od pięciu do piętnastu minut dziennie to złoty kwadrans: dość, by wzrastać, i dość krótko, by wytrwać.",
     "tip3": "Imię nie chce przejść? Powiedz je jeszcze raz, powoli. Po trzech próbach możesz je pominąć – to w porządku.",
@@ -1005,7 +1010,9 @@
     "tip7": "Zamrożenie serii chroni dzień przerwy. Odpoczynek nie cofa przebytej drogi.",
     "tip8": "Rano czy wieczorem – znajdź cichą część dnia i zachowaj ją na to.",
     "tip9": "Długie zdania dzielimy za Ciebie. Weź oddech przy każdym przecinku.",
-    "tip10": "Słowa wypowiedziane na głos zostają z nami dłużej niż tylko przeczytane."
+    "tip10": "Słowa wypowiedziane na głos zostają z nami dłużej niż tylko przeczytane.",
+    "strip": "Teleo jest darmowe · postaw autorowi kawę",
+    "bannerTitle": "Pomóż Teleo trwać"
   },
   "share": {
     "button": "Udostępnij dzień",
@@ -1037,7 +1044,15 @@
     "cardStreak": "dni z rzędu",
     "cardPoints": "punkty",
     "cardBible": "Biblii przeczytane na głos",
-    "fileName": "teleo-dzis.png"
+    "fileName": "teleo-dzis.png",
+    "sessionButton": "Udostępnij wynik",
+    "sessionInvite": "Zaproś innych, by też mówili na głos: udostępnij tę sesję.",
+    "session_one": "Za mną „{{title}}” na głos: {{count}} zdanie, {{firstTry}}% za pierwszym razem. Dzień serii: {{streak}}.",
+    "session_few": "Za mną „{{title}}” na głos: {{count}} zdania, {{firstTry}}% za pierwszym razem. Dzień serii: {{streak}}.",
+    "session_many": "Za mną „{{title}}” na głos: {{count}} zdań, {{firstTry}}% za pierwszym razem. Dzień serii: {{streak}}.",
+    "session_other": "Za mną „{{title}}” na głos: {{count}} zdania, {{firstTry}}% za pierwszym razem. Dzień serii: {{streak}}.",
+    "cardFirstTry": "za pierwszym razem",
+    "sessionFileName": "teleo-sesja.png"
   },
   "leaderboard": {
     "title": "Tablica punktów",

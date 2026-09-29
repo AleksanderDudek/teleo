@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
 import { bootstrap } from '@/app/bootstrap'
 import { createAppRouter } from '@/app/router'
+import { captureInstallPrompt } from '@/lib/install'
 import './index.css'
 
 const container = document.getElementById('root')!
@@ -20,6 +21,9 @@ function renderFatal(error: unknown) {
   box.textContent = message
   container.replaceChildren(box)
 }
+
+// Before anything async: the browser's install offer comes early and only once.
+captureInstallPrompt()
 
 bootstrap()
   .then(() => {

@@ -40,7 +40,10 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska) in readings of about a minute that always
   end on a finished sentence — about a year at 15 minutes a day; progress by book, Bible achievements, offline.
 - **Golden quarter-hour & leaderboard:** 5–15 minutes a day earn double points; points by day/week/month against
-  your own best and against friends who send their card by link (no accounts, no server). Share your day as a card.
+  your own best and against friends who send their card by link (no accounts, no server). Share your day — or a
+  finished session — as a card.
+- **Feels like an app:** installable PWA (“Install Teleo” in Settings, steps for iPhone), sticky back button and title
+  bar, tab bar that scrolls to the top on a second tap, smooth screen transitions, bottom-sheet dialogs, offline.
 - **Memory mode & listen first:** say a text from memory (first letters → every other word → hidden;
   words appear as you say them) and optionally hear each sentence read aloud before you say it.
 - **Progress:** heatmap, weekly first-try success, per-text statistics, achievement gallery.

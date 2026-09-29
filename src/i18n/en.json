@@ -444,9 +444,15 @@
     "character": "Character",
     "sounds": "Sound effects",
     "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal.",
-    "sectionSupport": "Support Teleo",
     "displayName": "Name on shared cards",
-    "displayNameHint": "Friends see it on their leaderboard. Empty = your character's name."
+    "displayNameHint": "Friends see it on their leaderboard. Empty = your character's name.",
+    "sectionInstall": "Teleo as an app",
+    "installBody": "Put Teleo on your home screen: it opens full-screen like an app, starts faster and works offline.",
+    "installButton": "Install Teleo",
+    "installDone": "Teleo is on your home screen.",
+    "installIos1": "In Safari, tap Share",
+    "installIosShare": "Share",
+    "installIos2": "Choose “Add to Home Screen”, then “Add”."
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -973,7 +979,6 @@
     "button": "Buy a coffee",
     "buttonLabel": "Buy the author a coffee — opens buycoffee.to in a new tab",
     "note": "buycoffee.to · opens in a new tab",
-    "compact": "Teleo is free and stays that way. A coffee for the author says thank you.",
     "tip1": "Say each sentence at your own pace. I wait for you — never the other way round.",
     "tip2": "Five to fifteen minutes a day is the golden quarter-hour: enough to grow, short enough to keep.",
     "tip3": "Stuck on a name? Say it once more, slowly. After three tries you may skip it — that is all right.",
@@ -983,7 +988,9 @@
     "tip7": "A streak freeze covers a missed day. Rest does not undo the way you have walked.",
     "tip8": "Morning or evening — find the quiet part of your day and keep it for this.",
     "tip9": "Long sentences are split for you. Take a breath at each comma.",
-    "tip10": "Words said aloud stay with you longer than words only read."
+    "tip10": "Words said aloud stay with you longer than words only read.",
+    "strip": "Teleo is free · buy the author a coffee",
+    "bannerTitle": "Help keep Teleo going"
   },
   "share": {
     "button": "Share today",
@@ -1009,7 +1016,13 @@
     "cardStreak": "days in a row",
     "cardPoints": "points",
     "cardBible": "of the Bible read aloud",
-    "fileName": "teleo-today.png"
+    "fileName": "teleo-today.png",
+    "sessionButton": "Share your result",
+    "sessionInvite": "Invite others to say it aloud too: share this session.",
+    "session_one": "Just said “{{title}}” aloud: {{count}} sentence, {{firstTry}}% on the first try. Streak: day {{streak}}.",
+    "session_other": "Just said “{{title}}” aloud: {{count}} sentences, {{firstTry}}% on the first try. Streak: day {{streak}}.",
+    "cardFirstTry": "on the first try",
+    "sessionFileName": "teleo-session.png"
   },
   "leaderboard": {
     "title": "Leaderboard",

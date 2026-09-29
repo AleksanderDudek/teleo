@@ -1,15 +1,18 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { AchievementBadge } from '@/components/AchievementBadge'
 import { Guardian } from '@/components/brand/Guardian'
 import { StatTile } from '@/components/progress/StatTile'
-import { ShareDayButton } from '@/components/share/ShareDayButton'
-import { formatShare, sharedMinutes } from '@/components/share/shareText'
-import { SupportCard } from '@/components/support/SupportCard'
+import { ShareSessionButton } from '@/components/share/ShareSessionButton'
+import { formatShare } from '@/components/share/shareText'
+import { SupportBanner } from '@/components/support/SupportBanner'
+import { SupportStrip } from '@/components/support/SupportStrip'
 import { ArchFrame } from '@/components/ui/ArchFrame'
+import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
+import { buttonClasses } from '@/components/ui/buttonClasses'
 import { ProgressRing } from '@/components/ui/Progress'
 import { db } from '@/db/schema'
 import { computeStreak, dayMarksFrom, levelInfo } from '@/domain/gamification'
@@ -72,9 +75,11 @@ export default function SessionSummary() {
       : null
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-xl flex-col px-6 pt-[max(env(safe-area-inset-top),2rem)] pb-10 text-center">
+    <>
+    <SupportStrip />
+    <main id="main" className="mx-auto flex min-h-dvh max-w-xl flex-col px-5 pt-6 text-center sm:px-6">
       {/* The hero window: the Guardian in a stained-glass arch. */}
-      <ArchFrame glow className="mt-4 px-5 py-7">
+      <ArchFrame glow className="px-5 py-7">
         <Guardian mood={clean ? 'celebrate' : 'encourage'} size={170} decorative className="mx-auto animate-rise" />
         <p className="rubric mt-2">{run.title}</p>
         <h1 className="mt-1 text-4xl font-semibold">{clean ? t('summary.title') : t('summary.titleIncomplete')}</h1>
@@ -107,6 +112,28 @@ export default function SessionSummary() {
         <StatTile sunk label={t('summary.streak')} value={String(streak)} />
       </dl>
 
+      {/* The result is worth passing on while it is fresh: right under the numbers. */}
+      {summary.accepted > 0 && (
+        <section className="card mt-4 p-4 text-left">
+          <p className="mb-3 text-sm text-ink-soft">{t('share.sessionInvite')}</p>
+          <ShareSessionButton
+            variant="gold"
+            size="md"
+            block
+            character={app.character}
+            session={{
+              title: run.title,
+              accepted: summary.accepted,
+              total: summary.total,
+              firstTryRate: summary.firstTryRate,
+              xp: run.xpEarned,
+              streak,
+              bibleShare: bible ? bibleShare : undefined,
+            }}
+          />
+        </section>
+      )}
+
       {achievements.length > 0 && (
         <section className="mt-8 text-left">
           <h2 className="mb-3 text-2xl font-semibold">{t('summary.newAchievements')}</h2>
@@ -125,60 +152,61 @@ export default function SessionSummary() {
         </section>
       )}
 
-      <ShareDayButton
-        className="mt-8 text-left"
-        character={app.character}
-        day={{
-          dayKey: today,
-          minutes: sharedMinutes(todayStats?.readingMs ?? 0),
-          sentences: todayStats?.segmentsAccepted ?? 0,
-          streak,
-          points: todayStats?.xp ?? 0,
-          bibleShare,
-        }}
-      />
+      {/* Just after the app has done something for someone: the support window, once. */}
+      <SupportBanner dayKey={today} className="mt-10 text-left" />
 
-      {/* The only moment the app has just done something for someone: the coffee asks here, once. */}
-      <SupportCard dayKey={today} figure={false} className="mt-8 text-left" />
-
-      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        {bible && (
-          <Button
-            size="lg"
-            icon="play"
-            iconFill
-            disabled={startingNext}
-            onClick={async () => {
-              setStartingNext(true)
-              try {
-                const next = await startNextReading(t, bible.translation)
-                navigate(next ? `/play/${next.id}` : '/bible', { replace: true })
-              } catch {
-                toast({ kind: 'error', title: t('bible.loadError') })
-                setStartingNext(false)
-              }
-            }}
-          >
-            {t('summary.nextReading')}
-          </Button>
+      {/* The next step stays in the thumb zone however long the page gets: one main action, one round one. */}
+      <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex items-center gap-3 bg-gradient-to-t from-paper via-paper/95 to-transparent px-5 pt-6 pb-[max(env(safe-area-inset-bottom),1rem)] sm:-mx-6 sm:px-6">
+        {bible ? (
+          <>
+            <Link to="/" aria-label={t('summary.home')} title={t('summary.home')} className={buttonClasses({ variant: 'secondary', size: 'lg', className: 'w-14 shrink-0 px-0' })}>
+              <Icon name="house-simple" size={22} />
+            </Link>
+            <Button
+              size="lg"
+              icon="play"
+              iconFill
+              className="flex-1"
+              disabled={startingNext}
+              onClick={async () => {
+                setStartingNext(true)
+                try {
+                  const next = await startNextReading(t, bible.translation)
+                  navigate(next ? `/play/${next.id}` : '/bible', { replace: true })
+                } catch {
+                  toast({ kind: 'error', title: t('bible.loadError') })
+                  setStartingNext(false)
+                }
+              }}
+            >
+              {t('summary.nextReading')}
+            </Button>
+          </>
+        ) : (
+          <>
+            {again && (
+              <button
+                type="button"
+                aria-label={t('summary.again')}
+                title={t('summary.again')}
+                disabled={startingNext}
+                className={buttonClasses({ variant: 'secondary', size: 'lg', className: 'w-14 shrink-0 px-0' })}
+                onClick={async () => {
+                  setStartingNext(true)
+                  const next = await startRun(again)
+                  navigate(`/play/${next.id}`, { replace: true })
+                }}
+              >
+                <Icon name="arrow-counter-clockwise" size={22} />
+              </button>
+            )}
+            <ButtonLink to="/" size="lg" icon="house-simple" className="flex-1">
+              {t('summary.home')}
+            </ButtonLink>
+          </>
         )}
-        {again && !bible && (
-          <Button
-            variant="secondary"
-            size="lg"
-            icon="arrow-counter-clockwise"
-            onClick={async () => {
-              const next = await startRun(again)
-              navigate(`/play/${next.id}`, { replace: true })
-            }}
-          >
-            {t('summary.again')}
-          </Button>
-        )}
-        <ButtonLink to="/" size="lg" icon="house-simple" variant={bible ? 'secondary' : 'primary'}>
-          {t('summary.home')}
-        </ButtonLink>
       </div>
     </main>
+    </>
   )
 }

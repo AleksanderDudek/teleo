@@ -222,7 +222,7 @@ export default function TextEditor() {
           </p>
         )}
 
-        <div className="sticky bottom-24 z-10 flex justify-end lg:bottom-6">
+        <div className="sticky bottom-[max(env(safe-area-inset-bottom),1rem)] z-10 flex justify-end lg:bottom-6">
           <Button type="submit" size="lg" disabled={saving || blocked || segments.length === 0} className="shadow-xl">
             {t('editor.save')}
           </Button>

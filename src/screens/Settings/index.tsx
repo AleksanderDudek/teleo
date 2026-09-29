@@ -2,7 +2,6 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
-import { SupportCard } from '@/components/support/SupportCard'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -14,10 +13,10 @@ import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
 import { parseBackup } from '@/domain/backup'
 import { buildDailyReminderIcs } from '@/domain/reminders/ics'
-import { dayKeyFor } from '@/domain/time/dayKey'
 import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { downloadText } from '@/lib/download'
 import { newId } from '@/lib/id'
+import { promptInstall, useInstallState } from '@/lib/install'
 import { backupFileName, exportBackup, importBackupJson, markBackupDone, requestPersistentStorage, wipeAllData } from '@/services/backup'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
@@ -33,6 +32,41 @@ function Section({ id, title, children }: { id: string; title: string; children:
       </h2>
       <Card className="space-y-5">{children}</Card>
     </section>
+  )
+}
+
+/** "Install Teleo": the browser's own dialog where it has one, the Share-menu steps on iPhone and iPad. */
+function InstallSection() {
+  const { t } = useTranslation()
+  const state = useInstallState()
+  if (state !== 'prompt' && state !== 'ios') return null
+  return (
+    <Section id="install" title={t('settings.sectionInstall')}>
+      <p className="text-sm text-ink-soft">{t('settings.installBody')}</p>
+      {state === 'prompt' ? (
+        <Button
+          icon="download-simple"
+          onClick={async () => {
+            if (await promptInstall()) toast({ kind: 'success', title: t('settings.installDone') })
+          }}
+        >
+          {t('settings.installButton')}
+        </Button>
+      ) : (
+        <ol className="space-y-2 text-sm text-ink">
+          <li className="flex items-center gap-2.5">
+            <span className="halo size-7 text-xs font-bold">1</span>
+            <span>
+              {t('settings.installIos1')} <Icon name="export" size={18} label={t('settings.installIosShare')} className="inline align-text-bottom text-primary" />
+            </span>
+          </li>
+          <li className="flex items-center gap-2.5">
+            <span className="halo size-7 text-xs font-bold">2</span>
+            <span>{t('settings.installIos2')}</span>
+          </li>
+        </ol>
+      )}
+    </Section>
   )
 }
 
@@ -79,7 +113,6 @@ export default function Settings() {
   const [deleting, setDeleting] = useState(false)
   const [deleteWord, setDeleteWord] = useState('')
   const [persisted, setPersisted] = useState<boolean | null>(null)
-  const [now] = useState(() => Date.now())
   const date = (ms: number) => new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(ms)
 
   useEffect(() => {
@@ -127,6 +160,8 @@ export default function Settings() {
           <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
           <DisplayName value={app.displayName} placeholder={t(`characters.${app.character}`)} onSave={(displayName) => set({ displayName })} />
         </Section>
+
+        <InstallSection />
 
         <Section id="appearance" title={t('settings.sectionAppearance')}>
           <Segmented<Lang>
@@ -329,13 +364,6 @@ export default function Settings() {
             {t('settings.deleteAll')}
           </Button>
         </Section>
-
-        <section id="support" aria-labelledby="support-title" className="scroll-mt-6">
-          <h2 id="support-title" className="mb-3 text-2xl font-semibold">
-            {t('settings.sectionSupport')}
-          </h2>
-          <SupportCard dayKey={dayKeyFor(now, app.dayStartHour)} />
-        </section>
 
         <Section id="about" title={t('settings.sectionAbout')}>
           <p className="text-sm text-ink-soft">{t('settings.about', { version: __APP_VERSION__ })}</p>
