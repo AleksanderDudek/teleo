@@ -403,3 +403,57 @@ Each entry: **decision** — why.
     steps are shown instead; nothing is shown inside the installed app or where installing is impossible. No manifest
     shortcuts: the manifest has one language and would show Polish names to English users (#91–92).
 
+
+## Language dialogues (owner request, 2026-09-30)
+
+101. **Scripted bilingual dialogues; the other language is the one learnt.** No backend and no API keys (spec §0/5), so
+    there is no generative partner: eight A1–A2 everyday conversations ship as data (`src/content/dialogues.json`),
+    one bilingual script per conversation serving both directions. The interface language is the user's own (#92);
+    the language learnt is the other one (`learningLang`) — Polish users learn English, English users learn Polish.
+    "The language model follows the language being learnt" means: the recogniser (Web Speech `lang`, Whisper's forced
+    language), the matcher's normalisation and the speechSynthesis voice all use the target language (so do the
+    on-device check and the privacy notice). Every text is keyed by language, so a third language needs content (and
+    matcher support), not a new model.
+102. **Word links are inline markup with grammatical roles**, `{word|id}` with ids `s`/`v`/`a`/`o` = subject,
+    predicate, adjective, object; a word may carry several ids (Polish puts the subject into the verb ending:
+    `{Poproszę|v1,s1}`). Colours follow the role (lapis, crimson, verdigris, violet — tokens `--role-*`, ≥ 4.5:1 on
+    the bubbles in both themes), with the underlines of Polish school sentence analysis (subject one line, predicate
+    two, adjective wavy, object dashed) as a cue that does not depend on colour. Colour by role rather than one colour
+    per pair: the same colours teach the grammar across sentences. Pairs show by pointing (hover with a mouse, tap on
+    a touch screen) and in each bubble's word list, which is also the keyboard and screen-reader route, so the words
+    themselves are not tab stops. "Adjective" includes predicative ones ("ready", "late"); nominal parts of predicates
+    and adverbials stay unlinked. Polish user lines avoid gendered forms (no past tense, no adjectives about the
+    speaker), so they fit everyone without the grammatical-form choice of #26.
+103. **A dialogue is a hidden text** `dialogue:<target>:<key>` (`source: 'dialogue'`) of the user's lines in the target
+    language, played as an ordinary run like a Bible reading (#85): matcher, coverage ladder, XP, streaks, goal, golden
+    quarter-hour and first-try credit apply unchanged; the partner's lines come from the script and are not attempts.
+    Never listed (`isHiddenText`) and no per-text achievements (a lesson, not a text one repeats; the gallery stays
+    about prayers and affirmations). The whole dialogue said is a text repetition (+20 %), a clean run earns the
+    session bonus, and English practice on a day of Polish prayers earns `bilingual`. A later script change is synced
+    by `replaceSegments` (lines already spoken are archived, #55). Backups accept the new source; an older app version
+    refuses such a backup, as with `'bible'`.
+104. **One route for every run**: `/play/:runId` hands runs of a dialogue text to the chat player (its own lazy chunk),
+    so Today's resume, the summary's "once more" and links need no new logic. After a dialogue the summary offers
+    **"Next conversation"** (the next one not finished yet, wrapping round) with home as the round button — the Bible's
+    "Next reading" pattern; the scripts load only on that tap.
+105. **Turn flow**: the partner "types" (0.75 s of dots), shows the line with its meaning and says it (speechSynthesis
+    in the target language, the voice picked as for listen first); only then does the user's bubble appear (line,
+    pronunciation, meaning) and, with hands-free on, listening starts — live mode with Web Speech (one recognition per
+    turn, stopped the moment the line is accepted), tap mode with Whisper or hands-free off. The microphone is always
+    closed while a line is read aloud (the recogniser would accept the synthetic voice, #48). Without speechSynthesis
+    the partner's line stays on screen for a reading pause (about three words a second, at least 1.5 s). "Listen
+    first" reads the user's line before listening. Rejections, the coverage ladder, empty captures (#53) and
+    skip-after-three behave as in the player; leaving pauses the run (resumable the same day) and returns to the list.
+106. **Pronunciation is a respelling in the reader's own spelling**, the stressed syllable in capitals — the owner asked
+    for "the pronunciation in the user's language", and IPA is unreadable for most learners. English lines for Polish
+    readers use Polish orthography (`th` = tongue between the teeth, `ł` for w, `ii`/`uu` long vowels); Polish lines
+    for English readers use English spelling (`zh`, `y`, `ee`, `oo`). Written by hand (rule-based respelling of English
+    is unreliable) and shown on the current turn only, so the history stays compact; the list screen explains the
+    conventions.
+107. **Content rules**: numbers written as words (recognisers disagree on digits), US spelling in English user lines
+    (the recogniser is en-US), no names the user must say, no cultural traps (floor numbering differs between the US
+    and Poland). `dialogues.test.ts` checks the markup, the same link ids in both languages, pronunciations, icons and
+    figures, and that the matcher accepts every user line as a recogniser writes it.
+108. **Where it lives**: a Library card under the Bible (it lights the Library tab) opens `/dialogues` — title, the title
+    in the target language, scene, level, the user's lines and how often it was finished. Not a sixth tab and not on
+    Today, which stays as it was.

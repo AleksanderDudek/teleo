@@ -39,6 +39,10 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
   its own automatically), streaks with freezes, daily goal, comeback and “steady rhythm” rewards.
 - **Bible challenge:** read the whole Bible aloud (KJV or Biblia Gdańska) in readings of about a minute that always
   end on a finished sentence — about a year at 15 minutes a day; progress by book, Bible achievements, offline.
+- **Language dialogues:** short everyday conversations in a messenger-style chat — English for Polish speakers,
+  Polish for English speakers. The partner speaks first (aloud, with the meaning); you answer aloud, with the
+  pronunciation spelt your way; subject, predicate, adjectives and objects are coloured together with their
+  translation. Recognised and checked in the language you learn.
 - **Golden quarter-hour & leaderboard:** 5–15 minutes a day earn double points; points by day/week/month against
   your own best and against friends who send their card by link (no accounts, no server). Share your day — or a
   finished session — as a card.
