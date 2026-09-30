@@ -3,11 +3,15 @@ import { createHashRouter, type RouteObject } from 'react-router'
 import { NotFound, RouteError } from './RouteError'
 import { Root } from './Root'
 import { TabsLayout } from './TabsLayout'
+import type { RouteHandle } from './tabs'
 
 /** Route modules are code-split; each screen folder default-exports its component. */
 const screen = (load: () => Promise<{ default: ComponentType }>): Pick<RouteObject, 'lazy'> => ({
   lazy: async () => ({ Component: (await load()).default }),
 })
+
+/** Editing forms: no tab bar or support window on phones (see TabsLayout). */
+const FORM: RouteHandle = { form: true }
 
 export const routes: RouteObject[] = [
   {
@@ -25,12 +29,12 @@ export const routes: RouteObject[] = [
         children: [
           { index: true, ...screen(() => import('@/screens/Today')) },
           { path: 'library', ...screen(() => import('@/screens/Library')) },
-          { path: 'library/new', ...screen(() => import('@/screens/TextEditor')) },
+          { path: 'library/new', handle: FORM, ...screen(() => import('@/screens/TextEditor')) },
           { path: 'library/:textId', ...screen(() => import('@/screens/TextDetail')) },
-          { path: 'library/:textId/edit', ...screen(() => import('@/screens/TextEditor')) },
+          { path: 'library/:textId/edit', handle: FORM, ...screen(() => import('@/screens/TextEditor')) },
           { path: 'sessions', ...screen(() => import('@/screens/Sessions')) },
-          { path: 'sessions/new', ...screen(() => import('@/screens/SessionBuilder')) },
-          { path: 'sessions/:templateId/edit', ...screen(() => import('@/screens/SessionBuilder')) },
+          { path: 'sessions/new', handle: FORM, ...screen(() => import('@/screens/SessionBuilder')) },
+          { path: 'sessions/:templateId/edit', handle: FORM, ...screen(() => import('@/screens/SessionBuilder')) },
           { path: 'progress', ...screen(() => import('@/screens/Progress')) },
           { path: 'bible', ...screen(() => import('@/screens/Bible')) },
           { path: 'bible/:translation/:book', ...screen(() => import('@/screens/Bible/Book')) },

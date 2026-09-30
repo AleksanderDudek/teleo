@@ -171,7 +171,7 @@ export default function SessionBuilder() {
             {error}
           </p>
         )}
-        <div className="sticky bottom-24 z-10 flex justify-end lg:bottom-6">
+        <div className="sticky bottom-[max(env(safe-area-inset-bottom),1rem)] z-10 flex justify-end lg:bottom-6">
           <Button type="submit" size="lg" disabled={items.length === 0 || overLimit || !name.trim()} className="shadow-xl">
             {t('builder.save')}
           </Button>

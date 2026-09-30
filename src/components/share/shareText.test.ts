@@ -1,7 +1,7 @@
 import type { TFunction } from 'i18next'
 import { describe, expect, it } from 'vitest'
 import { APP_URL } from '@/components/support/links'
-import { formatShare, sharedMinutes, shareLinks, shareText, type DayShare } from './shareText'
+import { formatShare, sessionShareText, sharedMinutes, shareLinks, shareText, type DayShare, type SessionShare } from './shareText'
 
 const t = ((key: string, options?: Record<string, unknown>) => (options ? `${key}${JSON.stringify(options)}` : key)) as unknown as TFunction
 const day: DayShare = { dayKey: '2026-09-27', minutes: 12, sentences: 86, streak: 5, points: 1240 }
@@ -21,6 +21,22 @@ describe('shareText', () => {
   it('adds the Bible progress once the challenge has started', () => {
     expect(shareText({ ...day, bibleShare: 0.0123 }, t, 'en')).toContain('share.bible{"percent":"1.2%"}')
     expect(shareText({ ...day, bibleShare: 0 }, t, 'en')).not.toContain('share.bible')
+  })
+})
+
+describe('sessionShareText', () => {
+  const session: SessionShare = { title: 'Ojcze nasz', accepted: 4, total: 4, firstTryRate: 0.75, xp: 60, streak: 3 }
+
+  it('writes the session, one call to action and the address on its own last line', () => {
+    const lines = sessionShareText(session, t, 'pl').split('\n')
+    expect(lines[0]).toBe('share.session{"count":4,"title":"Ojcze nasz","firstTry":75,"streak":3}')
+    expect(lines.slice(1)).toEqual(['', 'share.cta', APP_URL])
+  })
+
+  it('rounds the first-try rate and adds the Bible progress of a Bible reading', () => {
+    const text = sessionShareText({ ...session, firstTryRate: 2 / 3, bibleShare: 0.0123 }, t, 'en')
+    expect(text).toContain('"firstTry":67')
+    expect(text).toContain('share.bible{"percent":"1.2%"}')
   })
 })
 

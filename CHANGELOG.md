@@ -4,6 +4,17 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Support, sharing and a native-feeling shell
+
+- A thin support ribbon at the top of every screen outside a session, and a full-width stained-glass window with the
+  Guardian and a “Buy a coffee” button at the end of each screen and after every session.
+- After a session: share your result (the session’s picture card and post) right under the numbers; the next step sits
+  in a bar within thumb reach.
+- Navigation like a native app: a sticky bar with the back button and the screen title, tab bar that lights the right
+  tab (the Bible under Library) and scrolls to the top when tapped again, editing forms without the tab bar, smooth
+  screen transitions, a loading line, bottom-sheet dialogs on phones.
+- “Install Teleo” in Settings (and the steps for iPhone and iPad).
+
 ### One language at a time
 
 - No language question at the start: Teleo follows the browser's language, and Settings can change it.

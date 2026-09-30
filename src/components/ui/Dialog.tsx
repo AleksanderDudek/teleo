@@ -50,11 +50,15 @@ export function Dialog({ open, onClose, title, description, children, actions, l
         if (!locked && event.target === event.currentTarget) onClose()
       }}
       className={cn(
-        'm-auto w-[min(34rem,calc(100vw-2rem))] rounded-3xl border border-line-strong bg-surface p-0 text-ink shadow-[var(--shadow-frame),0_25px_50px_-12px_rgb(0_0_0/0.25)] backdrop:bg-(--backdrop) backdrop:backdrop-blur-[2px] open:animate-rise',
+        'w-[min(34rem,calc(100vw-2rem))] border border-line-strong bg-surface p-0 text-ink shadow-[var(--shadow-frame),0_25px_50px_-12px_rgb(0_0_0/0.25)] backdrop:bg-(--backdrop) backdrop:backdrop-blur-[2px]',
+        // Phones: a bottom sheet within thumb reach; larger screens: a centred panel.
+        'max-sm:mx-0 max-sm:mt-auto max-sm:mb-0 max-sm:max-h-[92dvh] max-sm:w-full max-sm:max-w-none max-sm:rounded-t-3xl max-sm:border-x-0 max-sm:border-b-0 max-sm:open:animate-sheet',
+        'sm:m-auto sm:max-h-[90dvh] sm:rounded-3xl sm:open:animate-rise',
         className,
       )}
     >
-      <div className="p-6">
+      <div aria-hidden className="mx-auto mt-2.5 h-1 w-10 rounded-full bg-line-strong sm:hidden" />
+      <div className="p-6 max-sm:pt-4 max-sm:pb-[max(env(safe-area-inset-bottom),1.5rem)]">
         {guide && <Guardian mood={guide} size={96} decorative className="mx-auto -mt-2 mb-1" />}
         <div className="flex items-start justify-between gap-4">
           <h2 id={titleId} className="text-2xl font-semibold">

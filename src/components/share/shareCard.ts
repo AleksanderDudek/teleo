@@ -107,10 +107,11 @@ export async function drawShareCard(content: CardContent): Promise<Blob> {
 
   ctx.fillStyle = INK.goldInk
   ctx.font = `700 30px ${SMALL_CAPS}`
-  ctx.fillText(content.rubric.toLowerCase(), SIZE / 2, 128)
+  ctx.fillText(content.rubric.toLowerCase(), SIZE / 2, 128, SIZE - 220)
   ctx.fillStyle = INK.umber
   ctx.font = `600 64px ${SERIF}`
-  ctx.fillText(content.title, SIZE / 2, 200)
+  // A long session title is narrowed rather than cut.
+  ctx.fillText(content.title, SIZE / 2, 200, SIZE - 220)
   giltRule(ctx, 226, 300)
 
   // Without a note line the figure grows into its room, so the card has no empty band.

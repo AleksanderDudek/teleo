@@ -23,6 +23,17 @@
   --animate-ink: ink 0.5s var(--ease-soft) both;
   --animate-spark: spark 0.9s var(--ease-soft) both;
   --animate-float-up: float-up 1.3s var(--ease-soft) both;
+  --animate-sheet: sheet 0.35s var(--ease-soft) both;
+
+  /* A bottom sheet sliding up from the edge. */
+  @keyframes sheet {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
 
   @keyframes rise {
     from {
@@ -112,6 +123,18 @@
  * Every text/background pair used by the UI is ≥ 4.5:1 (WCAG AA) in both themes.
  */
 :root {
+  /* App chrome: the support ribbon under the status bar, then the compact app bar of each screen. */
+  --strip-h: 2.25rem;
+  --chrome-top: calc(env(safe-area-inset-top, 0px) + var(--strip-h));
+  --appbar-h: 3rem;
+  /* The stained-glass support window: fixed pigments, like a painted panel (the same in both themes). */
+  --window-lapis: #16296a;
+  --window-lapis-deep: #0c1740;
+  --window-ivory: #fbf3df;
+  --window-ivory-soft: #d9d3c2;
+  --window-gold: #d4a744;
+  --window-gold-ink: #1a1406;
+
   /* pigments */
   --lapis: #1f3b8c;
   --lapis-soft: #dce2f2;
@@ -266,6 +289,9 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    /* Focus and in-page jumps never land under the sticky ribbon and app bar (WCAG 2.2 focus not obscured). */
+    scroll-padding-top: calc(var(--chrome-top) + var(--appbar-h) + 0.5rem);
+    scroll-padding-bottom: 6rem;
   }
 
   body {
@@ -433,6 +459,88 @@
   .safe-bottom {
     padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
   }
+
+  /* Tappable cards also answer a press on touch screens, where hover never comes. */
+  .card-lift:active {
+    transform: scale(0.99);
+  }
+
+  /* The support ribbon: a thin band of gold leaf under the status bar, closed by a gilt hairline. */
+  .support-strip {
+    background:
+      linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 16%, transparent) 50%, transparent),
+      color-mix(in oklab, var(--gold-soft) 88%, var(--paper));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    view-transition-name: support-strip;
+  }
+  .support-strip::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent);
+    opacity: 0.6;
+  }
+
+  /* The compact app bar: clear over the large title, a vellum pane once the title has scrolled away. */
+  .app-bar {
+    transition:
+      background-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .app-bar.is-condensed {
+    background: color-mix(in oklab, var(--paper) 95%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+
+  /* The support window: night lapis with sparse gold stars, a gold light-pool behind the Guardian. */
+  .support-window {
+    color: var(--window-ivory);
+    background:
+      radial-gradient(60% 55% at 50% 0%, color-mix(in oklab, var(--window-gold) 38%, transparent), transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23d4a744' fill-opacity='.22'%3E%3Cpath d='M18 17L19 20.5L22.5 21.5L19 22.5L18 26L17 22.5L13.5 21.5L17 20.5Z'/%3E%3Cpath d='M84 10L84.6 12.1L86.7 12.7L84.6 13.3L84 15.4L83.4 13.3L81.3 12.7L83.4 12.1Z'/%3E%3Cpath d='M57 58L58.2 62.2L62.4 63.4L58.2 64.6L57 68.8L55.8 64.6L51.6 63.4L55.8 62.2Z'/%3E%3Cpath d='M106 80L106.8 82.8L109.6 83.6L106.8 84.4L106 87.2L105.2 84.4L102.4 83.6L105.2 82.8Z'/%3E%3Cpath d='M26 96L26.6 98.1L28.7 98.7L26.6 99.3L26 101.4L25.4 99.3L23.3 98.7L25.4 98.1Z'/%3E%3C/g%3E%3C/svg%3E"),
+      linear-gradient(180deg, var(--window-lapis), var(--window-lapis-deep));
+    box-shadow:
+      inset 0 0 0 4px var(--window-lapis-deep),
+      inset 0 0 0 5px color-mix(in oklab, var(--window-gold) 70%, transparent),
+      0 18px 40px -24px rgb(12 23 64 / 0.8);
+  }
+  .support-window .rubric {
+    color: var(--window-gold);
+  }
+
+  /* The thin gold line while the next screen loads (shown only when it takes a moment). */
+  .nav-progress {
+    position: fixed;
+    inset: env(safe-area-inset-top, 0px) 0 auto;
+    z-index: 60;
+    height: 2px;
+    transform-origin: left;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold));
+    animation: nav-progress 2.4s var(--ease-soft) 0.15s both;
+  }
+  @keyframes nav-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(0.85);
+    }
+  }
+}
+
+.tab-bar {
+  view-transition-name: tab-bar;
+}
+
+/* Screen changes: a short cross-fade of the content; the ribbon and the tab bar stay put. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: ease-out;
 }
 
 html[data-font='sm'] {
@@ -453,5 +561,10 @@ html[data-font='lg'] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

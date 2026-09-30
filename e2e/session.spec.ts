@@ -52,7 +52,7 @@ test.describe('live mode', () => {
     await page.screenshot({ path: testInfo.outputPath('live-player.png') })
     await page.waitForURL(/summary$/, { timeout: 120_000 })
     await expect(page.getByText('26/26')).toBeVisible()
-    await expect(page.getByText('100%')).toBeVisible()
+    await expect(page.getByText('100%', { exact: true })).toBeVisible()
     await page.screenshot({ path: testInfo.outputPath('live-summary.png'), fullPage: true })
 
     await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
@@ -75,7 +75,7 @@ test.describe('live mode', () => {
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
     await page.waitForURL(/summary$/, { timeout: 120_000 })
     await expect(page.getByText('26/26')).toBeVisible()
-    await expect(page.getByText('96%')).toBeVisible() // 25 of 26 on the first try
+    await expect(page.getByText('96%', { exact: true })).toBeVisible() // 25 of 26 on the first try
   })
 })
 
@@ -102,7 +102,7 @@ test.describe('memory mode', () => {
     await page.getByRole('button', { name: 'Mów' }).click()
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
     await page.waitForURL(/summary$/, { timeout: 60_000 })
-    await expect(page.getByText('Na pamięć')).toBeVisible()
+    await expect(page.getByText('Na pamięć', { exact: true })).toBeVisible()
   })
 })
 

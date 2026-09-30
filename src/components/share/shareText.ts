@@ -12,6 +12,19 @@ export interface DayShare {
   bibleShare?: number
 }
 
+/** One finished session, as shared from its summary. */
+export interface SessionShare {
+  title: string
+  accepted: number
+  total: number
+  /** Share of the sentences said on the first try (0…1). */
+  firstTryRate: number
+  xp: number
+  streak: number
+  /** Share of the whole Bible read aloud, after a Bible reading. */
+  bibleShare?: number
+}
+
 const TEMPLATES = ['share.t1', 'share.t2', 'share.t3'] as const
 
 /** Whole minutes read, rounded; a day with any reading shows at least 1. */
@@ -34,6 +47,18 @@ export function shareText(day: DayShare, t: TFunction, lang: string, seed = 0): 
   const template = TEMPLATES[Math.abs(Math.trunc(seed)) % TEMPLATES.length]!
   const body = t(template, { count: day.sentences, minutes: day.minutes, points: day.points, streak: day.streak })
   const bible = day.bibleShare ? ` ${t('share.bible', { percent: formatShare(day.bibleShare, lang) })}` : ''
+  return [`${body}${bible}`, '', t('share.cta'), APP_URL].join('\n')
+}
+
+/** The post after a session: what was said, how cleanly, the streak; the same closing lines as the day. */
+export function sessionShareText(session: SessionShare, t: TFunction, lang: string): string {
+  const body = t('share.session', {
+    count: session.accepted,
+    title: session.title,
+    firstTry: Math.round(session.firstTryRate * 100),
+    streak: session.streak,
+  })
+  const bible = session.bibleShare ? ` ${t('share.bible', { percent: formatShare(session.bibleShare, lang) })}` : ''
   return [`${body}${bible}`, '', t('share.cta'), APP_URL].join('\n')
 }
 

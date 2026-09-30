@@ -371,3 +371,35 @@ Each entry: **decision** — why.
     "How do we check?" describes it. Each attempt stores the coverage it needed (`Attempt.threshold`, replacing
     `strictness`, per spec §6.4's "stored with every attempt"); older rows and backups keep their `strictness` key
     and still import. The onboarding microphone check uses the last rung (70 %); the mic test the first (90 %).
+
+## Support banners, session sharing, mobile shell (owner request, 2026-09-29)
+
+95. **Support ribbon at the top** (supersedes #80's "summary and Settings only"): a thin (36 px) gilded band under the
+    status bar, sticky, one tap to buycoffee.to, not dismissible (owner: "visible all the time"). It is on every screen
+    outside a session — all tab screens, sub-screens, editing forms and the session summary — and never in the session
+    player (a prayer in progress), onboarding or the friend-invitation page. No animation, one line.
+96. **Support window at the bottom**: a full-width night-lapis stained-glass panel (fixed pigments, the same painted
+    panel in both themes) with the Guardian, his word for today (kept from #80), one line about the free app and a gold
+    "Buy a coffee" button. At the end of every tab screen and of the session summary; editing forms (text editor,
+    session builder) leave it out. It replaces the Settings and summary support cards (one ask per screen); a second
+    Guardian on the summary is accepted — the owner asked for the angel there.
+97. **After a session: share the session**, not only the day — its title, sentences said, first-try rate, points and
+    streak (plus the Bible share after a reading) as the same 1080×1080 card and a post (#79's rules: nominal Polish,
+    preview first). It sits right under the numbers; "Share today" stays on Today. The next step (home / again / next
+    reading) is a sticky thumb-zone bar: one main button and one round one, so it stays low on a phone.
+98. **App bar, the large-title way**: `PageHeader` renders a compact bar that sticks under the ribbon — a 44 px back
+    button on sub-screens (an installed app has no browser back button, iOS none at all) and the screen title, which
+    fades in once the large title has scrolled under it. Back stays "up" navigation to a fixed parent (`backTo`), not
+    history; the Bible now goes up to the library. `scroll-padding-top` keeps focused elements clear of the chrome.
+99. **Tab bar behaviour**: a tab stays lit on its sub-screens, and the Bible lights Library (`app/tabs.ts`); tapping
+    the current tab at its top level scrolls back to the top; editing forms hide the tab bar on phones (a focused task
+    with its own save bar, which moves down to the thumb zone) via the route handle `{ form: true }`. Screen changes
+    from the tab bar and back buttons cross-fade with the View Transitions API (ribbon and tab bar stay put; off with
+    reduced motion, plain navigation where unsupported). A thin gold line shows while a lazy screen loads. After a
+    screen change focus moves to the content unless the new screen placed it (screen readers start on the new screen).
+100. **Platform polish**: dialogs are bottom sheets on phones (handle, safe-area padding, slide-up) and centred panels
+    from `sm` up; cards answer a press on touch screens. **Install**: the browser's `beforeinstallprompt` is kept at
+    startup (its mini-infobar suppressed) and offered as "Install Teleo" in Settings; on iPhone/iPad the two Share-menu
+    steps are shown instead; nothing is shown inside the installed app or where installing is impossible. No manifest
+    shortcuts: the manifest has one language and would show Polish names to English users (#91–92).
+

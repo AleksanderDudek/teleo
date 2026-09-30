@@ -52,6 +52,10 @@ npm run typecheck    # tsc -b
   tested planner in `src/domain/bible/readings.ts` — keep that file import-free). Readings are materialised as hidden
   texts (`source: 'bible'`, filter lists with `isListedText`); finished readings live in `bibleReadings`.
 - Leaderboard: no server; friends' cards travel in links (`src/domain/leaderboard/friends.ts`, strict decoding).
+- App shell (`src/app/TabsLayout.tsx`): support ribbon on top (`SupportStrip`), support window at the end of each
+  screen (`SupportBanner`), tab bar (`src/app/tabs.ts` maps screens to tabs). Editing forms set the route handle
+  `{ form: true }` (no tab bar/window on phones). Screens start with `PageHeader` (sticky compact bar with back button
+  and condensing title; pass `backTo` on sub-screens). Nothing of this in the session player.
 - e2e tests stub speech with `e2e/fakeSpeech.ts` (the headless shell crashes on the real
   `SpeechRecognition.available()`); UI strings must exist in both `pl.json` and `en.json`.
 - Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).
