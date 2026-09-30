@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { GlossError, glossIds, parseGloss, roleOf } from './gloss'
+import { GlossError, glossIds, linkPairs, parseGloss, roleOf } from './gloss'
 
 describe('parseGloss', () => {
   it('reads a line without links as one plain part', () => {
@@ -52,5 +52,31 @@ describe('parseGloss', () => {
   ])('rejects malformed markup: %s', (markup, message) => {
     expect(() => parseGloss(markup)).toThrow(GlossError)
     expect(() => parseGloss(markup)).toThrow(message)
+  })
+})
+
+describe('linkPairs', () => {
+  it('pairs the linked words of two languages, in the order of the first line', () => {
+    const en = parseGloss('{I|s1}{’d like|v1} a {large|a1} {coffee|o1}, please.')
+    const pl = parseGloss('{Poproszę|v1,s1} {dużą|a1} {kawę|o1}.')
+    expect(linkPairs(en, pl)).toEqual([
+      { id: 's1', role: 'subject', from: 'I', to: 'Poproszę' },
+      { id: 'v1', role: 'predicate', from: '’d like', to: 'Poproszę' },
+      { id: 'a1', role: 'adjective', from: 'large', to: 'dużą' },
+      { id: 'o1', role: 'object', from: 'coffee', to: 'kawę' },
+    ])
+  })
+
+  it('joins words of one link with an ellipsis when something stands between them', () => {
+    const en = parseGloss('{Do|v1} {you|s1} {work|v1} nearby?')
+    const pl = parseGloss('{Pracujesz|v1,s1} w pobliżu?')
+    expect(linkPairs(en, pl)).toEqual([
+      { id: 'v1', role: 'predicate', from: 'Do … work', to: 'Pracujesz' },
+      { id: 's1', role: 'subject', from: 'you', to: 'Pracujesz' },
+    ])
+  })
+
+  it('has no pairs for a line without links', () => {
+    expect(linkPairs(parseGloss('See you!'), parseGloss('Na razie!'))).toEqual([])
   })
 })

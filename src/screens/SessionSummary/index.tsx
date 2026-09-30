@@ -47,8 +47,10 @@ export default function SessionSummary() {
         : db.achievements.where('unlockedAt').between(run.startedAt, until, true, true).toArray(),
       db.texts.toArray(),
     ])
-    const bible = run.textId ? texts.find((x) => x.id === run.textId)?.bible : undefined
-    return { run, daily, achievements, bible, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
+    const text = run.textId ? texts.find((x) => x.id === run.textId) : undefined
+    const bible = text?.bible
+    const dialogue = text?.source === 'dialogue'
+    return { run, daily, achievements, bible, dialogue, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
   }, [runId, app.dayStartHour])
 
   if (data === undefined) return null
@@ -61,7 +63,7 @@ export default function SessionSummary() {
     )
   }
 
-  const { run, daily, achievements, titles, today, bible } = data
+  const { run, daily, achievements, titles, today, bible, dialogue } = data
   const summary = summarizeRun(run.plan, run.entries)
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
@@ -157,7 +159,33 @@ export default function SessionSummary() {
 
       {/* The next step stays in the thumb zone however long the page gets: one main action, one round one. */}
       <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex items-center gap-3 bg-gradient-to-t from-paper via-paper/95 to-transparent px-5 pt-6 pb-[max(env(safe-area-inset-bottom),1rem)] sm:-mx-6 sm:px-6">
-        {bible ? (
+        {dialogue ? (
+          <>
+            <Link to="/" aria-label={t('summary.home')} title={t('summary.home')} className={buttonClasses({ variant: 'secondary', size: 'lg', className: 'w-14 shrink-0 px-0' })}>
+              <Icon name="house-simple" size={22} />
+            </Link>
+            <Button
+              size="lg"
+              icon="chats-circle"
+              className="flex-1"
+              disabled={startingNext}
+              onClick={async () => {
+                setStartingNext(true)
+                try {
+                  // The scripts load with the dialogue screens, not with every summary.
+                  const { startNextDialogue } = await import('@/services/dialogues')
+                  const next = run.textId ? await startNextDialogue(run.textId) : undefined
+                  navigate(next ? `/play/${next.id}` : '/dialogues', { replace: true })
+                } catch {
+                  toast({ kind: 'error', title: t('dialogues.startError') })
+                  setStartingNext(false)
+                }
+              }}
+            >
+              {t('summary.nextDialogue')}
+            </Button>
+          </>
+        ) : bible ? (
           <>
             <Link to="/" aria-label={t('summary.home')} title={t('summary.home')} className={buttonClasses({ variant: 'secondary', size: 'lg', className: 'w-14 shrink-0 px-0' })}>
               <Icon name="house-simple" size={22} />

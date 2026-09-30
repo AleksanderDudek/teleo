@@ -279,7 +279,8 @@
     "skipped_one": "{{count}} sentence skipped",
     "skipped_other": "{{count}} sentences skipped",
     "nextReading": "Next reading",
-    "biblePercent": "{{percent}} of the Bible read aloud"
+    "biblePercent": "{{percent}} of the Bible read aloud",
+    "nextDialogue": "Next conversation"
   },
   "progress": {
     "rubric": "Progress",
@@ -1170,5 +1171,47 @@
       "JUD": "Jude",
       "REV": "Revelation"
     }
+  },
+  "dialogues": {
+    "rubric": "Language practice",
+    "titleIn": {
+      "en": "Conversations in English",
+      "pl": "Conversations in Polish"
+    },
+    "lead": "Short everyday conversations. Your partner starts and you answer aloud — every line you say is checked, just like prayers and affirmations.",
+    "libraryBody": "Practise a language in short conversations — aloud.",
+    "howToReadTitle": "How to read the pronunciation:",
+    "howToRead": "it is spelt the English way, with the stressed syllable in CAPITALS (Polish stresses the last syllable but one). “zh” is the s in “measure”; “y” as in “yes”; “i” as in “bit”; “ee” as in “see”; “oo” as in “too”; “h” is breathier, like the ch in “loch”.",
+    "legendTitle": "Word colours",
+    "legendHint": "Point at or tap a word to light up its counterpart in the translation.",
+    "roles": {
+      "subject": "Subject",
+      "predicate": "Predicate",
+      "adjective": "Adjective",
+      "object": "Object"
+    },
+    "level": "Level {{level}}",
+    "lines_one": "{{count}} line for you",
+    "lines_other": "{{count}} lines for you",
+    "done_one": "Done once",
+    "done_other": "Done {{count}} times",
+    "startError": "The conversation could not be started.",
+    "chat": "Conversation with {{name}}",
+    "typing": "{{name}} is typing…",
+    "partnerSpeaking": "{{name}} is speaking…",
+    "yourTurn": "Your turn — say it aloud",
+    "you": "You",
+    "pronunciation": "Pronunciation",
+    "listenLine": "Listen",
+    "words": "Words",
+    "noWords": "No words are marked in this line.",
+    "said": "Said",
+    "skipped": "Skipped",
+    "skip": "Skip this line",
+    "finished": "End of the conversation",
+    "toSummary": "Summary",
+    "progress": "Line {{current}} of {{total}}",
+    "leaveTitle": "Pause the conversation?",
+    "leaveBody": "Your progress is saved. You can come back to it today from the Today screen."
   }
 }

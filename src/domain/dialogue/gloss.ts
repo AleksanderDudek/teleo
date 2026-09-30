@@ -75,3 +75,38 @@ export function parseGloss(markup: string): Gloss {
 export function glossIds(gloss: Gloss): Set<string> {
   return new Set(gloss.parts.flatMap((part) => part.ids))
 }
+
+export interface LinkPair {
+  id: string
+  role: GlossRole
+  /** The linked words of the first line (non-adjacent words joined with " … "). */
+  from: string
+  /** Their counterpart in the second line ('' when it has none). */
+  to: string
+}
+
+/** The words a link covers in one line: adjacent parts run together, gaps become " … ". */
+function linkedWords(gloss: Gloss, id: string): string {
+  let words = ''
+  let gap = ''
+  let wordsBetween = false
+  for (const part of gloss.parts) {
+    if (part.ids.includes(id)) {
+      if (words) words += wordsBetween || gap.trim() ? ' … ' : gap
+      words += part.text
+      gap = ''
+      wordsBetween = false
+    } else if (words) {
+      gap += part.text
+      wordsBetween ||= part.ids.length > 0
+    }
+  }
+  return words
+}
+
+/** Word pairs of a line in two languages, in the order the links first appear in `from` (the word list). */
+export function linkPairs(from: Gloss, to: Gloss): LinkPair[] {
+  const order: string[] = []
+  for (const part of from.parts) for (const id of part.ids) if (!order.includes(id)) order.push(id)
+  return order.map((id) => ({ id, role: roleOf(id), from: linkedWords(from, id), to: linkedWords(to, id) }))
+}
