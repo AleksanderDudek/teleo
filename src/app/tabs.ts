@@ -5,8 +5,8 @@ export type TabKey = 'today' | 'library' | 'sessions' | 'progress' | 'settings'
 /** Teleo Glyphs: sunrise, a jewelled gospel cover, a rosary, a lily, sliders with haloed knobs. */
 export const TABS: ReadonlyArray<{ to: string; key: TabKey; icon: IconName; also?: readonly string[] }> = [
   { to: '/', key: 'today', icon: 'sunrise' },
-  // The Bible is opened from the library (and from Today): it lights the library tab.
-  { to: '/library', key: 'library', icon: 'gospel', also: ['/bible'] },
+  // The Bible and the language dialogues are opened from the library: they light the library tab.
+  { to: '/library', key: 'library', icon: 'gospel', also: ['/bible', '/dialogues'] },
   { to: '/sessions', key: 'sessions', icon: 'rosary' },
   { to: '/progress', key: 'progress', icon: 'lily' },
   { to: '/settings', key: 'settings', icon: 'sliders-halo' },

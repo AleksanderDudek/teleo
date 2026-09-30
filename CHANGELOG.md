@@ -4,6 +4,19 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Language dialogues
+
+- **Conversations in English** (for Polish speakers) and **in Polish** (for English speakers): eight short everyday
+  dialogues — meeting a neighbour, a café, asking the way, the market, a hotel, a restaurant, the station and
+  weekend plans — in a chat like a messenger. Open them from the Library.
+- Your partner speaks first, aloud, with the meaning under each line; then you read your answer aloud. Under it:
+  how to say it, spelt the way you read (stress in capitals), and what it means.
+- The subject, predicate, adjectives and objects are coloured — and underlined the way Polish schools mark a
+  sentence — together with their counterparts in the translation; point at or tap a word to light its pair, or
+  open the word list under a line.
+- Speech is recognised and checked in the language you learn; your lines count like sentences of a prayer (points,
+  daily goal, streak), and the summary offers the next conversation.
+
 ### Support, sharing and a native-feeling shell
 
 - A thin support ribbon at the top of every screen outside a session, and a full-width stained-glass window with the

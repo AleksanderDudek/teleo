@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useBlocker, useNavigate, useParams } from 'react-router'
 import { GuideBubble } from '@/components/brand/GuideBubble'
@@ -39,6 +39,9 @@ import { usePlayerData, type PlayerData } from './usePlayerData'
 const AUTO_LISTEN_DELAY_MS = 600
 const SKIP_AFTER_FAILS = 3
 
+/** A language dialogue is played as a chat (DECISIONS #104); loaded only when one is opened. */
+const DialoguePlayer = lazy(() => import('@/screens/Dialogues/Player'))
+
 export default function SessionPlayer() {
   const { runId } = useParams()
   const dayStartHour = useAppSettings().dayStartHour
@@ -51,6 +54,14 @@ export default function SessionPlayer() {
         <p className="text-xl">{t('player.notFound')}</p>
         <ButtonLink to="/">{t('errors.home')}</ButtonLink>
       </main>
+    )
+  }
+  // Every way into a run (Today's resume, the summary's "once more", links) lands here: dialogues get the chat.
+  if (data.run.textId && data.texts.get(data.run.textId)?.source === 'dialogue') {
+    return (
+      <Suspense fallback={null}>
+        <DialoguePlayer data={data} />
+      </Suspense>
     )
   }
   return <Player data={data} />

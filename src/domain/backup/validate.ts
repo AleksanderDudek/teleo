@@ -212,7 +212,7 @@ const texts: Checker = objectFields([
   ['body', string_],
   ['type', enumOf('affirmation', 'prayer', 'text')],
   ['lang', enumOf('pl', 'en')],
-  ['source', enumOf('builtin', 'user', 'bible')],
+  ['source', enumOf('builtin', 'user', 'bible', 'dialogue')],
   ['archived', boolean_],
   ['splitMode', enumOf('sentence', 'line')],
   ['createdAt', finiteNumber],

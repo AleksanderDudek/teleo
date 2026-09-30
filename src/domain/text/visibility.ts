@@ -6,9 +6,17 @@ import type { Lang } from '@/domain/types'
  * back when the language is switched in Settings.
  */
 
-/** Texts the library, pickers and the session of the day offer: this language, never Bible readings. */
+/**
+ * Texts a feature creates for itself — Bible readings (DECISIONS #85) and language dialogues (#103): never
+ * listed, and no per-text achievements (thousands of readings would flood the gallery; a dialogue is a lesson).
+ */
+export function isHiddenText(text: { source: string }): boolean {
+  return text.source === 'bible' || text.source === 'dialogue'
+}
+
+/** Texts the library, pickers and the session of the day offer: this language, never hidden feature texts. */
 export function isListedText(text: { source: string; lang: Lang }, lang: Lang): boolean {
-  return text.source !== 'bible' && text.lang === lang
+  return !isHiddenText(text) && text.lang === lang
 }
 
 /**

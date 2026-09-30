@@ -291,7 +291,8 @@
     "skipped_many": "{{count}} zdań pominiętych",
     "skipped_other": "{{count}} zdania pominiętego",
     "nextReading": "Następne czytanie",
-    "biblePercent": "{{percent}} Biblii przeczytane na głos"
+    "biblePercent": "{{percent}} Biblii przeczytane na głos",
+    "nextDialogue": "Następna rozmowa"
   },
   "progress": {
     "rubric": "Postępy",
@@ -1208,5 +1209,51 @@
       "JUD": "List Judy",
       "REV": "Apokalipsa"
     }
+  },
+  "dialogues": {
+    "rubric": "Nauka języka",
+    "titleIn": {
+      "en": "Rozmowy po angielsku",
+      "pl": "Rozmowy po polsku"
+    },
+    "lead": "Krótkie rozmowy z życia codziennego. Rozmówca zaczyna, a Ty odpowiadasz na głos – każde Twoje zdanie jest sprawdzane, tak jak modlitwy i afirmacje.",
+    "libraryBody": "Ćwicz język w krótkich rozmowach – na głos.",
+    "howToReadTitle": "Jak czytać wymowę:",
+    "howToRead": "zapisujemy ją polskimi literami, a WIELKIE litery to sylaba akcentowana. „th” – czubek języka lekko między zębami; „ł” – jak w „łódka”; „ii”, „uu” – długie „i” i „u”; „e” brzmi często jak dźwięk między „a” i „e”.",
+    "legendTitle": "Kolory słów",
+    "legendHint": "Wskaż lub dotknij słowa, a podświetli się jego odpowiednik w tłumaczeniu.",
+    "roles": {
+      "subject": "Podmiot",
+      "predicate": "Orzeczenie",
+      "adjective": "Przymiotnik",
+      "object": "Dopełnienie"
+    },
+    "level": "Poziom {{level}}",
+    "lines_one": "{{count}} Twoja kwestia",
+    "lines_few": "{{count}} Twoje kwestie",
+    "lines_many": "{{count}} Twoich kwestii",
+    "lines_other": "{{count}} Twojej kwestii",
+    "done_one": "Ukończona {{count}} raz",
+    "done_few": "Ukończona {{count}} razy",
+    "done_many": "Ukończona {{count}} razy",
+    "done_other": "Ukończona {{count}} razy",
+    "startError": "Nie udało się rozpocząć rozmowy.",
+    "chat": "Rozmowa – {{name}}",
+    "typing": "{{name}} pisze…",
+    "partnerSpeaking": "Mówi {{name}}…",
+    "yourTurn": "Twoja kolej – powiedz na głos",
+    "you": "Ty",
+    "pronunciation": "Wymowa",
+    "listenLine": "Posłuchaj",
+    "words": "Słówka",
+    "noWords": "W tym zdaniu nie zaznaczono słów.",
+    "said": "Powiedziane",
+    "skipped": "Pominięte",
+    "skip": "Pomiń tę kwestię",
+    "finished": "Koniec rozmowy",
+    "toSummary": "Podsumowanie",
+    "progress": "Kwestia {{current}} z {{total}}",
+    "leaveTitle": "Przerwać rozmowę?",
+    "leaveBody": "Postęp jest zapisany. Możesz do niej dziś wrócić z ekranu Dziś."
   }
 }
