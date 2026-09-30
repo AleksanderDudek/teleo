@@ -194,16 +194,26 @@ function Chat({ data, dialogue, target }: { data: PlayerData; dialogue: Dialogue
   const covered = live && listening && yourTurn ? liveSession.progress?.covered : undefined
 
   /** Reads a line aloud with the microphone paused (it would hear the voice), then listens again if asked. */
+  /** Bumped by every stop (leaving, a hidden page, the partner's turn, unmount): a read-aloud then never reopens the mic. */
+  const hearing = useRef(0)
   const hear = async (index: number, thenListen = false) => {
     if (speakingLine !== null) return
+    const generation = ++hearing.current
     const wasListening = live ? liveSession.phase !== 'idle' : capture.phase === 'listening'
     liveSession.stop()
     capture.cancel()
     setSpeakingLine(index)
     await speak(glosses[index]!.target.plain, SPEECH_LANG[target])
-    setSpeakingLine(null)
+    setSpeakingLine((current) => (current === index ? null : current))
+    if (generation !== hearing.current) return
     if ((thenListen || wasListening) && latest.current.yourTurn) latest.current.listen()
   }
+  useEffect(() => {
+    const generations = hearing
+    return () => {
+      generations.current++
+    }
+  }, [])
 
   // Fresh closures for effects and async continuations.
   const latest = useRef({ yourTurn, speaking: speakingLine !== null, hear, listen: () => {}, stop: () => {} })
@@ -213,10 +223,13 @@ function Chat({ data, dialogue, target }: { data: PlayerData; dialogue: Dialogue
       speaking: speakingLine !== null,
       hear,
       listen: () => {
+        // Never open the microphone for a page in the background (a line read aloud may end there).
+        if (document.visibilityState === 'hidden') return
         if (live) void liveSession.start()
         else void capture.start()
       },
       stop: () => {
+        hearing.current++
         liveSession.stop()
         capture.cancel()
       },
