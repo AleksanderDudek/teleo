@@ -27,6 +27,8 @@ const NAMES = [
   'bird', 'church', 'cross', 'feather', 'flower-lotus', 'heart', 'infinity', 'key', 'tree',
   // support, leaderboard, Bible
   'coffee', 'ranking', 'users', 'user-plus', 'book-open',
+  // language dialogues: the chat and its everyday scenes
+  'chats-circle', 'hand-waving', 'signpost', 'basket', 'bed', 'fork-knife', 'train',
 ]
 
 const SOURCE = new URL('../node_modules/@phosphor-icons/core/assets/duotone/', import.meta.url)
