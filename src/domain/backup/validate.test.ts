@@ -168,6 +168,15 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(result.ok && result.backup.data.friends).toEqual([])
   })
 
+  it('accepts the hidden texts of Bible readings and dialogues', () => {
+    const data = realisticData()
+    const text = data.texts[0]!
+    const result = validateBackup(
+      backupWith({ ...data, texts: [{ ...text, id: 'bible:kjv.GEN.0', source: 'bible' }, { ...text, id: 'dialogue:en:cafe', source: 'dialogue' }] }),
+    )
+    expect(result.ok).toBe(true)
+  })
+
   it('accepts valid Bible readings and friends', () => {
     const result = validateBackup(backupWith({ ...emptyData(), bibleReadings: [reading], friends: [friend] } as BackupData))
     expect(result.ok).toBe(true)

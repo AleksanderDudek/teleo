@@ -22,8 +22,11 @@ export interface TextItem {
   type: TextType
   lang: Lang
   body: string
-  /** `bible`: a Bible-challenge reading, materialised when started; hidden from the library and pickers. */
-  source: 'builtin' | 'user' | 'bible'
+  /**
+   * `bible`: a Bible-challenge reading; `dialogue`: the user's lines of a language dialogue (`dialogue:<lang>:<key>`).
+   * Both are materialised when started and hidden from the library and pickers.
+   */
+  source: 'builtin' | 'user' | 'bible' | 'dialogue'
   tags: string[]
   /** Hidden from the library and pickers (builtin texts can only be hidden, never deleted). */
   archived: boolean

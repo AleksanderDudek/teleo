@@ -70,9 +70,13 @@ describe('builtin dialogues', () => {
 })
 
 describe('dialogueOfText', () => {
-  it('finds the dialogue behind its hidden text id', () => {
-    expect(dialogueOfText(dialogueTextId('cafe'))?.key).toBe('cafe')
-    expect(dialogueOfText('dialogue:nope')).toBeUndefined()
+  it('finds the dialogue and the language being learnt behind its hidden text id', () => {
+    expect(dialogueTextId('cafe', 'en')).toBe('dialogue:en:cafe')
+    const found = dialogueOfText(dialogueTextId('cafe', 'pl'))
+    expect(found?.dialogue.key).toBe('cafe')
+    expect(found?.lang).toBe('pl')
+    expect(dialogueOfText('dialogue:en:nope')).toBeUndefined()
+    expect(dialogueOfText('dialogue:de:cafe')).toBeUndefined()
     expect(dialogueOfText('builtin:en.lords-prayer')).toBeUndefined()
     expect(dialogueOfText(undefined)).toBeUndefined()
   })
