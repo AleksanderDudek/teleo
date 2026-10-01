@@ -91,7 +91,8 @@ test('a password-protected backup needs its password, and a restore can be undon
   await page.getByRole('button', { name: 'Przywróć poprzednie dane' }).click()
   await page.getByRole('dialog').getByRole('button', { name: 'Przywróć poprzednie dane' }).click()
   await expect(page.getByText('1 dzień z rzędu')).toBeVisible({ timeout: 15_000 })
+  // Switching back kept the restored data too: it can be brought back again.
   await page.goto('./#/settings/data')
-  await expect(page.getByRole('heading', { name: 'Kopia zapasowa' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Wróć do danych z kopii' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Cofnij przywrócenie' })).toHaveCount(0)
 })

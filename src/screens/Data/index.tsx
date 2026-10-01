@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/Card'
 import { Dialog } from '@/components/ui/Dialog'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { cn } from '@/lib/cn'
-import { deviceSummary, readRestorePoint, requestPersistentStorage, storageStatus, undoImport, wipeAllData, type StorageStatus } from '@/services/backup'
+import { deviceSummary, readRestorePoint, requestPersistentStorage, storageStatus, switchToRestorePoint, wipeAllData, type StorageStatus } from '@/services/backup'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
 import { BackupCard } from './BackupCard'
@@ -29,7 +29,7 @@ function Section({ id, title, icon, children, framed }: { id: string; title: str
   )
 }
 
-/** Whether the browser promised to keep the data, and how much room Teleo takes (spec §10, DECISIONS #109). */
+/** Whether the browser promised to keep the data, and how much room Teleo takes (spec §10, DECISIONS #115). */
 function StorageLine() {
   const { t, i18n } = useTranslation()
   const [status, setStatus] = useState<StorageStatus | null>(null)
@@ -72,17 +72,20 @@ export default function Data() {
   const [undoing, setUndoing] = useState<'ask' | 'busy' | null>(null)
   const [deleting, setDeleting] = useState(false)
   const [deleteWord, setDeleteWord] = useState('')
+  // After switching back, the kept data is the restored backup (with what was done since): offered as "redo".
+  const redo = restorePoint?.kind === 'beforeUndo'
   const number = new Intl.NumberFormat(i18n.language)
   const date = (ms: number) => new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(ms)
 
   const undo = async () => {
     setUndoing('busy')
-    const result = await undoImport()
+    const kind = restorePoint?.kind
+    const result = await switchToRestorePoint()
     if (!result.ok) {
       setUndoing(null)
       return toast({ kind: 'error', title: t(`data.errors.${result.code}`) })
     }
-    toast({ kind: 'success', title: t('data.undone') })
+    toast({ kind: 'success', title: t(kind === 'beforeUndo' ? 'data.redone' : 'data.undone') })
     restartApp()
   }
 
@@ -111,11 +114,11 @@ export default function Data() {
         </Section>
 
         {restorePoint && (
-          <Section id="undo" title={t('data.undoTitle')} icon="clock-counter-clockwise">
-            <p className="text-sm text-ink-soft">{t('data.undoBody', { date: date(restorePoint.createdAt) })}</p>
-            <SummaryTable file={restorePoint.summary} fileLabel={t('data.kept')} />
+          <Section id="undo" title={t(redo ? 'data.redoTitle' : 'data.undoTitle')} icon="clock-counter-clockwise">
+            <p className="text-sm text-ink-soft">{t(redo ? 'data.redoBody' : 'data.undoBody', { date: date(restorePoint.createdAt) })}</p>
+            <SummaryTable file={restorePoint.summary} device={device} fileLabel={t('data.kept')} />
             <Button variant="secondary" icon="arrow-counter-clockwise" onClick={() => setUndoing('ask')}>
-              {t('data.undo')}
+              {t(redo ? 'data.redo' : 'data.undo')}
             </Button>
           </Section>
         )}
@@ -132,7 +135,7 @@ export default function Data() {
         open={undoing !== null}
         onClose={() => setUndoing(null)}
         locked={undoing === 'busy'}
-        title={t('data.undoConfirmTitle')}
+        title={t(redo ? 'data.redoConfirmTitle' : 'data.undoConfirmTitle')}
         description={t('data.undoConfirmBody')}
         actions={
           <>
@@ -140,7 +143,7 @@ export default function Data() {
               {t('common.cancel')}
             </Button>
             <Button variant="danger" onClick={() => void undo()} disabled={undoing === 'busy'}>
-              {t('data.undo')}
+              {t(redo ? 'data.redo' : 'data.undo')}
             </Button>
           </>
         }

@@ -39,7 +39,7 @@ export function BackupCard({ lastBackupAt }: { lastBackupAt?: number }) {
   const mismatch = protect && repeat.length > 0 && password !== repeat
   const ready = !protect || (password.length >= MIN_PASSWORD && password === repeat)
 
-  // A file made with other options is stale: make it again.
+  // A file made with other options is stale: make it again. (The options are locked while a file is being made.)
   const changed = <T,>(set: (value: T) => void) => (value: T) => {
     set(value)
     setPrepared(null)
@@ -95,7 +95,7 @@ export function BackupCard({ lastBackupAt }: { lastBackupAt?: number }) {
       <p className="text-sm font-medium">{lastBackupAt ? t('data.lastBackup', { date: date(lastBackupAt) }) : t('data.neverBackedUp')}</p>
 
       <div className="border-t border-line">
-        <Switch checked={protect} onChange={changed(setProtect)} label={t('data.protect')} description={t('data.protectHint')} />
+        <Switch checked={protect} onChange={changed(setProtect)} label={t('data.protect')} description={t('data.protectHint')} disabled={preparing} />
       </div>
       {protect && (
         <div className="space-y-3">
@@ -108,6 +108,7 @@ export function BackupCard({ lastBackupAt }: { lastBackupAt?: number }) {
               type="password"
               autoComplete="new-password"
               value={password}
+              disabled={preparing}
               onChange={(event) => changed(setPassword)(event.target.value)}
               aria-invalid={tooShort || undefined}
               aria-describedby={ids.hint}
@@ -123,6 +124,7 @@ export function BackupCard({ lastBackupAt }: { lastBackupAt?: number }) {
               type="password"
               autoComplete="new-password"
               value={repeat}
+              disabled={preparing}
               onChange={(event) => changed(setRepeat)(event.target.value)}
               aria-invalid={mismatch || undefined}
               className={inputClass}

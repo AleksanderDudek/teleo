@@ -3,7 +3,7 @@ import { builtinSessionId, builtinTextId } from '@/content'
 import { ALL_TABLES, db } from '@/db/schema'
 import { resetDb } from '@/test/db'
 import { decryptBackup, readBackupText } from '@/domain/backup'
-import { backupFileName, deviceSummary, exportBackup, importBackupJson, prepareBackup, readRestorePoint, undoImport, wipeAllData } from './backup'
+import { backupFileName, deviceSummary, exportBackup, importBackupJson, prepareBackup, readRestorePoint, switchToRestorePoint, wipeAllData } from './backup'
 import { finishRun, markHinted, recordAttempt } from './practice'
 import { seedBuiltins } from './seed'
 import { startRun } from './sessions'
@@ -67,24 +67,47 @@ describe('backup', () => {
 })
 
 describe('restore point', () => {
-  it('keeps the data an import replaced, and undo brings it back exactly', async () => {
+  const sayOneMore = async () => {
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') })
+    await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: { accepted: true, coverage: 1, extra: 0, wrong: 0, transcript: 'ok' }, engine: 'webspeech', durationMs: 900 })
+  }
+  const sentences = async () => (await deviceSummary()).sentences
+
+  it('keeps the data a restore replaced; switching back loses nothing done since', async () => {
+    const older = JSON.stringify(await exportBackup(1))
+    await sayOneMore()
+    const atRestore = await sentences()
+
+    expect(await importBackupJson(older, 20)).toEqual({ ok: true })
+    const point = await readRestorePoint()
+    expect(point).toMatchObject({ key: 'previous', kind: 'beforeRestore', createdAt: 20, summary: { sentences: atRestore } })
+
+    // Practice after the restore, then undo it: the later practice is kept, not lost.
+    await sayOneMore()
+    const afterPractice = await sentences()
+    expect(await switchToRestorePoint(30)).toEqual({ ok: true })
+    expect(await sentences()).toBe(atRestore)
+    expect(await readRestorePoint()).toMatchObject({ kind: 'beforeUndo', createdAt: 30, summary: { sentences: afterPractice } })
+
+    // And back again.
+    expect(await switchToRestorePoint(40)).toEqual({ ok: true })
+    expect(await sentences()).toBe(afterPractice)
+    expect(await readRestorePoint()).toMatchObject({ kind: 'beforeRestore', summary: { sentences: atRestore } })
+  })
+
+  it('restores the replaced data exactly', async () => {
     const before = await snapshot()
-    const other = await exportBackup(1)
-    // A different history: a backup of a fresh install.
+    const file = JSON.stringify(await exportBackup(1))
     await wipeAllData()
     await updateAppSettings({ uiLang: 'en', onboardingCompleted: true })
     const fresh = JSON.stringify(await exportBackup(2))
-    await importBackupJson(JSON.stringify(other), 10)
+    await importBackupJson(file, 10)
     expect(await snapshot()).toEqual(before)
-
-    expect(await importBackupJson(fresh, 20)).toEqual({ ok: true })
+    await importBackupJson(fresh, 20)
     expect((await readSettings()).app.uiLang).toBe('en')
-    const point = await readRestorePoint()
-    expect(point).toMatchObject({ key: 'beforeImport', createdAt: 20 })
-    expect(point?.summary.sentences).toBeGreaterThan(0)
-
-    expect(await undoImport()).toEqual({ ok: true })
+    expect(await switchToRestorePoint(30)).toEqual({ ok: true })
     expect(await snapshot()).toEqual(before)
+    // The fresh install held no progress: nothing to switch back to.
     expect(await readRestorePoint()).toBeUndefined()
   })
 
@@ -104,7 +127,7 @@ describe('restore point', () => {
     expect(await readRestorePoint()).toBeDefined()
     await wipeAllData()
     expect(await readRestorePoint()).toBeUndefined()
-    expect(await undoImport()).toEqual({ ok: false, code: 'noRestorePoint' })
+    expect(await switchToRestorePoint()).toEqual({ ok: false, code: 'noRestorePoint' })
   })
 })
 

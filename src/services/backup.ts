@@ -81,9 +81,23 @@ export async function deviceSummary(): Promise<BackupSummary> {
 }
 
 /**
+ * Keeps the current data as the restore point before it is replaced — only when it holds any progress (a fresh
+ * install has nothing to keep; a stale point would then describe data that is long gone). Inside a transaction.
+ */
+async function keepCurrent(kind: RestorePointRow['kind'], now: number): Promise<void> {
+  const current = await readAll()
+  const summary = summarizeBackup(current)
+  if (hasProgress(summary)) {
+    await db.restorePoints.put({ key: 'previous', kind, createdAt: now, summary, file: createBackupFile(current, now, __APP_VERSION__) })
+  } else {
+    await db.restorePoints.delete('previous')
+  }
+}
+
+/**
  * Validates a backup and, only if it is valid, replaces ALL local data with it in a single transaction —
- * either everything is restored or nothing changes. The data it replaces, when it holds any progress, is kept
- * as the restore point (DECISIONS #113), so the import can be undone.
+ * either everything is restored or nothing changes. The data it replaces is kept as the restore point
+ * (DECISIONS #113), so the restore can be undone.
  */
 export async function importBackupJson(json: string, now = Date.now()): Promise<ImportResult> {
   const parsed = parseBackup(json)
@@ -91,11 +105,7 @@ export async function importBackupJson(json: string, now = Date.now()): Promise<
   const { data } = parsed.backup
   try {
     await db.transaction('rw', [...tables(), db.restorePoints], async () => {
-      const current = await readAll()
-      const summary = summarizeBackup(current)
-      if (hasProgress(summary)) {
-        await db.restorePoints.put({ key: 'beforeImport', createdAt: now, summary, file: createBackupFile(current, now, __APP_VERSION__) })
-      }
+      await keepCurrent('beforeRestore', now)
       await replaceAll(data)
     })
   } catch (error) {
@@ -107,21 +117,24 @@ export async function importBackupJson(json: string, now = Date.now()): Promise<
 }
 
 export async function readRestorePoint(): Promise<RestorePointRow | undefined> {
-  return db.restorePoints.get('beforeImport')
+  return db.restorePoints.get('previous')
 }
 
-/** Brings back the data the latest import replaced, and forgets the restore point. */
-export async function undoImport(): Promise<ImportResult> {
+/**
+ * Switches to the restore point: undoes a restore — or, after that, goes back to the restored data. The data in
+ * place now (including anything done since) becomes the new restore point, so switching never loses anything.
+ */
+export async function switchToRestorePoint(now = Date.now()): Promise<ImportResult> {
   try {
     return await db.transaction('rw', [...tables(), db.restorePoints], async (): Promise<ImportResult> => {
-      const point = await db.restorePoints.get('beforeImport')
+      const point = await db.restorePoints.get('previous')
       if (!point) return { ok: false, code: 'noRestorePoint' }
+      await keepCurrent(point.kind === 'beforeRestore' ? 'beforeUndo' : 'beforeRestore', now)
       await replaceAll(point.file.data)
-      await db.restorePoints.delete('beforeImport')
       return { ok: true }
     })
   } catch (error) {
-    console.error('[teleo] undoing the import failed', error)
+    console.error('[teleo] switching to the restore point failed', error)
     return { ok: false, code: 'invalidShape', path: error instanceof Error ? error.name : undefined }
   }
 }

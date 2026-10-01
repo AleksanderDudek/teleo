@@ -176,9 +176,14 @@ export interface BibleReadingRow {
   skipped: number
 }
 
-/** The data replaced by the latest import, kept on this device so the import can be undone (DECISIONS #113). */
+/**
+ * The other version of the data, kept on this device (DECISIONS #113): what the latest restore replaced
+ * (`beforeRestore`) or, after switching back, the restored data with everything done since (`beforeUndo`).
+ * Switching exchanges it with the current data, so neither is ever lost.
+ */
 export interface RestorePointRow {
-  key: 'beforeImport'
+  key: 'previous'
+  kind: 'beforeRestore' | 'beforeUndo'
   createdAt: number
   /** What it holds, for the "undo" offer without reading the whole copy. */
   summary: BackupSummary
