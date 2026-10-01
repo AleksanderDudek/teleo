@@ -56,6 +56,8 @@ export interface BackupFile {
   app: typeof BACKUP_APP
   schemaVersion: number
   exportedAt: number
+  /** The app version that wrote the file (informational, shown before a restore; absent before 2026-10-01). */
+  appVersion?: string
   data: BackupData
 }
 
@@ -411,6 +413,7 @@ export function validateBackup(value: unknown): BackupValidation {
   }
 
   if (!isFiniteNumber(value.exportedAt)) return { ok: false, code: 'invalidShape', path: 'exportedAt' }
+  if (value.appVersion !== undefined && !isString(value.appVersion)) return { ok: false, code: 'invalidShape', path: 'appVersion' }
   if (!isObject(value.data)) return { ok: false, code: 'invalidShape', path: 'data' }
 
   const data = value.data
@@ -451,6 +454,6 @@ export function parseBackup(json: string): BackupValidation {
   return validateBackup(value)
 }
 
-export function createBackupFile(data: BackupData, exportedAt: number): BackupFile {
-  return { app: BACKUP_APP, schemaVersion: BACKUP_SCHEMA_VERSION, exportedAt, data }
+export function createBackupFile(data: BackupData, exportedAt: number, appVersion?: string): BackupFile {
+  return { app: BACKUP_APP, schemaVersion: BACKUP_SCHEMA_VERSION, exportedAt, ...(appVersion ? { appVersion } : {}), data }
 }

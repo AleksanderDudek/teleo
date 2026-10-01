@@ -168,6 +168,12 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(result.ok && result.backup.data.friends).toEqual([])
   })
 
+  it('accepts the app version that wrote the file, and only as text', () => {
+    const file = { ...(backupWith(realisticData()) as object), appVersion: '1.2.0' }
+    expect(validateBackup(file)).toMatchObject({ ok: true, backup: { appVersion: '1.2.0' } })
+    expect(validateBackup({ ...file, appVersion: 12 })).toEqual({ ok: false, code: 'invalidShape', path: 'appVersion' })
+  })
+
   it('accepts the hidden texts of Bible readings and dialogues', () => {
     const data = realisticData()
     const text = data.texts[0]!
