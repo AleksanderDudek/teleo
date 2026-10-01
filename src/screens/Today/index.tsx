@@ -191,7 +191,7 @@ export default function Today() {
           <p className="font-serif text-xl font-semibold">{t('today.backupTitle')}</p>
           <p className="mt-1 text-sm text-ink-soft">{t('today.backupBody')}</p>
           <div className="mt-3 flex gap-2">
-            <ButtonLink size="sm" to="/settings?section=backup">
+            <ButtonLink size="sm" to="/settings/data">
               {t('today.backupAction')}
             </ButtonLink>
             <Button size="sm" variant="ghost" onClick={() => void updateMeta({ backupReminderSnoozedAt: Date.now() })}>

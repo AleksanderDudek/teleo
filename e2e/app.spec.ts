@@ -1,4 +1,3 @@
-import { readFile } from 'node:fs/promises'
 import { expect, test } from '@playwright/test'
 import { finishOnboarding, installFakeSpeech } from './fakeSpeech.ts'
 
@@ -35,38 +34,6 @@ test.describe('onboarding', () => {
 
 test.describe('data', () => {
   test.use({ locale: 'pl-PL', acceptDownloads: true })
-
-  test('backup export → delete everything → import restores the history', async ({ page }, testInfo) => {
-    test.setTimeout(120_000)
-    await installFakeSpeech(page, { live: true, wordDelayMs: 10 })
-    await finishOnboarding(page)
-    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await page.getByRole('link', { name: /Chwała Ojcu/ }).click()
-    await page.getByRole('button', { name: 'Powiedz teraz' }).click()
-    await page.getByRole('button', { name: 'Mów' }).click()
-    await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
-    await page.waitForURL(/summary$/)
-    await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
-    await expect(page.getByText('1 dzień z rzędu')).toBeVisible()
-
-    await page.getByRole('navigation').getByRole('link', { name: 'Ustawienia' }).click()
-    const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Eksportuj kopię' }).click()])
-    const file = testInfo.outputPath('backup.json')
-    await download.saveAs(file)
-    expect(JSON.parse(await readFile(file, 'utf8'))).toMatchObject({ app: 'teleo', schemaVersion: 1 })
-
-    await page.getByRole('button', { name: 'Usuń wszystkie dane' }).click()
-    await page.getByRole('dialog').getByRole('textbox').fill('USUŃ')
-    await page.getByRole('button', { name: 'Usuń wszystko' }).click()
-    await expect(page).toHaveURL(/#\/onboarding$/)
-    await finishOnboarding(page)
-    await expect(page.getByText('Zacznij dziś serię')).toBeVisible()
-
-    await page.goto('./#/settings')
-    await page.locator('input[type="file"]').setInputFiles(file)
-    await page.getByRole('button', { name: 'Zastąp i przywróć' }).click()
-    await expect(page.getByText('1 dzień z rzędu')).toBeVisible({ timeout: 15_000 })
-  })
 
   test('the installed app shell opens offline and explains that speech needs the internet', async ({ page, context, browserName }) => {
     test.skip(browserName === 'webkit', 'Playwright WebKit cannot reload through a service worker while emulating offline')

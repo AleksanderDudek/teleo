@@ -29,6 +29,8 @@ const NAMES = [
   'coffee', 'ranking', 'users', 'user-plus', 'book-open',
   // language dialogues: the chat and its everyday scenes
   'chats-circle', 'hand-waving', 'signpost', 'basket', 'bed', 'fork-knife', 'train',
+  // your data: backups and restore
+  'cloud-arrow-up', 'file-text', 'clock-counter-clockwise', 'database',
 ]
 
 const SOURCE = new URL('../node_modules/@phosphor-icons/core/assets/duotone/', import.meta.url)

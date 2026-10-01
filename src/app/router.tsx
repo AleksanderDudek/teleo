@@ -41,6 +41,7 @@ export const routes: RouteObject[] = [
           { path: 'dialogues', ...screen(() => import('@/screens/Dialogues')) },
           { path: 'settings', ...screen(() => import('@/screens/Settings')) },
           { path: 'settings/mic-test', ...screen(() => import('@/screens/MicTest')) },
+          { path: 'settings/data', ...screen(() => import('@/screens/Data')) },
         ],
       },
       { path: 'play/:runId', ...screen(() => import('@/screens/SessionPlayer')) },
