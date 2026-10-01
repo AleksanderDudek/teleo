@@ -457,3 +457,49 @@ Each entry: **decision** — why.
 108. **Where it lives**: a Library card under the Bible (it lights the Library tab) opens `/dialogues` — title, the title
     in the target language, scene, level, the user's lines and how often it was finished. Not a sixth tab and not on
     Today, which stays as it was.
+
+## Your data: backups that survive the browser (owner request, 2026-10-01)
+
+109. **A "Your data" screen** (`/settings/data`, under the Settings tab) holds everything about the data: what is on this
+    device (sentences said, active days, points, own texts), whether the browser protects the storage, backup,
+    restore, undo and delete-all (moved here from Settings → Privacy). Settings keeps a short Backup section (last
+    backup + link) and a link from Privacy; Today's 30-day reminder (spec §13) opens this screen. Backup was one
+    section among many in Settings and storage protection sat under Privacy — the owner did not find them.
+110. **Two-step export: create, then save or share.** "Create a backup" builds the file (all tables in one read and,
+    with a password, the encryption); then "Download the file" and — where `canShare({ files })` says so — "Save to
+    the cloud or send", the system share sheet that reaches Files, iCloud Drive, Google Drive, e-mail and messengers,
+    i.e. somewhere the browser's storage cannot take with it. Each is a fresh tap: iOS refuses `navigator.share` after
+    slow async work. On iPhone/iPad the share sheet is the main button (a download in an installed app may only open a
+    preview). The backup counts as made (`lastBackupAt`) after a download or a completed share, not a cancelled one.
+    Changing the password options discards the prepared file. No File System Access picker (desktop Chromium only).
+111. **Optional password protection** (off by default): AES-256-GCM, key from PBKDF2-SHA-256 with 600,000 iterations
+    (OWASP 2023), a random 16-byte salt and 12-byte nonce per file, Web Crypto only (no dependency, nothing sent). The
+    password is NFC-normalised; the readable header (app, format, export date, app version) is bound to the ciphertext
+    as additional authenticated data. A file's envelope is checked before any work: known algorithms, salt/nonce
+    sizes, 1–10,000,000 iterations (a crafted file must not freeze the app). At least 8 characters, typed twice, with
+    a plain warning that a lost password cannot be recovered. Reason: religious practice is special-category data
+    (GDPR art. 9) and backups are meant to leave the device — into cloud drives and mailboxes.
+112. **Restore shows what it will do**: a protected file asks for its password first (a wrong password and a modified
+    file are the same GCM failure, reported as one message); then the file's date and app version and its contents
+    next to this device's (sentences, active days, points, last active day, own texts, achievements, Bible readings),
+    with a warning when the file ends earlier or holds less progress — the common mistake of restoring last month's
+    file. Errors are worded per cause (not a Teleo file / damaged / from a newer version: update first / wrong
+    password) instead of raw codes.
+113. **A restore can be undone — by switching, never by discarding**: in the same transaction that replaces the data,
+    the data it replaces is kept as the restore point (Dexie v3, new table `restorePoints`, one row, only when it holds
+    any progress — a fresh install has nothing to keep). "Undo the restore" *exchanges* it with the data in place:
+    whatever was done since the restore (days of practice) becomes the restore point in turn and is offered as "Back to
+    the restored backup", so no switch loses anything (an undo that simply reinstated the old copy would silently drop
+    weeks of later progress — found in review). A failed import writes nothing; a later import replaces the point;
+    delete-all clears it; it is never exported (not in `ALL_TABLES`). Replace + switch instead of merging two
+    histories: day aggregates, streaks, text repetitions and the XP ledger would double count.
+114. **The file format stays schema 1**: plain backups gain an optional `appVersion` (shown before a restore; older
+    versions ignore it). A protected file is the same header with `encrypted` instead of `data` — an older version
+    reports it as damaged rather than misreading it. Protected files are named `…-protected.json`.
+115. **Storage status**: whether the browser promised persistence (`navigator.storage.persisted()`), the space Teleo
+    uses (`estimate()`, including the cached app, Bible books and speech models), and "Ask to protect the data" when it
+    is not persisted — with the honest reason backups matter even when it is (a new phone, a cleared browser) and the
+    Safari caveat (site data of a site not added to the Home Screen can be cleared after 7 days without a visit).
+116. **Not done**: merging a backup into existing data (see #113); automatic backups to a chosen folder (File System
+    Access, desktop Chromium only); opening backup files with Teleo (file handlers / share target, Chromium only). The
+    backup reminder stays every 30 days (spec §13); the screen suggests a weekly habit.

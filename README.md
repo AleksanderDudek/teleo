@@ -53,8 +53,11 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Progress:** heatmap, weekly first-try success, per-text statistics, achievement gallery.
 - **One language at a time:** Polish or English, taken from the browser and changeable in Settings; each language
   has its own prayers, texts, sessions and Bible.
-- **Yours only:** JSON backup export/import, calendar (.ics) reminders, delete-everything,
-  light/dark theme, three text sizes, keyboard (Space = microphone), screen stays on in sessions.
+- **Your data, yours to keep:** everything stays on the device; “Your data” makes a backup file (optionally
+  password-protected, AES-256) to download or save to Files / iCloud / Google Drive / e-mail, restores it after
+  showing what it holds, and can undo a restore.
+- **Yours only:** calendar (.ics) reminders, delete-everything, light/dark theme, three text sizes, keyboard
+  (Space = microphone), screen stays on in sessions.
 
 Changes: [CHANGELOG.md](CHANGELOG.md) · Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
 · implementation plan: [docs/superpowers/plans/2026-09-25-teleo-v1.md](docs/superpowers/plans/2026-09-25-teleo-v1.md)

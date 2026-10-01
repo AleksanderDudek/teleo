@@ -5,6 +5,7 @@ import type {
   BibleReadingRow,
   FriendRow,
   DailyStats,
+  RestorePointRow,
   Segment,
   SessionRun,
   SessionTemplate,
@@ -15,7 +16,7 @@ import type {
 } from './types'
 
 export const DB_NAME = 'teleo'
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -34,6 +35,7 @@ export class TeleoDB extends Dexie {
   declare settings: Table<SettingsRow, SettingsRow['key']>
   declare bibleReadings: EntityTable<BibleReadingRow, 'readingId'>
   declare friends: EntityTable<FriendRow, 'id'>
+  declare restorePoints: EntityTable<RestorePointRow, 'key'>
 
   constructor(name = DB_NAME) {
     super(name)
@@ -54,12 +56,16 @@ export class TeleoDB extends Dexie {
       bibleReadings: 'readingId, [translation+book], dayKey',
       friends: 'id',
     })
+    // v1.4: the data an import replaced, kept for "undo" (new table only; never exported).
+    this.version(3).stores({
+      restorePoints: 'key',
+    })
   }
 }
 
 export const db = new TeleoDB()
 
-/** Every table, in export/import order. */
+/** Every table, in export/import order (`restorePoints` is local only: never exported). */
 export const ALL_TABLES = [
   'texts',
   'segments',

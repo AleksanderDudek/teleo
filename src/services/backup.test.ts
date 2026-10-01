@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { builtinSessionId, builtinTextId } from '@/content'
 import { ALL_TABLES, db } from '@/db/schema'
 import { resetDb } from '@/test/db'
-import { backupFileName, exportBackup, importBackupJson, wipeAllData } from './backup'
+import { decryptBackup, readBackupText } from '@/domain/backup'
+import { backupFileName, deviceSummary, exportBackup, importBackupJson, prepareBackup, readRestorePoint, switchToRestorePoint, wipeAllData } from './backup'
 import { finishRun, markHinted, recordAttempt } from './practice'
 import { seedBuiltins } from './seed'
 import { startRun } from './sessions'
@@ -33,7 +34,7 @@ describe('backup', () => {
   it('export → wipe → import restores every table exactly (spec §17)', async () => {
     const before = await snapshot()
     const file = await exportBackup(1_700_000_000_000)
-    expect(file).toMatchObject({ app: 'teleo', schemaVersion: 1, exportedAt: 1_700_000_000_000 })
+    expect(file).toMatchObject({ app: 'teleo', schemaVersion: 1, exportedAt: 1_700_000_000_000, appVersion: 'test' })
     const json = JSON.stringify(file)
 
     await wipeAllData()
@@ -62,5 +63,103 @@ describe('backup', () => {
 
   it('names files by date', () => {
     expect(backupFileName(new Date(2026, 8, 25, 10).getTime())).toBe('teleo-backup-2026-09-25.json')
+  })
+})
+
+describe('restore point', () => {
+  const sayOneMore = async () => {
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') })
+    await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: { accepted: true, coverage: 1, extra: 0, wrong: 0, transcript: 'ok' }, engine: 'webspeech', durationMs: 900 })
+  }
+  const sentences = async () => (await deviceSummary()).sentences
+
+  it('keeps the data a restore replaced; switching back loses nothing done since', async () => {
+    const older = JSON.stringify(await exportBackup(1))
+    await sayOneMore()
+    const atRestore = await sentences()
+
+    expect(await importBackupJson(older, 20)).toEqual({ ok: true })
+    const point = await readRestorePoint()
+    expect(point).toMatchObject({ key: 'previous', kind: 'beforeRestore', createdAt: 20, summary: { sentences: atRestore } })
+
+    // Practice after the restore, then undo it: the later practice is kept, not lost.
+    await sayOneMore()
+    const afterPractice = await sentences()
+    expect(await switchToRestorePoint(30)).toEqual({ ok: true })
+    expect(await sentences()).toBe(atRestore)
+    expect(await readRestorePoint()).toMatchObject({ kind: 'beforeUndo', createdAt: 30, summary: { sentences: afterPractice } })
+
+    // And back again.
+    expect(await switchToRestorePoint(40)).toEqual({ ok: true })
+    expect(await sentences()).toBe(afterPractice)
+    expect(await readRestorePoint()).toMatchObject({ kind: 'beforeRestore', summary: { sentences: atRestore } })
+  })
+
+  it('restores the replaced data exactly', async () => {
+    const before = await snapshot()
+    const file = JSON.stringify(await exportBackup(1))
+    await wipeAllData()
+    await updateAppSettings({ uiLang: 'en', onboardingCompleted: true })
+    const fresh = JSON.stringify(await exportBackup(2))
+    await importBackupJson(file, 10)
+    expect(await snapshot()).toEqual(before)
+    await importBackupJson(fresh, 20)
+    expect((await readSettings()).app.uiLang).toBe('en')
+    expect(await switchToRestorePoint(30)).toEqual({ ok: true })
+    expect(await snapshot()).toEqual(before)
+    // The fresh install held no progress: nothing to switch back to.
+    expect(await readRestorePoint()).toBeUndefined()
+  })
+
+  it('is not kept for a device without progress, nor after a failed import', async () => {
+    const file = await exportBackup()
+    const duplicated = { ...file, data: { ...file.data, texts: [...file.data.texts, file.data.texts[0]!] } }
+    expect(await importBackupJson(JSON.stringify(duplicated))).toMatchObject({ ok: false })
+    expect(await readRestorePoint()).toBeUndefined()
+
+    await wipeAllData()
+    expect(await importBackupJson(JSON.stringify(file))).toEqual({ ok: true })
+    expect(await readRestorePoint()).toBeUndefined()
+  })
+
+  it('goes with everything else when all data is deleted', async () => {
+    await importBackupJson(JSON.stringify(await exportBackup()))
+    expect(await readRestorePoint()).toBeDefined()
+    await wipeAllData()
+    expect(await readRestorePoint()).toBeUndefined()
+    expect(await switchToRestorePoint()).toEqual({ ok: false, code: 'noRestorePoint' })
+  })
+})
+
+describe('prepareBackup', () => {
+  it('builds a plain backup file ready to save or share', async () => {
+    const prepared = await prepareBackup({ now: new Date(2026, 9, 1, 9).getTime() })
+    expect(prepared).toMatchObject({ fileName: 'teleo-backup-2026-10-01.json', encrypted: false })
+    expect(prepared.blob.type).toBe('application/json')
+    expect(prepared.size).toBe(prepared.blob.size)
+    const text = await prepared.blob.text()
+    expect(readBackupText(text).kind).toBe('plain')
+    expect(JSON.parse(text).data.texts.length).toBe((await db.texts.count()))
+  })
+
+  it('seals the backup with a password when asked', async () => {
+    const prepared = await prepareBackup({ password: 'różaniec', iterations: 1_000, now: new Date(2026, 9, 1, 9).getTime() })
+    expect(prepared).toMatchObject({ fileName: 'teleo-backup-2026-10-01-protected.json', encrypted: true })
+    const read = readBackupText(await prepared.blob.text())
+    if (read.kind !== 'encrypted') throw new Error(`expected an encrypted file, got ${read.kind}`)
+    const json = await decryptBackup(read.envelope, 'różaniec')
+    await wipeAllData()
+    expect(await importBackupJson(json)).toEqual({ ok: true })
+    expect(await db.texts.count()).toBeGreaterThan(0)
+  })
+})
+
+describe('deviceSummary', () => {
+  it('describes what is on this device', async () => {
+    const summary = await deviceSummary()
+    expect(summary.sentences).toBeGreaterThan(0)
+    expect(summary.activeDays).toBe(1)
+    expect(summary.ownTexts).toBe(1)
+    expect(summary.xp).toBe((await readSettings()).game.totalXp)
   })
 })

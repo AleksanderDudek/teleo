@@ -1,3 +1,4 @@
+import type { BackupFile, BackupSummary } from '@/domain/backup'
 import type { BibleTranslation } from '@/domain/bible/types'
 import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
@@ -173,6 +174,20 @@ export interface BibleReadingRow {
   dayKey: DayKey
   /** Sentences skipped after three failed tries. */
   skipped: number
+}
+
+/**
+ * The other version of the data, kept on this device (DECISIONS #113): what the latest restore replaced
+ * (`beforeRestore`) or, after switching back, the restored data with everything done since (`beforeUndo`).
+ * Switching exchanges it with the current data, so neither is ever lost.
+ */
+export interface RestorePointRow {
+  key: 'previous'
+  kind: 'beforeRestore' | 'beforeUndo'
+  createdAt: number
+  /** What it holds, for the "undo" offer without reading the whole copy. */
+  summary: BackupSummary
+  file: BackupFile
 }
 
 /** The latest card received from a friend (friends' leaderboard, no server). */

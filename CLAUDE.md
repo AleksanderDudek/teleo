@@ -56,6 +56,10 @@ npm run typecheck    # tsc -b
   (`learningLang`); a dialogue is a hidden text `dialogue:<lang>:<key>` of the user's lines played as a run, and
   `/play/:runId` hands such runs to the chat player (`src/screens/Dialogues/Player.tsx`). Polish user lines stay
   gender-neutral; numbers as words.
+- Backups: `src/domain/backup` (validate, `crypto.ts` password envelope, `summary.ts`), `src/services/backup.ts`
+  (import keeps a restore point in `restorePoints` — local only, never in `ALL_TABLES`), screen `src/screens/Data`
+  (`/settings/data`). A new table must be added to `ALL_TABLES`, the backup validator (optional for old files) and
+  the e2e round trip.
 - Leaderboard: no server; friends' cards travel in links (`src/domain/leaderboard/friends.ts`, strict decoding).
 - App shell (`src/app/TabsLayout.tsx`): support ribbon on top (`SupportStrip`), support window at the end of each
   screen (`SupportBanner`), tab bar (`src/app/tabs.ts` maps screens to tabs). Editing forms set the route handle

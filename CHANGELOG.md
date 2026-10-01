@@ -4,6 +4,19 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Your data: backups that survive the browser
+
+- **Settings → Your data:** what is on this device, whether the browser protects it, and everything about backups in
+  one place (Today's backup reminder opens it).
+- **Back up off the device:** create a backup, then download it or — on phones — save it straight to Files, iCloud,
+  Google Drive or an e-mail through the share menu.
+- **Protect it with a password** (optional): the file is encrypted in the browser (AES-256) and unreadable without
+  the password.
+- **Restore with your eyes open:** before anything is replaced you see what the file holds next to this device, with
+  a warning if it is older or holds less progress. Protected files ask for their password.
+- **Undo a restore:** the data a restore replaced is kept on the device and can be brought back.
+- Clear messages when a file cannot be used (not a Teleo backup, damaged, from a newer version, wrong password).
+
 ### Language dialogues
 
 - **Conversations in English** (for Polish speakers) and **in Polish** (for English speakers): eight short everyday

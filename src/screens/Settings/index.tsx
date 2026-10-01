@@ -1,23 +1,20 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { Dialog } from '@/components/ui/Dialog'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
 import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
-import { parseBackup } from '@/domain/backup'
 import { buildDailyReminderIcs } from '@/domain/reminders/ics'
 import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { downloadText } from '@/lib/download'
 import { newId } from '@/lib/id'
 import { promptInstall, useInstallState } from '@/lib/install'
-import { backupFileName, exportBackup, importBackupJson, markBackupDone, requestPersistentStorage, wipeAllData } from '@/services/backup'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
@@ -108,36 +105,12 @@ export default function Settings() {
   const meta = useSettingsStore((s) => s.meta)
   const [params] = useSearchParams()
   const set = (patch: Partial<AppSettings>) => void updateAppSettings(patch)
-  const fileInput = useRef<HTMLInputElement>(null)
-  const [pendingImport, setPendingImport] = useState<{ json: string; exportedAt: number } | null>(null)
-  const [deleting, setDeleting] = useState(false)
-  const [deleteWord, setDeleteWord] = useState('')
-  const [persisted, setPersisted] = useState<boolean | null>(null)
   const date = (ms: number) => new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(ms)
-
-  useEffect(() => {
-    void navigator.storage?.persisted?.().then(setPersisted)
-  }, [])
 
   useEffect(() => {
     const section = params.get('section')
     if (section) document.getElementById(section)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [params])
-
-  const exportNow = async () => {
-    const file = await exportBackup()
-    downloadText(backupFileName(), JSON.stringify(file, null, 1), 'application/json')
-    await markBackupDone()
-    toast({ kind: 'success', title: t('settings.exported') })
-  }
-
-  const chooseImport = async (file: File | undefined) => {
-    if (!file) return
-    const json = await file.text()
-    const parsed = parseBackup(json)
-    if (!parsed.ok) return toast({ kind: 'error', title: t('settings.importFailed', { reason: parsed.path ?? parsed.code }) })
-    setPendingImport({ json, exportedAt: parsed.backup.exportedAt })
-  }
 
   const reminder = () => {
     const ics = buildDailyReminderIcs({
@@ -318,26 +291,9 @@ export default function Settings() {
         <Section id="backup" title={t('settings.sectionBackup')}>
           <p className="text-sm text-ink-soft">{t('settings.backupHint')}</p>
           <p className="text-sm font-medium">{meta.lastBackupAt ? t('settings.lastBackup', { date: date(meta.lastBackupAt) }) : t('settings.neverBackedUp')}</p>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={() => void exportNow()} icon="download-simple">
-              {t('settings.export')}
-            </Button>
-            <Button variant="secondary" onClick={() => fileInput.current?.click()} icon="upload-simple">
-              {t('settings.import')}
-            </Button>
-            <input
-              ref={fileInput}
-              type="file"
-              accept="application/json,.json"
-              className="sr-only"
-              tabIndex={-1}
-              aria-hidden
-              onChange={(e) => {
-                void chooseImport(e.target.files?.[0])
-                e.target.value = ''
-              }}
-            />
-          </div>
+          <ButtonLink to="/settings/data" icon="database">
+            {t('settings.openData')}
+          </ButtonLink>
         </Section>
 
         <Section id="privacy" title={t('settings.sectionPrivacy')}>
@@ -348,21 +304,9 @@ export default function Settings() {
           <a className="inline-block font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
             {t('settings.privacyPolicy')}
           </a>
-          {persisted !== null && (
-            <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-              <span>
-                <span className="font-semibold">{t('settings.persisted')}:</span> {persisted ? t('settings.persistedOn') : t('settings.persistedOff')}
-              </span>
-              {!persisted && (
-                <Button size="sm" variant="secondary" onClick={async () => setPersisted(await requestPersistentStorage())}>
-                  {t('settings.persistAsk')}
-                </Button>
-              )}
-            </div>
-          )}
-          <Button variant="danger" onClick={() => setDeleting(true)} icon="trash">
-            {t('settings.deleteAll')}
-          </Button>
+          <ButtonLink to="/settings/data" variant="secondary" icon="hard-drives">
+            {t('settings.dataLink')}
+          </ButtonLink>
         </Section>
 
         <Section id="about" title={t('settings.sectionAbout')}>
@@ -370,69 +314,6 @@ export default function Settings() {
         </Section>
       </div>
 
-      <Dialog
-        open={pendingImport !== null}
-        onClose={() => setPendingImport(null)}
-        title={t('settings.importTitle')}
-        description={pendingImport ? t('settings.importBody', { date: date(pendingImport.exportedAt) }) : undefined}
-        actions={
-          <>
-            <Button variant="ghost" onClick={() => setPendingImport(null)}>
-              {t('common.cancel')}
-            </Button>
-            <Button
-              variant="danger"
-              onClick={async () => {
-                if (!pendingImport) return
-                const result = await importBackupJson(pendingImport.json)
-                setPendingImport(null)
-                if (!result.ok) return toast({ kind: 'error', title: t('settings.importFailed', { reason: result.path ?? result.code }) })
-                toast({ kind: 'success', title: t('settings.imported') })
-                // Restart so every in-memory state (language, theme, stores) follows the restored data.
-                window.setTimeout(() => window.location.replace(import.meta.env.BASE_URL), 600)
-              }}
-            >
-              {t('settings.importConfirm')}
-            </Button>
-          </>
-        }
-      />
-      <Dialog
-        open={deleting}
-        onClose={() => {
-          setDeleting(false)
-          setDeleteWord('')
-        }}
-        title={t('settings.deleteTitle')}
-        description={t('settings.deleteBody', { word: t('settings.deleteWord') })}
-        actions={
-          <>
-            <Button variant="ghost" onClick={() => setDeleting(false)}>
-              {t('common.cancel')}
-            </Button>
-            <Button
-              variant="danger"
-              disabled={deleteWord.trim().toLocaleUpperCase(i18n.language) !== t('settings.deleteWord')}
-              onClick={async () => {
-                await wipeAllData()
-                window.location.replace(import.meta.env.BASE_URL)
-              }}
-            >
-              {t('settings.deleteConfirm')}
-            </Button>
-          </>
-        }
-      >
-        <label className="block">
-          <span className="sr-only">{t('settings.deleteWord')}</span>
-          <input
-            value={deleteWord}
-            onChange={(e) => setDeleteWord(e.target.value)}
-            autoComplete="off"
-            className="h-11 w-full rounded-xl border border-line-strong bg-paper px-4 font-semibold tracking-widest uppercase focus:outline-2 focus:outline-gold"
-          />
-        </label>
-      </Dialog>
     </>
   )
 }
