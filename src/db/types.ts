@@ -1,3 +1,4 @@
+import type { BackupFile, BackupSummary } from '@/domain/backup'
 import type { BibleTranslation } from '@/domain/bible/types'
 import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
@@ -173,6 +174,15 @@ export interface BibleReadingRow {
   dayKey: DayKey
   /** Sentences skipped after three failed tries. */
   skipped: number
+}
+
+/** The data replaced by the latest import, kept on this device so the import can be undone (DECISIONS #113). */
+export interface RestorePointRow {
+  key: 'beforeImport'
+  createdAt: number
+  /** What it holds, for the "undo" offer without reading the whole copy. */
+  summary: BackupSummary
+  file: BackupFile
 }
 
 /** The latest card received from a friend (friends' leaderboard, no server). */
