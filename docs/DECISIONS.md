@@ -512,7 +512,7 @@ Each entry: **decision** — why.
     memorising sentences; learning a language is another purpose with its own audience, and it grows better on its
     own. Everything of the feature is removed — the `/dialogues` screen and route, the Library card, the chat player
     and its dispatch in `/play/:runId`, the summary's "Next conversation", the scripts, the role colours and chat
-    styles, their strings and the seven icons only they used. Hidden texts are Bible readings only again (never
+    styles, their strings and the seven icons added for them. Hidden texts are Bible readings only again (never
     listed, no per-text achievements, #85). Supersedes #101–#108, which stay above as history.
 118. **Schema v4 deletes what the dialogues left on the device; the progress earned with them stays.** The upgrade
     removes texts with `source: 'dialogue'`, their segments, text stats, per-text achievements and — unlike #28 —

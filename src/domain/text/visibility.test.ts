@@ -8,6 +8,8 @@ describe('isListedText', () => {
     expect(isListedText({ source: 'user', lang: 'en' }, 'en')).toBe(true)
     expect(isListedText({ source: 'user', lang: 'en' }, 'pl')).toBe(false)
     expect(isListedText({ source: 'bible', lang: 'pl' }, 'pl')).toBe(false)
+    // A stale tab could still write a dialogue text after the v4 clean-up: it is never listed.
+    expect(isListedText({ source: 'dialogue', lang: 'pl' }, 'pl')).toBe(false)
   })
 })
 

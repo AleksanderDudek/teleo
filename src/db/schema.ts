@@ -68,10 +68,12 @@ export class TeleoDB extends Dexie {
       .upgrade(async (tx) => {
         const retired = retiredRows(await tx.table('texts').where('source').anyOf(RETIRED_TEXT_SOURCES).toArray())
         if (retired.textIds.size === 0) return
-        await tx.table('texts').bulkDelete([...retired.textIds])
-        await tx.table('segments').filter(retired.segment).delete()
-        await tx.table('textStats').filter(retired.textStats).delete()
-        await tx.table('achievements').filter(retired.achievement).delete()
+        const ids = [...retired.textIds]
+        await tx.table('texts').bulkDelete(ids)
+        // Indexed by text where possible (a long Bible history makes these tables large); runs have no such index.
+        await tx.table('segments').where('textId').anyOf(ids).delete()
+        await tx.table('textStats').bulkDelete(ids)
+        await tx.table('achievements').where('textId').anyOf(ids).delete()
         await tx.table('sessionRuns').filter(retired.sessionRun).delete()
       })
   }

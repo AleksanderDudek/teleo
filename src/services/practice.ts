@@ -12,6 +12,7 @@ import {
   textCompletionXp,
   XP_RULES,
 } from '@/domain/gamification'
+import { isRetiredText } from '@/domain/backup/retired'
 import { readingMs } from '@/domain/reading/pace'
 import { blockEntries, isBlockComplete } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
@@ -301,7 +302,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     await db.textStats.put(textStats)
 
     // Bible readings are not texts one repeats: no per-text achievements for them (they would flood the gallery).
-    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: text.source === 'bible' ? [] : [text.id] })
+    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: text.source === 'bible' || isRetiredText(text) ? [] : [text.id] })
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
     run.xpEarned += achievementXp
     if (unlocked.length > 0) run.unlocked = [...(run.unlocked ?? []), ...unlocked.map((u) => u.key)]
