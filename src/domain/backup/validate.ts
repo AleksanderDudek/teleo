@@ -38,6 +38,7 @@ export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends'] as const
 export type OptionalBackupTable = (typeof OPTIONAL_BACKUP_TABLES)[number]
 
 export interface BackupData {
+  /** May hold texts of language dialogues (`source: 'dialogue'`) from older files: see `withoutRetiredRows`. */
   texts: TextItem[]
   segments: Segment[]
   sessionTemplates: SessionTemplate[]
@@ -214,6 +215,8 @@ const texts: Checker = objectFields([
   ['body', string_],
   ['type', enumOf('affirmation', 'prayer', 'text')],
   ['lang', enumOf('pl', 'en')],
+  // 'dialogue': language dialogues left Teleo (DECISIONS #117), but backups made while they existed must still
+  // restore; their rows are dropped before anything is written (`withoutRetiredRows`, #118).
   ['source', enumOf('builtin', 'user', 'bible', 'dialogue')],
   ['archived', boolean_],
   ['splitMode', enumOf('sentence', 'line')],

@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { builtinSessionId, builtinTextId } from '@/content'
 import { ALL_TABLES, db } from '@/db/schema'
 import { resetDb } from '@/test/db'
-import { decryptBackup, readBackupText } from '@/domain/backup'
+import { decryptBackup, readBackupText, summarizeBackup } from '@/domain/backup'
+import { dialogueRows, withTextRows } from '@/test/textRows'
 import { backupFileName, deviceSummary, exportBackup, importBackupJson, prepareBackup, readRestorePoint, switchToRestorePoint, wipeAllData } from './backup'
 import { finishRun, markHinted, recordAttempt } from './practice'
 import { seedBuiltins } from './seed'
@@ -128,6 +129,45 @@ describe('restore point', () => {
     await wipeAllData()
     expect(await readRestorePoint()).toBeUndefined()
     expect(await switchToRestorePoint()).toEqual({ ok: false, code: 'noRestorePoint' })
+  })
+})
+
+describe('backups made while language dialogues existed (DECISIONS #118)', () => {
+  const cafe = dialogueRows('cafe', 'en')
+  const dialogueRowsGone = async () => {
+    expect(await db.texts.get(cafe.text.id)).toBeUndefined()
+    expect(await db.segments.where('textId').equals(cafe.text.id).count()).toBe(0)
+    expect(await db.textStats.get(cafe.text.id)).toBeUndefined()
+    expect(await db.sessionRuns.get(cafe.run.id)).toBeUndefined()
+    expect(await db.achievements.get(cafe.achievement.key)).toBeUndefined()
+  }
+
+  it('import without the dialogue rows; the progress earned with them stays', async () => {
+    const before = await snapshot()
+    const file = await exportBackup(1)
+    const old = { ...file, data: withTextRows(file.data, cafe) }
+    await wipeAllData()
+
+    expect(await importBackupJson(JSON.stringify(old), 10)).toEqual({ ok: true })
+    await dialogueRowsGone()
+    expect(await db.attempts.get(cafe.attempt.id)).toEqual(cafe.attempt)
+    expect(await db.xpLedger.where('timestamp').equals(cafe.xp.timestamp).filter((row) => row.refId === cafe.attempt.id).count()).toBe(1)
+    const after = await snapshot()
+    expect({ ...after, attempts: [], xpLedger: [] }).toEqual({ ...before, attempts: [], xpLedger: [] })
+    expect(after.attempts).toHaveLength(before.attempts!.length + 1)
+    expect(after.xpLedger).toHaveLength(before.xpLedger!.length + 1)
+  })
+
+  it('switching to a restore point kept before they left brings no dialogue rows back', async () => {
+    const before = await snapshot()
+    const file = await exportBackup(1)
+    const data = withTextRows(file.data, cafe)
+    await db.restorePoints.put({ key: 'previous', kind: 'beforeRestore', createdAt: 1, summary: summarizeBackup(data), file: { ...file, data } })
+
+    expect(await switchToRestorePoint(10)).toEqual({ ok: true })
+    await dialogueRowsGone()
+    expect(await db.attempts.get(cafe.attempt.id)).toEqual(cafe.attempt)
+    expect({ ...(await snapshot()), attempts: [], xpLedger: [] }).toEqual({ ...before, attempts: [], xpLedger: [] })
   })
 })
 
