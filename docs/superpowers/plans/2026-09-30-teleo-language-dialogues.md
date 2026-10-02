@@ -1,5 +1,7 @@
 # Language dialogues — plan
 
+**Status (2026-10-02): superseded** — the feature moved to its own app, Fluentum (DECISIONS #117).
+
 **Status (2026-09-30): implemented** on branch `language-dialogues` — DECISIONS #101–#108.
 
 Owner request (2026-09-30, translated): language sessions as an exchange of sentences. The language model must
