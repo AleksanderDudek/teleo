@@ -9,7 +9,6 @@ import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { SearchField } from '@/components/ui/SearchField'
 import { Segmented } from '@/components/ui/Segmented'
-import { learningLang } from '@/domain/dialogue'
 import { ACHIEVEMENT_RULES, buildTextMetrics, nextTextMilestone } from '@/domain/gamification'
 import { TEXT_TYPES, type TextType } from '@/domain/types'
 import { achievementName } from '@/i18n/dynamic'
@@ -68,19 +67,11 @@ export default function Library() {
         }
       />
 
-      <Link to="/bible" className="card card-lift card-framed mb-3 flex items-center gap-4 p-4">
+      <Link to="/bible" className="card card-lift card-framed mb-5 flex items-center gap-4 p-4">
         <IconHalo icon="gospel" size={44} iconSize={22} />
         <span className="min-w-0 flex-1">
           <span className="block font-serif text-xl font-semibold">{t('bible.libraryTitle')}</span>
           <span className="block text-sm text-ink-soft">{t('bible.libraryBody')}</span>
-        </span>
-      </Link>
-
-      <Link to="/dialogues" className="card card-lift mb-5 flex items-center gap-4 p-4">
-        <IconHalo icon="chats-circle" tone="lapis" size={44} iconSize={22} />
-        <span className="min-w-0 flex-1">
-          <span className="block font-serif text-xl font-semibold">{t(`dialogues.titleIn.${learningLang(app.uiLang)}`)}</span>
-          <span className="block text-sm text-ink-soft">{t('dialogues.libraryBody')}</span>
         </span>
       </Link>
 

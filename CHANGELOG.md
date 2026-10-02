@@ -4,6 +4,9 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+- **The language conversations moved to a separate app, Fluentum** — Teleo stays with prayers, affirmations and
+  memorising sentences. The progress you already earned with them (points, streak days) stays.
+
 ### Your data: backups that survive the browser
 
 - **Settings → Your data:** what is on this device, whether the browser protects it, and everything about backups in
@@ -16,19 +19,6 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
   a warning if it is older or holds less progress. Protected files ask for their password.
 - **Undo a restore:** the data a restore replaced is kept on the device and can be brought back.
 - Clear messages when a file cannot be used (not a Teleo backup, damaged, from a newer version, wrong password).
-
-### Language dialogues
-
-- **Conversations in English** (for Polish speakers) and **in Polish** (for English speakers): eight short everyday
-  dialogues — meeting a neighbour, a café, asking the way, the market, a hotel, a restaurant, the station and
-  weekend plans — in a chat like a messenger. Open them from the Library.
-- Your partner speaks first, aloud, with the meaning under each line; then you read your answer aloud. Under it:
-  how to say it, spelt the way you read (stress in capitals), and what it means.
-- The subject, predicate, adjectives and objects are coloured — and underlined the way Polish schools mark a
-  sentence — together with their counterparts in the translation; point at or tap a word to light its pair, or
-  open the word list under a line.
-- Speech is recognised and checked in the language you learn; your lines count like sentences of a prayer (points,
-  daily goal, streak), and the summary offers the next conversation.
 
 ### Support, sharing and a native-feeling shell
 

@@ -27,8 +27,6 @@ const NAMES = [
   'bird', 'church', 'cross', 'feather', 'flower-lotus', 'heart', 'infinity', 'key', 'tree',
   // support, leaderboard, Bible
   'coffee', 'ranking', 'users', 'user-plus', 'book-open',
-  // language dialogues: the chat and its everyday scenes
-  'chats-circle', 'hand-waving', 'signpost', 'basket', 'bed', 'fork-knife', 'train',
   // your data: backups and restore
   'cloud-arrow-up', 'file-text', 'clock-counter-clockwise', 'database',
 ]

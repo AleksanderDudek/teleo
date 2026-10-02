@@ -6,6 +6,7 @@ import {
   hasProgress,
   parseBackup,
   summarizeBackup,
+  withoutRetiredRows,
   type BackupData,
   type BackupErrorCode,
   type BackupFile,
@@ -22,8 +23,13 @@ async function readAll(): Promise<BackupData> {
   return Object.fromEntries(entries) as unknown as BackupData
 }
 
-/** Replaces every table with `data`; call inside a read-write transaction covering them. */
-async function replaceAll(data: BackupData): Promise<void> {
+/**
+ * Replaces every table with `backup`; call inside a read-write transaction covering them. The only way a backup's
+ * data gets into the tables (import and restore points alike), so rows of retired features — language dialogues
+ * in older backups and restore points (DECISIONS #118) — are dropped here.
+ */
+async function replaceAll(backup: BackupData): Promise<void> {
+  const data = withoutRetiredRows(backup)
   for (const name of ALL_TABLES) {
     const table = db.table(name)
     await table.clear()

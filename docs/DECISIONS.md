@@ -406,6 +406,8 @@ Each entry: **decision** — why.
 
 ## Language dialogues (owner request, 2026-09-30)
 
+*Superseded by #117 (2026-10-02): the feature moved to its own app, Fluentum.*
+
 101. **Scripted bilingual dialogues; the other language is the one learnt.** No backend and no API keys (spec §0/5), so
     there is no generative partner: eight A1–A2 everyday conversations ship as data (`src/content/dialogues.json`),
     one bilingual script per conversation serving both directions. The interface language is the user's own (#92);
@@ -503,3 +505,23 @@ Each entry: **decision** — why.
 116. **Not done**: merging a backup into existing data (see #113); automatic backups to a chosen folder (File System
     Access, desktop Chromium only); opening backup files with Teleo (file handlers / share target, Chromium only). The
     backup reminder stays every 30 days (spec §13); the screen suggests a weekly habit.
+
+## Language dialogues move to their own app (owner request, 2026-10-02)
+
+117. **The language dialogues leave Teleo for a separate app, Fluentum.** Teleo stays about prayers, affirmations and
+    memorising sentences; learning a language is another purpose with its own audience, and it grows better on its
+    own. Everything of the feature is removed — the `/dialogues` screen and route, the Library card, the chat player
+    and its dispatch in `/play/:runId`, the summary's "Next conversation", the scripts, the role colours and chat
+    styles, their strings and the seven icons only they used. Hidden texts are Bible readings only again (never
+    listed, no per-text achievements, #85). Supersedes #101–#108, which stay above as history.
+118. **Schema v4 deletes what the dialogues left on the device; the progress earned with them stays.** The upgrade
+    removes texts with `source: 'dialogue'`, their segments, text stats, per-text achievements and — unlike #28 —
+    their session runs (nothing in Teleo can show them any more, and a run whose text is gone cannot be resumed, so
+    Today must not offer it). Attempts, daily stats and the XP ledger are kept — points, daily goals and streak days
+    are not taken back, the same rule as deleting a user text (#28), so attempts may name a text or run that is gone.
+    Older backups still restore: the validator keeps accepting `source: 'dialogue'`, and the one path that writes a
+    backup into the tables (`replaceAll`, used by import and by switching to a restore point) drops the same rows
+    first — so neither an old file nor a restore point kept before the upgrade brings them back (such a point keeps
+    them until it is used; its summary is unaffected, dialogue texts never counted as own texts). Which rows belong to
+    retired dialogues is decided once, in `src/domain/backup/retired.ts` (pure, unit-tested), and used by both. The
+    backup format stays schema 1.

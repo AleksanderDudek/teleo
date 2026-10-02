@@ -1,4 +1,5 @@
 import Dexie, { type EntityTable, type Table } from 'dexie'
+import { RETIRED_TEXT_SOURCES, retiredRows } from '@/domain/backup/retired'
 import type {
   AchievementRow,
   Attempt,
@@ -16,7 +17,7 @@ import type {
 } from './types'
 
 export const DB_NAME = 'teleo'
-export const SCHEMA_VERSION = 3
+export const SCHEMA_VERSION = 4
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -60,6 +61,19 @@ export class TeleoDB extends Dexie {
     this.version(3).stores({
       restorePoints: 'key',
     })
+    // v1.5: language dialogues moved to their own app (DECISIONS #117–#118). The rows they left are deleted;
+    // attempts, daily stats and points stay. Restore points keep theirs until used: a restore drops them.
+    this.version(4)
+      .stores({})
+      .upgrade(async (tx) => {
+        const retired = retiredRows(await tx.table('texts').where('source').anyOf(RETIRED_TEXT_SOURCES).toArray())
+        if (retired.textIds.size === 0) return
+        await tx.table('texts').bulkDelete([...retired.textIds])
+        await tx.table('segments').filter(retired.segment).delete()
+        await tx.table('textStats').filter(retired.textStats).delete()
+        await tx.table('achievements').filter(retired.achievement).delete()
+        await tx.table('sessionRuns').filter(retired.sessionRun).delete()
+      })
   }
 }
 

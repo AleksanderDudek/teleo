@@ -10,10 +10,9 @@ describe('tabOf', () => {
     expect(tabOf('/settings/mic-test')).toBe('settings')
   })
 
-  it('puts the Bible and the language dialogues under the library', () => {
+  it('puts the Bible under the library', () => {
     expect(tabOf('/bible')).toBe('library')
     expect(tabOf('/bible/pbg/GEN')).toBe('library')
-    expect(tabOf('/dialogues')).toBe('library')
   })
 
   it('does not match a mere prefix or an unknown screen', () => {

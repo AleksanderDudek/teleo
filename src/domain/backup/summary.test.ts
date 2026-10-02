@@ -17,7 +17,7 @@ const day = (dayKey: string, segmentsAccepted: number): DailyStats => ({
   firstTryAccepted: 0,
 })
 
-const text = (id: string, source: 'builtin' | 'user' | 'bible' | 'dialogue') => ({
+const text = (id: string, source: 'builtin' | 'user' | 'bible') => ({
   id,
   title: id,
   type: 'text' as const,
@@ -35,7 +35,7 @@ describe('summarizeBackup', () => {
   it('counts what a person would miss: sentences, days, points, own texts, achievements, readings', () => {
     const summary = summarizeBackup({
       dailyStats: [day('2026-09-28', 12), day('2026-09-29', 0), day('2026-09-30', 5)],
-      texts: [text('a', 'builtin'), text('b', 'user'), text('c', 'user'), text('d', 'dialogue')],
+      texts: [text('a', 'builtin'), text('b', 'user'), text('c', 'user'), text('d', 'bible')],
       xpLedger: [
         { timestamp: 1, dayKey: '2026-09-28', reason: 'segment', amount: 40 },
         { timestamp: 2, dayKey: '2026-09-30', reason: 'dailyGoal', amount: 50 },

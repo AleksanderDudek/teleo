@@ -14,7 +14,6 @@ import {
 } from '@/domain/gamification'
 import { readingMs } from '@/domain/reading/pace'
 import { blockEntries, isBlockComplete } from '@/domain/session'
-import { isHiddenText } from '@/domain/text/visibility'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import type { DayKey, EngineId } from '@/domain/types'
 import { newId } from '@/lib/id'
@@ -301,8 +300,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     await db.dailyStats.put(daily)
     await db.textStats.put(textStats)
 
-    // Bible readings and dialogues are not texts one repeats: no per-text achievements (they would flood the gallery).
-    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: isHiddenText(text) ? [] : [text.id] })
+    // Bible readings are not texts one repeats: no per-text achievements for them (they would flood the gallery).
+    const unlocked = await unlockAchievements({ game, dayKey, now, textIds: text.source === 'bible' ? [] : [text.id] })
     const achievementXp = unlocked.reduce((sum, u) => sum + u.xp, 0)
     run.xpEarned += achievementXp
     if (unlocked.length > 0) run.unlocked = [...(run.unlocked ?? []), ...unlocked.map((u) => u.key)]
