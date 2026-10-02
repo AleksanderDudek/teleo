@@ -1,3 +1,4 @@
+import { isRetiredText } from '@/domain/backup/retired'
 import type { Lang } from '@/domain/types'
 
 /*
@@ -6,9 +7,12 @@ import type { Lang } from '@/domain/types'
  * back when the language is switched in Settings.
  */
 
-/** Texts the library, pickers and the session of the day offer: this language, never Bible readings. */
+/**
+ * Texts the library, pickers and the session of the day offer: this language, never Bible readings — nor texts of a
+ * retired feature (DECISIONS #118), which a tab still running an older version could write after the upgrade.
+ */
 export function isListedText(text: { source: string; lang: Lang }, lang: Lang): boolean {
-  return text.source !== 'bible' && text.lang === lang
+  return text.source !== 'bible' && !isRetiredText(text) && text.lang === lang
 }
 
 /**
