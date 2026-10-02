@@ -38,7 +38,6 @@ export const routes: RouteObject[] = [
           { path: 'progress', ...screen(() => import('@/screens/Progress')) },
           { path: 'bible', ...screen(() => import('@/screens/Bible')) },
           { path: 'bible/:translation/:book', ...screen(() => import('@/screens/Bible/Book')) },
-          { path: 'dialogues', ...screen(() => import('@/screens/Dialogues')) },
           { path: 'settings', ...screen(() => import('@/screens/Settings')) },
           { path: 'settings/mic-test', ...screen(() => import('@/screens/MicTest')) },
           { path: 'settings/data', ...screen(() => import('@/screens/Data')) },

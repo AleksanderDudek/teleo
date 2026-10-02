@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import type { TextItem } from '@/db/types'
 import { BACKUP_APP, BACKUP_SCHEMA_VERSION, createBackupFile, parseBackup, validateBackup } from './validate'
 import type { BackupData, BackupFile } from './validate'
 
@@ -174,12 +175,12 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(validateBackup({ ...file, appVersion: 12 })).toEqual({ ok: false, code: 'invalidShape', path: 'appVersion' })
   })
 
-  it('accepts the hidden texts of Bible readings and dialogues', () => {
+  it('accepts the hidden texts of Bible readings and those of language dialogues from older backups', () => {
     const data = realisticData()
     const text = data.texts[0]!
-    const result = validateBackup(
-      backupWith({ ...data, texts: [{ ...text, id: 'bible:kjv.GEN.0', source: 'bible' }, { ...text, id: 'dialogue:en:cafe', source: 'dialogue' }] }),
-    )
+    // Language dialogues left Teleo (DECISIONS #117); a backup made while they existed must still import.
+    const dialogue = { ...text, id: 'dialogue:en:cafe', source: 'dialogue' } as unknown as TextItem
+    const result = validateBackup(backupWith({ ...data, texts: [{ ...text, id: 'bible:kjv.GEN.0', source: 'bible' }, dialogue] }))
     expect(result.ok).toBe(true)
   })
 

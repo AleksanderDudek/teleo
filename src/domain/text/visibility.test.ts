@@ -1,23 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { isHiddenText, isListedTemplate, isListedText } from './visibility'
+import { isListedTemplate, isListedText } from './visibility'
 
 describe('isListedText', () => {
-  it('lists texts in the interface language only; Bible readings and dialogues never', () => {
+  it('lists texts in the interface language only; Bible readings never', () => {
     expect(isListedText({ source: 'builtin', lang: 'pl' }, 'pl')).toBe(true)
     expect(isListedText({ source: 'builtin', lang: 'en' }, 'pl')).toBe(false)
     expect(isListedText({ source: 'user', lang: 'en' }, 'en')).toBe(true)
     expect(isListedText({ source: 'user', lang: 'en' }, 'pl')).toBe(false)
     expect(isListedText({ source: 'bible', lang: 'pl' }, 'pl')).toBe(false)
-    expect(isListedText({ source: 'dialogue', lang: 'pl' }, 'pl')).toBe(false)
-  })
-})
-
-describe('isHiddenText', () => {
-  it('is true for the texts a feature creates (Bible readings, dialogues)', () => {
-    expect(isHiddenText({ source: 'bible' })).toBe(true)
-    expect(isHiddenText({ source: 'dialogue' })).toBe(true)
-    expect(isHiddenText({ source: 'builtin' })).toBe(false)
-    expect(isHiddenText({ source: 'user' })).toBe(false)
   })
 })
 
