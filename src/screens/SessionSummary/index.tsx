@@ -87,7 +87,11 @@ export default function SessionSummary() {
       {/* The hero window: the Guardian in a stained-glass arch. */}
       <ArchFrame glow className="px-5 py-7">
         <Guardian mood={clean ? 'celebrate' : 'encourage'} size={170} decorative className="mx-auto animate-rise" />
-        <p className="rubric mt-2">{run.title}</p>
+        <p className="rubric mt-2">
+          <Link to="/progress/history" className="underline-offset-4 hover:underline">
+            {run.title}
+          </Link>
+        </p>
         <h1 className="mt-1 text-4xl font-semibold">{clean ? t('summary.title') : t('summary.titleIncomplete')}</h1>
         {summary.skipped > 0 && <p className="mt-2 text-ink-soft">{t('summary.skipped', { count: summary.skipped })}</p>}
         {levelNow > levelBefore && (

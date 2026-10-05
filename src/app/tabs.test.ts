@@ -15,6 +15,10 @@ describe('tabOf', () => {
     expect(tabOf('/bible/pbg/GEN')).toBe('library')
   })
 
+  it('keeps the session history under progress', () => {
+    expect(tabOf('/progress/history')).toBe('progress')
+  })
+
   it('puts the daily tasks under sessions', () => {
     expect(tabOf('/tasks')).toBe('sessions')
     expect(tabOf('/tasks/new')).toBe('sessions')

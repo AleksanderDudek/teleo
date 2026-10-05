@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
+import { Icon } from '@/components/icons/Icon'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { FirstTryChart } from '@/components/progress/FirstTryChart'
 import { Heatmap } from '@/components/progress/Heatmap'
 import { Plant } from '@/components/progress/Plant'
@@ -52,6 +54,15 @@ export default function Progress() {
           </p>
         </div>
       </ArchFrame>
+
+      <Link to="/progress/history" className="card card-lift mt-6 flex items-center gap-4 p-4">
+        <IconHalo icon="clock-counter-clockwise" tone="sunk" size={44} iconSize={22} />
+        <span className="min-w-0 flex-1">
+          <span className="block font-serif text-xl font-semibold">{t('history.title')}</span>
+          <span className="block text-sm text-ink-soft">{t('history.card', { count: data.runs })}</span>
+        </span>
+        <Icon name="caret-right" size={20} className="shrink-0 text-ink-faint" />
+      </Link>
 
       <Leaderboard />
 

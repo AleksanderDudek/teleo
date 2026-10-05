@@ -40,4 +40,15 @@ test('an affirmation becomes a daily task: set up from the library, said from To
   await page.getByRole('link', { name: /Codzienne zadania/ }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Codzienne zadania')
   await expect(page.locator('.card', { hasText: 'Chwała Ojcu' })).toContainText('łącznie 2/14')
+
+  // The history logs the session: its text links to the library, its task badge to the tasks.
+  await page.getByRole('navigation').getByRole('link', { name: 'Postępy' }).click()
+  await page.getByRole('link', { name: /Historia sesji/ }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Historia sesji')
+  const row = page.locator('li.card', { hasText: 'Chwała Ojcu' }).first()
+  await expect(row).toContainText('4/4')
+  await expect(row).toContainText('ukończona')
+  await expect(row.getByRole('link', { name: 'Zadanie: Chwała Ojcu' })).toBeVisible()
+  await row.getByRole('link', { name: 'Chwała Ojcu', exact: true }).last().click()
+  await expect(page).toHaveURL(/#\/library\/builtin%3Apl\.chwala-ojcu$/)
 })

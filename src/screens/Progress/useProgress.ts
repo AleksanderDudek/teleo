@@ -13,16 +13,19 @@ export interface ProgressData {
   achievements: Map<string, AchievementRow>
   segmentCounts: Map<string, number>
   ownTexts: number
+  /** Sessions ever started (the history card). */
+  runs: number
 }
 
 export function useProgress(dayStartHour: number, lang: Lang): ProgressData | undefined {
   return useLiveQuery(async () => {
-    const [daily, textStats, texts, achievements, segments] = await Promise.all([
+    const [daily, textStats, texts, achievements, segments, runs] = await Promise.all([
       db.dailyStats.toArray(),
       db.textStats.toArray(),
       db.texts.toArray(),
       db.achievements.toArray(),
       db.segments.toArray(),
+      db.sessionRuns.count(),
     ])
     const segmentCounts = new Map<string, number>()
     for (const s of segments) if (!s.archived) segmentCounts.set(s.textId, (segmentCounts.get(s.textId) ?? 0) + 1)
@@ -34,6 +37,7 @@ export function useProgress(dayStartHour: number, lang: Lang): ProgressData | un
       achievements: new Map(achievements.map((a) => [a.key, a])),
       segmentCounts,
       ownTexts: texts.filter((t) => t.source === 'user').length,
+      runs,
     }
   }, [dayStartHour, lang])
 }

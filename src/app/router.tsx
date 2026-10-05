@@ -39,6 +39,7 @@ export const routes: RouteObject[] = [
           { path: 'tasks/new', handle: FORM, ...screen(() => import('@/screens/Tasks/TaskEditor')) },
           { path: 'tasks/:taskId/edit', handle: FORM, ...screen(() => import('@/screens/Tasks/TaskEditor')) },
           { path: 'progress', ...screen(() => import('@/screens/Progress')) },
+          { path: 'progress/history', ...screen(() => import('@/screens/Progress/History')) },
           { path: 'bible', ...screen(() => import('@/screens/Bible')) },
           { path: 'bible/:translation/:book', ...screen(() => import('@/screens/Bible/Book')) },
           { path: 'settings', ...screen(() => import('@/screens/Settings')) },
