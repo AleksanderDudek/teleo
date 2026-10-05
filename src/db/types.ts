@@ -69,6 +69,8 @@ export interface SessionRun {
   templateId?: string
   /** Set for ad-hoc "say it now" runs started from a single text. */
   textId?: string
+  /** Set for runs started from a daily task (its text repeated for what was left that day). */
+  taskId?: string
   title: string
   dayKey: DayKey
   startedAt: number
@@ -185,6 +187,27 @@ export interface RestorePointRow {
   /** What it holds, for the "undo" offer without reading the whole copy. */
   summary: BackupSummary
   file: BackupFile
+}
+
+/** A daily task (owner request 2026-10-05): say `textId` `timesPerDay` times a day from `startDay` to `endDay` (inclusive). */
+export interface TaskRow {
+  id: string
+  textId: string
+  timesPerDay: number
+  startDay: DayKey
+  endDay: DayKey
+  createdAt: number
+  /** Stopped early by the user; kept for history. */
+  archived: boolean
+}
+
+/** One full repetition of a task's text on a day, from whatever run said it (progress = rows per day). */
+export interface TaskLogRow {
+  id: string
+  taskId: string
+  dayKey: DayKey
+  runId: string
+  timestamp: number
 }
 
 /** The latest card received from a friend (friends' leaderboard, no server). */

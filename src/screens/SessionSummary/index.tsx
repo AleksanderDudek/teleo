@@ -68,11 +68,13 @@ export default function SessionSummary() {
   const clean = summary.skipped === 0 && summary.accepted > 0
   const levelBefore = levelInfo(game.totalXp - run.xpEarned).level
   const levelNow = levelInfo(game.totalXp).level
-  const again: StartRunInput | null = run.templateId
-    ? { kind: 'template', templateId: run.templateId }
-    : run.textId
-      ? { kind: 'text', textId: run.textId }
-      : null
+  const again: StartRunInput | null = run.taskId
+    ? { kind: 'task', taskId: run.taskId }
+    : run.templateId
+      ? { kind: 'template', templateId: run.templateId }
+      : run.textId
+        ? { kind: 'text', textId: run.textId }
+        : null
 
   return (
     <>

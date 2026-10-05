@@ -8,6 +8,8 @@ import type {
   SessionRun,
   SessionTemplate,
   SettingsRow,
+  TaskLogRow,
+  TaskRow,
   TextItem,
   TextStats,
   XpLedgerRow,
@@ -34,7 +36,7 @@ export const BACKUP_TABLES = [
 export type BackupTable = (typeof BACKUP_TABLES)[number]
 
 /** Tables added after the first backup format: optional on import (read as empty when missing). */
-export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends'] as const
+export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends', 'tasks', 'taskLog'] as const
 export type OptionalBackupTable = (typeof OPTIONAL_BACKUP_TABLES)[number]
 
 export interface BackupData {
@@ -51,6 +53,8 @@ export interface BackupData {
   settings: SettingsRow[]
   bibleReadings?: BibleReadingRow[]
   friends?: FriendRow[]
+  tasks?: TaskRow[]
+  taskLog?: TaskLogRow[]
 }
 
 export interface BackupFile {
@@ -275,6 +279,7 @@ const sessionRuns: Checker = (v) => {
     ['mode', enumOf('read', 'memory')],
     ['templateId', optional(string_)],
     ['textId', optional(string_)],
+    ['taskId', optional(string_)],
     ['endedAt', optional(finiteNumber)],
   ])(v)
   if (flat !== undefined) return flat
@@ -389,7 +394,25 @@ const friends: Checker = objectFields([
   ['receivedAt', finiteNumber],
 ])
 
-const OPTIONAL_ROW_CHECKERS: Record<OptionalBackupTable, Checker> = { bibleReadings, friends }
+const tasks: Checker = objectFields([
+  ['id', string_],
+  ['textId', string_],
+  ['timesPerDay', nonNegativeInt],
+  ['startDay', dayKey],
+  ['endDay', dayKey],
+  ['createdAt', finiteNumber],
+  ['archived', boolean_],
+])
+
+const taskLog: Checker = objectFields([
+  ['id', string_],
+  ['taskId', string_],
+  ['dayKey', dayKey],
+  ['runId', string_],
+  ['timestamp', finiteNumber],
+])
+
+const OPTIONAL_ROW_CHECKERS: Record<OptionalBackupTable, Checker> = { bibleReadings, friends, tasks, taskLog }
 
 const ROW_CHECKERS: Record<BackupTable, Checker> = {
   texts,

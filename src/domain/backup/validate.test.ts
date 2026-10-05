@@ -137,6 +137,8 @@ function realisticData(): BackupData {
         receivedAt: 950,
       },
     ],
+    tasks: [{ id: 'task1', textId: 't1', timesPerDay: 3, startDay: '2026-10-05', endDay: '2026-10-18', createdAt: 1000, archived: false }],
+    taskLog: [{ id: 'log1', taskId: 'task1', dayKey: '2026-10-05', runId: 'sr1', timestamp: 1000 }],
   }
 }
 
@@ -167,6 +169,18 @@ describe('validateBackup: tables added later (v1.3)', () => {
     const result = validateBackup(backupWith(emptyData()))
     expect(result.ok && result.backup.data.bibleReadings).toEqual([])
     expect(result.ok && result.backup.data.friends).toEqual([])
+    expect(result.ok && result.backup.data.tasks).toEqual([])
+    expect(result.ok && result.backup.data.taskLog).toEqual([])
+  })
+
+  it('accepts daily tasks and their log, and rejects malformed ones with a precise path', () => {
+    const task = { id: 'task1', textId: 't1', timesPerDay: 3, startDay: '2026-10-05', endDay: '2026-10-18', createdAt: 1000, archived: false }
+    const log = { id: 'log1', taskId: 'task1', dayKey: '2026-10-05', runId: 'sr1', timestamp: 1000 }
+    expect(validateBackup(backupWith({ ...emptyData(), tasks: [task], taskLog: [log] } as BackupData)).ok).toBe(true)
+    const badTask = validateBackup(backupWith({ ...emptyData(), tasks: [{ ...task, endDay: 'soon' }] } as unknown as BackupData))
+    expect(badTask).toEqual({ ok: false, code: 'invalidShape', path: 'data.tasks[0].endDay' })
+    const badLog = validateBackup(backupWith({ ...emptyData(), taskLog: [{ ...log, runId: 7 }] } as unknown as BackupData))
+    expect(badLog).toEqual({ ok: false, code: 'invalidShape', path: 'data.taskLog[0].runId' })
   })
 
   it('accepts the app version that wrote the file, and only as text', () => {

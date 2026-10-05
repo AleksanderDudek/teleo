@@ -11,13 +11,15 @@ import type {
   SessionRun,
   SessionTemplate,
   SettingsRow,
+  TaskLogRow,
+  TaskRow,
   TextItem,
   TextStats,
   XpLedgerRow,
 } from './types'
 
 export const DB_NAME = 'teleo'
-export const SCHEMA_VERSION = 4
+export const SCHEMA_VERSION = 5
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -37,6 +39,8 @@ export class TeleoDB extends Dexie {
   declare bibleReadings: EntityTable<BibleReadingRow, 'readingId'>
   declare friends: EntityTable<FriendRow, 'id'>
   declare restorePoints: EntityTable<RestorePointRow, 'key'>
+  declare tasks: EntityTable<TaskRow, 'id'>
+  declare taskLog: EntityTable<TaskLogRow, 'id'>
 
   constructor(name = DB_NAME) {
     super(name)
@@ -76,6 +80,11 @@ export class TeleoDB extends Dexie {
         await tx.table('achievements').where('textId').anyOf(ids).delete()
         await tx.table('sessionRuns').filter(retired.sessionRun).delete()
       })
+    // v1.6: daily tasks and their repetition log (new tables only, no data migration).
+    this.version(5).stores({
+      tasks: 'id, textId, endDay',
+      taskLog: 'id, taskId, [taskId+dayKey], dayKey',
+    })
   }
 }
 
@@ -95,4 +104,6 @@ export const ALL_TABLES = [
   'settings',
   'bibleReadings',
   'friends',
+  'tasks',
+  'taskLog',
 ] as const
