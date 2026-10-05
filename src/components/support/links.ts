@@ -1,8 +1,20 @@
 /** Published app — the address at the end of every shared post. */
 export const APP_URL = 'https://aleksanderdudek.github.io/teleo/'
 
-/** The author's coffee jar, the same one as in gym-training-tracker. */
-export const SUPPORT_URL = 'https://buycoffee.to/uriel'
+import type { Lang } from '@/domain/types'
+
+/**
+ * The author's coffee jars, by the language of the interface (owner request 2026-10-05): buycoffee.to for Polish
+ * users (the same jar as gym-training-tracker), buymeacoffee.com for everyone else.
+ */
+export const SUPPORT_URLS: Readonly<Record<Lang, string>> = {
+  pl: 'https://buycoffee.to/uriel',
+  en: 'https://buymeacoffee.com/atd_uriel',
+}
+
+export function supportUrl(lang: Lang): string {
+  return SUPPORT_URLS[lang]
+}
 
 const TIPS = [
   'support.tip1',

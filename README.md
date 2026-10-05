@@ -111,4 +111,4 @@ Alegreya, Alegreya SC and Instrument Sans (SIL Open Font License). Icons: Phosph
 custom Teleo Glyphs; the illustrated figures are drawn in code for this project. Bible texts: King James Version (Pure
 Cambridge Edition) and Biblia Gdańska (1881), public domain, via scrollmapper/bible_databases.
 
-Teleo is free, with no ads and no tracking. If it helps you: [buy the author a coffee](https://buycoffee.to/uriel).
+Teleo is free, with no ads and no tracking. If it helps you: [buy the author a coffee](https://buymeacoffee.com/atd_uriel) (in Poland: [buycoffee.to](https://buycoffee.to/uriel)).

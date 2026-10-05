@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Guardian } from '@/components/brand/Guardian'
 import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/cn'
-import { SUPPORT_URL, tipOfTheDay } from './links'
+import { useAppSettings } from '@/stores/settings'
+import { supportUrl, tipOfTheDay } from './links'
 
 /**
  * The support window at the end of a screen: the Guardian in a night-lapis stained-glass arch, his word
@@ -12,6 +13,7 @@ import { SUPPORT_URL, tipOfTheDay } from './links'
  */
 export function SupportBanner({ dayKey, className }: { dayKey: string; className?: string }) {
   const { t } = useTranslation()
+  const { uiLang } = useAppSettings()
   const titleId = useId()
   return (
     <aside aria-labelledby={titleId} className={cn('support-window relative overflow-hidden rounded-arch px-6 pt-7 pb-6 sm:px-8', className)}>
@@ -28,7 +30,7 @@ export function SupportBanner({ dayKey, className }: { dayKey: string; className
         </div>
       </div>
       <a
-        href={SUPPORT_URL}
+        href={supportUrl(uiLang)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('support.buttonLabel')}
