@@ -1,3 +1,4 @@
+import { TASK_LIMITS } from '@/domain/tasks'
 import type {
   AchievementRow,
   Attempt,
@@ -397,15 +398,18 @@ const friends: Checker = objectFields([
   ['receivedAt', finiteNumber],
 ])
 
-const tasks: Checker = objectFields([
+const taskFields: Checker = objectFields([
   ['id', string_],
   ['textId', string_],
-  ['timesPerDay', nonNegativeInt],
+  ['timesPerDay', leaf((v) => isInt(v) && v >= TASK_LIMITS.timesPerDay.min && v <= TASK_LIMITS.timesPerDay.max)],
   ['startDay', dayKey],
   ['endDay', dayKey],
   ['createdAt', finiteNumber],
   ['archived', boolean_],
 ])
+
+/** The screens count on the rules' limits (a task of 0 times a day, or ending before it starts, breaks them). */
+const tasks: Checker = (v) => taskFields(v) ?? ((v as { startDay: string; endDay: string }).endDay < (v as { startDay: string }).startDay ? 'endDay' : undefined)
 
 const taskLog: Checker = objectFields([
   ['id', string_],

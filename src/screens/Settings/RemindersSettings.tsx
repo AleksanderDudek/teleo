@@ -5,9 +5,8 @@ import { buildCalendarIcs, type IcsEvent } from '@/domain/reminders/ics'
 import { DEFAULT_REMINDER_TIMES, nextReminderAt, REMINDER_LIMITS, sortReminderTimes } from '@/domain/reminders/times'
 import { dayKeyFor, dayKeyToLocalDate } from '@/domain/time/dayKey'
 import { downloadText } from '@/lib/download'
-import { newId } from '@/lib/id'
 import { isIosDevice } from '@/lib/install'
-import { appUrl, requestNotificationPermission } from '@/services/reminders'
+import { appUrl, notificationSupport, requestNotificationPermission } from '@/services/reminders'
 import { updateAppSettings } from '@/services/settings'
 import { taskViews } from '@/services/tasks'
 import { useAppSettings } from '@/stores/settings'
@@ -21,6 +20,9 @@ export function RemindersSettings() {
   const { t, i18n } = useTranslation()
   const { reminderTimes, notifications, dayStartHour } = useAppSettings()
   const ios = isIosDevice(navigator.userAgent, navigator.maxTouchPoints)
+  // A restored backup can say "on" on a device that never allowed them: the switch keeps the setting, a line
+  // under it says that nothing will show until the browser allows it.
+  const support = notificationSupport()
 
   const setTimes = (times: string[]) => void updateAppSettings({ reminderTimes: times })
   const changeTime = (index: number, value: string) => {
@@ -53,8 +55,9 @@ export function RemindersSettings() {
     const sorted = sortReminderTimes(reminderTimes)
     const [first = '07:00'] = sorted
     const date = (day: string) => new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'long' }).format(dayKeyToLocalDate(day))
-    const events: IcsEvent[] = sorted.map((time) => ({
-      uid: `teleo-daily-${newId()}@teleo`,
+    // Stable UIDs: importing the file again updates the events instead of doubling them.
+    const events: IcsEvent[] = sorted.map((time, index) => ({
+      uid: `teleo-daily-${index + 1}@teleo`,
       title: t('settings.reminderTitle'),
       description: t('settings.reminderBody'),
       time,
@@ -107,6 +110,11 @@ export function RemindersSettings() {
 
       <Switch checked={notifications} onChange={(on) => void toggleNotifications(on)} label={t('settings.notifications')} description={t('settings.notificationsHint')} />
       <p className="-mt-3 text-sm text-ink-soft">{ios ? t('settings.notificationsIos') : t('settings.notificationsAndroid')}</p>
+      {notifications && support !== 'granted' && (
+        <p role="status" className="-mt-3 text-sm font-medium text-bad">
+          {t(support === 'unsupported' ? 'settings.notificationsUnsupported' : 'settings.notificationsDenied')}
+        </p>
+      )}
 
       <p className="text-sm text-ink-soft">{t('settings.reminderHint')}</p>
       <Button variant="secondary" onClick={() => void calendar()} icon="calendar-plus">

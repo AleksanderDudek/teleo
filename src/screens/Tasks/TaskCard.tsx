@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { dayKeyToLocalDate } from '@/domain/time/dayKey'
 import { Link, useNavigate } from 'react-router'
 import { Icon } from '@/components/icons/Icon'
 import { Button } from '@/components/ui/Button'
@@ -33,7 +34,7 @@ interface TaskCardProps {
  * "Say it", which starts a run of the repetitions left today. Finished for today → a check instead.
  */
 export function TaskCard({ view, actions, className }: TaskCardProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { task, text, progress } = view
   const [starting, setStarting] = useState(false)
@@ -60,7 +61,7 @@ export function TaskCard({ view, actions, className }: TaskCardProps) {
         ? t('tasks.finishedComplete')
         : t('tasks.finished', { done: progress.doneTotal, total: progress.total })
       : progress.dayIndex === 0
-        ? t('tasks.startsOn', { date: task.startDay })
+        ? t('tasks.startsOn', { date: new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'long' }).format(dayKeyToLocalDate(task.startDay)) })
         : t('tasks.dayOf', { day: progress.dayIndex, days: progress.days })
 
   return (

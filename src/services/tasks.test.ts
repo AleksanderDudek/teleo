@@ -32,6 +32,16 @@ describe('createTask / updateTask', () => {
     expect(changed).toMatchObject({ id: task.id, timesPerDay: 2, startDay: '2026-10-06', endDay: '2026-10-12' })
   })
 
+  it('keeps the log when only the target or range changes, and empties it when the text changes', async () => {
+    const task = await createTask({ textId: GLORY, timesPerDay: 3, startDay: '2026-10-05', days: 14 }, at(5))
+    await logTaskRepetition(GLORY, '2026-10-05', 'run1', at(5))
+    await updateTask(task.id, { textId: GLORY, timesPerDay: 2, startDay: '2026-10-05', days: 7 })
+    expect(await db.taskLog.where('taskId').equals(task.id).count()).toBe(1)
+    const other = (await db.texts.toArray()).find((text) => text.id !== GLORY && text.lang === 'pl')?.id ?? ''
+    await updateTask(task.id, { textId: other, timesPerDay: 2, startDay: '2026-10-05', days: 7 })
+    expect(await db.taskLog.where('taskId').equals(task.id).count()).toBe(0)
+  })
+
   it.each([
     [{ textId: 'nope', timesPerDay: 3, startDay: '2026-10-05', days: 14 }, 'noText'],
     [{ textId: GLORY, timesPerDay: 0, startDay: '2026-10-05', days: 14 }, 'timesPerDay'],

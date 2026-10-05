@@ -94,13 +94,17 @@ async function readReminderRows(now: number): Promise<(ReminderRows & { notifica
 
 /** One notification a day, once a reminder hour has passed — and only while there is something to say. */
 async function checkReminders(now = Date.now()): Promise<void> {
+  if (Notification.permission !== 'granted') return
   const rows = await readReminderRows(now)
   if (!rows?.notifications) return
+  const state = reminderStateFrom(rows)
+  // The badge the page keeps while open, carried across the day start here (a nicety where the platform has one).
+  if ('setAppBadge' in self.navigator) await (state.tasksRemaining > 0 ? self.navigator.setAppBadge(state.tasksRemaining) : self.navigator.clearAppBadge()).catch(() => undefined)
   const date = new Date(now)
   if (!passedReminderToday(rows.reminderTimes, date)) return
   const day = clockDayOf(date)
   if ((await lastNotifiedDay()) === day) return
-  const nudge = reminderNudge(reminderStateFrom(rows))
+  const nudge = reminderNudge(state)
   if (!nudge) return
   await self.registration.showNotification(nudge.title, { body: nudge.body, tag: REMINDER_TAG, icon: `${BASE}icons/pwa-192x192.png`, data: { url: BASE } })
   await rememberNotifiedDay(day)

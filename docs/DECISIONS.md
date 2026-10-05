@@ -540,12 +540,17 @@ Each entry: **decision** — why.
     derived from the log per day, capped at the day's target, never stored. Deleting a user text deletes its tasks
     and their log (#28 extended). Not done on purpose: task points and achievements (the text's repetition rewards
     already pay; a bonus would pay twice) and per-task reminder hours (the fixed hours serve every task, the calendar
-    event names each).
+    event names each). Tasks are the user's own commitments, so they are listed whatever the interface
+    language (unlike texts and sessions under the one-language rule) — the badge and the reminders count them the same
+    way; the editor keeps a task's text in its picker even when the language no longer lists it. Changing a task's
+    text empties its log (what was said was the old text).
 121. **Session history** (`/progress/history`): every run on record, newest first and grouped by day — what it was
     about (its texts link to the library or the Bible, a task badge to the tasks) and what was done (lines said of
     all, skips, first-try rate, points, minutes until the end or the last activity), with sessions and minutes for
     the last 7 and 30 days and all time. A row is derived from the run row (`src/domain/session/history.ts`); nothing
-    new is written, so every session since v1.0 is already there.
+    new is written, so every session since v1.0 is already there. Minutes are wall-clock from the start to the end or
+    the last activity, so a run paused and resumed later counts its pause; a summary opened later shows that run's
+    numbers but not today's level banner or the tasks' standing.
 122. **Reminders without a server.** Web Push needs a push service and a backend to drive it (spec §0, §12), so:
     (a) fixed reminder hours — one to three, default 07:00 · 13:00 · 21:00 — replace the single `reminderTime`,
     which old settings rows and backups still provide (`appSettingsFrom`); (b) the calendar file holds one daily

@@ -51,13 +51,17 @@ export async function createTask(input: TaskInput, now = Date.now()): Promise<Ta
   return task
 }
 
-/** Changes a task's text, target or range; repetitions logged outside the new range simply no longer count. */
+/**
+ * Changes a task's text, target or range; repetitions logged outside the new range simply no longer count, and a
+ * new text starts with an empty log (what was said was the old text).
+ */
 export async function updateTask(id: string, input: TaskInput): Promise<TaskRow> {
   await validate(input)
-  return db.transaction('rw', db.tasks, async () => {
+  return db.transaction('rw', [db.tasks, db.taskLog], async () => {
     const existing = await db.tasks.get(id)
     if (!existing) throw new TaskError('notFound')
     const next: TaskRow = { ...existing, textId: input.textId, timesPerDay: input.timesPerDay, startDay: input.startDay, endDay: endDayFor(input.startDay, input.days) }
+    if (next.textId !== existing.textId) await db.taskLog.where('taskId').equals(id).delete()
     await db.tasks.put(next)
     return next
   })

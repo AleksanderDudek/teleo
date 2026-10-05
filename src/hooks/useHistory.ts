@@ -23,11 +23,16 @@ export interface HistoryData {
 export function useHistory(limit: number, dayStartHour: number): HistoryData | undefined {
   return useLiveQuery(async () => {
     const today = dayKeyFor(Date.now(), dayStartHour)
-    const [count, newest, all] = await Promise.all([
-      db.sessionRuns.count(),
+    // The totals walk every run but keep three numbers of each (a long Bible history is heavy to hold whole).
+    const totalsOf: Array<Pick<HistoryRow, 'dayKey' | 'durationMs' | 'accepted'>> = []
+    const [newest] = await Promise.all([
       db.sessionRuns.orderBy('startedAt').reverse().limit(limit).toArray(),
-      db.sessionRuns.toArray(),
+      db.sessionRuns.each((run) => {
+        const { dayKey, durationMs, accepted } = runHistoryRow(run)
+        totalsOf.push({ dayKey, durationMs, accepted })
+      }),
     ])
+    const count = totalsOf.length
     const rows = newest.map(runHistoryRow)
     const textIds = new Set(rows.flatMap((row) => row.textIds))
     const taskIds = [...new Set(rows.flatMap((row) => (row.taskId ? [row.taskId] : [])))]
@@ -36,6 +41,6 @@ export function useHistory(limit: number, dayStartHour: number): HistoryData | u
     const texts = new Map<string, HistoryText>()
     for (const text of await db.texts.bulkGet([...textIds])) if (text) texts.set(text.id, { title: text.title, bible: text.source === 'bible' })
     const tasks = new Map([...tasksById].map(([id, task]) => [id, texts.get(task.textId)?.title ?? '']))
-    return { rows, count, totals: historyTotals(all.map(runHistoryRow), today), texts, tasks }
+    return { rows, count, totals: historyTotals(totalsOf, today), texts, tasks }
   }, [limit, dayStartHour])
 }

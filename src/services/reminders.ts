@@ -27,9 +27,10 @@ export async function reminderNudgeNow(now = Date.now()): Promise<Nudge | null> 
 /** The app's root, which a tapped notification opens. */
 export const appUrl = (): string => new URL(import.meta.env.BASE_URL, location.origin).href
 
-/** Shows the reminder due now; false when there is nothing to say or no permission. */
+/** Shows the reminder due now; false when notifications are off, not allowed, or there is nothing to say. */
 export async function showReminder(now = Date.now()): Promise<boolean> {
   if (notificationSupport() !== 'granted') return false
+  if (!(await readSettings()).app.notifications) return false
   const nudge = await reminderNudgeNow(now)
   if (!nudge) return false
   const options: NotificationOptions = { body: nudge.body, tag: REMINDER_TAG, icon: `${import.meta.env.BASE_URL}icons/pwa-192x192.png`, data: { url: appUrl() } }

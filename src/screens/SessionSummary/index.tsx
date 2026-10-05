@@ -70,6 +70,8 @@ export default function SessionSummary() {
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
   const clean = summary.skipped === 0 && summary.accepted > 0
+  // Opened from the history later: the level banner and the tasks' standing are about now, not that run.
+  const sameDay = run.dayKey === today
   const levelBefore = levelInfo(game.totalXp - run.xpEarned).level
   const levelNow = levelInfo(game.totalXp).level
   const again: StartRunInput | null = run.taskId
@@ -94,7 +96,7 @@ export default function SessionSummary() {
         </p>
         <h1 className="mt-1 text-4xl font-semibold">{clean ? t('summary.title') : t('summary.titleIncomplete')}</h1>
         {summary.skipped > 0 && <p className="mt-2 text-ink-soft">{t('summary.skipped', { count: summary.skipped })}</p>}
-        {levelNow > levelBefore && (
+        {sameDay && levelNow > levelBefore && (
           <p className="mx-auto mt-4 inline-flex rounded-full bg-gold-soft px-4 py-1.5 font-semibold text-gold-ink shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_45%,transparent)] animate-rise">
             {t('level.up', { name: levelName(t, levelNow) })}
           </p>
@@ -122,7 +124,7 @@ export default function SessionSummary() {
         <StatTile sunk label={t('summary.streak')} value={String(streak)} />
       </dl>
 
-      {tasks.length > 0 && (
+      {sameDay && tasks.length > 0 && (
         <ul className="mt-4 space-y-2 text-left">
           {tasks.map((view) => (
             <li key={view.task.id} className="card flex items-center gap-3 p-3">

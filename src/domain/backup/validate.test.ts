@@ -179,6 +179,11 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(validateBackup(backupWith({ ...emptyData(), tasks: [task], taskLog: [log] } as BackupData)).ok).toBe(true)
     const badTask = validateBackup(backupWith({ ...emptyData(), tasks: [{ ...task, endDay: 'soon' }] } as unknown as BackupData))
     expect(badTask).toEqual({ ok: false, code: 'invalidShape', path: 'data.tasks[0].endDay' })
+    // The screens count on the rules' limits: a task of 0 times a day, or ending before it starts, is refused.
+    const zero = validateBackup(backupWith({ ...emptyData(), tasks: [{ ...task, timesPerDay: 0 }] } as BackupData))
+    expect(zero).toEqual({ ok: false, code: 'invalidShape', path: 'data.tasks[0].timesPerDay' })
+    const backwards = validateBackup(backupWith({ ...emptyData(), tasks: [{ ...task, endDay: '2026-10-04' }] } as BackupData))
+    expect(backwards).toEqual({ ok: false, code: 'invalidShape', path: 'data.tasks[0].endDay' })
     const badLog = validateBackup(backupWith({ ...emptyData(), taskLog: [{ ...log, runId: 7 }] } as unknown as BackupData))
     expect(badLog).toEqual({ ok: false, code: 'invalidShape', path: 'data.taskLog[0].runId' })
   })

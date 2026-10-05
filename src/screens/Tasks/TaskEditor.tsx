@@ -20,6 +20,8 @@ import { useAppSettings } from '@/stores/settings'
 import { toast } from '@/stores/ui'
 
 const DAY_PRESETS = [7, 14, 21, 30] as const
+/** A browser date input can hold a five-digit year, which no day key accepts. */
+const DAY_KEY = /^\d{4}-\d{2}-\d{2}$/
 
 interface Draft {
   textId: string | null
@@ -39,7 +41,8 @@ export default function TaskEditor() {
     const [texts, segments, task] = await Promise.all([db.texts.toArray(), db.segments.toArray(), taskId ? db.tasks.get(taskId) : undefined])
     const segmentCounts = new Map<string, number>()
     for (const segment of segments) if (!segment.archived) segmentCounts.set(segment.textId, (segmentCounts.get(segment.textId) ?? 0) + 1)
-    return { texts: texts.filter((text) => isListedText(text, uiLang)), segmentCounts, task: task ?? null }
+    // The task's own text stays available even when the interface language no longer lists it.
+    return { texts: texts.filter((text) => isListedText(text, uiLang) || text.id === task?.textId), segmentCounts, task: task ?? null }
   }, [taskId, uiLang])
 
   if (data === undefined) return null
@@ -125,7 +128,7 @@ function TaskForm({ task, initial, texts, segmentCounts }: { task: TaskRow | nul
             <input
               type="date"
               value={draft.startDay}
-              onChange={(e) => e.target.value && patch({ startDay: e.target.value })}
+              onChange={(e) => DAY_KEY.test(e.target.value) && patch({ startDay: e.target.value })}
               className="h-10 rounded-full border border-line-strong bg-surface px-4 font-semibold"
             />
           </label>
