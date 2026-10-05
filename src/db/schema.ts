@@ -1,5 +1,6 @@
 import Dexie, { type EntityTable, type Table } from 'dexie'
 import { RETIRED_TEXT_SOURCES, retiredRows } from '@/domain/backup/retired'
+import { DB_NAME } from './name'
 import type {
   AchievementRow,
   Attempt,
@@ -18,7 +19,7 @@ import type {
   XpLedgerRow,
 } from './types'
 
-export const DB_NAME = 'teleo'
+export { DB_NAME } from './name'
 export const SCHEMA_VERSION = 5
 
 /**

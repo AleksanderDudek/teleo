@@ -10,15 +10,13 @@ import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
 import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
-import { buildDailyReminderIcs } from '@/domain/reminders/ics'
 import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
-import { downloadText } from '@/lib/download'
-import { newId } from '@/lib/id'
 import { promptInstall, useInstallState } from '@/lib/install'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
 import { toast } from '@/stores/ui'
+import { RemindersSettings } from './RemindersSettings'
 import { WhisperSettings } from './WhisperSettings'
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
@@ -97,8 +95,6 @@ function DisplayName({ value, placeholder, onSave }: { value: string; placeholde
   )
 }
 
-const Hint = ({ children }: { children: ReactNode }) => <p className="-mt-3 text-sm text-ink-soft">{children}</p>
-
 export default function Settings() {
   const { t, i18n } = useTranslation()
   const app = useSettingsStore((s) => s.app)
@@ -111,18 +107,6 @@ export default function Settings() {
     const section = params.get('section')
     if (section) document.getElementById(section)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [params])
-
-  const reminder = () => {
-    const ics = buildDailyReminderIcs({
-      time: app.reminderTime,
-      title: t('settings.reminderTitle'),
-      description: t('settings.reminderBody'),
-      url: new URL(import.meta.env.BASE_URL, window.location.origin).href,
-      uid: `teleo-daily-${newId()}@teleo`,
-      now: new Date(),
-    })
-    downloadText('teleo-reminder.ics', ics, 'text/calendar')
-  }
 
   return (
     <>
@@ -273,19 +257,7 @@ export default function Settings() {
         </Section>
 
         <Section id="reminders" title={t('settings.sectionReminders')}>
-          <label className="flex flex-wrap items-center justify-between gap-3">
-            <span className="font-medium">{t('settings.reminderTime')}</span>
-            <input
-              type="time"
-              value={app.reminderTime}
-              onChange={(e) => e.target.value && set({ reminderTime: e.target.value })}
-              className="h-10 rounded-full border border-line-strong bg-surface px-4 font-semibold"
-            />
-          </label>
-          <Hint>{t('settings.reminderHint')}</Hint>
-          <Button variant="secondary" onClick={reminder} icon="calendar-plus">
-            {t('settings.reminderDownload')}
-          </Button>
+          <RemindersSettings />
         </Section>
 
         <Section id="backup" title={t('settings.sectionBackup')}>

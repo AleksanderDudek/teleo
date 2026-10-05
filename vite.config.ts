@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import { ORT_CACHE, ORT_RUNTIME_FILES } from './src/domain/speech/whisper/runtime.ts'
+import { ORT_RUNTIME_FILES } from './src/domain/speech/whisper/runtime.ts'
 
 const BASE = '/teleo/'
 const readJson = <T>(path: string) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8')) as T
@@ -140,33 +140,18 @@ export default defineConfig({
           { src: 'screenshots/library-wide.png', sizes: '1280x800', type: 'image/png', form_factor: 'wide', label: 'Library of prayers and affirmations' },
         ],
       },
-      workbox: {
+      // The worker is our own file (`src/sw.ts`): the offline shell plus the reminders' background check.
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      injectManifest: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
-        // Never precached: install-sheet screenshots, and the Whisper runtime (tens of MB, see
-        // runtimeCaching below).
+        // Never precached: install-sheet screenshots, and the Whisper runtime (tens of MB, cached at runtime
+        // by `src/sw.ts`).
         globIgnores: ['screenshots/**', '**/ort/**'],
         // Room for the Whisper worker chunk (transformers.js + onnxruntime glue), needed offline;
         // anything bigger is a mistake and stays out of the precache.
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
-        navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/privacy\.html$/],
-        cleanupOutdatedCaches: true,
-        runtimeCaching: [
-          {
-            // Versioned paths (ort/<version>/…) make cache-first safe. The model download also
-            // stores the runtime in this cache, so Whisper works offline after the first use.
-            urlPattern: new RegExp(`${BASE}ort/`.replaceAll('/', '\\/')),
-            handler: 'CacheFirst',
-            options: { cacheName: ORT_CACHE, cacheableResponse: { statuses: [200] } },
-          },
-          {
-            // Bible texts (≈ 9 MB in all) are fetched book by book when read and kept for offline use;
-            // never precached. Stale-while-revalidate picks up a regenerated file on a later visit.
-            urlPattern: new RegExp(`${BASE}bible/`.replaceAll('/', '\\/')),
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'teleo-bible', cacheableResponse: { statuses: [200] } },
-          },
-        ],
       },
     }),
   ],

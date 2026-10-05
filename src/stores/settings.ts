@@ -1,7 +1,7 @@
 import { liveQuery, type Subscription } from 'dexie'
 import { create } from 'zustand'
 import { db, SCHEMA_VERSION } from '@/db/schema'
-import { DEFAULT_GAME, DEFAULT_SETTINGS } from '@/db/defaults'
+import { appSettingsFrom, DEFAULT_GAME, DEFAULT_SETTINGS } from '@/db/defaults'
 import type { AppSettings, GameState, MetaState } from '@/db/types'
 
 export interface SettingsSnapshot {
@@ -30,7 +30,7 @@ export function startSettingsSync(initial: SettingsSnapshot): void {
     next: (rows) => {
       const patch: Partial<SettingsSnapshot> = {}
       for (const row of rows) {
-        if (row.key === 'app') patch.app = { ...DEFAULT_SETTINGS, ...row.value }
+        if (row.key === 'app') patch.app = appSettingsFrom(row.value)
         else if (row.key === 'game') patch.game = { ...DEFAULT_GAME, ...row.value }
         else patch.meta = row.value
       }

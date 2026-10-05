@@ -183,7 +183,10 @@ const appSettings: Checker = objectFields([
   ['listenFirst', boolean_],
   ['grammaticalForm', enumOf('m', 'f', 'n')],
   ['contentFocus', enumOf('prayers', 'affirmations', 'both', 'own')],
-  ['reminderTime', string_],
+  // v1.x kept one reminder hour; v1.6 keeps up to three and a notifications switch.
+  ['reminderTime', optional(string_)],
+  ['reminderTimes', optional(arrayOf(string_))],
+  ['notifications', optional(boolean_)],
   ['onboardingCompleted', boolean_],
   ['speechPrivacyAcknowledged', boolean_],
   // Added in v1.2; older backups omit it and get the default on import.

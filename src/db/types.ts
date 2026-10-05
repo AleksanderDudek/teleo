@@ -245,8 +245,10 @@ export interface AppSettings {
   listenFirst: boolean
   grammaticalForm: GrammaticalForm
   contentFocus: ContentFocus
-  /** `HH:MM`, used for the calendar reminder. */
-  reminderTime: string
+  /** `HH:MM` reminder hours (1–3): the calendar events, the in-app and background notifications. */
+  reminderTimes: string[]
+  /** Device notifications at the reminder hours (needs the browser's permission). */
+  notifications: boolean
   onboardingCompleted: boolean
   speechPrivacyAcknowledged: boolean
   /** The figure shown as the user's avatar. */
