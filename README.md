@@ -52,7 +52,10 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Your data, yours to keep:** everything stays on the device; “Your data” makes a backup file (optionally
   password-protected, AES-256) to download or save to Files / iCloud / Google Drive / e-mail, restores it after
   showing what it holds, and can undo a restore.
-- **Yours only:** calendar (.ics) reminders, delete-everything, light/dark theme, three text sizes, keyboard
+- **Daily tasks and a history:** any text as a task (say it N times a day for D days, counted in every session),
+  and every session on record — what it was about and what was done.
+- **Yours only:** reminders at fixed hours — calendar (.ics) events for the hours and the tasks, optional device
+  notifications and an app-icon badge — delete-everything, light/dark theme, three text sizes, keyboard
   (Space = microphone), screen stays on in sessions.
 
 Changes: [CHANGELOG.md](CHANGELOG.md) · Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)

@@ -7,6 +7,19 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 - **The language conversations moved to a separate app, Fluentum** — Teleo stays with prayers, affirmations and
   memorising sentences. The progress you already earned with them (points, streak days) stays.
 
+### Daily tasks, a session history, reminders that fit the phone
+
+- **Daily tasks:** any prayer or affirmation can become a task — say it, for example, three times a day for two
+  weeks. Today lists what is due and “Say it” starts the remaining repetitions; every full repetition in any session
+  counts. Set one up from a text's page, manage them under Sessions → Daily tasks.
+- **Session history** (Progress → History): every session, day by day — its texts, the task it served, what was
+  said, skips, points and minutes, with totals for the last 7 and 30 days.
+- **Reminders:** up to three fixed hours a day. The calendar file now holds an event per hour and one per current
+  task, until its last day. Optional notifications on this device at those hours (when nothing was said yet or a
+  task is still due) and the task count on the app icon; on Android with Teleo installed, Chrome may remind you even
+  when the app is closed.
+- **Support link by language:** the English interface links to buymeacoffee.com, the Polish one to buycoffee.to.
+
 ### Your data: backups that survive the browser
 
 - **Settings → Your data:** what is on this device, whether the browser protects it, and everything about backups in

@@ -525,3 +525,38 @@ Each entry: **decision** — why.
     them until it is used; its summary is unaffected, dialogue texts never counted as own texts). Which rows belong to
     retired dialogues is decided once, in `src/domain/backup/retired.ts` (pure, unit-tested), and used by both. The
     backup format stays schema 1.
+
+## Daily tasks, session history, reminders, the support link by language (owner request, 2026-10-05)
+
+119. **The support link follows the interface language.** The Polish interface links to buycoffee.to/uriel, the
+    English one to buymeacoffee.com/atd_uriel (`src/components/support/links.ts`, used by the ribbon, the window and
+    the privacy page). The interface language is detected from the browser at first start (Polish when preferred,
+    English otherwise) and already decides which texts are listed — so a Polish speaker gets Polish texts and the
+    Polish link, everybody else the English pair; Settings can change it, and the link follows.
+120. **Daily tasks** (`tasks`, `taskLog`, schema v5): any text can be a task — said N times a day (1–10) for D days
+    (1–365) from a start day. Counting is by full repetition: inside `recordAttempt`'s transaction a completed
+    full-text block logs one row for every active task of that text covering the day, so any session counts, not
+    only one started from Today's "Say it" (which runs the remaining repetitions and carries `taskId`). Progress is
+    derived from the log per day, capped at the day's target, never stored. Deleting a user text deletes its tasks
+    and their log (#28 extended). Not done on purpose: task points and achievements (the text's repetition rewards
+    already pay; a bonus would pay twice) and per-task reminder hours (the fixed hours serve every task, the calendar
+    event names each).
+121. **Session history** (`/progress/history`): every run on record, newest first and grouped by day — what it was
+    about (its texts link to the library or the Bible, a task badge to the tasks) and what was done (lines said of
+    all, skips, first-try rate, points, minutes until the end or the last activity), with sessions and minutes for
+    the last 7 and 30 days and all time. A row is derived from the run row (`src/domain/session/history.ts`); nothing
+    new is written, so every session since v1.0 is already there.
+122. **Reminders without a server.** Web Push needs a push service and a backend to drive it (spec §0, §12), so:
+    (a) fixed reminder hours — one to three, default 07:00 · 13:00 · 21:00 — replace the single `reminderTime`,
+    which old settings rows and backups still provide (`appSettingsFrom`); (b) the calendar file holds one daily
+    event per hour and one bounded event per current task (`RRULE:FREQ=DAILY;UNTIL=<last day>`, at the first hour)
+    — the one reminder that always rings, on every platform; (c) device notifications, off by default and asking
+    for permission: while the app is open a notification at each hour when nothing was said yet or a task is still
+    due (`ReminderEffects`), the app icon's badge counts the task repetitions left today, and on Chrome Android with
+    the app installed a periodic background sync lets the service worker check now and then and show one
+    notification a day once an hour has passed. iOS has no periodic sync and only Web Push in the background, so the
+    Settings copy says plainly what each platform does. The service worker is now our own file (`src/sw.ts`,
+    vite-plugin-pwa `injectManifest`) with the precache, navigation fallback and runtime caches it had; it opens the
+    database in Dexie's dynamic mode through `src/db/name.ts` (never the schema: it must never upgrade or create
+    anything) and keeps the day it last notified in Cache Storage, so it writes nothing to the database. Notification
+    copy lives in `src/domain/reminders/nudge.ts`, not in the i18n files — the worker carries no i18next.
