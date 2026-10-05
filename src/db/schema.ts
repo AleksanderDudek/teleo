@@ -83,7 +83,7 @@ export class TeleoDB extends Dexie {
     // v1.6: daily tasks and their repetition log (new tables only, no data migration).
     this.version(5).stores({
       tasks: 'id, textId, endDay',
-      taskLog: 'id, taskId, [taskId+dayKey], dayKey',
+      taskLog: 'id, taskId, [taskId+dayKey], dayKey, runId',
     })
   }
 }

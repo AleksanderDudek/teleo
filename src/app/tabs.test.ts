@@ -15,6 +15,11 @@ describe('tabOf', () => {
     expect(tabOf('/bible/pbg/GEN')).toBe('library')
   })
 
+  it('puts the daily tasks under sessions', () => {
+    expect(tabOf('/tasks')).toBe('sessions')
+    expect(tabOf('/tasks/new')).toBe('sessions')
+  })
+
   it('does not match a mere prefix or an unknown screen', () => {
     expect(tabOf('/libraryx')).toBeNull()
     expect(tabOf('/friend')).toBeNull()

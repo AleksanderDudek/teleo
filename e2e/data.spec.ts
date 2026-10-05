@@ -14,6 +14,10 @@ async function practiseOnce(page: Page) {
   await page.waitForURL(/summary$/)
   await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
   await expect(page.getByText('1 dzień z rzędu')).toBeVisible()
+  // A daily task too, so the round trip covers the task tables.
+  await page.goto('./#/tasks/new?text=builtin%3Apl.chwala-ojcu')
+  await page.getByRole('button', { name: 'Zapisz zadanie' }).click()
+  await expect(page.getByRole('region', { name: 'Zadania na dziś' })).toContainText('Chwała Ojcu')
 }
 
 /** Your data → create a backup (optionally with a password) → download it. */
@@ -58,6 +62,7 @@ test('backup → delete everything → restore brings the history back, after sh
   await expect(preview.getByRole('row', { name: /Aktywne dni/ })).toContainText('1')
   await preview.getByRole('button', { name: 'Zastąp i przywróć' }).click()
   await expect(page.getByText('1 dzień z rzędu')).toBeVisible({ timeout: 15_000 })
+  await expect(page.getByRole('region', { name: 'Zadania na dziś' })).toContainText('Chwała Ojcu')
 })
 
 test('a password-protected backup needs its password, and a restore can be undone', async ({ page }, testInfo) => {

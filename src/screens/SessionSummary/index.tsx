@@ -20,6 +20,7 @@ import { summarizeRun } from '@/domain/session'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import { achievementDescription, achievementName, levelName } from '@/i18n/dynamic'
 import { startRun, type StartRunInput } from '@/services/sessions'
+import { taskViews } from '@/services/tasks'
 import { useAppSettings, useGameState } from '@/stores/settings'
 import { startNextReading, useBibleShare } from '@/screens/Bible/useBible'
 import { toast, useUiStore } from '@/stores/ui'
@@ -48,7 +49,10 @@ export default function SessionSummary() {
       db.texts.toArray(),
     ])
     const bible = run.textId ? texts.find((x) => x.id === run.textId)?.bible : undefined
-    return { run, daily, achievements, bible, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
+    // The daily tasks this run advanced, with where they stand now.
+    const advanced = new Set((await db.taskLog.where('runId').equals(run.id).toArray()).map((row) => row.taskId))
+    const tasks = advanced.size > 0 ? (await taskViews(now)).filter((view) => advanced.has(view.task.id)) : []
+    return { run, daily, achievements, bible, tasks, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
   }, [runId, app.dayStartHour])
 
   if (data === undefined) return null
@@ -61,7 +65,7 @@ export default function SessionSummary() {
     )
   }
 
-  const { run, daily, achievements, titles, today, bible } = data
+  const { run, daily, achievements, titles, today, bible, tasks } = data
   const summary = summarizeRun(run.plan, run.entries)
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
@@ -113,6 +117,23 @@ export default function SessionSummary() {
         <StatTile sunk label={t('summary.xp')} value={`+${run.xpEarned}`} />
         <StatTile sunk label={t('summary.streak')} value={String(streak)} />
       </dl>
+
+      {tasks.length > 0 && (
+        <ul className="mt-4 space-y-2 text-left">
+          {tasks.map((view) => (
+            <li key={view.task.id} className="card flex items-center gap-3 p-3">
+              <Icon name="list-checks" size={22} />
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-serif text-lg font-semibold">{view.text?.title ?? t('tasks.missingText')}</span>
+                <span className="block text-sm text-ink-soft">{t('summary.task', { done: view.progress.doneToday, of: view.task.timesPerDay, day: view.progress.dayIndex, days: view.progress.days })}</span>
+              </span>
+              <Link to="/tasks" className="text-sm font-semibold text-primary underline-offset-4 hover:underline">
+                {t('summary.taskLink')}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* The result is worth passing on while it is fresh: right under the numbers. */}
       {summary.accepted > 0 && (

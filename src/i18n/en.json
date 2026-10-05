@@ -80,7 +80,9 @@
     "guideLeft_one": "One more sentence and today’s goal is complete. I’ll be listening.",
     "guideLeft_other": "{{count}} more sentences and today’s goal is complete. I’ll be listening.",
     "guideDone": "Your goal is complete. Rest now — or keep going, if your heart wants to.",
-    "guideEmpty": "Add a text you’d like to say aloud, and I’ll help you keep count."
+    "guideEmpty": "Add a text you’d like to say aloud, and I’ll help you keep count.",
+    "tasks": "Today's tasks",
+    "allTasks": "All tasks"
   },
   "library": {
     "rubric": "Library",
@@ -167,7 +169,8 @@
     "statLast": "Last practised",
     "never": "Not yet",
     "builtinNote": "Builtin texts can’t be edited — make a copy to change it.",
-    "notFound": "This text no longer exists."
+    "notFound": "This text no longer exists.",
+    "setTask": "Set as a daily task"
   },
   "sessions": {
     "rubric": "Sessions",
@@ -196,7 +199,11 @@
     "progressOf": "{{done}} of {{total}}",
     "cantStart": "This session has nothing to say — its texts were removed or hidden.",
     "someSegments": "{{count}} of {{total}} segments",
-    "missingText": "missing text"
+    "missingText": "missing text",
+    "tasksTitle": "Daily tasks",
+    "tasksBody": "An affirmation a few times a day, for a couple of weeks.",
+    "tasksToday_one": "{{count}} task today · {{left}} left to say",
+    "tasksToday_other": "{{count}} tasks today · {{left}} left to say"
   },
   "builder": {
     "titleNew": "New session",
@@ -279,7 +286,9 @@
     "skipped_one": "{{count}} sentence skipped",
     "skipped_other": "{{count}} sentences skipped",
     "nextReading": "Next reading",
-    "biblePercent": "{{percent}} of the Bible read aloud"
+    "biblePercent": "{{percent}} of the Bible read aloud",
+    "task": "Today {{done}}/{{of}} · day {{day}} of {{days}}",
+    "taskLink": "Tasks"
   },
   "progress": {
     "rubric": "Progress",
@@ -903,7 +912,8 @@
   "celebrate": {
     "unlocked": "Achievement unlocked",
     "freezeEarned": "You earned a streak freeze ❄",
-    "goalReached": "Daily goal reached! +{{xp}} XP"
+    "goalReached": "Daily goal reached! +{{xp}} XP",
+    "task": "Task: {{done}}/{{of}} today"
   },
   "memory": {
     "button": "From memory",
@@ -1247,5 +1257,54 @@
       "wrongPassword": "Wrong password (or the file was changed).",
       "noRestorePoint": "There is no earlier data to bring back."
     }
+  },
+  "tasks": {
+    "rubric": "Sessions",
+    "title": "Daily tasks",
+    "lead": "A text to say a set number of times a day, for as many days as you choose — e.g. an affirmation three times a day for two weeks. Any session counts.",
+    "add": "New task",
+    "emptyTitle": "No daily tasks yet",
+    "emptyBody": "Pick an affirmation or a prayer and decide how often and for how long to say it. It will wait for you on Today.",
+    "pastHeading": "Finished and stopped",
+    "edit": "Edit",
+    "resume": "Resume",
+    "stop": "Stop",
+    "delete": "Delete",
+    "deleteTitle": "Delete this task?",
+    "deleteBody": "Its progress log goes with it. What you said stays in your history.",
+    "deleted": "Task deleted",
+    "titleNew": "New daily task",
+    "titleEdit": "Edit task",
+    "fieldText": "Text",
+    "changeText": "Change",
+    "pickText": "Choose a text",
+    "fieldTimes": "Times a day",
+    "timesValue": "×{{count}}",
+    "fieldStart": "First day",
+    "fieldDays": "For how long",
+    "summaryLine": "{{times}} a day, from {{from}} to {{to}} — {{total}} repetitions in all.",
+    "save": "Save task",
+    "saved": "Task saved",
+    "errors": {
+      "notFound": "This task no longer exists.",
+      "noText": "Choose a text.",
+      "timesPerDay": "Between 1 and 10 times a day.",
+      "days": "Between 1 and 365 days.",
+      "startDay": "Pick the first day."
+    },
+    "todayProgress": "{{done}}/{{of}} today",
+    "totalProgress": "{{done}}/{{total}} in all",
+    "timesPerDay_one": "{{count}} time a day",
+    "timesPerDay_other": "{{count}} times a day",
+    "dayOf": "day {{day}} of {{days}}",
+    "startsOn": "starts {{date}}",
+    "finished": "finished · {{done}}/{{total}} done",
+    "finishedComplete": "finished · every day done",
+    "stopped": "stopped",
+    "missingText": "Text deleted",
+    "say": "Say it",
+    "sayLabel": "Say it: {{title}}",
+    "doneToday": "Done today",
+    "cantStart": "The task could not be started."
   }
 }

@@ -88,7 +88,9 @@
     "guideLeft_many": "Jeszcze {{count}} zdań i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideLeft_other": "Jeszcze {{count}} zdania i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideDone": "Cel na dziś wypełniony. Odpocznij – albo mów dalej, jeśli serce tego chce.",
-    "guideEmpty": "Dodaj tekst, który chcesz mówić na głos, a pomogę Ci liczyć."
+    "guideEmpty": "Dodaj tekst, który chcesz mówić na głos, a pomogę Ci liczyć.",
+    "tasks": "Zadania na dziś",
+    "allTasks": "Wszystkie zadania"
   },
   "library": {
     "rubric": "Biblioteka",
@@ -175,7 +177,8 @@
     "statLast": "Ostatnio",
     "never": "Jeszcze nie",
     "builtinNote": "Tekstów wbudowanych nie można edytować – zrób kopię, aby coś zmienić.",
-    "notFound": "Ten tekst już nie istnieje."
+    "notFound": "Ten tekst już nie istnieje.",
+    "setTask": "Ustaw jako codzienne zadanie"
   },
   "sessions": {
     "rubric": "Sesje",
@@ -204,7 +207,13 @@
     "progressOf": "{{done}} z {{total}}",
     "cantStart": "W tej sesji nie ma nic do powiedzenia – jej teksty usunięto lub ukryto.",
     "someSegments": "{{count}} z {{total}} segmentów",
-    "missingText": "brak tekstu"
+    "missingText": "brak tekstu",
+    "tasksTitle": "Codzienne zadania",
+    "tasksBody": "Afirmacja kilka razy dziennie, przez parę tygodni.",
+    "tasksToday_one": "{{count}} zadanie na dziś · do powiedzenia: {{left}}",
+    "tasksToday_few": "{{count}} zadania na dziś · do powiedzenia: {{left}}",
+    "tasksToday_many": "{{count}} zadań na dziś · do powiedzenia: {{left}}",
+    "tasksToday_other": "{{count}} zadania na dziś · do powiedzenia: {{left}}"
   },
   "builder": {
     "titleNew": "Nowa sesja",
@@ -291,7 +300,9 @@
     "skipped_many": "{{count}} zdań pominiętych",
     "skipped_other": "{{count}} zdania pominiętego",
     "nextReading": "Następne czytanie",
-    "biblePercent": "{{percent}} Biblii przeczytane na głos"
+    "biblePercent": "{{percent}} Biblii przeczytane na głos",
+    "task": "Dziś {{done}}/{{of}} · dzień {{day}} z {{days}}",
+    "taskLink": "Zadania"
   },
   "progress": {
     "rubric": "Postępy",
@@ -925,7 +936,8 @@
   "celebrate": {
     "unlocked": "Nowe osiągnięcie",
     "freezeEarned": "Zdobywasz zamrożenie serii ❄",
-    "goalReached": "Cel dzienny osiągnięty! +{{xp}} XP"
+    "goalReached": "Cel dzienny osiągnięty! +{{xp}} XP",
+    "task": "Zadanie: dziś {{done}}/{{of}}"
   },
   "memory": {
     "button": "Z pamięci",
@@ -1287,5 +1299,56 @@
       "wrongPassword": "Nieprawidłowe hasło (albo plik został zmieniony).",
       "noRestorePoint": "Nie ma już danych do przywrócenia."
     }
+  },
+  "tasks": {
+    "rubric": "Sesje",
+    "title": "Codzienne zadania",
+    "lead": "Tekst do wypowiedzenia określoną liczbę razy dziennie przez tyle dni, ile wybierzesz – np. afirmacja trzy razy dziennie przez dwa tygodnie. Liczy się każda sesja.",
+    "add": "Nowe zadanie",
+    "emptyTitle": "Nie masz jeszcze zadań",
+    "emptyBody": "Wybierz afirmację lub modlitwę i ustal, jak często i jak długo ją wypowiadać. Będzie czekać na Ciebie na ekranie Dziś.",
+    "pastHeading": "Zakończone i wstrzymane",
+    "edit": "Edytuj",
+    "resume": "Wznów",
+    "stop": "Wstrzymaj",
+    "delete": "Usuń",
+    "deleteTitle": "Usunąć to zadanie?",
+    "deleteBody": "Razem z nim zniknie jego dziennik postępu. To, co zostało powiedziane, zostaje w historii.",
+    "deleted": "Zadanie usunięte",
+    "titleNew": "Nowe zadanie",
+    "titleEdit": "Edytuj zadanie",
+    "fieldText": "Tekst",
+    "changeText": "Zmień",
+    "pickText": "Wybierz tekst",
+    "fieldTimes": "Razy dziennie",
+    "timesValue": "×{{count}}",
+    "fieldStart": "Pierwszy dzień",
+    "fieldDays": "Jak długo",
+    "summaryLine": "{{times}} razy dziennie, od {{from}} do {{to}} – łącznie {{total}} powtórzeń.",
+    "save": "Zapisz zadanie",
+    "saved": "Zadanie zapisane",
+    "errors": {
+      "notFound": "To zadanie już nie istnieje.",
+      "noText": "Wybierz tekst.",
+      "timesPerDay": "Od 1 do 10 razy dziennie.",
+      "days": "Od 1 do 365 dni.",
+      "startDay": "Wybierz pierwszy dzień."
+    },
+    "todayProgress": "dziś {{done}}/{{of}}",
+    "totalProgress": "łącznie {{done}}/{{total}}",
+    "timesPerDay_one": "{{count}} raz dziennie",
+    "timesPerDay_few": "{{count}} razy dziennie",
+    "timesPerDay_many": "{{count}} razy dziennie",
+    "timesPerDay_other": "{{count}} razy dziennie",
+    "dayOf": "dzień {{day}} z {{days}}",
+    "startsOn": "zaczyna się {{date}}",
+    "finished": "zakończone · wykonane {{done}}/{{total}}",
+    "finishedComplete": "zakończone · każdy dzień wykonany",
+    "stopped": "wstrzymane",
+    "missingText": "Tekst usunięty",
+    "say": "Powiedz",
+    "sayLabel": "Powiedz: {{title}}",
+    "doneToday": "Dziś zrobione",
+    "cantStart": "Nie udało się rozpocząć zadania."
   }
 }

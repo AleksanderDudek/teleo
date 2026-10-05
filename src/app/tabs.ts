@@ -7,7 +7,8 @@ export const TABS: ReadonlyArray<{ to: string; key: TabKey; icon: IconName; also
   { to: '/', key: 'today', icon: 'sunrise' },
   // The Bible is opened from the library (and from Today): it lights the library tab.
   { to: '/library', key: 'library', icon: 'gospel', also: ['/bible'] },
-  { to: '/sessions', key: 'sessions', icon: 'rosary' },
+  // Daily tasks are managed from the sessions screen: they light the sessions tab.
+  { to: '/sessions', key: 'sessions', icon: 'rosary', also: ['/tasks'] },
   { to: '/progress', key: 'progress', icon: 'lily' },
   { to: '/settings', key: 'settings', icon: 'sliders-halo' },
 ]
