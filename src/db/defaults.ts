@@ -1,3 +1,4 @@
+import { DEFAULT_REMINDER_TIMES, normalizeReminderTimes } from '@/domain/reminders/times'
 import type { AppSettings, GameState } from './types'
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -13,7 +14,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   listenFirst: false,
   grammaticalForm: 'n',
   contentFocus: 'both',
-  reminderTime: '07:00',
+  reminderTimes: [...DEFAULT_REMINDER_TIMES],
+  notifications: false,
   onboardingCompleted: false,
   speechPrivacyAcknowledged: false,
   character: 'anna',
@@ -29,6 +31,16 @@ export const DEFAULT_GAME: GameState = {
   comebacks: 0,
   totalXp: 0,
   pendingFreezeNotice: [],
+}
+
+/**
+ * A stored `app` row over the defaults: rows written by older versions gain the new fields, and the single
+ * `reminderTime` of v1.x becomes the list of reminder hours. The list is always valid and never empty.
+ */
+export function appSettingsFrom(stored: Partial<AppSettings> & { reminderTime?: string }): AppSettings {
+  const { reminderTime, ...rest } = stored
+  const times = normalizeReminderTimes(rest.reminderTimes ?? (reminderTime ? [reminderTime] : DEFAULT_REMINDER_TIMES))
+  return { ...DEFAULT_SETTINGS, ...rest, reminderTimes: times.length > 0 ? times : [...DEFAULT_REMINDER_TIMES] }
 }
 
 export const DAY_START_HOURS = { min: 0, max: 6 } as const

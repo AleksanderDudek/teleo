@@ -21,6 +21,7 @@ import { newId } from '@/lib/id'
 import { useSettingsStore } from '@/stores/settings'
 import { emptyDailyStats, PROGRESS_TABLES, unlockAchievements, type UnlockedAchievement } from './progress'
 import { readSettings } from './settings'
+import { logTaskRepetition, type TaskAdvance } from './tasks'
 
 /** What the practice service needs from a matcher result (structural: `MatchResult` fits). */
 export interface Evaluation {
@@ -63,6 +64,8 @@ export interface AttemptOutcome extends ProgressOutcome {
   readingMs: number
   run: SessionRun
   textCompleted?: { textId: string; bonusXp: number; perfect: boolean }
+  /** Daily tasks this repetition advanced (empty when none covers today). */
+  taskProgress?: TaskAdvance[]
   /** Failed attempts on this entry so far (drives the "skip after 3" rule). */
   failedAttempts: number
 }
@@ -85,7 +88,7 @@ export class PracticeError extends Error {
   }
 }
 
-const TABLES = [db.sessionRuns, db.attempts, ...PROGRESS_TABLES]
+const TABLES = [db.sessionRuns, db.attempts, db.tasks, db.taskLog, ...PROGRESS_TABLES]
 
 function emptyTextStats(textId: string): TextStats {
   return {
@@ -285,6 +288,9 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       if (bonusXp > 0) await db.xpLedger.add({ timestamp: now, dayKey, reason: 'textComplete', amount: bonusXp, refId: `${run.id}:${planEntry.block}` })
       gained += bonusXp
       result.textCompleted = { textId: text.id, bonusXp, perfect }
+      // A full repetition counts for every daily task of this text, whichever session said it.
+      const advanced = await logTaskRepetition(text.id, dayKey, run.id, now)
+      if (advanced.length > 0) result.taskProgress = advanced
     }
 
     if (!daily.goalReached && daily.segmentsAccepted >= app.dailyGoal) {

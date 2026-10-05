@@ -14,7 +14,9 @@ import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressRing } from '@/components/ui/Progress'
 import { dayKeyToLocalDate } from '@/domain/time/dayKey'
+import { useTodayTasks } from '@/hooks/useTasks'
 import { useToday } from '@/hooks/useToday'
+import { TaskCard } from '@/screens/Tasks/TaskCard'
 import { resumeRun, SessionError, startRun } from '@/services/sessions'
 import { updateGameState, updateMeta } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
@@ -37,6 +39,7 @@ export default function Today() {
   const game = useSettingsStore((s) => s.game)
   const meta = useSettingsStore((s) => s.meta)
   const data = useToday(app.dayStartHour, app.uiLang)
+  const tasks = useTodayTasks()
   const bibleShare = useBibleShare()
   const [now] = useState(() => Date.now())
   const [starting, setStarting] = useState(false)
@@ -162,6 +165,26 @@ export default function Today() {
       <GuideBubble mood="welcome" size={92} compact className="mt-6 animate-rise [animation-delay:110ms]">
         {guide}
       </GuideBubble>
+
+      {tasks && tasks.length > 0 && (
+        <section className="mt-8" aria-labelledby="today-tasks">
+          <div className="mb-3 flex items-baseline justify-between gap-3">
+            <h2 id="today-tasks" className="text-2xl font-semibold">
+              {t('today.tasks')}
+            </h2>
+            <Link to="/tasks" className="text-sm font-semibold text-primary underline-offset-4 hover:underline">
+              {t('today.allTasks')}
+            </Link>
+          </div>
+          <ul className="space-y-3">
+            {tasks.map((view) => (
+              <li key={view.task.id}>
+                <TaskCard view={view} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <Card className="mt-6 animate-rise [animation-delay:140ms]">
         <LevelBar totalXp={game.totalXp} />

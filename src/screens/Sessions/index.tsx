@@ -14,6 +14,9 @@ import { ProgressBar } from '@/components/ui/Progress'
 import type { SessionTemplate } from '@/db/types'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import { useResumableRun, useTemplates, type TemplateEntry } from '@/hooks/useSessions'
+import { useTodayTasks } from '@/hooks/useTasks'
+import { IconHalo } from '@/components/ui/IconHalo'
+import { Link } from 'react-router'
 import { cn } from '@/lib/cn'
 import {
   deleteTemplate,
@@ -134,6 +137,7 @@ export default function Sessions() {
   const navigate = useNavigate()
   const entries = useTemplates(useAppSettings().uiLang)
   const resumable = useResumableRun()
+  const todayTasks = useTodayTasks()
   const [showHidden, setShowHidden] = useState(false)
   const [toDelete, setToDelete] = useState<SessionTemplate | null>(null)
   const visible = entries?.filter((e) => showHidden || !e.template.archived) ?? []
@@ -172,6 +176,19 @@ export default function Sessions() {
           <ProgressBar className="mt-3" value={done} max={resumable.plan.length} label={t('sessions.progressOf', { done, total: resumable.plan.length })} />
         </Card>
       )}
+
+      <Link to="/tasks" className="card card-lift mb-6 flex items-center gap-4 p-4">
+        <IconHalo icon="list-checks" tone="lapis" size={44} iconSize={22} />
+        <span className="min-w-0 flex-1">
+          <span className="block font-serif text-xl font-semibold">{t('sessions.tasksTitle')}</span>
+          <span className="block text-sm text-ink-soft">
+            {todayTasks && todayTasks.length > 0
+              ? t('sessions.tasksToday', { left: todayTasks.reduce((sum, v) => sum + v.progress.remainingToday, 0), count: todayTasks.length })
+              : t('sessions.tasksBody')}
+          </span>
+        </span>
+        <Icon name="caret-right" size={20} className="shrink-0 text-ink-faint" />
+      </Link>
 
       <div className="mb-4 flex justify-end">
         <Chip pressed={showHidden} onClick={() => setShowHidden((v) => !v)}>

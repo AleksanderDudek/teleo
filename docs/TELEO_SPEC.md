@@ -545,6 +545,8 @@ Prawdziwe powiadomienia push wymagają serwera, więc w modelu zerokosztowym sto
 1. **Eksport przypomnienia do kalendarza (.ics)** – plik z wydarzeniem cyklicznym (np. codziennie 7:00, „Czas na Teleo”) i linkiem do aplikacji. Działa na każdym telefonie, niezawodnie, 0 kosztów. **Rozwiązanie główne.**
 2. Powiadomienie lokalne przy otwartej aplikacji / w tle tam, gdzie przeglądarka wspiera (np. Periodic Background Sync w zainstalowanej PWA na Chrome) – jako dodatek, z feature detection, bez obietnic w UI.
 
+> Od v1.6 (DECISIONS #122): 1–3 stałe godziny dziennie; plik .ics zawiera wydarzenie dla każdej godziny i jedno dla każdego bieżącego zadania (`RRULE:FREQ=DAILY;UNTIL`); powiadomienia lokalne (opcjonalne) przy otwartej aplikacji, plakietka na ikonie z liczbą powtórzeń zadań, a na Chrome Android w zainstalowanej aplikacji – Periodic Background Sync w naszym własnym service workerze (`src/sw.ts`).
+
 ---
 
 ## 13. Prywatność, prawo, rynki

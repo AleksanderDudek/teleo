@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { SUPPORT_URL, tipOfTheDay } from './links'
+import { supportUrl, tipOfTheDay } from './links'
 
 describe('support', () => {
-  it('points to the same coffee jar as gym-training-tracker', () => {
-    expect(SUPPORT_URL).toBe('https://buycoffee.to/uriel')
+  it('sends Polish users to buycoffee.to and everyone else to buymeacoffee.com', () => {
+    expect(supportUrl('pl')).toBe('https://buycoffee.to/uriel')
+    expect(supportUrl('en')).toBe('https://buymeacoffee.com/atd_uriel')
   })
 
   it('keeps one tip for a whole day and changes it the next day', () => {

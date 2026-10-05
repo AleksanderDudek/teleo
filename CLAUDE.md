@@ -57,6 +57,17 @@ npm run typecheck    # tsc -b
   the e2e round trip. Rows of retired features (language dialogues, moved to the separate app Fluentum) are dropped
   by `src/domain/backup/retired.ts` — in the Dexie v4 upgrade and on every restore (`replaceAll`).
 - Leaderboard: no server; friends' cards travel in links (`src/domain/leaderboard/friends.ts`, strict decoding).
+- Daily tasks: rules in `src/domain/tasks` (pure), `src/services/tasks.ts` (`createTask`, `taskViews`,
+  `logTaskRepetition` — called inside `recordAttempt` when a full-text block completes), screens `src/screens/Tasks`,
+  Today's "Today's tasks" section, `startRun({ kind: 'task' })`. Session history: `src/domain/session/history.ts`
+  (row derived from a run), `src/hooks/useHistory.ts`, `src/screens/Progress/History.tsx`.
+- Reminders (DECISIONS #122): `src/domain/reminders/` (`times` — 1–3 fixed hours, `nudge` — what a notification
+  says, bilingual copy kept there on purpose, `ics` — multi-event calendar), `src/services/reminders.ts` (permission,
+  badge, periodic sync), `src/app/ReminderEffects.tsx` (while open), `src/screens/Settings/RemindersSettings.tsx`.
+- Service worker is our own `src/sw.ts` (vite-plugin-pwa `injectManifest`): precache, navigation fallback, `ort/` and
+  `bible/` caches, `SKIP_WAITING`, `periodicsync` + `notificationclick`. It opens the database in Dexie dynamic mode
+  through `src/db/name.ts` — never import `@/db/schema` (or anything that instantiates `db`) there.
+- Support link follows the interface language: `src/components/support/links.ts` (`supportUrl(lang)`).
 - App shell (`src/app/TabsLayout.tsx`): support ribbon on top (`SupportStrip`), support window at the end of each
   screen (`SupportBanner`), tab bar (`src/app/tabs.ts` maps screens to tabs). Editing forms set the route handle
   `{ form: true }` (no tab bar/window on phones). Screens start with `PageHeader` (sticky compact bar with back button

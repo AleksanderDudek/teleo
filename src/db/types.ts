@@ -69,6 +69,8 @@ export interface SessionRun {
   templateId?: string
   /** Set for ad-hoc "say it now" runs started from a single text. */
   textId?: string
+  /** Set for runs started from a daily task (its text repeated for what was left that day). */
+  taskId?: string
   title: string
   dayKey: DayKey
   startedAt: number
@@ -187,6 +189,27 @@ export interface RestorePointRow {
   file: BackupFile
 }
 
+/** A daily task (owner request 2026-10-05): say `textId` `timesPerDay` times a day from `startDay` to `endDay` (inclusive). */
+export interface TaskRow {
+  id: string
+  textId: string
+  timesPerDay: number
+  startDay: DayKey
+  endDay: DayKey
+  createdAt: number
+  /** Stopped early by the user; kept for history. */
+  archived: boolean
+}
+
+/** One full repetition of a task's text on a day, from whatever run said it (progress = rows per day). */
+export interface TaskLogRow {
+  id: string
+  taskId: string
+  dayKey: DayKey
+  runId: string
+  timestamp: number
+}
+
 /** The latest card received from a friend (friends' leaderboard, no server). */
 export interface FriendRow extends FriendCard {
   receivedAt: number
@@ -222,8 +245,10 @@ export interface AppSettings {
   listenFirst: boolean
   grammaticalForm: GrammaticalForm
   contentFocus: ContentFocus
-  /** `HH:MM`, used for the calendar reminder. */
-  reminderTime: string
+  /** `HH:MM` reminder hours (1–3): the calendar events, the in-app and background notifications. */
+  reminderTimes: string[]
+  /** Device notifications at the reminder hours (needs the browser's permission). */
+  notifications: boolean
   onboardingCompleted: boolean
   speechPrivacyAcknowledged: boolean
   /** The figure shown as the user's avatar. */

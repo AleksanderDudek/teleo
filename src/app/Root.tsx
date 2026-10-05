@@ -2,6 +2,7 @@ import { Navigate, Outlet, ScrollRestoration, useLocation } from 'react-router'
 import { Toasts } from '@/components/ui/Toasts'
 import { useSettingsStore } from '@/stores/settings'
 import { PwaUpdatePrompt } from './PwaUpdatePrompt'
+import { ReminderEffects } from './ReminderEffects'
 
 /** Routes a first-time visitor may open before onboarding (an invitation link must not be lost). */
 const OPEN_BEFORE_ONBOARDING = new Set(['/onboarding', '/friend'])
@@ -18,6 +19,7 @@ export function Root() {
       <Outlet />
       <Toasts />
       <PwaUpdatePrompt />
+      <ReminderEffects />
       <ScrollRestoration />
     </>
   )

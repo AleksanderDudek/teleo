@@ -1,3 +1,4 @@
+import { TASK_LIMITS } from '@/domain/tasks'
 import type {
   AchievementRow,
   Attempt,
@@ -8,6 +9,8 @@ import type {
   SessionRun,
   SessionTemplate,
   SettingsRow,
+  TaskLogRow,
+  TaskRow,
   TextItem,
   TextStats,
   XpLedgerRow,
@@ -34,7 +37,7 @@ export const BACKUP_TABLES = [
 export type BackupTable = (typeof BACKUP_TABLES)[number]
 
 /** Tables added after the first backup format: optional on import (read as empty when missing). */
-export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends'] as const
+export const OPTIONAL_BACKUP_TABLES = ['bibleReadings', 'friends', 'tasks', 'taskLog'] as const
 export type OptionalBackupTable = (typeof OPTIONAL_BACKUP_TABLES)[number]
 
 export interface BackupData {
@@ -51,6 +54,8 @@ export interface BackupData {
   settings: SettingsRow[]
   bibleReadings?: BibleReadingRow[]
   friends?: FriendRow[]
+  tasks?: TaskRow[]
+  taskLog?: TaskLogRow[]
 }
 
 export interface BackupFile {
@@ -179,7 +184,10 @@ const appSettings: Checker = objectFields([
   ['listenFirst', boolean_],
   ['grammaticalForm', enumOf('m', 'f', 'n')],
   ['contentFocus', enumOf('prayers', 'affirmations', 'both', 'own')],
-  ['reminderTime', string_],
+  // v1.x kept one reminder hour; v1.6 keeps up to three and a notifications switch.
+  ['reminderTime', optional(string_)],
+  ['reminderTimes', optional(arrayOf(string_))],
+  ['notifications', optional(boolean_)],
   ['onboardingCompleted', boolean_],
   ['speechPrivacyAcknowledged', boolean_],
   // Added in v1.2; older backups omit it and get the default on import.
@@ -275,6 +283,7 @@ const sessionRuns: Checker = (v) => {
     ['mode', enumOf('read', 'memory')],
     ['templateId', optional(string_)],
     ['textId', optional(string_)],
+    ['taskId', optional(string_)],
     ['endedAt', optional(finiteNumber)],
   ])(v)
   if (flat !== undefined) return flat
@@ -389,7 +398,28 @@ const friends: Checker = objectFields([
   ['receivedAt', finiteNumber],
 ])
 
-const OPTIONAL_ROW_CHECKERS: Record<OptionalBackupTable, Checker> = { bibleReadings, friends }
+const taskFields: Checker = objectFields([
+  ['id', string_],
+  ['textId', string_],
+  ['timesPerDay', leaf((v) => isInt(v) && v >= TASK_LIMITS.timesPerDay.min && v <= TASK_LIMITS.timesPerDay.max)],
+  ['startDay', dayKey],
+  ['endDay', dayKey],
+  ['createdAt', finiteNumber],
+  ['archived', boolean_],
+])
+
+/** The screens count on the rules' limits (a task of 0 times a day, or ending before it starts, breaks them). */
+const tasks: Checker = (v) => taskFields(v) ?? ((v as { startDay: string; endDay: string }).endDay < (v as { startDay: string }).startDay ? 'endDay' : undefined)
+
+const taskLog: Checker = objectFields([
+  ['id', string_],
+  ['taskId', string_],
+  ['dayKey', dayKey],
+  ['runId', string_],
+  ['timestamp', finiteNumber],
+])
+
+const OPTIONAL_ROW_CHECKERS: Record<OptionalBackupTable, Checker> = { bibleReadings, friends, tasks, taskLog }
 
 const ROW_CHECKERS: Record<BackupTable, Checker> = {
   texts,

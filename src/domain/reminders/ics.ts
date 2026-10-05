@@ -1,4 +1,24 @@
-/** Options for a daily-repeating calendar reminder (spec §12). */
+/** One daily-repeating event of the reminder calendar (spec §12). */
+export interface IcsEvent {
+  uid: string
+  title: string
+  description: string
+  /** 24h `HH:MM`. */
+  time: string
+  /** First occurrence's date (local). */
+  startDate: Date
+  /** Last occurrence's date (local, inclusive); the event repeats forever without it. */
+  untilDate?: Date
+}
+
+export interface CalendarOptions {
+  events: readonly IcsEvent[]
+  /** Appended to every description and set as each event's URL. */
+  url: string
+  now: Date
+}
+
+/** Options for a single daily-repeating calendar reminder. */
 export interface DailyReminderOptions {
   /** 24h `HH:MM`. */
   time: string
@@ -78,21 +98,45 @@ function assertNoLineBreak(value: string, label: string): void {
   }
 }
 
-/** Builds a floating-local-time, daily-repeating reminder as an RFC 5545 .ics file. */
-export function buildDailyReminderIcs(options: DailyReminderOptions): string {
-  if (!TIME_RE.test(options.time)) {
-    throw new RangeError(`Invalid time: ${options.time}`)
+function eventLines(event: IcsEvent, url: string, dtstamp: string): string[] {
+  if (!TIME_RE.test(event.time)) {
+    throw new RangeError(`Invalid time: ${event.time}`)
   }
-  assertValidDate(options.now, 'now')
-  if (options.startDate) assertValidDate(options.startDate, 'startDate')
-  assertNoLineBreak(options.uid, 'uid')
-  assertNoLineBreak(options.url, 'url')
+  assertValidDate(event.startDate, 'startDate')
+  if (event.untilDate) assertValidDate(event.untilDate, 'untilDate')
+  assertNoLineBreak(event.uid, 'uid')
 
-  const hhmm = options.time.replace(':', '')
+  const hhmm = event.time.replace(':', '')
+  const dtstart = `${formatLocalDatePart(event.startDate)}T${hhmm}00`
+  // A floating DTSTART takes a floating UNTIL (RFC 5545 §3.3.10): the end of the last day, local time.
+  const rrule = event.untilDate ? `RRULE:FREQ=DAILY;UNTIL=${formatLocalDatePart(event.untilDate)}T235959` : 'RRULE:FREQ=DAILY'
+  const description = escapeIcsText(`${event.description}\n${url}`)
+  const summary = escapeIcsText(event.title)
+
+  return [
+    'BEGIN:VEVENT',
+    `UID:${event.uid}`,
+    `DTSTAMP:${dtstamp}`,
+    `DTSTART:${dtstart}`,
+    'DURATION:PT10M',
+    rrule,
+    `SUMMARY:${summary}`,
+    `DESCRIPTION:${description}`,
+    `URL:${url}`,
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:${summary}`,
+    'TRIGGER:PT0M',
+    'END:VALARM',
+    'END:VEVENT',
+  ]
+}
+
+/** Builds a calendar of floating-local-time, daily-repeating events as an RFC 5545 .ics file. */
+export function buildCalendarIcs(options: CalendarOptions): string {
+  assertValidDate(options.now, 'now')
+  assertNoLineBreak(options.url, 'url')
   const dtstamp = formatUtcStamp(options.now)
-  const dtstart = `${formatLocalDatePart(options.startDate ?? options.now)}T${hhmm}00`
-  const description = escapeIcsText(`${options.description}\n${options.url}`)
-  const summary = escapeIcsText(options.title)
 
   const lines = [
     'BEGIN:VCALENDAR',
@@ -100,23 +144,27 @@ export function buildDailyReminderIcs(options: DailyReminderOptions): string {
     'PRODID:-//Teleo//Daily reminder//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `UID:${options.uid}`,
-    `DTSTAMP:${dtstamp}`,
-    `DTSTART:${dtstart}`,
-    'DURATION:PT10M',
-    'RRULE:FREQ=DAILY',
-    `SUMMARY:${summary}`,
-    `DESCRIPTION:${description}`,
-    `URL:${options.url}`,
-    'BEGIN:VALARM',
-    'ACTION:DISPLAY',
-    `DESCRIPTION:${summary}`,
-    'TRIGGER:PT0M',
-    'END:VALARM',
-    'END:VEVENT',
+    ...options.events.flatMap((event) => eventLines(event, options.url, dtstamp)),
     'END:VCALENDAR',
   ]
 
   return lines.map(foldIcsLine).join('\r\n') + '\r\n'
+}
+
+/** Builds a single floating-local-time, daily-repeating reminder as an RFC 5545 .ics file. */
+export function buildDailyReminderIcs(options: DailyReminderOptions): string {
+  assertValidDate(options.now, 'now')
+  return buildCalendarIcs({
+    now: options.now,
+    url: options.url,
+    events: [
+      {
+        uid: options.uid,
+        title: options.title,
+        description: options.description,
+        time: options.time,
+        startDate: options.startDate ?? options.now,
+      },
+    ],
+  })
 }

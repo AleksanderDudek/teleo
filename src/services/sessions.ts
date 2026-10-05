@@ -10,6 +10,7 @@ import {
   type TemplateItem,
 } from '@/domain/session'
 import type { MemoryLevel } from '@/domain/memory/mask'
+import { isTaskActiveOn, remainingRepeats, taskProgress } from '@/domain/tasks'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import { newId } from '@/lib/id'
 import { readSettings } from './settings'
@@ -29,6 +30,8 @@ export class SessionError extends Error {
 export type StartRunInput =
   | { kind: 'template'; templateId: string; memoryLevel?: MemoryLevel }
   | { kind: 'text'; textId: string; memoryLevel?: MemoryLevel }
+  /** A daily task: its text, repeated for what is left of today's target (at least once). */
+  | { kind: 'task'; taskId: string; memoryLevel?: MemoryLevel }
   | { kind: 'daily'; title: string }
 
 /** Active segments for every text referenced by `items` (texts that no longer exist are absent). */
@@ -142,8 +145,21 @@ export async function startRun(input: StartRunInput, now = Date.now()): Promise<
   let title: string
   let templateId: string | undefined
   let textId: string | undefined
+  let taskId: string | undefined
+  const dayKey = dayKeyFor(now, app.dayStartHour)
 
-  if (input.kind === 'template') {
+  if (input.kind === 'task') {
+    const task = await db.tasks.get(input.taskId)
+    const text = task && (await db.texts.get(task.textId))
+    if (!task || !text) throw new SessionError('notFound')
+    // Outside its days a task can still be practised, once (the run then counts for nothing but the text).
+    const logs = isTaskActiveOn(task, dayKey) ? await db.taskLog.where('[taskId+dayKey]').equals([task.id, dayKey]).toArray() : []
+    const repeat = remainingRepeats(taskProgress(task, logs.map((row) => row.dayKey), dayKey))
+    items = [{ textId: text.id, repeat }]
+    title = text.title
+    textId = text.id
+    taskId = task.id
+  } else if (input.kind === 'template') {
     const template = await db.sessionTemplates.get(input.templateId)
     if (!template) throw new SessionError('notFound')
     items = template.items
@@ -167,8 +183,9 @@ export async function startRun(input: StartRunInput, now = Date.now()): Promise<
     id: newId(),
     templateId,
     textId,
+    ...(taskId ? { taskId } : {}),
     title,
-    dayKey: dayKeyFor(now, app.dayStartHour),
+    dayKey,
     startedAt: now,
     status: 'in_progress',
     plan,

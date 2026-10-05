@@ -52,7 +52,10 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Your data, yours to keep:** everything stays on the device; “Your data” makes a backup file (optionally
   password-protected, AES-256) to download or save to Files / iCloud / Google Drive / e-mail, restores it after
   showing what it holds, and can undo a restore.
-- **Yours only:** calendar (.ics) reminders, delete-everything, light/dark theme, three text sizes, keyboard
+- **Daily tasks and a history:** any text as a task (say it N times a day for D days, counted in every session),
+  and every session on record — what it was about and what was done.
+- **Yours only:** reminders at fixed hours — calendar (.ics) events for the hours and the tasks, optional device
+  notifications and an app-icon badge — delete-everything, light/dark theme, three text sizes, keyboard
   (Space = microphone), screen stays on in sessions.
 
 Changes: [CHANGELOG.md](CHANGELOG.md) · Product spec: [docs/TELEO_SPEC.md](docs/TELEO_SPEC.md) · decisions: [docs/DECISIONS.md](docs/DECISIONS.md)
@@ -111,4 +114,4 @@ Alegreya, Alegreya SC and Instrument Sans (SIL Open Font License). Icons: Phosph
 custom Teleo Glyphs; the illustrated figures are drawn in code for this project. Bible texts: King James Version (Pure
 Cambridge Edition) and Biblia Gdańska (1881), public domain, via scrollmapper/bible_databases.
 
-Teleo is free, with no ads and no tracking. If it helps you: [buy the author a coffee](https://buycoffee.to/uriel).
+Teleo is free, with no ads and no tracking. If it helps you: [buy the author a coffee](https://buymeacoffee.com/atd_uriel) (in Poland: [buycoffee.to](https://buycoffee.to/uriel)).

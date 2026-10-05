@@ -159,18 +159,21 @@ export async function copyTextAsOwn(textId: string, title: string, now = Date.no
 }
 
 /**
- * Deletes a user text with its segments, per-text stats and per-text achievements,
- * and removes it from session templates. Attempts, daily stats and XP stay: they
- * are history, not properties of the text (DECISIONS #28).
+ * Deletes a user text with its segments, per-text stats, per-text achievements and daily tasks (with their log),
+ * and removes it from session templates. Attempts, daily stats and XP stay: they are history, not properties of the
+ * text (DECISIONS #28).
  */
 export async function deleteUserText(textId: string): Promise<void> {
-  await db.transaction('rw', [db.texts, db.segments, db.textStats, db.achievements, db.sessionTemplates], async () => {
+  await db.transaction('rw', [db.texts, db.segments, db.textStats, db.achievements, db.sessionTemplates, db.tasks, db.taskLog], async () => {
     const text = await db.texts.get(textId)
     if (!text || text.source !== 'user') throw new TextValidationError('notEditable')
     await db.texts.delete(textId)
     await db.segments.where('textId').equals(textId).delete()
     await db.textStats.delete(textId)
     await db.achievements.where('textId').equals(textId).delete()
+    const taskIds = await db.tasks.where('textId').equals(textId).primaryKeys()
+    await db.taskLog.where('taskId').anyOf(taskIds).delete()
+    await db.tasks.bulkDelete(taskIds)
     await db.sessionTemplates.toCollection().modify((template) => {
       template.items = template.items.filter((item) => item.textId !== textId)
     })

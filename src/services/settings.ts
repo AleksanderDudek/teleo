@@ -1,5 +1,5 @@
 import { db, SCHEMA_VERSION } from '@/db/schema'
-import { DEFAULT_GAME, DEFAULT_SETTINGS } from '@/db/defaults'
+import { appSettingsFrom, DEFAULT_GAME, DEFAULT_SETTINGS } from '@/db/defaults'
 import type { AppSettings, GameState, MetaState, SettingsRow } from '@/db/types'
 import type { Lang } from '@/domain/types'
 import { useSettingsStore, type SettingsSnapshot } from '@/stores/settings'
@@ -19,7 +19,7 @@ function snapshotFrom(rows: readonly SettingsRow[]): SettingsSnapshot {
   let meta: MetaState = { schemaVersion: SCHEMA_VERSION, seedVersion: 0, installedAt: 0 }
   for (const row of rows) {
     // Spread over defaults so rows written by older versions gain new fields.
-    if (row.key === 'app') app = { ...DEFAULT_SETTINGS, ...row.value }
+    if (row.key === 'app') app = appSettingsFrom(row.value)
     else if (row.key === 'game') game = { ...DEFAULT_GAME, ...row.value }
     else meta = { ...meta, ...row.value }
   }

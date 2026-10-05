@@ -81,6 +81,9 @@ export default function TextDetail() {
         <Button variant="secondary" onClick={() => setChoosingMemory(true)} disabled={starting || segments.length === 0} icon="brain">
           {t('memory.button')}
         </Button>
+        <ButtonLink to={`/tasks/new?text=${encodedId}`} variant="secondary" icon="list-checks">
+          {t('textDetail.setTask')}
+        </ButtonLink>
         {text.source === 'user' ? (
           <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon="pencil-simple">
             {t('common.edit')}

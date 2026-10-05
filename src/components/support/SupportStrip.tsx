@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/icons/Icon'
-import { SUPPORT_URL } from './links'
+import { useAppSettings } from '@/stores/settings'
+import { supportUrl } from './links'
 
 /**
  * The support ribbon: a thin band under the status bar on every screen outside a session. Always there,
@@ -8,10 +9,11 @@ import { SUPPORT_URL } from './links'
  */
 export function SupportStrip() {
   const { t } = useTranslation()
+  const { uiLang } = useAppSettings()
   return (
     <div className="support-strip sticky top-0 z-30 pt-[env(safe-area-inset-top)]">
       <a
-        href={SUPPORT_URL}
+        href={supportUrl(uiLang)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('support.buttonLabel')}

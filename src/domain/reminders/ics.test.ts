@@ -1,5 +1,40 @@
 import { describe, expect, it } from 'vitest'
-import { buildDailyReminderIcs, escapeIcsText, foldIcsLine } from './ics'
+import { buildCalendarIcs, buildDailyReminderIcs, escapeIcsText, foldIcsLine } from './ics'
+
+describe('buildCalendarIcs', () => {
+  const now = new Date(Date.UTC(2026, 9, 5, 5, 3, 9))
+  const url = 'https://teleo.app/'
+  const reminder = (time: string) => ({ uid: `r-${time}`, title: 'Time for Teleo', description: 'Say it aloud.', time, startDate: new Date(2026, 9, 5) })
+
+  it('holds one daily event per reminder time and one bounded event per task, in one calendar', () => {
+    const ics = buildCalendarIcs({
+      now,
+      url,
+      events: [
+        reminder('07:00'),
+        reminder('21:00'),
+        { uid: 't-1', title: 'Teleo: Chwała Ojcu · 3×', description: 'A task: 3 times a day.', time: '07:00', startDate: new Date(2026, 9, 5), untilDate: new Date(2026, 9, 18) },
+      ],
+    })
+    const lines = ics.split('\r\n')
+    expect(lines.filter((line) => line === 'BEGIN:VEVENT')).toHaveLength(3)
+    expect(lines.filter((line) => line === 'BEGIN:VCALENDAR')).toHaveLength(1)
+    expect(lines.filter((line) => line === 'END:VCALENDAR')).toHaveLength(1)
+    expect(lines.at(-2)).toBe('END:VCALENDAR')
+    expect(ics).toContain('UID:r-07:00\r\nDTSTAMP:20261005T050309Z\r\nDTSTART:20261005T070000\r\nDURATION:PT10M\r\nRRULE:FREQ=DAILY\r\n')
+    expect(ics).toContain('UID:r-21:00\r\nDTSTAMP:20261005T050309Z\r\nDTSTART:20261005T210000\r\n')
+    expect(ics).toContain('UID:t-1\r\nDTSTAMP:20261005T050309Z\r\nDTSTART:20261005T070000\r\nDURATION:PT10M\r\nRRULE:FREQ=DAILY;UNTIL=20261018T235959\r\nSUMMARY:Teleo: Chwała Ojcu · 3×\r\n')
+    expect(ics).toContain('DESCRIPTION:A task: 3 times a day.\\nhttps://teleo.app/\r\nURL:https://teleo.app/\r\n')
+  })
+
+  it('is an empty calendar without events', () => {
+    expect(buildCalendarIcs({ now, url, events: [] }).split('\r\n')).toEqual(['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Teleo//Daily reminder//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'END:VCALENDAR', ''])
+  })
+
+  it('rejects an invalid untilDate', () => {
+    expect(() => buildCalendarIcs({ now, url, events: [{ ...reminder('07:00'), untilDate: new Date(Number.NaN) }] })).toThrow(RangeError)
+  })
+})
 
 const baseOptions = {
   time: '07:00',
