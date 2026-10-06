@@ -7,6 +7,16 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 - **The language conversations moved to a separate app, Fluentum** — Teleo stays with prayers, affirmations and
   memorising sentences. The progress you already earned with them (points, streak days) stays.
 
+### Long sentences, read in peace
+
+- **Finish the sentence before it is judged:** a repeated “And” / “A” inside a Bible verse no longer counts as starting
+  over, and a breath in the middle of a sentence waits for the rest (a few seconds of quiet still settle it). Tap mode
+  waits a little longer after long sentences too.
+- **The microphone stays where it is:** the player keeps the controls on screen at all times; long verses scroll in
+  the middle and follow your reading.
+- **The verdict on the sentence itself:** said, near, missing and extra words are coloured right on the text, and a
+  short note above the microphone says what the next try needs.
+
 ### Daily tasks, a session history, reminders that fit the phone
 
 - **Daily tasks:** any prayer or affirmation can become a task — say it, for example, three times a day for two

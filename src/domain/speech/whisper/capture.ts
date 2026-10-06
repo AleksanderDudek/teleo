@@ -117,8 +117,11 @@ export class Microphone {
     return typeof this.#env.mediaDevices?.getUserMedia === 'function' && !!this.#env.MediaRecorder && !!this.#env.AudioContext
   }
 
-  /** Opens the microphone and starts recording; `onSilence` fires once when the utterance seems over. */
-  async start(onSilence: () => void): Promise<void> {
+  /**
+   * Opens the microphone and starts recording; `onSilence` fires once when the utterance seems over (after
+   * `silenceMs` of quiet when given, the detector's default otherwise).
+   */
+  async start(onSilence: () => void, options: { silenceMs?: number } = {}): Promise<void> {
     if (this.#session || this.#starting) throw new SpeechError('busy')
     const Recorder = this.#env.MediaRecorder
     if (!this.supported || !Recorder) throw new SpeechError('not-supported')
@@ -137,7 +140,7 @@ export class Microphone {
         this.#release()
         throw new SpeechError('not-supported', cause instanceof Error ? cause.message : String(cause))
       }
-      const detector = createSilenceDetector(this.#silence)
+      const detector = createSilenceDetector(options.silenceMs ? { ...this.#silence, silenceMs: options.silenceMs } : this.#silence)
       const frame = new Float32Array(input.analyser.fftSize)
       const session: Session = { recorder, chunks, startedAt: this.#env.now(), poll: setInterval(() => sample(), FRAME_MS) }
       const sample = () => {

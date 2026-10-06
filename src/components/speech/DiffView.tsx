@@ -10,22 +10,31 @@ const SOURCE_STYLE = {
   none: 'text-ink',
 } as const
 
-/** Word-level result of a comparison (spec §6.5): green said, amber close, grey missing, red extra/different. */
+/**
+ * The words of a comparison, coloured (spec §6.5): green said, amber close, grey missing, red extra/different.
+ * Words heard but not in the text are small chips relative to the surrounding size, so the same parts read well in
+ * a card and on the player's stage.
+ */
+export function DiffWords({ parts }: { parts: readonly DiffPart[] }) {
+  return parts.map((part, i) =>
+    part.kind === 'source' ? (
+      <span key={i} className={SOURCE_STYLE[part.status]}>
+        {part.text}{' '}
+      </span>
+    ) : (
+      <span key={i} className="mr-[0.25em] rounded bg-bad-soft px-[0.25em] align-[0.08em] text-[0.8em] font-semibold text-bad italic">
+        {part.status === 'extra' ? '+' : '→'}
+        {part.text}
+      </span>
+    ),
+  )
+}
+
+/** Word-level result of a comparison as a paragraph (spec §6.5). */
 export function DiffView({ parts, className }: { parts: readonly DiffPart[]; className?: string }) {
   return (
     <p className={cn('font-serif text-xl leading-relaxed', className)}>
-      {parts.map((part, i) =>
-        part.kind === 'source' ? (
-          <span key={i} className={SOURCE_STYLE[part.status]}>
-            {part.text}{' '}
-          </span>
-        ) : (
-          <span key={i} className="mr-1 rounded bg-bad-soft px-1 font-semibold text-bad italic">
-            {part.status === 'extra' ? '+' : '→'}
-            {part.text}
-          </span>
-        ),
-      )}
+      <DiffWords parts={parts} />
     </p>
   )
 }

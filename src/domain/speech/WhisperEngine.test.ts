@@ -57,6 +57,12 @@ describe('WhisperEngine', () => {
     expect(onSilence).toHaveBeenCalledTimes(1)
   })
 
+  it('hands the quiet time asked for to the microphone', async () => {
+    const { engine, deps } = setup()
+    await engine.start({ lang: 'pl-PL', silenceMs: 2400 })
+    expect(deps.microphone.start).toHaveBeenCalledWith(expect.any(Function), { silenceMs: 2400 })
+  })
+
   it('transcribes the recording in the language of the text', async () => {
     const { engine, deps } = setup()
     await engine.start({ lang: 'en-US' })

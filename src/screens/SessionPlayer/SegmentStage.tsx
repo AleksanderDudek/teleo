@@ -1,6 +1,8 @@
-import { Fragment, type CSSProperties } from 'react'
+import { Fragment, type CSSProperties, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/icons/Icon'
+import { DiffLegend, DiffWords } from '@/components/speech/DiffView'
+import type { DiffPart } from '@/domain/matcher'
 import { maskWords, type MemoryLevel } from '@/domain/memory/mask'
 import { cn } from '@/lib/cn'
 import type { RepetitionLabel } from './repetition'
@@ -13,6 +15,13 @@ interface SegmentStageProps {
   next?: string
   /** Live mode: which raw words of `current` were already heard. */
   covered?: readonly boolean[]
+  /**
+   * The last try was not accepted: its words, coloured, drawn on the sentence itself (said, near, missing, extra) —
+   * until the speaker starts the next try.
+   */
+  diff?: readonly DiffPart[]
+  /** The sentence's paragraph (one span per word while heard words are marked): the player scrolls to it. */
+  sentenceRef?: Ref<HTMLParagraphElement>
   /** Changes on every accepted sentence; replays the "Great!" beat. */
   praiseKey: number
   /** Unlocked goal/achievements/level from the last sentence, shown quietly. */
@@ -25,6 +34,9 @@ interface SegmentStageProps {
   /** Reward of the last accepted sentence (shown once per `praiseKey`). */
   gain?: { xp: number; golden: boolean; combo: number }
 }
+
+/** Above this many words a sentence (a Bible verse, typically) is set one step smaller. */
+const LONG_SENTENCE_WORDS = 24
 
 const PRAISE = ['player.praiseGreat', 'player.praiseBeautiful', 'player.praiseWellSaid', 'player.praiseYes', 'player.praiseLovely'] as const
 
@@ -57,10 +69,12 @@ function Sparks() {
  * The "Great!" beat never blocks: the next sentence is shown at once, so a
  * fluent speaker can keep going.
  */
-export function SegmentStage({ previous, previousDone, current, next, covered, praiseKey, unlockLines, repetition, memoryLevel, reveal, gain }: SegmentStageProps) {
+export function SegmentStage({ previous, previousDone, current, next, covered, diff, sentenceRef, praiseKey, unlockLines, repetition, memoryLevel, reveal, gain }: SegmentStageProps) {
   const { t } = useTranslation()
   const words = current.split(/\s+/)
-  const masked = memoryLevel && !reveal ? maskWords(current, memoryLevel, covered) : null
+  // The verdict of the last try stays on the sentence until a word of the next try is heard.
+  const showDiff = !!diff && !covered?.some(Boolean)
+  const masked = !showDiff && memoryLevel && !reveal ? maskWords(current, memoryLevel, covered) : null
   const nextText = next && memoryLevel ? maskWords(next, memoryLevel).map((w) => w.text).join(' ') : next
   return (
     <div className="relative flex w-full max-w-2xl flex-col items-center gap-5 text-center">
@@ -122,8 +136,10 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
       {/* The sentence sits in a soft gold mandorla; sparks fly out of it (outside the text node). */}
       <div className="relative w-full">
         {praiseKey > 0 && <Sparks key={`s${praiseKey}`} />}
-        <p data-testid="segment-text" className="scripture mandorla px-2 py-[18px]">
-          {masked
+        <p ref={sentenceRef} data-testid="segment-text" data-source={current} className={cn('scripture mandorla px-2 py-[18px]', words.length > LONG_SENTENCE_WORDS && 'scripture-long')}>
+          {showDiff && diff ? (
+            <DiffWords parts={diff} />
+          ) : masked
             ? masked.map((word, i) => (
                 <span key={i} className={cn('transition-colors duration-300', word.masked ? 'tracking-[0.08em] text-ink-faint' : 'text-ink')}>
                   {word.text}
@@ -153,7 +169,12 @@ export function SegmentStage({ previous, previousDone, current, next, covered, p
               })
             : current}
         </p>
-        {covered && (
+        {showDiff && (
+          <div className="mt-1 flex justify-center">
+            <DiffLegend />
+          </div>
+        )}
+        {covered && !showDiff && (
           <span aria-hidden className="mx-auto mt-1 block h-1 w-40 overflow-hidden rounded-full bg-sunk">
             <span
               className="block h-full rounded-full bg-gold transition-[width] duration-300"

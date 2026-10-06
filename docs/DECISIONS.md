@@ -565,3 +565,29 @@ Each entry: **decision** — why.
     database in Dexie's dynamic mode through `src/db/name.ts` (never the schema: it must never upgrade or create
     anything) and keeps the day it last notified in Cache Storage, so it writes nothing to the database. Notification
     copy lives in `src/domain/reminders/nudge.ts`, not in the i18n files — the worker carries no i18next.
+
+## Long sentences in the player (owner request, 2026-10-06)
+
+123. **A long sentence is finished before it is judged** (refines #40–#42). Bible segments run to 40 words (median 21 in
+    the KJV), and two live-mode rules cut them short. (a) *Restart detection* fired on the sentence's first word alone once
+    any word had been misheard, so the next "And" / "A" inside the verse rejected the try mid-sentence — on real verses
+    with one misheard word, 56 % of KJV and 27 % of PBG segments. A restart now has to open with the sentence's first
+    three words (fewer for a shorter sentence) and must not sit where the text repeats its own opening ("and to every
+    beast…, and to every fowl…"); the same sweep finds no premature rejection left. Words before a clean start that hold
+    nothing of the sentence (an "okay", a word to someone else) are dropped instead of costing a failed try (#53 in
+    spirit). (b) *Every 1.5 s pause settled the sentence.* A short pause now settles it only when the speaker reached the
+    end (fewer than two words left after the last one heard, or about as many words said as the sentence has) or what
+    was said already passes; in the middle of a sentence the tracker answers `holding` and the player waits 2.5 s more
+    (`MID_SENTENCE_HOLD_MS`) — any new word cancels the wait. It applies to every sentence: in memory mode recalling the
+    next words is the same pause. Tap mode has no live transcript to tell, so its utterance silence grows with the
+    sentence instead: 1.5 s up to 10 words, +60 ms per word, at most 3 s (`utteranceSilenceMs`, Web Speech and Whisper).
+124. **The player is a fixed-viewport screen; the verdict is drawn on the sentence.** The page used to grow with the
+    content under a `sticky` footer: after a failed try the sentence appeared twice (stage and diff card), the Guardian
+    and the card landed under the controls, and phones with collapsing browser bars pushed the microphone below the
+    fold. Now the player is a `100dvh` column — header, a scrolling middle, the controls — so the microphone never moves.
+    The diff is drawn on the stage sentence (same colours, legend under it) until a word of the next try is heard; a
+    compact strip docked above the microphone carries the message, the next rung and "How do we check?", plus the
+    Guardian and his line where the screen is at least 740 px tall (`tall:` variant). Speech errors and the offline
+    notice sit in the same dock. Sentences over 24 words are set one size step smaller (`.scripture-long`); a new
+    sentence starts at the top of the middle, a verdict scrolls the sentence's first line into view, and while a long
+    verse is read aloud the middle follows the words heard so nobody scrolls mid-sentence.

@@ -17,7 +17,7 @@ export interface WhisperEngineDeps {
   }
   microphone: {
     readonly supported: boolean
-    start(onSilence: () => void): Promise<void>
+    start(onSilence: () => void, options?: { silenceMs?: number }): Promise<void>
     stop(): Promise<CaptureResult>
     abort(): void
   }
@@ -92,9 +92,12 @@ export class WhisperEngine implements SpeechEngine {
       const session: Session = { options, model, prepared }
       this.#session = session
       try {
-        await this.#deps.microphone.start(() => {
-          if (this.#session === session) options.onSilence?.()
-        })
+        await this.#deps.microphone.start(
+          () => {
+            if (this.#session === session) options.onSilence?.()
+          },
+          options.silenceMs ? { silenceMs: options.silenceMs } : undefined,
+        )
       } catch (error) {
         if (this.#session === session) this.#session = null
         throw toSpeechError(error)

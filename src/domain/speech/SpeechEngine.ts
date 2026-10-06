@@ -14,6 +14,8 @@ export interface SpeechStartOptions {
   onTranscript?: (text: string, isFinal: boolean, alternatives: string[]) => void
   /** No new speech for a moment (or none at all for a while): a sentence probably ended. */
   onSilence?: () => void
+  /** Tap mode: the quiet time that ends the utterance, when not the engine's default (longer for a long sentence). */
+  silenceMs?: number
   /** Live mode only: recognition restarted, the next transcript starts empty. */
   onRestart?: () => void
   /** Failure after `start()` resolved (e.g. network lost mid-sentence). */

@@ -3,6 +3,8 @@
 
 /* Manual theme switching: `.dark` on <html> (resolved from the Settings preference). */
 @custom-variant dark (&:where(.dark, .dark *));
+/* Screens with room to spare in height (the player keeps its secondary lines for these). */
+@custom-variant tall (@media (min-height: 740px));
 
 @theme {
   --font-serif: 'Alegreya Variable', 'Alegreya', ui-serif, Georgia, serif;
@@ -454,6 +456,11 @@
     line-height: 1.35;
     font-variant-numeric: oldstyle-nums;
     hyphens: manual;
+  }
+
+  /* A long sentence (a Bible verse) one step smaller, so more of it is in view at once. */
+  .scripture-long {
+    font-size: calc(var(--segment-size, 1.75rem) * 0.86);
   }
 
   .safe-bottom {

@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test'
 /**
  * Installs a scriptable `SpeechRecognition` before the app loads.
  * - echo mode (default): each utterance "says" the sentence currently on screen
- *   (`[data-testid="segment-text"]`), or `window.__fakeSpeech.say` when set.
+ *   (`[data-testid="segment-text"]`, its `data-source`).
  * - live mode: words are streamed one by one as interim results inside ONE
  *   continuous recognition, then finalised.
  * `window.__fakeSpeech.queue` (array) overrides the next utterances in order.
@@ -14,8 +14,12 @@ export async function installFakeSpeech(page: Page, options: { live?: boolean; w
     const state = { queue: [] as string[], started: 0, live, wordDelayMs }
     ;(window as unknown as { __fakeSpeech: typeof state }).__fakeSpeech = state
 
-    const currentSentence = () =>
-      state.queue.shift() ?? document.querySelector('[data-testid="segment-text"]')?.textContent?.trim() ?? ''
+    // The sentence itself, not what the stage shows over it (a coloured verdict, masked words in memory mode).
+    const onScreen = () => {
+      const stage = document.querySelector('[data-testid="segment-text"]')
+      return (stage?.getAttribute('data-source') ?? stage?.textContent ?? '').trim()
+    }
+    const currentSentence = () => state.queue.shift() ?? onScreen()
 
     const resultList = (texts: Array<{ text: string; final: boolean }>) => {
       const list = texts.map(({ text, final }) => Object.assign([{ transcript: text, confidence: 0.9 }], { isFinal: final }))

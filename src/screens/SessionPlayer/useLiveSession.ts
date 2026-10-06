@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createLiveTracker, type LiveEvent, type LiveTracker } from '@/domain/live/liveTracker'
+import { MID_SENTENCE_HOLD_MS } from '@/domain/live/pauses'
 import type { LiveProgress, MatchResult } from '@/domain/matcher'
 import { SpeechError, type SpeechEngine, type SpeechErrorCode } from '@/domain/speech/SpeechEngine'
 import { SPEECH_LANG, type Lang } from '@/domain/types'
@@ -38,6 +39,12 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
   const queue = useRef<Promise<void>>(Promise.resolve())
   const sentenceStartedAt = useRef(0)
   const phaseRef = useRef<LivePhase>('idle')
+  /** A short pause in the middle of a sentence: settle it only if the quiet lasts (DECISIONS #123). */
+  const hold = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const clearHold = () => {
+    clearTimeout(hold.current)
+    hold.current = undefined
+  }
 
   useLayoutEffect(() => {
     verdict.current = onVerdict
@@ -54,6 +61,15 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
     for (const event of events) {
       if (event.type === 'progress') {
         setProgress(event.progress)
+        continue
+      }
+      clearHold()
+      if (event.type === 'holding') {
+        const live = tracker.current
+        hold.current = setTimeout(() => {
+          hold.current = undefined
+          if (live && tracker.current === live) handleRef.current(live.pause('long'))
+        }, MID_SENTENCE_HOLD_MS)
         continue
       }
       setProgress(null)
@@ -76,6 +92,7 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
   })
 
   const stop = useCallback(() => {
+    clearHold()
     engine?.abort()
     tracker.current = null
     listeningLang.current = null
@@ -90,14 +107,25 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
     setPhaseBoth('starting')
     const liveTracker = createLiveTracker({ lang: current.lang })
     tracker.current = liveTracker
+    let heard = ''
     listeningLang.current = current.lang
     try {
       await engine.start({
         lang: SPEECH_LANG[current.lang],
         continuous: true,
-        onTranscript: (text, _isFinal, alternatives) => tracker.current === liveTracker && handle(liveTracker.update(text, alternatives)),
+        onTranscript: (text, _isFinal, alternatives) => {
+          if (tracker.current !== liveTracker) return
+          // New words: the speaker went on, so whatever the pause was waiting for is being said. The same words
+          // again (the recogniser finalising them after the pause) leave the wait running.
+          if (text !== heard) clearHold()
+          heard = text
+          handle(liveTracker.update(text, alternatives))
+        },
         onSilence: () => tracker.current === liveTracker && handle(liveTracker.pause()),
-        onRestart: () => liveTracker.reset(),
+        onRestart: () => {
+          heard = ''
+          liveTracker.reset()
+        },
         onError: (e) => {
           setError(e.code)
           stop()
@@ -128,13 +156,20 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
       return
     }
     sentenceStartedAt.current = Date.now()
+    clearHold()
     handle(live.setTarget(next))
   }, [targetKey, handle, start, stop])
 
   const discard = useCallback(() => tracker.current?.discard(), [])
 
-  // Release the microphone when the player goes away.
-  useEffect(() => () => engine?.abort(), [engine])
+  // Release the microphone (and a pending hold) when the player goes away.
+  useEffect(
+    () => () => {
+      clearHold()
+      engine?.abort()
+    },
+    [engine],
+  )
 
   return { phase, progress, error, start, stop, discard }
 }

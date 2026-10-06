@@ -38,7 +38,9 @@ npm run typecheck    # tsc -b
   from the ladder `coverageNeeded(failedTries)` — 90/80/70 %, DECISIONS #93),
   `src/domain/live/liveTracker.ts` (continuous-listening state machine), `src/services/practice.ts`
   (one transaction per attempt: stats, XP ledger, streaks/freezes, achievements),
-  `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first),
+  `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first; a fixed `100dvh` screen — header,
+  scrolling sentence, controls — with the verdict drawn on the sentence, DECISIONS #124; live pauses mid-sentence
+  `holding`, `src/domain/live/pauses.ts`, #123),
   `src/domain/speech` (Web Speech engine, offline Whisper engine + worker, registry).
 - The onnxruntime-web runtime for Whisper is copied to `dist/ort/<version>/` by a Vite plugin and never
   precached; `npm ci` also pulls `onnxruntime-node` (transformers.js dependency, not bundled).
