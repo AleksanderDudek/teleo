@@ -107,6 +107,7 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
     setPhaseBoth('starting')
     const liveTracker = createLiveTracker({ lang: current.lang })
     tracker.current = liveTracker
+    let heard = ''
     listeningLang.current = current.lang
     try {
       await engine.start({
@@ -114,12 +115,17 @@ export function useLiveSession({ engine, target, onVerdict }: LiveSessionOptions
         continuous: true,
         onTranscript: (text, _isFinal, alternatives) => {
           if (tracker.current !== liveTracker) return
-          // The speaker went on: whatever the pause was waiting for is being said.
-          clearHold()
+          // New words: the speaker went on, so whatever the pause was waiting for is being said. The same words
+          // again (the recogniser finalising them after the pause) leave the wait running.
+          if (text !== heard) clearHold()
+          heard = text
           handle(liveTracker.update(text, alternatives))
         },
         onSilence: () => tracker.current === liveTracker && handle(liveTracker.pause()),
-        onRestart: () => liveTracker.reset(),
+        onRestart: () => {
+          heard = ''
+          liveTracker.reset()
+        },
         onError: (e) => {
           setError(e.code)
           stop()

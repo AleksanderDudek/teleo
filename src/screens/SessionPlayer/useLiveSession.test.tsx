@@ -74,6 +74,18 @@ describe('useLiveSession', () => {
       expect(verdicts).toMatchObject([{ accepted: false, reason: 'coverage' }])
     })
 
+    it('keeps waiting when the recogniser only finalises the words already heard', async () => {
+      const { speech, verdicts } = await setup()
+      await act(async () => {
+        speech().onTranscript?.('każdego dnia rano', false, [])
+        speech().onSilence?.()
+      })
+      await act(() => vi.advanceTimersByTimeAsync(1000))
+      await act(async () => speech().onTranscript?.('każdego dnia rano', true, []))
+      await act(() => vi.advanceTimersByTimeAsync(MID_SENTENCE_HOLD_MS - 1000))
+      expect(verdicts).toMatchObject([{ accepted: false, reason: 'coverage' }])
+    })
+
     it('costs nothing when the speaker goes on', async () => {
       const { speech, verdicts } = await setup()
       await act(async () => {
