@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useBlocker, useNavigate, useParams } from 'react-router'
-import { GuideBubble } from '@/components/brand/GuideBubble'
+import { Guardian } from '@/components/brand/Guardian'
 import { Icon } from '@/components/icons/Icon'
-import { DiffLegend, DiffView } from '@/components/speech/DiffView'
 import { HowWeCount } from '@/components/speech/HowWeCount'
 import { MicButton } from '@/components/speech/MicButton'
 import { guardianLine, resultMessage } from '@/components/speech/resultMessage'
@@ -39,6 +38,9 @@ import { useLiveSession, type LiveSentence } from './useLiveSession'
 import { usePlayerData, type PlayerData } from './usePlayerData'
 
 const AUTO_LISTEN_DELAY_MS = 600
+
+/** Smooth scrolling unless the user asked for less motion. */
+const scrollBehavior = (): ScrollBehavior => (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth')
 const SKIP_AFTER_FAILS = 3
 
 export default function SessionPlayer() {
@@ -102,6 +104,9 @@ function Player({ data }: { data: PlayerData }) {
   const timers = useRef<number[]>([])
   useWakeLock(!finished)
 
+  /** The scrolling middle of the screen (the sentence); the header and the controls stay put. */
+  const scroller = useRef<HTMLElement>(null)
+  const sentence = useRef<HTMLParagraphElement>(null)
   const later = (fn: () => void, ms: number) => timers.current.push(window.setTimeout(fn, ms))
   useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), [])
 
@@ -303,6 +308,33 @@ function Player({ data }: { data: PlayerData }) {
   // After a failed try, say what the next one needs (only while the ladder still goes down).
   const nextTry = visibleFeedback && !visibleFeedback.result.accepted && needed < visibleFeedback.result.threshold ? Math.round(needed * 100) : null
   const golden = goldenMultiplier(data.readingMsToday) > 1
+  // The verdict is drawn on the sentence itself; "nothing heard" has no words to colour.
+  const stageDiff = visibleFeedback && visibleFeedback.result.reason !== 'empty' ? visibleFeedback.diff : undefined
+
+  // A new sentence starts at the top of the scrolling middle (a long verse may have been scrolled).
+  useEffect(() => {
+    scroller.current?.scrollTo({ top: 0 })
+  }, [index])
+
+  // A verdict is read on the sentence: bring its first line up when the middle cannot show it all.
+  useEffect(() => {
+    const box = scroller.current
+    const el = sentence.current
+    if (!visibleFeedback || !box || !el || box.scrollHeight <= box.clientHeight) return
+    box.scrollTo({ top: box.scrollTop + el.getBoundingClientRect().top - box.getBoundingClientRect().top - 8, behavior: scrollBehavior() })
+  }, [visibleFeedback])
+
+  // Reading a long verse aloud: keep the next words in the upper part of the middle, so nobody scrolls mid-sentence.
+  const lastHeard = covered ? covered.lastIndexOf(true) : -1
+  useEffect(() => {
+    const box = scroller.current
+    const words = sentence.current?.querySelectorAll(':scope > span')
+    const word = words?.[lastHeard + 1] ?? words?.[lastHeard]
+    if (lastHeard < 0 || !box || !word || box.scrollHeight <= box.clientHeight) return
+    const top = box.getBoundingClientRect().top
+    const bottom = word.getBoundingClientRect().bottom - top
+    if (bottom > box.clientHeight * 0.66) box.scrollBy({ top: bottom - box.clientHeight * 0.4, behavior: scrollBehavior() })
+  }, [lastHeard])
 
   const status = speaking
     ? t('player.listening')
@@ -321,8 +353,9 @@ function Player({ data }: { data: PlayerData }) {
           : t('player.tapToSpeak')
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 px-4 pt-[max(env(safe-area-inset-top),0.75rem)] pb-3 backdrop-blur-md">
+    // A fixed-viewport screen (DECISIONS #124): header, the sentence scrolling in the middle, the controls always on screen.
+    <div className="flex h-dvh flex-col overflow-hidden">
+      <header className="z-20 shrink-0 border-b border-line bg-paper/90 px-4 pt-[max(env(safe-area-inset-top),0.75rem)] pb-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-2xl items-center gap-3">
           <IconButton label={t('player.close')} icon="x" onClick={() => (hasProgress ? setLeaving(true) : void leave())} />
           <div className="min-w-0 flex-1">
@@ -366,80 +399,84 @@ function Player({ data }: { data: PlayerData }) {
         )}
       </header>
 
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-6">
-        {!segment && !finished && (
-          <div className="card flex max-w-xl flex-col items-center gap-3 p-5 text-center">
-            <p className="text-ink-soft">{t('player.segmentMissing')}</p>
-            <Button variant="secondary" onClick={() => void skip()}>
-              {t('player.skip')}
-            </Button>
-          </div>
-        )}
-        {segment && (
-          <SegmentStage
-            previous={previous}
-            previousDone={!!previousEntry && run.entries[index - 1]?.status === 'accepted'}
-            current={segment.content}
-            next={next}
-            covered={covered}
-            praiseKey={praiseKey}
-            unlockLines={unlockLines}
-            repetition={repetition}
-            memoryLevel={memoryLevel}
-            reveal={hint}
-            gain={gain}
-          />
-        )}
+      <main ref={scroller} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col items-center justify-center px-6 py-6">
+          {!segment && !finished && (
+            <div className="card flex max-w-xl flex-col items-center gap-3 p-5 text-center">
+              <p className="text-ink-soft">{t('player.segmentMissing')}</p>
+              <Button variant="secondary" onClick={() => void skip()}>
+                {t('player.skip')}
+              </Button>
+            </div>
+          )}
+          {segment && (
+            <SegmentStage
+              previous={previous}
+              previousDone={!!previousEntry && run.entries[index - 1]?.status === 'accepted'}
+              current={segment.content}
+              next={next}
+              covered={covered}
+              diff={stageDiff}
+              sentenceRef={sentence}
+              praiseKey={praiseKey}
+              unlockLines={unlockLines}
+              repetition={repetition}
+              memoryLevel={memoryLevel}
+              reveal={hint}
+              gain={gain}
+            />
+          )}
+        </div>
+      </main>
 
-        <div aria-live="polite" className="mt-6 w-full max-w-xl">
+      {/* The controls never leave the screen; what the last try needs is docked right above the microphone. */}
+      <footer className="relative z-20 flex shrink-0 flex-col items-center gap-2 bg-paper/95 px-4 pt-3 pb-[max(env(safe-area-inset-bottom),1rem)] backdrop-blur-md before:pointer-events-none before:absolute before:inset-x-0 before:-top-6 before:h-6 before:bg-gradient-to-t before:from-paper before:to-transparent">
+        <div aria-live="polite" data-testid="player-feedback" className="flex w-full max-w-xl flex-col gap-2">
           <p key={praiseKey} className="sr-only">
             {praiseKey > 0 ? [t('player.great'), ...unlockLines].join('. ') : ''}
           </p>
-          {encouragement && (
-            <GuideBubble mood="encourage" size={80} compact className="mb-3 animate-rise">
-              {encouragement}
-            </GuideBubble>
-          )}
           {visibleFeedback && (
-            <div className="card card-framed space-y-3 p-4 text-left animate-rise">
-              <p className="font-semibold text-bad">{visibleFeedback.message}</p>
-              <DiffView parts={visibleFeedback.diff} className="text-lg" />
-              {nextTry !== null && (
-                <p className="flex items-center gap-2 text-sm font-medium text-gold-ink">
-                  <Icon name="sparkle" size={16} />
-                  {t('player.nextTry', { percent: nextTry })}
-                </p>
+            <div className="card card-framed flex items-start gap-2.5 px-3 py-2.5 text-left animate-rise">
+              {/* The Guardian and his line only where the screen has height to spare; the message and the rung always. */}
+              {encouragement && (
+                <span className="-my-1 hidden shrink-0 tall:block">
+                  <Guardian mood="encourage" size={44} decorative />
+                </span>
               )}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <DiffLegend />
-                <HowWeCount />
+              <div className="min-w-0 flex-1">
+                <p className="leading-snug font-semibold text-bad">{visibleFeedback.message}</p>
+                {encouragement && <p className="mt-0.5 line-clamp-2 hidden font-serif leading-snug text-ink-soft tall:block">{encouragement}</p>}
+                {nextTry !== null && (
+                  <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-gold-ink">
+                    <Icon name="sparkle" size={16} />
+                    {t('player.nextTry', { percent: nextTry })}
+                  </p>
+                )}
               </div>
+              <HowWeCount compact />
             </div>
           )}
           {offlineWarning && (
-            <p role="status" className="mb-3 rounded-xl bg-near-soft px-4 py-3 text-near">
+            <p role="status" className="rounded-xl bg-near-soft px-4 py-2.5 text-sm text-near">
               {t('speech.offline')}
             </p>
           )}
           {speechError && (
-            <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
+            <p role="alert" className="rounded-xl bg-bad-soft px-4 py-2.5 text-sm text-bad">
               {t(`speech.errors.${speechError}`)} {isIosStandalone() && t('speech.errors.iosStandalone')}
               {pointsToSpeechSettings(speechError) && <SpeechSettingsLink />}
             </p>
           )}
           {engineState.status === 'unsupported' && (
-            <p role="alert" className="rounded-xl bg-bad-soft px-4 py-3 text-bad">
+            <p role="alert" className="rounded-xl bg-bad-soft px-4 py-2.5 text-sm text-bad">
               {t(`speech.errors.${engineState.reason}`)}
               <SpeechSettingsLink />
             </p>
           )}
+          {!live && listening && capture.transcript && (
+            <p className="line-clamp-2 text-center font-serif text-ink-soft italic">{capture.transcript}</p>
+          )}
         </div>
-      </main>
-
-      <footer className="sticky bottom-0 z-20 flex flex-col items-center gap-2 bg-gradient-to-t from-paper via-paper/95 to-transparent px-6 pt-6 pb-[max(env(safe-area-inset-bottom),1.25rem)]">
-        {!live && listening && capture.transcript && (
-          <p className="line-clamp-2 max-w-xl text-center font-serif text-ink-soft italic">{capture.transcript}</p>
-        )}
         <div className="flex items-center gap-5">
           {ttsSupported() && segment ? (
             <IconButton outlined label={t('player.listen')} icon="bell" onClick={() => void readAloud(false)} disabled={speaking || finished} />

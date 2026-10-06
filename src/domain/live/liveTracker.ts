@@ -165,6 +165,8 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       lastAccepted = null
       if (interrupted) return check()
       const result = evaluate(sentence.source, [slip], { lang, threshold })
+      // Words before a clean start that hold nothing of the sentence ("okay", a word to someone else) are not a try.
+      if (result.coverage === 0) return check()
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: slip, cause: 'restart' }, ...check()]
     }
 

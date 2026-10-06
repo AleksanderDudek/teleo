@@ -278,6 +278,13 @@ describe('LiveTracker', () => {
     })
   })
 
+  it('a stray word before a clean start of the sentence is not a try', () => {
+    const tracker = createLiveTracker({ lang: 'pl' })
+    tracker.setTarget({ entryIndex: 0, source: S1 })
+    const events = 'okej Jestem spokojny i pewny siebie'.split(' ').flatMap((_, i, all) => tracker.update(all.slice(0, i + 1).join(' ')))
+    expect(events.filter((e) => e.type !== 'progress').map((e) => e.type)).toEqual(['accepted'])
+  })
+
   describe('pauses', () => {
     it('hold in the middle of a short sentence too (recalling the next words)', () => {
       const tracker = createLiveTracker({ lang: 'pl' })
