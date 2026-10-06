@@ -200,6 +200,110 @@ describe('LiveTracker', () => {
     expect(accepted(tracker.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 }))).toEqual([0])
   })
 
+  describe('long sentences (Bible readings)', () => {
+    /** KJV Genesis 1:7 — 30 words, "and" three times. */
+    const FIRMAMENT = 'And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament: and it was so.'
+    /** PBG Genesis 1:2 — 17 words, "a" twice. */
+    const ZIEMIA = 'A ziemia była niekształtowna i próżna, i ciemność była nad przepaścią, a Duch Boży unaszał się nad wodami.'
+    const words = (text: string) => text.replace(/[.,:;]/g, '').split(' ')
+    /** Streams words one by one, as interim results, and collects every event. */
+    const say = (tracker: ReturnType<typeof createLiveTracker>, spoken: string[], from = 0) =>
+      spoken.flatMap((_, i) => (i < from ? [] : tracker.update(spoken.slice(0, i + 1).join(' '))))
+
+    it('a recurring first word after a misheard one is not a restart: the sentence is finished, then judged', () => {
+      const tracker = createLiveTracker({ lang: 'en' })
+      tracker.setTarget({ entryIndex: 0, source: FIRMAMENT })
+      const spoken = words(FIRMAMENT)
+      spoken[2] = 'bread' // "made", misheard
+      const events = say(tracker, spoken)
+      expect(events.filter((e) => e.type === 'rejected')).toEqual([])
+      expect(accepted(events)).toEqual([0])
+      expect(events.at(-1)).toMatchObject({ type: 'accepted', result: { wrong: 1 } })
+    })
+
+    it('the same in Polish, where "a" and "i" open many verses', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: ZIEMIA })
+      const spoken = words(ZIEMIA)
+      spoken[1] = 'zima' // "ziemia", misheard
+      const events = say(tracker, spoken)
+      expect(events.filter((e) => e.type === 'rejected')).toEqual([])
+      expect(accepted(events)).toEqual([0])
+    })
+
+    it('a sentence whose opening phrase recurs in the text is followed through it, not restarted', () => {
+      // KJV Genesis 1:30, 39 words: "and to every" three times.
+      const EVERY = 'And to every beast of the earth, and to every fowl of the air, and to every thing that creepeth upon the earth, wherein there is life, I have given every green herb for meat: and it was so.'
+      const tracker = createLiveTracker({ lang: 'en' })
+      tracker.setTarget({ entryIndex: 0, source: EVERY })
+      const spoken = words(EVERY)
+      spoken[4] = 'feast' // "beast", misheard
+      const events = say(tracker, spoken)
+      expect(events.filter((e) => e.type === 'rejected')).toEqual([])
+      expect(accepted(events)).toEqual([0])
+    })
+
+    it('still catches a slip in a sentence whose opening phrase recurs', () => {
+      const TREE = 'the tree of life also in the midst of the garden, and the tree of knowledge of good and evil.'
+      const tracker = createLiveTracker({ lang: 'en' })
+      tracker.setTarget({ entryIndex: 0, source: TREE })
+      const events = say(tracker, ['the', 'tree', 'of', 'lice', 'the', 'tree', 'of', 'life'])
+      expect(events.find((e) => e.type === 'rejected')).toMatchObject({ cause: 'restart', transcript: 'the tree of lice' })
+    })
+
+    it('still catches a real restart, said word by word', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: S1 })
+      const events = say(tracker, 'jestem jestem spokojny i pewny siebie'.split(' '))
+      expect(events.filter((e) => e.type !== 'progress').map((e) => e.type)).toEqual(['rejected', 'accepted'])
+      expect(events.find((e) => e.type === 'rejected')).toMatchObject({ cause: 'restart', transcript: 'jestem' })
+    })
+
+    it('waits through a pause in the middle of a sentence, and judges what was said once the quiet lasts', () => {
+      const tracker = createLiveTracker({ lang: 'en' })
+      tracker.setTarget({ entryIndex: 0, source: FIRMAMENT })
+      const spoken = words(FIRMAMENT)
+      say(tracker, spoken.slice(0, 12))
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(tracker.pause('long')).toMatchObject([{ type: 'rejected', entryIndex: 0, cause: 'pause' }])
+    })
+
+    it('a breath in the middle of a sentence costs nothing: the rest is said and the sentence passes', () => {
+      const tracker = createLiveTracker({ lang: 'en' })
+      tracker.setTarget({ entryIndex: 0, source: FIRMAMENT })
+      const spoken = words(FIRMAMENT)
+      say(tracker, spoken.slice(0, 12))
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(accepted(say(tracker, spoken, 12))).toEqual([0])
+    })
+  })
+
+  describe('pauses', () => {
+    it('hold in the middle of a short sentence too (recalling the next words)', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: S1 })
+      tracker.update('Jestem spokojny')
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(tracker.pause('long')).toMatchObject([{ type: 'rejected', cause: 'pause', transcript: 'Jestem spokojny' }])
+    })
+
+    it('settle at once when the speaker reached the end of the sentence', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: S1 })
+      tracker.update('Jestem spokojny i pewny bardzo')
+      expect(tracker.pause()).toMatchObject([{ type: 'rejected', cause: 'pause' }])
+    })
+
+    it('settle at once when what was said already passes', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: TWENTY, threshold: 0.7 })
+      // 15 of the 20 words, then a pause: enough on the third rung.
+      const fifteen = TWENTY.replace(/[.,]/g, '').split(' ').slice(0, 15).join(' ')
+      tracker.update(fifteen)
+      expect(accepted(tracker.pause())).toEqual([0])
+    })
+  })
+
   it('ignores speech when there is no target', () => {
     const tracker = createLiveTracker({ lang: 'pl' })
     expect(tracker.update('Jestem spokojny i pewny siebie')).toEqual([])

@@ -67,6 +67,18 @@ describe('Microphone', () => {
     expect(onSilence).toHaveBeenCalledTimes(1)
   })
 
+  it('waits longer for the end of speech when asked to (a long sentence)', async () => {
+    const onSilence = vi.fn<() => void>()
+    await new Microphone(fakeCaptureEnvironment().env).start(onSilence, { silenceMs: 2_500 })
+    analyser().level = 0.1
+    await vi.advanceTimersByTimeAsync(1_000)
+    analyser().level = 0.001
+    await vi.advanceTimersByTimeAsync(2_400)
+    expect(onSilence).not.toHaveBeenCalled()
+    await vi.advanceTimersByTimeAsync(200)
+    expect(onSilence).toHaveBeenCalledTimes(1)
+  })
+
   it('gives up after 8 s without speech', async () => {
     const onSilence = vi.fn<() => void>()
     await new Microphone(fakeCaptureEnvironment().env).start(onSilence)

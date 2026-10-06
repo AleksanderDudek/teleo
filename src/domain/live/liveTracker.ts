@@ -16,6 +16,8 @@ export type LiveEvent =
   | { type: 'progress'; entryIndex: number; progress: LiveProgress; window: string }
   | { type: 'accepted'; entryIndex: number; result: MatchResult; transcript: string }
   | { type: 'rejected'; entryIndex: number; result: MatchResult; transcript: string; cause: 'pause' | 'overflow' | 'restart' }
+  /** A short pause in the middle of the sentence: no verdict yet; call `pause('long')` if the quiet lasts. */
+  | { type: 'holding'; entryIndex: number }
 
 export interface LiveTracker {
   /** Sets the next expected sentence; words already heard after the last one are checked at once. */
@@ -25,8 +27,12 @@ export interface LiveTracker {
    * optionally, the other hypotheses for the same audio (used when a pause settles a sentence).
    */
   update(transcript: string, alternatives?: readonly string[]): LiveEvent[]
-  /** The speaker paused: settle the current window (accept, or reject what was said). */
-  pause(): LiveEvent[]
+  /**
+   * The speaker paused. A short pause settles the sentence (accept, or reject what was said) once the speaker
+   * reached its end or what was said already passes; in the middle of a sentence it answers `holding` — a breath, or
+   * a moment to read ahead. A long pause settles it whatever it holds.
+   */
+  pause(length?: 'short' | 'long'): LiveEvent[]
   /** The recogniser restarted: its next transcript starts from an empty string. */
   reset(): void
   /** Forget everything heard so far (e.g. the sentence was skipped). */
@@ -41,6 +47,10 @@ export interface LiveTrackerOptions {
 
 /** How many trailing tokens of an accepted sentence may reappear at the start of the next window. */
 const TAIL_TOKENS = 3
+/** A fresh start must open with this many of the sentence's first words (fewer for a shorter sentence). */
+const RESTART_WORDS = 3
+/** Raw words of the sentence still ahead of the last one heard, from which a pause counts as mid-sentence. */
+const MID_SENTENCE_WORDS = 2
 
 const splitWords = (text: string) => text.split(/\s+/u).filter(Boolean)
 
@@ -90,20 +100,45 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
 
   /**
    * The speaker slipped and started the sentence again without pausing: find the
-   * last clean fresh start (the sentence's first word followed by no errors) in a
-   * window that already contains an error. Returns its raw-word offset, or null.
+   * last clean fresh start in a window that already contains an error — the
+   * sentence's opening words (`RESTART_WORDS` of them, so a word that merely
+   * recurs inside a long sentence, such as "and", is not one) followed by no
+   * errors — unless the text itself repeats its opening right where the speaker
+   * is ("and to every beast…, and to every fowl…"). Returns its raw-word offset, or null.
    */
   const findRestart = (sentence: LiveTarget, window: string): number | null => {
-    const first = normalize(sentence.source, lang)[0]?.text
+    const sourceTokens = normalize(sentence.source, lang)
+    const opening = sourceTokens.slice(0, RESTART_WORDS).map((token) => token.text)
+    const [first] = opening
     if (!first || progressOf(sentence.source, window, lang).errors === 0) return null
     const raw = splitWords(window)
+    const isOpening = (texts: readonly string[]) =>
+      texts.length === opening.length && texts.every((text, i) => compareWords(opening[i]!, text) !== 'none')
+    // Where the text says its opening words again (raw word offsets in the source).
+    const recurrences = sourceTokens
+      .filter((_, k) => k > 0 && isOpening(sourceTokens.slice(k, k + opening.length).map((t) => t.text)))
+      .map((token) => token.rawStart)
+    const continuesText = (start: number) => {
+      if (recurrences.length === 0) return false
+      const next = progressOf(sentence.source, raw.slice(0, start).join(' '), lang).lastCovered + 1
+      return recurrences.some((at) => Math.abs(at - next) <= MID_SENTENCE_WORDS)
+    }
     const starts = spokenTokens(window, sentence.source)
       .filter((token, i) => i > 0 && token.rawStart > 0 && compareWords(first, token.text) !== 'none')
       .map((token) => token.rawStart)
     for (const start of starts.reverse()) {
+      const said = spokenTokens(raw.slice(start).join(' '), sentence.source).slice(0, opening.length)
+      if (!isOpening(said.map((token) => token.text)) || continuesText(start)) continue
       if (progressOf(sentence.source, raw.slice(start).join(' '), lang).errors === 0) return start
     }
     return null
+  }
+
+  /** The speaker stopped well before the end of the sentence (by the words heard, and by how many were said). */
+  const midSentence = (sentence: LiveTarget, window: string): boolean => {
+    const { covered, lastCovered } = progressOf(sentence.source, window, lang)
+    const heard = spokenTokens(window, sentence.source).length
+    return lastCovered < covered.length - MID_SENTENCE_WORDS && heard < normalize(sentence.source, lang).length - 1
   }
 
   const thresholdOf = (sentence: LiveTarget) => sentence.threshold ?? COVERAGE_LADDER[0]
@@ -167,7 +202,7 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       return check()
     },
 
-    pause() {
+    pause(length = 'short') {
       const sentence = target
       if (!sentence) return []
       const window = windowText()
@@ -182,6 +217,8 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       // A plain evaluation also accepts a long sentence whose final word was dropped,
       // which the prefix rule deliberately waits on while the speaker might continue.
       const result = evaluate(sentence.source, windows, { lang, threshold: thresholdOf(sentence) })
+      // Nothing is settled yet: the words stay in the window for the rest of the sentence.
+      if (!result.accepted && length === 'short' && midSentence(sentence, window)) return [{ type: 'holding', entryIndex: sentence.entryIndex }]
       discardWindow()
       if (result.accepted) return accept(sentence, result, result.transcript)
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: window, cause: 'pause' }]

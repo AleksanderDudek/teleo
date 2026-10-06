@@ -57,6 +57,16 @@ describe('WebSpeechEngine', () => {
     expect(onSilence).toHaveBeenCalledTimes(1)
   })
 
+  it('waits the quiet time asked for at start (a long sentence in tap mode)', async () => {
+    const onSilence = vi.fn<() => void>()
+    await engine().start({ lang: 'pl-PL', onSilence, silenceMs: 2700 })
+    last().emit([false, 'Na początku stworzył Bóg'])
+    await vi.advanceTimersByTimeAsync(2600)
+    expect(onSilence).not.toHaveBeenCalled()
+    await vi.advanceTimersByTimeAsync(100)
+    expect(onSilence).toHaveBeenCalledTimes(1)
+  })
+
   it('caps one tap-mode utterance at 60 s even while words keep coming', async () => {
     const onSilence = vi.fn<() => void>()
     await engine().start({ lang: 'pl-PL', onSilence })

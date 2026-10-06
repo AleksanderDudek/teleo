@@ -13,9 +13,11 @@ export type CapturePhase = 'idle' | 'starting' | 'listening' | 'stopping'
 export function useTapCapture(options: {
   engine: SpeechEngine | null
   lang: SpeechLang
+  /** Quiet time that ends the utterance (longer for a long sentence); the engine's default when absent. */
+  silenceMs?: number
   onResult: (result: SpeechResult) => void
 }) {
-  const { engine, lang } = options
+  const { engine, lang, silenceMs } = options
   const onResult = useRef(options.onResult)
   useLayoutEffect(() => {
     onResult.current = options.onResult
@@ -57,6 +59,7 @@ export function useTapCapture(options: {
     try {
       await engine.start({
         lang,
+        silenceMs,
         onTranscript: (text) => setTranscript(text),
         onSilence: () => void stop(),
         onError: (e) => {
@@ -72,7 +75,7 @@ export function useTapCapture(options: {
       if (code !== 'aborted') setError(code)
       update('idle')
     }
-  }, [engine, lang, stop])
+  }, [engine, lang, silenceMs, stop])
 
   const toggle = useCallback(() => {
     if (phaseRef.current === 'idle') void start()

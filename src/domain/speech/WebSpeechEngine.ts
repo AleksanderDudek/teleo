@@ -193,7 +193,7 @@ export class WebSpeechEngine implements SpeechEngine {
   }
 
   #arm(session: Session, kind: 'silence' | 'noSpeech') {
-    const ms = kind === 'silence' ? this.#timings.silenceMs : this.#timings.noSpeechMs
+    const ms = kind === 'silence' ? (session.options.silenceMs ?? this.#timings.silenceMs) : this.#timings.noSpeechMs
     const timer = setTimeout(() => {
       session.timers.delete(timer)
       if (this.#session === session && !session.stopping) session.options.onSilence?.()

@@ -15,9 +15,11 @@ import { Button, ButtonLink, IconButton } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { ProgressBar } from '@/components/ui/Progress'
 import { goldenMultiplier } from '@/domain/gamification'
+import { utteranceSilenceMs } from '@/domain/live/pauses'
 import { buildDiff, coverageNeeded, evaluate, type DiffPart, type MatchResult } from '@/domain/matcher'
 import { firstTryCombo } from '@/domain/session'
 import type { SpeechResult } from '@/domain/speech/SpeechEngine'
+import { countWords } from '@/domain/text/countWords'
 import { SPEECH_LANG, type EngineId } from '@/domain/types'
 import { useOnline } from '@/hooks/useOnline'
 import { useSpaceKey } from '@/hooks/useSpaceKey'
@@ -167,7 +169,12 @@ function Player({ data }: { data: PlayerData }) {
       setBusy(false)
     }
   }
-  const capture = useTapCapture({ engine: live ? null : engine, lang: SPEECH_LANG[lang], onResult: (speech) => void onTapResult(speech) })
+  const capture = useTapCapture({
+    engine: live ? null : engine,
+    lang: SPEECH_LANG[lang],
+    silenceMs: utteranceSilenceMs(countWords(segment?.content ?? '')),
+    onResult: (speech) => void onTapResult(speech),
+  })
 
   const listening = live ? liveSession.phase === 'listening' : capture.phase === 'listening'
   const starting = live ? liveSession.phase === 'starting' : capture.phase === 'starting'

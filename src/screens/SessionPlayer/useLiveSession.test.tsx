@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { MatchResult } from '@/domain/matcher'
+import { MID_SENTENCE_HOLD_MS } from '@/domain/live/pauses'
 import type { SpeechEngine, SpeechStartOptions } from '@/domain/speech/SpeechEngine'
 import { useLiveSession, type LiveSentence } from './useLiveSession'
 
@@ -43,5 +44,47 @@ describe('useLiveSession', () => {
     hook.rerender(sentence(0.8))
     await act(async () => speech().onTranscript?.(`${EIGHT} ${EIGHT}`, false, []))
     expect(verdicts).toMatchObject([{ accepted: false }, { accepted: true, missing: 2, threshold: 0.8 }])
+  })
+
+  describe('a pause in the middle of a sentence', () => {
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+    const setup = async () => {
+      vi.useFakeTimers()
+      const { engine, speech } = liveEngine()
+      const verdicts: MatchResult[] = []
+      const onVerdict = vi.fn<(entryIndex: number, result: MatchResult) => Promise<void>>(async (_entryIndex, result) => void verdicts.push(result))
+      const target: LiveSentence = { entryIndex: 0, source: TEN, lang: 'pl', threshold: 0.9 }
+      const hook = renderHook(() => useLiveSession({ engine, target, onVerdict }))
+      await act(() => hook.result.current.start())
+      return { speech, verdicts }
+    }
+
+    it('is judged only once the quiet lasts', async () => {
+      const { speech, verdicts } = await setup()
+      await act(async () => {
+        speech().onTranscript?.('każdego dnia rano', false, [])
+        speech().onSilence?.()
+      })
+      expect(verdicts).toEqual([])
+      await act(() => vi.advanceTimersByTimeAsync(MID_SENTENCE_HOLD_MS - 1))
+      expect(verdicts).toEqual([])
+      await act(() => vi.advanceTimersByTimeAsync(1))
+      expect(verdicts).toMatchObject([{ accepted: false, reason: 'coverage' }])
+    })
+
+    it('costs nothing when the speaker goes on', async () => {
+      const { speech, verdicts } = await setup()
+      await act(async () => {
+        speech().onTranscript?.('każdego dnia rano', false, [])
+        speech().onSilence?.()
+      })
+      await act(async () => speech().onTranscript?.('każdego dnia rano wstaję wcześnie', false, []))
+      await act(() => vi.advanceTimersByTimeAsync(MID_SENTENCE_HOLD_MS * 2))
+      expect(verdicts).toEqual([])
+      await act(async () => speech().onTranscript?.('każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień', false, []))
+      expect(verdicts).toMatchObject([{ accepted: true }])
+    })
   })
 })
