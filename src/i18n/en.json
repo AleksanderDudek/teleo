@@ -108,7 +108,12 @@
     "filterNeed": "Need",
     "clearFilters": "Clear filters",
     "results_one": "{{count}} text",
-    "results_other": "{{count}} texts"
+    "results_other": "{{count}} texts",
+    "filters": "Filters",
+    "startHere": "Start here",
+    "allTexts": "All texts",
+    "showResults_one": "Show {{count}} text",
+    "showResults_other": "Show {{count}} texts"
   },
   "editor": {
     "titleNew": "New text",
@@ -1439,43 +1444,39 @@
     "steps": {
       "start": {
         "title": "Start here",
-        "body": "Each day, one tap: Teleo picks your session and listens as you say it aloud, sentence by sentence."
+        "body": "Your daily prayer starts here: one tap, and Teleo listens as you say it aloud, sentence by sentence."
       },
       "goal": {
         "title": "Your day at a glance",
-        "body": "Days in a row and today’s goal — how many sentences you want to say. You can change it in Settings."
+        "body": "Today’s goal and your days in a row — say a few sentences every day and your candle stays lit."
       },
       "needs": {
         "title": "What do you pray for?",
-        "body": "In the library, choose an area of life, then a need. Here: peace of heart."
-      },
-      "result": {
-        "title": "Prayers for that need",
-        "body": "The list keeps only what fits. Each card says what the text is mainly for."
+        "body": "Choose what is on your heart — an area of life, then a need — and the list keeps only texts for it."
       },
       "say": {
         "title": "Say it now",
-        "body": "Read it aloud: Teleo checks every sentence and moves on as soon as it hears it."
+        "body": "Read it aloud: Teleo checks each sentence and moves on as soon as it hears it — no typing, no tapping."
       },
       "memory": {
         "title": "From memory",
-        "body": "More words fade each time, until you know the text by heart."
+        "body": "Learning it by heart? Words fade step by step until you can say the whole text from memory."
       },
       "task": {
         "title": "A daily task",
-        "body": "Make it a habit — say, three times a day for two weeks. Today keeps count."
+        "body": "Make it a habit: say it, for example, three times a day for two weeks — Today counts every repetition."
       },
-      "sessions": {
+      "session": {
         "title": "Sessions",
-        "body": "Ready-made sets such as a decade of the rosary — or your own, from any texts."
+        "body": "A session is a few texts said one after another — like a decade of the rosary. Start one, or build your own."
       },
-      "progress": {
-        "title": "Progress",
-        "body": "Days in a row, achievements and the history of every session."
+      "garden": {
+        "title": "Your garden",
+        "body": "Every sentence you say makes it grow. Days in a row, achievements and the history of each session live here."
       },
       "done": {
         "title": "You are ready",
-        "body": "Press Start whenever you like. You will find this tour again in Settings."
+        "body": "Press Start whenever you like. Reminders, language and this tour are in Settings."
       }
     }
   }

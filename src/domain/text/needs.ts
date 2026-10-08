@@ -58,6 +58,15 @@ export function matchesNeed(text: WithNeeds, filter: NeedFilter): boolean {
   return true
 }
 
+/** 0 for a text mainly for the chosen need (or of the chosen area), 1 for one that only touches it — the library lists
+ * the first kind first, so "peace of heart" opens with prayers for peace, not with one that mentions it. */
+export function needRank(text: WithNeeds, filter: NeedFilter): number {
+  const main = mainNeed(text)
+  if (filter.need) return main === filter.need ? 0 : 1
+  if (filter.area) return main && areaOf(main) === filter.area ? 0 : 1
+  return 0
+}
+
 /** How many texts each area and each need would show (a text counts once per area, however many of its needs). */
 export function countNeeds(texts: Iterable<WithNeeds>): { areas: Map<NeedArea, number>; needs: Map<NeedId, number> } {
   const areas = new Map<NeedArea, number>()

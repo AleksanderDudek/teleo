@@ -41,7 +41,7 @@ export function TextCard({ entry, footnote, backTo }: TextCardProps) {
       </IconHalo>
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline gap-2">
-          <span className="truncate font-serif text-xl leading-tight font-semibold text-ink">{text.title}</span>
+          <span className="line-clamp-2 font-serif text-xl leading-tight font-semibold text-ink">{text.title}</span>
           {text.archived && <Icon name="eye-slash" size={16} label={t('library.hidden')} className="text-ink-faint" />}
         </span>
         <span className="mt-0.5 block text-[0.8rem] font-medium text-ink-soft">
@@ -58,12 +58,13 @@ export function TextCard({ entry, footnote, backTo }: TextCardProps) {
         {preview && <span className="mt-1.5 line-clamp-1 font-serif text-ink-soft italic">{preview}</span>}
         {footnote && <span className="mt-1.5 block text-xs font-semibold text-gold-ink">{footnote}</span>}
       </span>
-      <span className="flex shrink-0 flex-col items-end">
-        <span className="tabular text-2xl leading-none font-semibold text-gold-ink">{repetitions}</span>
-        <span className="mt-1 text-[0.65rem] font-semibold tracking-wider text-ink-faint uppercase">
-          {t('library.repetitionsLabel')}
+      {/* Only once said: on a fresh library a column of zeros took a third of every title's width. */}
+      {repetitions > 0 && (
+        <span className="flex shrink-0 flex-col items-end">
+          <span className="tabular text-2xl leading-none font-semibold text-gold-ink">{repetitions}</span>
+          <span className="mt-1 text-xs font-semibold tracking-wide text-ink-soft">{t('library.repetitionsLabel')}</span>
         </span>
-      </span>
+      )}
     </Link>
   )
 }

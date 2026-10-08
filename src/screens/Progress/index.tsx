@@ -41,6 +41,7 @@ export default function Progress() {
       <PageHeader rubric={t('progress.rubric')} title={t('progress.title')} />
 
       {/* The garden grows in a stained-glass window. */}
+      <div data-tour="garden">
       <ArchFrame glow>
         <div className="px-4 pt-10">
           <Plant level={info.level} className="mx-auto h-50 w-full max-w-md" />
@@ -54,6 +55,7 @@ export default function Progress() {
           </p>
         </div>
       </ArchFrame>
+      </div>
 
       <Link to="/progress/history" className="card card-lift mt-6 flex items-center gap-4 p-4">
         <IconHalo icon="clock-counter-clockwise" tone="sunk" size={44} iconSize={22} />

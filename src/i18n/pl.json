@@ -118,7 +118,14 @@
     "results_one": "{{count}} tekst",
     "results_few": "{{count}} teksty",
     "results_many": "{{count}} tekstów",
-    "results_other": "{{count}} tekstu"
+    "results_other": "{{count}} tekstu",
+    "filters": "Filtry",
+    "startHere": "Na początek",
+    "allTexts": "Wszystkie teksty",
+    "showResults_one": "Pokaż {{count}} tekst",
+    "showResults_few": "Pokaż {{count}} teksty",
+    "showResults_many": "Pokaż {{count}} tekstów",
+    "showResults_other": "Pokaż {{count}} tekstu"
   },
   "editor": {
     "titleNew": "Nowy tekst",
@@ -1495,43 +1502,39 @@
     "steps": {
       "start": {
         "title": "Zacznij tutaj",
-        "body": "Każdego dnia jedno dotknięcie: Teleo wybiera sesję i słucha, jak wypowiadasz ją na głos, zdanie po zdaniu."
+        "body": "Tu zaczyna się Twoja codzienna modlitwa: jedno dotknięcie, a Teleo słucha, jak wypowiadasz ją na głos, zdanie po zdaniu."
       },
       "goal": {
         "title": "Twój dzień w skrócie",
-        "body": "Dni z rzędu i dzisiejszy cel — ile zdań chcesz wypowiedzieć. Zmienisz go w Ustawieniach."
+        "body": "Dzisiejszy cel i dni z rzędu – wypowiedz kilka zdań każdego dnia, a Twoja świeca nie zgaśnie."
       },
       "needs": {
         "title": "W jakiej intencji?",
-        "body": "W bibliotece wybierz obszar życia, a potem intencję. Tutaj: pokój serca."
-      },
-      "result": {
-        "title": "Modlitwy w tej intencji",
-        "body": "Lista pokazuje tylko to, co pasuje. Każda karta mówi, w jakiej intencji jest tekst."
+        "body": "Wybierz, co leży Ci na sercu – obszar życia, a potem intencję – a lista zostawi tylko teksty w tej intencji."
       },
       "say": {
         "title": "Powiedz teraz",
-        "body": "Czytaj na głos: Teleo sprawdza każde zdanie i przechodzi dalej, gdy tylko je usłyszy."
+        "body": "Czytaj na głos: Teleo sprawdza każde zdanie i przechodzi dalej, gdy tylko je usłyszy – bez pisania i klikania."
       },
       "memory": {
         "title": "Z pamięci",
-        "body": "Z każdym razem znika więcej słów, aż znasz tekst na pamięć."
+        "body": "Chcesz nauczyć się na pamięć? Słowa znikają krok po kroku, aż powiesz cały tekst z pamięci."
       },
       "task": {
         "title": "Codzienne zadanie",
-        "body": "Zrób z niego nawyk — na przykład trzy razy dziennie przez dwa tygodnie. Ekran Dziś liczy powtórzenia."
+        "body": "Zrób z niego nawyk: na przykład trzy razy dziennie przez dwa tygodnie – ekran Dziś policzy każde powtórzenie."
       },
-      "sessions": {
+      "session": {
         "title": "Sesje",
-        "body": "Gotowe zestawy, jak dziesiątka różańca — albo własne, z dowolnych tekstów."
+        "body": "Sesja to kilka tekstów wypowiadanych jeden po drugim – jak dziesiątka różańca. Rozpocznij gotową albo ułóż własną."
       },
-      "progress": {
-        "title": "Postępy",
-        "body": "Dni z rzędu, osiągnięcia i historia każdej sesji."
+      "garden": {
+        "title": "Twój ogród",
+        "body": "Każde wypowiedziane zdanie sprawia, że rośnie. Tu znajdziesz dni z rzędu, osiągnięcia i historię każdej sesji."
       },
       "done": {
         "title": "Wszystko gotowe",
-        "body": "Naciśnij Rozpocznij, kiedy zechcesz. Ten przewodnik znajdziesz w Ustawieniach."
+        "body": "Naciśnij Rozpocznij, kiedy zechcesz. Przypomnienia, język i ten przewodnik znajdziesz w Ustawieniach."
       }
     }
   }

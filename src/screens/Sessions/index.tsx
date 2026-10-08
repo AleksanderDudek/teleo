@@ -209,7 +209,12 @@ export default function Sessions() {
       ) : (
         <ul className="space-y-4">
           {visible.map((entry, index) => (
-            <li key={entry.template.id} className="animate-rise" style={{ animationDelay: `${Math.min(index, 6) * 50}ms` }}>
+            <li
+              key={entry.template.id}
+              data-tour={index === 0 ? 'session' : undefined}
+              className="animate-rise"
+              style={{ animationDelay: `${Math.min(index, 6) * 50}ms` }}
+            >
               <TemplateCard entry={entry} onDelete={setToDelete} />
             </li>
           ))}

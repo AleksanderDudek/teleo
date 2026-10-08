@@ -12,7 +12,7 @@ test('the library finds a prayer by need, and the filter survives opening it and
   await page.getByRole('group', { name: 'Area of life' }).getByRole('button', { name: /^Health & body/ }).click()
   await page.getByRole('group', { name: 'Need' }).getByRole('button', { name: /^Sleep & nightmares/ }).click()
   await expect(page).toHaveURL(/#\/library\?area=health&need=sleep$/)
-  await expect(page.getByText('2 texts')).toBeVisible()
+  await expect(page.getByRole('status')).toHaveText('2 texts')
 
   // The text names what it is prayed for and whose words these are.
   await page.getByRole('link', { name: /Against Nightmares and Night Attacks/ }).click()

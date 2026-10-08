@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { shouldOfferTour, TOUR_NEED, TOUR_VERSION, tourLibraryPath, tourSteps, type TourStep } from '@/domain/tour/tour'
 import { updateMeta } from '@/services/settings'
-import { firstTextForNeed } from '@/services/tour'
+import { tourTextFor } from '@/services/tour'
 import { useSettingsStore } from '@/stores/settings'
 import { useUiStore } from '@/stores/ui'
 import { TourOverlay } from './TourOverlay'
@@ -31,18 +31,18 @@ export function GuidedTour() {
   const tourVersion = useSettingsStore((s) => s.meta.tourVersion)
   const requested = useUiStore((s) => s.tourRequested)
   const clearRequest = useUiStore((s) => s.clearTourRequest)
-  const [run, setRun] = useState<{ steps: TourStep[]; textId?: string } | null>(null)
+  const [steps, setSteps] = useState<TourStep[] | null>(null)
   // Taken or declined in this visit: no invitation even before the saved version reaches the store.
   const [dismissed, setDismissed] = useState(false)
   const [starting, setStarting] = useState(false)
 
   const markSeen = useCallback(() => void updateMeta({ tourVersion: TOUR_VERSION }), [])
 
-  /** The story's text decides which steps run (none for it: the text steps are left out). */
+  /** Whether there is a text for the story's need decides which steps run (none: the text steps are left out). */
   const load = useCallback(
     () =>
-      firstTextForNeed(TOUR_NEED, uiLang).then((textId) => {
-        setRun({ steps: tourSteps({ hasText: textId !== undefined }), textId })
+      tourTextFor(TOUR_NEED, uiLang).then((textId) => {
+        setSteps(tourSteps({ hasText: textId !== undefined }))
         setStarting(false)
       }),
     [uiLang],
@@ -59,23 +59,26 @@ export function GuidedTour() {
     void load()
   }, [requested, pathname, clearRequest, load])
 
-  const inviting = !run && !starting && !requested && !dismissed && shouldOfferTour({ onboardingCompleted, tourVersion, pathname })
+  const inviting = !steps && !starting && !requested && !dismissed && shouldOfferTour({ onboardingCompleted, tourVersion, pathname })
 
   const onStepEnter = useCallback(
     (step: TourStep) => {
       const { action } = step
       // Replacing: the tour walks through screens without filling the history the back button walks.
       if (action.kind === 'navigate') navigate(action.to, { replace: true })
-      else if (action.kind === 'openText' && run?.textId) {
-        // The text's back arrow returns to the filtered library the tour came from.
-        navigate(`/library/${encodeURIComponent(run.textId)}`, { replace: true, state: { backTo: tourLibraryPath() } })
+      else if (action.kind === 'openText') {
+        // Chosen now, not at the start: the library may have arrived in the meantime (DECISIONS #126).
+        void tourTextFor(TOUR_NEED, uiLang).then((textId) => {
+          // The text's back arrow returns to the filtered library the tour came from.
+          if (textId) navigate(`/library/${encodeURIComponent(textId)}`, { replace: true, state: { backTo: tourLibraryPath() } })
+        })
       }
     },
-    [navigate, run],
+    [navigate, uiLang],
   )
 
   const finish = useCallback(() => {
-    setRun(null)
+    setSteps(null)
     setDismissed(true)
     markSeen()
   }, [markSeen])
@@ -120,7 +123,7 @@ export function GuidedTour() {
           ))}
         </ul>
       </Dialog>
-      {run && <TourOverlay steps={run.steps} onStepEnter={onStepEnter} onFinish={finish} />}
+      {steps && <TourOverlay steps={steps} onStepEnter={onStepEnter} onFinish={finish} />}
     </>
   )
 }
