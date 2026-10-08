@@ -76,10 +76,13 @@ npm run typecheck    # tsc -b
   `bible/` caches, `SKIP_WAITING`, `periodicsync` + `notificationclick`. It opens the database in Dexie dynamic mode
   through `src/db/name.ts` — never import `@/db/schema` (or anything that instantiates `db`) there.
 - Support link follows the interface language: `src/components/support/links.ts` (`supportUrl(lang)`).
-- App shell (`src/app/TabsLayout.tsx`): support ribbon on top (`SupportStrip`), support window at the end of each
-  screen (`SupportBanner`), tab bar (`src/app/tabs.ts` maps screens to tabs). Editing forms set the route handle
+- App shell (`src/app/TabsLayout.tsx`): support ribbon on top (`SupportStrip`), support window at the end of the five
+  main screens (`SupportBanner`, DECISIONS #128), tab bar (`src/app/tabs.ts` maps screens to tabs), the guided tour host
+  (`src/components/tour/`, script in `src/domain/tour/tour.ts`; anchors are `data-tour` attributes, DECISIONS #127). Editing forms set the route handle
   `{ form: true }` (no tab bar/window on phones). Screens start with `PageHeader` (sticky compact bar with back button
   and condensing title; pass `backTo` on sub-screens). Nothing of this in the session player.
-- e2e tests stub speech with `e2e/fakeSpeech.ts` (the headless shell crashes on the real
+- Mobile first (DECISIONS #128): 44 px touch targets (small buttons/chips/switches extend their hit area with `::before`),
+  "sentence" not "segment" in copy, no screen wider than the phone (e2e guard).
+- e2e tests stub speech with `e2e/fakeSpeech.ts`; `finishOnboarding` also waits for the library and declines the tour (the headless shell crashes on the real
   `SpeechRecognition.available()`); UI strings must exist in both `pl.json` and `en.json`.
 - Commit per stage/feature with Conventional Commits (`feat(stage-N): …`, `fix: …`).
