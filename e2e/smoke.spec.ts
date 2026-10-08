@@ -22,3 +22,13 @@ test('interface language can be switched in settings', async ({ page }) => {
   await page.getByText('Polski', { exact: true }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ustawienia')
 })
+
+test('no screen is wider than the phone it is on', async ({ page }) => {
+  await finishOnboarding(page)
+  for (const route of ['', 'library', 'library/new', 'sessions', 'sessions/new', 'tasks', 'progress', 'progress/history', 'bible', 'settings', 'settings/data']) {
+    await page.goto(`./#/${route}`)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    const [scrollWidth, innerWidth] = await page.evaluate(() => [document.scrollingElement?.scrollWidth ?? 0, window.innerWidth])
+    expect(scrollWidth, `/${route} scrolls sideways`).toBeLessThanOrEqual(innerWidth)
+  }
+})

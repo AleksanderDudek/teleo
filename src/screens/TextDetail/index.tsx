@@ -7,6 +7,7 @@ import { chipClass } from '@/components/ui/chipClasses'
 import { Dialog } from '@/components/ui/Dialog'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { MemoryStartDialog } from '@/components/MemoryStartDialog'
+import { Icon } from '@/components/icons/Icon'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import { libraryBackTo } from '@/domain/text/libraryFilter'
@@ -36,6 +37,7 @@ export default function TextDetail() {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [starting, setStarting] = useState(false)
   const [choosingMemory, setChoosingMemory] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
 
   if (view === undefined) return null
   if (view === null) {
@@ -96,39 +98,30 @@ export default function TextDetail() {
         <ButtonLink data-tour="task" to={`/tasks/new?text=${encodedId}`} variant="secondary" icon="list-checks">
           {t('textDetail.setTask')}
         </ButtonLink>
-        {text.source === 'user' ? (
-          <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon="pencil-simple">
-            {t('common.edit')}
-          </ButtonLink>
-        ) : (
-          <Button
-            variant="secondary"
-            icon="copy"
-            onClick={async () => {
-              const copy = await copyTextAsOwn(text.id, t('textDetail.copyTitle', { title: text.title }))
-              toast({ kind: 'success', title: t('textDetail.copied') })
-              navigate(`/library/${encodeURIComponent(copy.id)}/edit`)
-            }}
-          >
-            {t('textDetail.copy')}
-          </Button>
-        )}
-        <Button
-          variant="ghost"
-          icon={text.archived ? 'eye' : 'eye-slash'}
-          onClick={() => void setTextArchived(text.id, !text.archived)}
-        >
-          {text.archived ? t('textDetail.unhide') : t('textDetail.hide')}
+        {/* Copy/edit, hide and delete are kept apart from the practice buttons (DECISIONS #128). */}
+        <Button variant="ghost" icon="dots-three" onClick={() => setMoreOpen(true)} aria-haspopup="dialog">
+          {t('common.more')}
         </Button>
-        {text.source === 'user' && (
-          <Button variant="ghost" icon="trash" onClick={() => setConfirmDelete(true)}>
-            {t('textDetail.delete')}
-          </Button>
-        )}
       </div>
 
       {text.archived && <p className="mt-4 rounded-xl bg-sunk px-4 py-3 text-sm text-ink-soft">{t('textDetail.hiddenNote')}</p>}
-      {text.source === 'builtin' && <p className="mt-4 text-sm text-ink-soft">{t('textDetail.builtinNote')}</p>}
+
+      {/* The text itself first; statistics and achievements below, folded (DECISIONS #128). */}
+      <section aria-labelledby="segments-heading" className="mt-8">
+        <h2 id="segments-heading" className="mb-3 text-2xl font-semibold">
+          {t('textDetail.segmentsHeading')}
+        </h2>
+        <Card className="p-0">
+          <ol className="divide-y divide-line">
+            {segments.map((segment, index) => (
+              <li key={segment.id} className="flex gap-4 px-5 py-4">
+                <span className="tabular mt-1 w-5 shrink-0 text-right text-sm font-bold text-gold-ink">{index + 1}</span>
+                <p className="font-serif text-lg leading-snug text-ink">{segment.content}</p>
+              </li>
+            ))}
+          </ol>
+        </Card>
+      </section>
 
       {needs.length > 0 && (
         <section aria-labelledby="needs-heading" className="mt-6">
@@ -146,39 +139,85 @@ export default function TextDetail() {
           </ul>
         </section>
       )}
-      {text.tags.length > 0 && <p className="mt-3 text-sm text-ink-soft">{text.tags.join(' · ')}</p>}
+      {text.tags.length > 0 && <p className="mt-3 text-sm text-ink-soft">{t('textDetail.tags', { tags: text.tags.join(' · ') })}</p>}
+      {text.source === 'builtin' && <p className="mt-3 text-sm text-ink-soft">{t('textDetail.builtinNote')}</p>}
 
-      <section aria-labelledby="stats-heading" className="mt-8">
-        <h2 id="stats-heading" className="mb-3 text-2xl font-semibold">
-          {t('textDetail.statsHeading')}
-        </h2>
-        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <Stat label={t('textDetail.statRepetitions')} value={stats?.repetitions ?? 0} />
-          <Stat label={t('textDetail.statSegments')} value={stats?.segmentsAccepted ?? 0} />
-          <Stat label={t('textDetail.statStreak')} value={stats?.currentDayStreak ?? 0} />
-          <Stat label={t('textDetail.statBestStreak')} value={stats?.bestDayStreak ?? 0} />
-          <Stat label={t('textDetail.statPerfect')} value={stats?.perfectRuns ?? 0} />
-          <Stat label={t('textDetail.statLast')} value={lastPracticed} />
-        </dl>
-      </section>
+      <details className="group mt-8 rounded-3xl border border-line bg-surface">
+        <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 px-5 py-3 [&::-webkit-details-marker]:hidden">
+          <span className="min-w-0 flex-1">
+            <span className="block font-serif text-xl font-semibold">{t('textDetail.progressHeading')}</span>
+            <span className="block text-sm text-ink-soft">
+              {t('textDetail.progressSummary', { count: stats?.repetitions ?? 0, last: lastPracticed })}
+            </span>
+          </span>
+          <Icon name="caret-down" size={20} className="text-ink-soft transition-transform group-open:rotate-180" />
+        </summary>
+        <div className="px-5 pb-5">
+          <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <Stat label={t('textDetail.statRepetitions')} value={stats?.repetitions ?? 0} />
+            <Stat label={t('textDetail.statSegments')} value={stats?.segmentsAccepted ?? 0} />
+            <Stat label={t('textDetail.statStreak')} value={stats?.currentDayStreak ?? 0} />
+            <Stat label={t('textDetail.statBestStreak')} value={stats?.bestDayStreak ?? 0} />
+            <Stat label={t('textDetail.statPerfect')} value={stats?.perfectRuns ?? 0} />
+            <Stat label={t('textDetail.statLast')} value={lastPracticed} />
+          </dl>
+          <TextAchievements text={text} stats={stats} segmentCount={segments.length} />
+        </div>
+      </details>
 
-      <TextAchievements text={text} stats={stats} segmentCount={segments.length} />
-
-      <section aria-labelledby="segments-heading" className="mt-8">
-        <h2 id="segments-heading" className="mb-3 text-2xl font-semibold">
-          {t('textDetail.segmentsHeading')}
-        </h2>
-        <Card className="p-0">
-          <ol className="divide-y divide-line">
-            {segments.map((segment, index) => (
-              <li key={segment.id} className="flex gap-4 px-5 py-4">
-                <span className="tabular mt-1 w-5 shrink-0 text-right text-sm font-bold text-gold-ink">{index + 1}</span>
-                <p className="font-serif text-lg leading-snug text-ink">{segment.content}</p>
-              </li>
-            ))}
-          </ol>
-        </Card>
-      </section>
+      <Dialog open={moreOpen} onClose={() => setMoreOpen(false)} title={text.title}>
+        <div className="mt-4 flex flex-col gap-2">
+          {text.source === 'user' ? (
+            <ButtonLink to={`/library/${encodedId}/edit`} variant="secondary" icon="pencil-simple" block>
+              {t('common.edit')}
+            </ButtonLink>
+          ) : (
+            <Button
+              variant="secondary"
+              icon="copy"
+              block
+              onClick={async () => {
+                const copy = await copyTextAsOwn(text.id, t('textDetail.copyTitle', { title: text.title }))
+                toast({ kind: 'success', title: t('textDetail.copied') })
+                navigate(`/library/${encodeURIComponent(copy.id)}/edit`)
+              }}
+            >
+              {t('textDetail.copy')}
+            </Button>
+          )}
+          <Button
+            variant="secondary"
+            block
+            icon={text.archived ? 'eye' : 'eye-slash'}
+            onClick={() => {
+              const hide = !text.archived
+              setMoreOpen(false)
+              void setTextArchived(text.id, hide).then(() =>
+                toast({
+                  kind: 'success',
+                  title: hide ? t('textDetail.hiddenToast') : t('textDetail.shownToast'),
+                  action: { label: t('textDetail.undo'), run: () => void setTextArchived(text.id, !hide) },
+                }),
+              )
+            }}
+          >
+            {text.archived ? t('textDetail.unhide') : t('textDetail.hide')}
+          </Button>
+          {text.source === 'user' && (
+            <Button
+              variant="ghost"
+              block
+              icon="trash"
+              onClick={() => {
+                setMoreOpen(false)
+                setConfirmDelete(true)
+              }}
+            >
+              {t('textDetail.delete')}
+            </Button>
+          )}
+        </div>
+      </Dialog>
 
       <MemoryStartDialog
         open={choosingMemory}
