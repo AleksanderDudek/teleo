@@ -626,3 +626,22 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     run starts over on the next launch). `<html data-library="loading|ready">` reports it; e2e tests wait for `ready`
     after onboarding instead of racing the writes. Seeding reads texts and segments once per transaction (no query per
     text), and `replaceSegments` writes only new or moved segments.
+
+## Guided tour and mobile-first polish (owner request, 2026-10-08)
+
+127. **After the setup, a guided tour the app performs** (after the one in the owner's *Your Events*). The setup wizard
+    configures Teleo but never showed how to use it. Now Today invites once — *Shall I show you around?* — with
+    *Show me* / *Not now* (a sheet on phones); a walkthrough nobody agreed to is the most skipped pattern, so it is an
+    invitation, and declining counts as seen. The tour is a story, not captions: the screen is dimmed, one control is
+    lit (`data-tour` attributes, so screens carry no tour logic), and the app walks — Start, the day's goal, the
+    library opened on *peace of heart* through its URL (#125), the first prayer listed, *Say it now*, *From memory*,
+    *Set as daily task*, the Sessions and Progress tabs, back to Start. The panel docks to the screen edge away from
+    the lit control instead of floating beside it: on a 390 px phone a beside-the-control tooltip has nowhere to go,
+    a sheet always has. Forward-only (steps navigate, with `replace`, so the back button does not walk the tour);
+    Skip, the close button and Escape end it at any step; focus stays in the panel, the step count is announced,
+    reduced motion drops the light's transition. Steps showing a text are left out up front when no visible text of
+    the language has the need (e.g. *own texts* only); an anchor that never appears is skipped after ~3 s.
+    `meta.tourVersion` holds the version taken or declined — per install, like the seed version; bumping
+    `TOUR_VERSION` re-offers a redesigned tour. Settings → *Show me around* replays it. Script and rules are pure
+    (`src/domain/tour/tour.ts`), the host and overlay live in `src/components/tour/`, mounted in the tab layout so the
+    tour survives its own navigations. e2e tests decline the invitation in `finishOnboarding`; `tour.spec.ts` walks it.
