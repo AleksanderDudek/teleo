@@ -213,6 +213,7 @@ const metaState: Checker = objectFields([
   ['lastBackupAt', optional(finiteNumber)],
   ['backupReminderSnoozedAt', optional(finiteNumber)],
   ['shareId', optional(string_)],
+  ['tourVersion', optional(finiteNumber)],
 ])
 
 // --- Table row checkers ------------------------------------------------------

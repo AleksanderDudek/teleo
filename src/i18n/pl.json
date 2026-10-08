@@ -1474,5 +1474,65 @@
       "traditional": "Modlitwy tradycyjne",
       "scripture": "Pismo Święte"
     }
+  },
+  "tour": {
+    "count": "Krok {{current}} z {{total}}",
+    "close": "Zamknij przewodnik",
+    "skip": "Pomiń",
+    "next": "Dalej",
+    "done": "Gotowe",
+    "replay": "Oprowadź mnie",
+    "replayBody": "Jesteś tu nowa lub nowy albo chcesz sobie przypomnieć? Minuta spaceru po Teleo.",
+    "invite": {
+      "title": "Pokazać Ci, jak to działa?",
+      "body": "Minuta spaceru: Teleo samo otworzy ekrany i podświetli, co warto dotknąć.",
+      "bulletStart": "Od czego zacząć każdego dnia",
+      "bulletFind": "Jak znaleźć modlitwę w intencji, która leży Ci na sercu",
+      "bulletKeep": "Jak ją wypowiadać, nauczyć się na pamięć i w niej wytrwać",
+      "start": "Pokaż mi",
+      "later": "Nie teraz"
+    },
+    "steps": {
+      "start": {
+        "title": "Zacznij tutaj",
+        "body": "Każdego dnia jedno dotknięcie: Teleo wybiera sesję i słucha, jak wypowiadasz ją na głos, zdanie po zdaniu."
+      },
+      "goal": {
+        "title": "Twój dzień w skrócie",
+        "body": "Dni z rzędu i dzisiejszy cel — ile zdań chcesz wypowiedzieć. Zmienisz go w Ustawieniach."
+      },
+      "needs": {
+        "title": "W jakiej intencji?",
+        "body": "W bibliotece wybierz obszar życia, a potem intencję. Tutaj: pokój serca."
+      },
+      "result": {
+        "title": "Modlitwy w tej intencji",
+        "body": "Lista pokazuje tylko to, co pasuje. Każda karta mówi, w jakiej intencji jest tekst."
+      },
+      "say": {
+        "title": "Powiedz teraz",
+        "body": "Czytaj na głos: Teleo sprawdza każde zdanie i przechodzi dalej, gdy tylko je usłyszy."
+      },
+      "memory": {
+        "title": "Z pamięci",
+        "body": "Z każdym razem znika więcej słów, aż znasz tekst na pamięć."
+      },
+      "task": {
+        "title": "Codzienne zadanie",
+        "body": "Zrób z niego nawyk — na przykład trzy razy dziennie przez dwa tygodnie. Ekran Dziś liczy powtórzenia."
+      },
+      "sessions": {
+        "title": "Sesje",
+        "body": "Gotowe zestawy, jak dziesiątka różańca — albo własne, z dowolnych tekstów."
+      },
+      "progress": {
+        "title": "Postępy",
+        "body": "Dni z rzędu, osiągnięcia i historia każdej sesji."
+      },
+      "done": {
+        "title": "Wszystko gotowe",
+        "body": "Naciśnij Rozpocznij, kiedy zechcesz. Ten przewodnik znajdziesz w Ustawieniach."
+      }
+    }
   }
 }

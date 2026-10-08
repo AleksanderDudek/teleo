@@ -1418,5 +1418,65 @@
       "traditional": "Traditional prayers",
       "scripture": "Scripture"
     }
+  },
+  "tour": {
+    "count": "Step {{current}} of {{total}}",
+    "close": "Close the tour",
+    "skip": "Skip",
+    "next": "Next",
+    "done": "Done",
+    "replay": "Show me around",
+    "replayBody": "New here, or want a reminder? A one-minute walk through Teleo.",
+    "invite": {
+      "title": "Shall I show you around?",
+      "body": "A one-minute walk: Teleo opens the screens for you and lights up what to tap.",
+      "bulletStart": "Where to start each day",
+      "bulletFind": "How to find a prayer for what is on your heart",
+      "bulletKeep": "How to say it, learn it by heart and keep at it",
+      "start": "Show me",
+      "later": "Not now"
+    },
+    "steps": {
+      "start": {
+        "title": "Start here",
+        "body": "Each day, one tap: Teleo picks your session and listens as you say it aloud, sentence by sentence."
+      },
+      "goal": {
+        "title": "Your day at a glance",
+        "body": "Days in a row and today’s goal — how many sentences you want to say. You can change it in Settings."
+      },
+      "needs": {
+        "title": "What do you pray for?",
+        "body": "In the library, choose an area of life, then a need. Here: peace of heart."
+      },
+      "result": {
+        "title": "Prayers for that need",
+        "body": "The list keeps only what fits. Each card says what the text is mainly for."
+      },
+      "say": {
+        "title": "Say it now",
+        "body": "Read it aloud: Teleo checks every sentence and moves on as soon as it hears it."
+      },
+      "memory": {
+        "title": "From memory",
+        "body": "More words fade each time, until you know the text by heart."
+      },
+      "task": {
+        "title": "A daily task",
+        "body": "Make it a habit — say, three times a day for two weeks. Today keeps count."
+      },
+      "sessions": {
+        "title": "Sessions",
+        "body": "Ready-made sets such as a decade of the rosary — or your own, from any texts."
+      },
+      "progress": {
+        "title": "Progress",
+        "body": "Days in a row, achievements and the history of every session."
+      },
+      "done": {
+        "title": "You are ready",
+        "body": "Press Start whenever you like. You will find this tour again in Settings."
+      }
+    }
   }
 }
