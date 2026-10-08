@@ -39,6 +39,10 @@ export interface HistoryRow {
   xpEarned: number
 }
 
+/** Whether anything happened in a run: a player opened and left before a word was said is not a session (#128). */
+export const wasTried = (run: Pick<RunLike, 'entries'>): boolean =>
+  run.entries.some((entry) => entry.attempts > 0 || entry.status !== 'pending')
+
 /** One line of the session history (owner request 2026-10-05): what a run was about and what was done in it. */
 export function runHistoryRow(run: RunLike): HistoryRow {
   const summary = summarizeRun(run.plan, run.entries)

@@ -76,13 +76,15 @@
     "later": "Later",
     "nothingToStart": "Add a text or a session to begin.",
     "yourCharacter": "Your character: {{name}}",
-    "guideStart": "Say the first sentence whenever you’re ready. I’ll be listening.",
+    "guideStart": "Tap Start and say the first sentence aloud — I’ll be listening there.",
     "guideLeft_one": "One more sentence and today’s goal is complete. I’ll be listening.",
     "guideLeft_other": "{{count}} more sentences and today’s goal is complete. I’ll be listening.",
     "guideDone": "Your goal is complete. Rest now — or keep going, if your heart wants to.",
     "guideEmpty": "Add a text you’d like to say aloud, and I’ll help you keep count.",
     "tasks": "Today's tasks",
-    "allTasks": "All tasks"
+    "allTasks": "All tasks",
+    "taskHint_one": "{{name}} · once more today",
+    "taskHint_other": "{{name}} · {{count}} more times today"
   },
   "library": {
     "rubric": "Library",
@@ -365,7 +367,10 @@
     "colReps": "Repetitions",
     "colBestStreak": "Best run",
     "colLast": "Last",
-    "emptyTexts": "Say a text in full to see it here."
+    "emptyTexts": "Say a text in full to see it here.",
+    "emptyTitle": "Your garden starts with your first sentence",
+    "emptyBody": "Say a few sentences and your days, streaks and achievements will appear here.",
+    "emptyAction": "Go to Start"
   },
   "settings": {
     "rubric": "Settings",
@@ -1066,11 +1071,11 @@
     "currentMonth": "This month",
     "points": "{{points}} pts",
     "best": "Your best: {{points}} pts",
-    "rankDay_one": "Place {{rank}} among your {{count}} day",
+    "rankDay_one": "Your first day — your record starts here",
     "rankDay_other": "Place {{rank}} among your {{count}} days",
-    "rankWeek_one": "Place {{rank}} among your {{count}} week",
+    "rankWeek_one": "Your first week — your record starts here",
     "rankWeek_other": "Place {{rank}} among your {{count}} weeks",
-    "rankMonth_one": "Place {{rank}} among your {{count}} month",
+    "rankMonth_one": "Your first month — your record starts here",
     "rankMonth_other": "Place {{rank}} among your {{count}} months",
     "friendsHeading": "You and your friends",
     "you": "you",

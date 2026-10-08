@@ -82,7 +82,7 @@
     "later": "Później",
     "nothingToStart": "Dodaj tekst lub sesję, aby zacząć.",
     "yourCharacter": "Twoja postać: {{name}}",
-    "guideStart": "Powiedz pierwsze zdanie, gdy tylko zechcesz. Będę słuchać.",
+    "guideStart": "Dotknij Rozpocznij i wypowiedz pierwsze zdanie na głos – tam będę słuchać.",
     "guideLeft_one": "Jeszcze jedno zdanie i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideLeft_few": "Jeszcze {{count}} zdania i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideLeft_many": "Jeszcze {{count}} zdań i dzisiejszy cel będzie wypełniony. Będę słuchać.",
@@ -90,7 +90,11 @@
     "guideDone": "Cel na dziś wypełniony. Odpocznij – albo mów dalej, jeśli serce tego chce.",
     "guideEmpty": "Dodaj tekst, który chcesz mówić na głos, a pomogę Ci liczyć.",
     "tasks": "Zadania na dziś",
-    "allTasks": "Wszystkie zadania"
+    "allTasks": "Wszystkie zadania",
+    "taskHint_one": "{{name}} · jeszcze raz dzisiaj",
+    "taskHint_few": "{{name}} · jeszcze {{count}} razy dzisiaj",
+    "taskHint_many": "{{name}} · jeszcze {{count}} razy dzisiaj",
+    "taskHint_other": "{{name}} · jeszcze {{count}} razy dzisiaj"
   },
   "library": {
     "rubric": "Biblioteka",
@@ -385,7 +389,10 @@
     "colReps": "Powtórzenia",
     "colBestStreak": "Najdłuższa seria",
     "colLast": "Ostatnio",
-    "emptyTexts": "Wypowiedz tekst w całości, aby pojawił się tutaj."
+    "emptyTexts": "Wypowiedz tekst w całości, aby pojawił się tutaj.",
+    "emptyTitle": "Twój ogród zaczyna się od pierwszego zdania",
+    "emptyBody": "Wypowiedz kilka zdań, a pojawią się tu Twoje dni, serie i osiągnięcia.",
+    "emptyAction": "Przejdź do startu"
   },
   "settings": {
     "rubric": "Ustawienia",
@@ -1104,15 +1111,15 @@
     "currentMonth": "Ten miesiąc",
     "points": "{{points}} pkt",
     "best": "Twój rekord: {{points}} pkt",
-    "rankDay_one": "{{rank}}. miejsce spośród {{count}} dnia",
+    "rankDay_one": "Twój pierwszy dzień – tu zaczyna się Twój rekord",
     "rankDay_few": "{{rank}}. miejsce spośród {{count}} Twoich dni",
     "rankDay_many": "{{rank}}. miejsce spośród {{count}} Twoich dni",
     "rankDay_other": "{{rank}}. miejsce spośród {{count}} Twoich dni",
-    "rankWeek_one": "{{rank}}. miejsce spośród {{count}} tygodnia",
+    "rankWeek_one": "Twój pierwszy tydzień – tu zaczyna się Twój rekord",
     "rankWeek_few": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
     "rankWeek_many": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
     "rankWeek_other": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
-    "rankMonth_one": "{{rank}}. miejsce spośród {{count}} miesiąca",
+    "rankMonth_one": "Twój pierwszy miesiąc – tu zaczyna się Twój rekord",
     "rankMonth_few": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
     "rankMonth_many": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
     "rankMonth_other": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",

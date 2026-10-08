@@ -1,5 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
+import { wasTried } from '@/domain/session/history'
 import type { AchievementRow, DailyStats, TextItem, TextStats } from '@/db/types'
 import { isListedText } from '@/domain/text/visibility'
 import type { Lang } from '@/domain/types'
@@ -25,7 +26,7 @@ export function useProgress(dayStartHour: number, lang: Lang): ProgressData | un
       db.texts.toArray(),
       db.achievements.toArray(),
       db.segments.toArray(),
-      db.sessionRuns.count(),
+      db.sessionRuns.filter(wasTried).count(),
     ])
     const segmentCounts = new Map<string, number>()
     for (const s of segments) if (!s.archived) segmentCounts.set(s.textId, (segmentCounts.get(s.textId) ?? 0) + 1)

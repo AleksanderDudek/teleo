@@ -7,6 +7,7 @@ import { Heatmap } from '@/components/progress/Heatmap'
 import { Plant } from '@/components/progress/Plant'
 import { StatTile } from '@/components/progress/StatTile'
 import { ArchFrame } from '@/components/ui/ArchFrame'
+import { ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressBar } from '@/components/ui/Progress'
@@ -31,6 +32,8 @@ export default function Progress() {
   const global = buildGlobalMetrics({ daily: data.daily, game, ownTexts: data.ownTexts, level: info.level, today: data.today })
   const percent = (value: number | null) => (value === null ? t('progress.noValue') : `${Math.round(value * 100)}%`)
   const number = (value: number) => new Intl.NumberFormat(i18n.language).format(value)
+  // Day 0: the garden and one invitation; charts of nothing come once there is something to chart (DECISIONS #128).
+  const started = data.daily.some((day) => day.segmentsAccepted > 0)
   const repetitions = data.textStats.reduce((sum, s) => sum + s.repetitions, 0)
   const practised = data.textStats
     .filter((s) => s.repetitions > 0 && data.texts.has(s.textId))
@@ -42,19 +45,19 @@ export default function Progress() {
 
       {/* The garden grows in a stained-glass window. */}
       <div data-tour="garden">
-      <ArchFrame glow>
-        <div className="px-4 pt-10">
-          <Plant level={info.level} className="mx-auto h-50 w-full max-w-md" />
-        </div>
-        <div className="px-5 pt-2 pb-5 text-center">
-          <p className="rubric">{t('level.label', { level: info.level })}</p>
-          <p className="mt-1 font-serif text-3xl font-semibold">{levelName(t, info.level)}</p>
-          <ProgressBar className="mt-3" tone="gold" value={info.xpIntoLevel} max={info.xpForNext} label={t('level.toNext', { xp: info.nextThreshold - game.totalXp, name: levelName(t, info.level + 1) })} />
-          <p className="mt-1.5 text-sm text-ink-soft">
-            {t('level.xp', { xp: number(game.totalXp) })} · {t('level.toNext', { xp: number(info.nextThreshold - game.totalXp), name: levelName(t, info.level + 1) })}
-          </p>
-        </div>
-      </ArchFrame>
+        <ArchFrame glow>
+          <div className="px-4 pt-10">
+            <Plant level={info.level} className="mx-auto h-50 w-full max-w-md" />
+          </div>
+          <div className="px-5 pt-2 pb-5 text-center">
+            <p className="rubric">{t('level.label', { level: info.level })}</p>
+            <p className="mt-1 font-serif text-3xl font-semibold">{levelName(t, info.level)}</p>
+            <ProgressBar className="mt-3" tone="gold" value={info.xpIntoLevel} max={info.xpForNext} label={t('level.toNext', { xp: info.nextThreshold - game.totalXp, name: levelName(t, info.level + 1) })} />
+            <p className="mt-1.5 text-sm text-ink-soft">
+              {t('level.xp', { xp: number(game.totalXp) })} · {t('level.toNext', { xp: number(info.nextThreshold - game.totalXp), name: levelName(t, info.level + 1) })}
+            </p>
+          </div>
+        </ArchFrame>
       </div>
 
       <Link to="/progress/history" className="card card-lift mt-6 flex items-center gap-4 p-4">
@@ -66,40 +69,54 @@ export default function Progress() {
         <Icon name="caret-right" size={20} className="shrink-0 text-ink-faint" />
       </Link>
 
+      {!started && (
+        <div className="card mt-6 p-5 text-center">
+          <p className="font-serif text-xl font-semibold">{t('progress.emptyTitle')}</p>
+          <p className="mt-1 text-sm text-ink-soft">{t('progress.emptyBody')}</p>
+          <ButtonLink to="/" className="mt-4" icon="play" iconFill>
+            {t('progress.emptyAction')}
+          </ButtonLink>
+        </div>
+      )}
+
       <Leaderboard />
 
-      <section className="mt-8" aria-labelledby="metrics-heading">
-        <h2 id="metrics-heading" className="mb-3 text-2xl font-semibold">
-          {t('progress.metricsHeading')}
-        </h2>
-        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <StatTile label={t('progress.firstTry')} value={percent(metrics.firstTryRate)} hint={t('progress.firstTryHint')} />
-          <StatTile label={t('progress.goalDays')} value={percent(metrics.goalDayShare)} />
-          <StatTile label={t('progress.bestStreak')} value={t('counts.days', { count: streak.best })} />
-          <StatTile label={t('progress.totalSegments')} value={number(metrics.totalSegments)} />
-          <StatTile label={t('progress.repetitions')} value={number(repetitions)} />
-          <StatTile label={t('progress.sessions')} value={number(global.sessionsCompleted)} />
-        </dl>
-      </section>
+      {started && (
+        <>
+          <section className="mt-8" aria-labelledby="metrics-heading">
+            <h2 id="metrics-heading" className="mb-3 text-2xl font-semibold">
+              {t('progress.metricsHeading')}
+            </h2>
+            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <StatTile label={t('progress.firstTry')} value={percent(metrics.firstTryRate)} hint={t('progress.firstTryHint')} />
+              <StatTile label={t('progress.goalDays')} value={percent(metrics.goalDayShare)} />
+              <StatTile label={t('progress.bestStreak')} value={t('counts.days', { count: streak.best })} />
+              <StatTile label={t('progress.totalSegments')} value={number(metrics.totalSegments)} />
+              <StatTile label={t('progress.repetitions')} value={number(repetitions)} />
+              <StatTile label={t('progress.sessions')} value={number(global.sessionsCompleted)} />
+            </dl>
+          </section>
 
-      <section className="mt-8" aria-labelledby="heatmap-heading">
-        <h2 id="heatmap-heading" className="mb-3 text-2xl font-semibold">
-          {t('progress.heatmapTitle')}
-        </h2>
-        <Card>
-          <Heatmap daily={data.daily} today={data.today} goal={app.dailyGoal} />
-        </Card>
-      </section>
+          <section className="mt-8" aria-labelledby="heatmap-heading">
+            <h2 id="heatmap-heading" className="mb-3 text-2xl font-semibold">
+              {t('progress.heatmapTitle')}
+            </h2>
+            <Card>
+              <Heatmap daily={data.daily} today={data.today} goal={app.dailyGoal} />
+            </Card>
+          </section>
 
-      <section className="mt-8" aria-labelledby="firsttry-heading">
-        <h2 id="firsttry-heading" className="text-2xl font-semibold">
-          {t('progress.firstTryTitle')}
-        </h2>
-        <p className="mb-3 text-sm text-ink-soft">{t('progress.firstTrySubtitle')}</p>
-        <Card>
-          <FirstTryChart weeks={weeklyFirstTry(data.daily, data.today, 12)} />
-        </Card>
-      </section>
+          <section className="mt-8" aria-labelledby="firsttry-heading">
+            <h2 id="firsttry-heading" className="text-2xl font-semibold">
+              {t('progress.firstTryTitle')}
+            </h2>
+            <p className="mb-3 text-sm text-ink-soft">{t('progress.firstTrySubtitle')}</p>
+            <Card>
+              <FirstTryChart weeks={weeklyFirstTry(data.daily, data.today, 12)} />
+            </Card>
+          </section>
+        </>
+      )}
 
       <section className="mt-8" aria-labelledby="achievements-heading">
         <h2 id="achievements-heading" className="mb-3 text-2xl font-semibold">

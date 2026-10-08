@@ -33,6 +33,10 @@ test.describe('tap mode', () => {
     await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
     await page.getByRole('link', { name: /Zdrowaś Maryjo/ }).click()
+    // Progress is folded under the text (DECISIONS #128): its summary counts, and it opens to the statistics.
+    const progress = page.getByText('Twoje postępy z tym tekstem')
+    await expect(page.getByText(/^10 powtórzeń · ostatnio:/)).toBeVisible()
+    await progress.click()
     await expect(page.getByRole('term').filter({ hasText: 'Powtórzenia' }).locator('..')).toContainText('10')
   })
 })
