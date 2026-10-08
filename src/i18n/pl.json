@@ -255,7 +255,9 @@
       "empty": "Wybrane teksty nie mają segmentów.",
       "notFound": "Ta sesja już nie istnieje.",
       "notEditable": "Sesji wbudowanych nie można edytować – najpierw ją zduplikuj."
-    }
+    },
+    "pickNeed": "Intencja",
+    "pickNeedAll": "Wszystkie intencje"
   },
   "player": {
     "close": "Wyjdź z sesji",

@@ -4,6 +4,7 @@ import { Icon } from '@/components/icons/Icon'
 import { Dialog } from '@/components/ui/Dialog'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
 import type { TextItem } from '@/db/types'
+import { countNeeds, isNeedId, mainNeed, matchesNeed, NEED_AREAS, NEEDS_BY_AREA, type NeedArea, type NeedId } from '@/domain/text/needs'
 import { searchKey } from '@/lib/search'
 
 interface TextPickerProps {
@@ -17,13 +18,24 @@ interface TextPickerProps {
 export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: TextPickerProps) {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
-  const filtered = useMemo(() => {
+  // Kept between picks: several texts for one need are often added in a row.
+  const [need, setNeed] = useState<NeedId | undefined>()
+  const searched = useMemo(() => {
     const q = searchKey(query.trim())
     return texts
       .filter((text) => !text.archived && (segmentCounts.get(text.id) ?? 0) > 0)
-      .filter((text) => !q || searchKey(`${text.title} ${text.body}`).includes(q))
+      .filter((text) => !q || searchKey(`${text.title} ${text.tags.join(' ')} ${text.body}`).includes(q))
       .sort((a, b) => a.title.localeCompare(b.title))
   }, [texts, segmentCounts, query])
+  const counts = useMemo(() => countNeeds(searched), [searched])
+  const filtered = useMemo(() => searched.filter((text) => matchesNeed(text, { need })), [searched, need])
+  const mainNeedLabel = (text: TextItem) => {
+    const id = mainNeed(text)
+    return id ? t(`needs.items.${id}`) : ''
+  }
+  // Only needs that have something to pick (and the chosen one, so it can be unchosen) — DECISIONS #125.
+  const offered = (area: NeedArea) =>
+    NEEDS_BY_AREA[area].filter((id) => counts.needs.has(id) || id === need)
 
   return (
     <Dialog open={open} onClose={onClose} title={t('builder.pickTitle')}>
@@ -38,6 +50,27 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
           className="h-11 w-full rounded-full border border-line bg-paper pr-4 pl-10 focus:outline-2 focus:outline-gold"
         />
       </label>
+      {(counts.needs.size > 0 || need) && (
+        <label className="mb-3 block">
+          <span className="sr-only">{t('builder.pickNeed')}</span>
+          <select
+            value={need ?? ''}
+            onChange={(e) => setNeed(isNeedId(e.target.value) ? e.target.value : undefined)}
+            className="h-11 w-full rounded-full border border-line bg-paper px-4 text-ink focus:outline-2 focus:outline-gold"
+          >
+            <option value="">{t('builder.pickNeedAll')}</option>
+            {NEED_AREAS.filter((area) => offered(area).length > 0).map((area) => (
+              <optgroup key={area} label={t(`needs.areas.${area}`)}>
+                {offered(area).map((id) => (
+                  <option key={id} value={id}>
+                    {t(`needs.items.${id}`)} ({counts.needs.get(id) ?? 0})
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </label>
+      )}
       {filtered.length === 0 ? (
         <p className="py-6 text-center text-ink-soft">{t('builder.pickEmpty')}</p>
       ) : (
@@ -56,7 +89,9 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-serif text-lg font-semibold">{text.title}</span>
                   <span className="block text-xs text-ink-soft">
-                    {t('counts.segments', { count: segmentCounts.get(text.id) ?? 0 })}
+                    {[mainNeedLabel(text), t('counts.segments', { count: segmentCounts.get(text.id) ?? 0 })]
+                      .filter(Boolean)
+                      .join(' · ')}
                   </span>
                 </span>
               </button>
