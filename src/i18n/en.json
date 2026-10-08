@@ -243,7 +243,9 @@
       "empty": "The chosen texts have no segments.",
       "notFound": "This session no longer exists.",
       "notEditable": "Builtin sessions can’t be edited — duplicate it first."
-    }
+    },
+    "pickNeed": "What it is for",
+    "pickNeedAll": "Every need"
   },
   "player": {
     "close": "Leave session",

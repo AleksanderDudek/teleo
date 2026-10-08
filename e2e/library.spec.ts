@@ -32,3 +32,15 @@ test('the library finds a prayer by need, and the filter survives opening it and
   await expect(page).toHaveURL(/#\/library$/)
   await expect(page.getByRole('group', { name: 'Need' })).toHaveCount(0)
 })
+
+test('the text picker of a new session narrows the list by need', async ({ page }) => {
+  await installFakeSpeech(page)
+  await finishOnboarding(page)
+  await page.goto('./#/sessions/new')
+  await page.getByRole('button', { name: 'Add text' }).click()
+  const dialog = page.getByRole('dialog')
+  await dialog.getByRole('combobox', { name: 'What it is for' }).selectOption({ label: 'Sleep & nightmares (2)' })
+  await expect(dialog.getByRole('listitem')).toHaveCount(2)
+  await dialog.getByRole('button', { name: /Against Nightmares and Night Attacks/ }).click()
+  await expect(page.getByText('27 / 150 segments')).toBeVisible()
+})
