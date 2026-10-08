@@ -102,7 +102,13 @@
     "emptyTitle": "Nothing here yet",
     "emptyBody": "Add your own prayer, affirmation or passage — or change the filters.",
     "noResults": "No texts match these filters.",
-    "milestone": "{{remaining}} more to “{{name}}”"
+    "milestone": "{{remaining}} more to “{{name}}”",
+    "needsHeading": "What do you pray for?",
+    "filterArea": "Area of life",
+    "filterNeed": "Need",
+    "clearFilters": "Clear filters",
+    "results_one": "{{count}} text",
+    "results_other": "{{count}} texts"
   },
   "editor": {
     "titleNew": "New text",
@@ -144,7 +150,9 @@
       "segmentTooLong": "One of the segments is too long (max 80 words).",
       "segmentEmpty": "A segment has no words.",
       "notEditable": "This text can’t be edited."
-    }
+    },
+    "fieldNeeds": "What is it for? (optional)",
+    "needsHint": "Helps you find it in the library by need. The first one you choose is shown on its card."
   },
   "textDetail": {
     "sayNow": "Say it now",
@@ -170,7 +178,8 @@
     "never": "Not yet",
     "builtinNote": "Builtin texts can’t be edited — make a copy to change it.",
     "notFound": "This text no longer exists.",
-    "setTask": "Set as a daily task"
+    "setTask": "Set as a daily task",
+    "needsHeading": "Prayed for"
   },
   "sessions": {
     "rubric": "Sessions",
@@ -1349,5 +1358,63 @@
     "more_one": "Show {{count}} more",
     "more_other": "Show {{count}} more",
     "open": "Summary"
+  },
+  "needs": {
+    "areas": {
+      "emotions": "Mind & emotions",
+      "health": "Health & body",
+      "family": "Family & relationships",
+      "work": "Finances & work",
+      "direction": "Breakthrough & direction",
+      "deliverance": "Deliverance & protection",
+      "spiritual": "Spiritual life",
+      "stages": "Stages of life",
+      "daily": "Every day"
+    },
+    "items": {
+      "anxiety": "Fear & anxiety",
+      "sadness": "Sadness & discouragement",
+      "peace": "Peace of heart",
+      "grief": "Grief & loneliness",
+      "shame": "Rejection & shame",
+      "healing": "Healing",
+      "sleep": "Sleep & nightmares",
+      "fertility": "Fertility & pregnancy",
+      "longLife": "Long life",
+      "strength": "Strength",
+      "marriage": "Marriage",
+      "spouse": "Finding a spouse",
+      "children": "Children",
+      "home": "Home & family",
+      "forgiveness": "Forgiveness & hurts",
+      "money": "Money & debt",
+      "job": "Job & career",
+      "business": "Business",
+      "favor": "Favor & open doors",
+      "studies": "Exams & studies",
+      "breakthrough": "Breakthrough",
+      "wisdom": "Wisdom & direction",
+      "purpose": "Purpose & calling",
+      "restoration": "Restoration",
+      "protection": "Protection",
+      "bloodline": "Generational curses",
+      "warfare": "Spiritual warfare",
+      "words": "Spoken words",
+      "addiction": "Addiction",
+      "enemies": "Enemies & court cases",
+      "closeness": "Closeness to God",
+      "holiness": "Repentance & holiness",
+      "faith": "Faith & identity",
+      "gifts": "Gifts & discernment",
+      "church": "Church & nations",
+      "youth": "Youth",
+      "newStart": "New beginnings",
+      "oldAge": "Old age",
+      "morning": "Morning",
+      "evening": "Evening & night",
+      "thanksgiving": "Thanksgiving & joy",
+      "traditional": "Traditional prayers",
+      "scripture": "Scripture"
+    }
   }
 }

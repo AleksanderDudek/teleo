@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useLocation, useNavigate, useParams } from 'react-router'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { chipClass } from '@/components/ui/chipClasses'
 import { Dialog } from '@/components/ui/Dialog'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { MemoryStartDialog } from '@/components/MemoryStartDialog'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
 import type { MemoryLevel } from '@/domain/memory/mask'
+import { libraryBackTo } from '@/domain/text/libraryFilter'
+import { needsOf } from '@/domain/text/needs'
 import { useText } from '@/hooks/useText'
 import { startRun } from '@/services/sessions'
 import { copyTextAsOwn, deleteUserText, setTextArchived } from '@/services/texts'
@@ -26,6 +29,8 @@ function Stat({ label, value }: { label: string; value: string | number }) {
 export default function TextDetail() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
+  const backTo = libraryBackTo(location.state)
   const { textId } = useParams()
   const view = useText(textId)
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -36,8 +41,8 @@ export default function TextDetail() {
   if (view === null) {
     return (
       <>
-        <PageHeader backTo="/library" title={t('textDetail.notFound')} />
-        <ButtonLink to="/library" variant="secondary">
+        <PageHeader backTo={backTo} title={t('textDetail.notFound')} />
+        <ButtonLink to={backTo} variant="secondary">
           {t('common.back')}
         </ButtonLink>
       </>
@@ -46,6 +51,7 @@ export default function TextDetail() {
 
   const { text, segments, stats } = view
   const encodedId = encodeURIComponent(text.id)
+  const needs = needsOf(text)
   const lastPracticed = stats?.lastPracticedAt
     ? new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium' }).format(stats.lastPracticedAt)
     : t('textDetail.never')
@@ -63,7 +69,7 @@ export default function TextDetail() {
   return (
     <>
       <PageHeader
-        backTo="/library"
+        backTo={backTo}
         rubric={t(`textTypes.${text.type}`)}
         title={text.title}
         subtitle={
@@ -117,6 +123,24 @@ export default function TextDetail() {
 
       {text.archived && <p className="mt-4 rounded-xl bg-sunk px-4 py-3 text-sm text-ink-soft">{t('textDetail.hiddenNote')}</p>}
       {text.source === 'builtin' && <p className="mt-4 text-sm text-ink-soft">{t('textDetail.builtinNote')}</p>}
+
+      {needs.length > 0 && (
+        <section aria-labelledby="needs-heading" className="mt-6">
+          <h2 id="needs-heading" className="mb-2 text-xs font-semibold tracking-wide text-ink-soft uppercase">
+            {t('textDetail.needsHeading')}
+          </h2>
+          <ul className="flex flex-wrap gap-2">
+            {needs.map((need) => (
+              <li key={need}>
+                <Link to={`/library?need=${need}`} className={chipClass(false)}>
+                  {t(`needs.items.${need}`)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {text.tags.length > 0 && <p className="mt-3 text-sm text-ink-soft">{text.tags.join(' · ')}</p>}
 
       <section aria-labelledby="stats-heading" className="mt-8">
         <h2 id="stats-heading" className="mb-3 text-2xl font-semibold">
@@ -174,7 +198,7 @@ export default function TextDetail() {
                 await deleteUserText(text.id)
                 setConfirmDelete(false)
                 toast({ kind: 'success', title: t('textDetail.deleted') })
-                navigate('/library', { replace: true })
+                navigate(backTo, { replace: true })
               }}
             >
               {t('common.delete')}

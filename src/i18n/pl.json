@@ -110,7 +110,15 @@
     "emptyTitle": "Jeszcze tu pusto",
     "emptyBody": "Dodaj własną modlitwę, afirmację lub fragment – albo zmień filtry.",
     "noResults": "Żaden tekst nie pasuje do filtrów.",
-    "milestone": "jeszcze {{remaining}} do „{{name}}”"
+    "milestone": "jeszcze {{remaining}} do „{{name}}”",
+    "needsHeading": "W jakiej intencji?",
+    "filterArea": "Obszar życia",
+    "filterNeed": "Intencja",
+    "clearFilters": "Wyczyść filtry",
+    "results_one": "{{count}} tekst",
+    "results_few": "{{count}} teksty",
+    "results_many": "{{count}} tekstów",
+    "results_other": "{{count}} tekstu"
   },
   "editor": {
     "titleNew": "Nowy tekst",
@@ -152,7 +160,9 @@
       "segmentTooLong": "Jeden z segmentów jest za długi (maks. 80 słów).",
       "segmentEmpty": "Segment nie zawiera słów.",
       "notEditable": "Tego tekstu nie można edytować."
-    }
+    },
+    "fieldNeeds": "W jakiej intencji? (opcjonalnie)",
+    "needsHint": "Pomoże znaleźć tekst w bibliotece według intencji. Pierwsza wybrana widnieje na jego karcie."
   },
   "textDetail": {
     "sayNow": "Powiedz teraz",
@@ -178,7 +188,8 @@
     "never": "Jeszcze nie",
     "builtinNote": "Tekstów wbudowanych nie można edytować – zrób kopię, aby coś zmienić.",
     "notFound": "Ten tekst już nie istnieje.",
-    "setTask": "Ustaw jako codzienne zadanie"
+    "setTask": "Ustaw jako codzienne zadanie",
+    "needsHeading": "Intencje"
   },
   "sessions": {
     "rubric": "Sesje",
@@ -1403,5 +1414,63 @@
     "more_many": "Pokaż jeszcze {{count}}",
     "more_other": "Pokaż jeszcze {{count}}",
     "open": "Podsumowanie"
+  },
+  "needs": {
+    "areas": {
+      "emotions": "Umysł i emocje",
+      "health": "Zdrowie i ciało",
+      "family": "Rodzina i relacje",
+      "work": "Finanse i praca",
+      "direction": "Przełom i kierunek",
+      "deliverance": "Uwolnienie i ochrona",
+      "spiritual": "Życie duchowe",
+      "stages": "Etapy życia",
+      "daily": "Na każdy dzień"
+    },
+    "items": {
+      "anxiety": "Lęk i niepokój",
+      "sadness": "Smutek i zniechęcenie",
+      "peace": "Pokój serca",
+      "grief": "Żałoba i samotność",
+      "shame": "Odrzucenie i wstyd",
+      "healing": "Uzdrowienie",
+      "sleep": "Sen i koszmary",
+      "fertility": "Płodność i ciąża",
+      "longLife": "Długie życie",
+      "strength": "Siła",
+      "marriage": "Małżeństwo",
+      "spouse": "Znalezienie małżonka",
+      "children": "Dzieci",
+      "home": "Dom i rodzina",
+      "forgiveness": "Przebaczenie i zranienia",
+      "money": "Pieniądze i długi",
+      "job": "Praca i kariera",
+      "business": "Firma i interesy",
+      "favor": "Przychylność i otwarte drzwi",
+      "studies": "Egzaminy i nauka",
+      "breakthrough": "Przełom",
+      "wisdom": "Mądrość i kierunek",
+      "purpose": "Cel i powołanie",
+      "restoration": "Odnowienie",
+      "protection": "Ochrona",
+      "bloodline": "Przekleństwa pokoleniowe",
+      "warfare": "Walka duchowa",
+      "words": "Wypowiedziane słowa",
+      "addiction": "Uzależnienia",
+      "enemies": "Wrogowie i sprawy sądowe",
+      "closeness": "Bliskość z Bogiem",
+      "holiness": "Nawrócenie i świętość",
+      "faith": "Wiara i tożsamość",
+      "gifts": "Dary i rozeznanie",
+      "church": "Kościół i narody",
+      "youth": "Młodość",
+      "newStart": "Nowy początek",
+      "oldAge": "Jesień życia",
+      "morning": "Rano",
+      "evening": "Wieczór i noc",
+      "thanksgiving": "Dziękczynienie i radość",
+      "traditional": "Modlitwy tradycyjne",
+      "scripture": "Pismo Święte"
+    }
   }
 }
