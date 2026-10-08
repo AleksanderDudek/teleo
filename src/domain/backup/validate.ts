@@ -231,6 +231,8 @@ const texts: Checker = objectFields([
   ['createdAt', finiteNumber],
   ['updatedAt', finiteNumber],
   ['tags', stringArray],
+  // v1.7 (DECISIONS #125); ids unknown to this version are kept and ignored when read (`needsOf`).
+  ['needs', optional(stringArray)],
   ['builtinKey', optional(string_)],
   [
     'bible',

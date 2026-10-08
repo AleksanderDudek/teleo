@@ -2,6 +2,7 @@ import Dexie from 'dexie'
 import { db } from '@/db/schema'
 import type { Segment, TextItem } from '@/db/types'
 import { countWords } from '@/domain/text/countWords'
+import { needsOf } from '@/domain/text/needs'
 import type { Lang, SplitMode, TextType } from '@/domain/types'
 import { newId } from '@/lib/id'
 import { evaluateGlobalAchievements } from './progress'
@@ -29,6 +30,8 @@ export interface TextInput {
   /** Final segment list confirmed in the editor. */
   segments: string[]
   tags?: string[]
+  /** What it is prayed for (need ids); unknown ids are dropped. Omitted on update: the text keeps its own. */
+  needs?: string[]
 }
 
 function validate(input: TextInput): string[] {
@@ -74,21 +77,30 @@ export const SEGMENT_EDIT_TABLES = [db.texts, db.segments, db.attempts, db.sessi
  * unchanged sentences keep their ids (and attempt history); segments that were
  * removed or edited are archived when they were ever spoken or an unfinished
  * session still needs them (so it can be resumed), deleted otherwise.
- * Must run inside a transaction covering {@link SEGMENT_EDIT_TABLES}.
+ * Must run inside a transaction covering {@link SEGMENT_EDIT_TABLES}. `active` — the text's active segments in
+ * order, when the caller already read them (seeding reads all builtins at once).
  */
-export async function replaceSegments(textId: string, contents: readonly string[]): Promise<Segment[]> {
+export async function replaceSegments(
+  textId: string,
+  contents: readonly string[],
+  active?: readonly Segment[],
+): Promise<Segment[]> {
   const pool = new Map<string, Segment[]>()
-  for (const segment of await getActiveSegments(textId)) {
+  for (const segment of active ?? (await getActiveSegments(textId))) {
     const queue = pool.get(segment.content)
     if (queue) queue.push(segment)
     else pool.set(segment.content, [segment])
   }
 
+  // Only new or moved segments are written: re-seeding hundreds of unchanged builtins stays cheap.
+  const writes: Segment[] = []
   const next: Segment[] = contents.map((content, order) => {
     const reused = pool.get(content)?.shift()
-    return reused
+    const segment = reused
       ? { ...reused, order }
       : { id: newId(), textId, order, content, wordCount: countWords(content), archived: false }
+    if (reused?.order !== order) writes.push(segment)
+    return segment
   })
 
   const leftovers = [...pool.values()].flat()
@@ -97,7 +109,7 @@ export async function replaceSegments(textId: string, contents: readonly string[
     if (needed.has(leftover.id) || (await hasAttempts(leftover.id))) await db.segments.put({ ...leftover, archived: true })
     else await db.segments.delete(leftover.id)
   }
-  await db.segments.bulkPut(next)
+  await db.segments.bulkPut(writes)
   return next
 }
 
@@ -111,6 +123,7 @@ export async function createText(input: TextInput, now = Date.now()): Promise<Te
     body: joinBody(segments, input.splitMode),
     source: 'user',
     tags: input.tags ?? [],
+    needs: needsOf(input),
     archived: false,
     splitMode: input.splitMode,
     createdAt: now,
@@ -137,6 +150,7 @@ export async function updateText(textId: string, input: TextInput, now = Date.no
       lang: input.lang,
       splitMode: input.splitMode,
       tags: input.tags ?? existing.tags,
+      needs: input.needs ? needsOf(input) : existing.needs,
       body: joinBody(segments, input.splitMode),
       updatedAt: now,
     }
@@ -155,7 +169,10 @@ export async function copyTextAsOwn(textId: string, title: string, now = Date.no
   const source = await db.texts.get(textId)
   if (!source) throw new TextValidationError('notEditable')
   const segments = (await getActiveSegments(textId)).map((s) => s.content)
-  return createText({ title, type: source.type, lang: source.lang, splitMode: source.splitMode, segments, tags: source.tags }, now)
+  return createText(
+    { title, type: source.type, lang: source.lang, splitMode: source.splitMode, segments, tags: source.tags, needs: source.needs },
+    now,
+  )
 }
 
 /**
