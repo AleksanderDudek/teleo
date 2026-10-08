@@ -5,6 +5,7 @@ import { Icon } from '@/components/icons/Icon'
 import { TeleoMark } from '@/components/Ornaments'
 import { SupportBanner } from '@/components/support/SupportBanner'
 import { SupportStrip } from '@/components/support/SupportStrip'
+import { GuidedTour } from '@/components/tour/GuidedTour'
 import { dayKeyFor } from '@/domain/time/dayKey'
 import { cn } from '@/lib/cn'
 import { useAppSettings } from '@/stores/settings'
@@ -35,6 +36,7 @@ function TabBar({ active, hidden }: { active: TabKey | null; hidden: boolean }) 
             <li key={key}>
               <Link
                 to={to}
+                data-tour={`tab-${key}`}
                 viewTransition
                 aria-current={isActive ? (pathname === to ? 'page' : 'true') : undefined}
                 onClick={(event) => {
@@ -119,6 +121,7 @@ export function TabsLayout() {
         {!form && <SupportBanner dayKey={dayKeyFor(openedAt, dayStartHour)} className="mt-14" />}
       </main>
       <TabBar active={tabOf(pathname)} hidden={form} />
+      <GuidedTour />
     </div>
   )
 }

@@ -18,6 +18,10 @@ interface UiState {
   pushToast: (toast: Omit<Toast, 'id' | 'timeoutMs'> & { timeoutMs?: number | null }) => string
   dismissToast: (id: string) => void
   clearToasts: () => void
+  /** Settings asked for the guided tour again (it starts on Today; not persisted). */
+  tourRequested: boolean
+  requestTour: () => void
+  clearTourRequest: () => void
 }
 
 /** More than a few stacked toasts cover the screen; older ones give way. */
@@ -32,6 +36,9 @@ export const useUiStore = create<UiState>((set) => ({
   },
   dismissToast: (id) => set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),
   clearToasts: () => set({ toasts: [] }),
+  tourRequested: false,
+  requestTour: () => set({ tourRequested: true }),
+  clearTourRequest: () => set({ tourRequested: false }),
 }))
 
 export const toast = (input: Parameters<UiState['pushToast']>[0]) => useUiStore.getState().pushToast(input)

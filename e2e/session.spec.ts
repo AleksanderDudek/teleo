@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
+import { declineTour, finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
 
 test.describe('tap mode', () => {
   test.use({ locale: 'pl-PL' })
@@ -118,6 +118,7 @@ test.describe('English', () => {
     await page.getByRole('button', { name: /^Affirmations/ }).click()
     await page.getByRole('button', { name: 'Skip' }).click()
     await libraryReady(page)
+    await declineTour(page)
     await expect(page.getByText('Morning affirmations · 10 sentences')).toBeVisible()
     await page.getByRole('button', { name: 'Start', exact: true }).click()
     await expect(page.getByTestId('segment-text')).toHaveText('I am calm and focused.')

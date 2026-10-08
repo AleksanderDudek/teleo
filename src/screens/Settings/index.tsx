@@ -1,10 +1,11 @@
 import { useEffect, useId, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
 import { Icon } from '@/components/icons/Icon'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
@@ -15,7 +16,7 @@ import { promptInstall, useInstallState } from '@/lib/install'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
-import { toast } from '@/stores/ui'
+import { toast, useUiStore } from '@/stores/ui'
 import { RemindersSettings } from './RemindersSettings'
 import { WhisperSettings } from './WhisperSettings'
 
@@ -100,6 +101,7 @@ export default function Settings() {
   const app = useSettingsStore((s) => s.app)
   const meta = useSettingsStore((s) => s.meta)
   const [params] = useSearchParams()
+  const navigate = useNavigate()
   const set = (patch: Partial<AppSettings>) => void updateAppSettings(patch)
   const date = (ms: number) => new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium', timeStyle: 'short' }).format(ms)
 
@@ -112,6 +114,20 @@ export default function Settings() {
     <>
       <PageHeader rubric={t('settings.rubric')} title={t('settings.title')} />
       <div className="space-y-10">
+        <div className="card flex items-center gap-4 p-4">
+          <IconHalo icon="question" size={44} iconSize={22} />
+          <p className="min-w-0 flex-1 text-sm text-ink-soft">{t('tour.replayBody')}</p>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              useUiStore.getState().requestTour()
+              navigate('/')
+            }}
+          >
+            {t('tour.replay')}
+          </Button>
+        </div>
         <Section id="character" title={t('settings.sectionCharacter')}>
           <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
           <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />

@@ -537,6 +537,24 @@
       transform: scaleX(0.85);
     }
   }
+
+  /* The guided tour's light (DECISIONS #127): its huge shadow dims everything else, a gilt ring marks the control. */
+  .tour-hole {
+    /* Darker than --backdrop, which is navy on the navy of the dark theme: the dim must read in both themes. */
+    box-shadow:
+      0 0 0 9999px rgb(6 8 20 / 0.72),
+      0 0 0 3px var(--gold);
+    transition:
+      top 180ms var(--ease-soft),
+      left 180ms var(--ease-soft),
+      width 180ms var(--ease-soft),
+      height 180ms var(--ease-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tour-hole {
+      transition: none;
+    }
+  }
 }
 
 .tab-bar {

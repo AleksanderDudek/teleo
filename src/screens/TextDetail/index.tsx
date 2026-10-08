@@ -81,13 +81,19 @@ export default function TextDetail() {
       />
 
       <div className="flex flex-wrap items-center gap-2">
-        <Button size="lg" onClick={() => void sayNow()} disabled={starting || segments.length === 0} icon="mic-halo">
+        <Button data-tour="say" size="lg" onClick={() => void sayNow()} disabled={starting || segments.length === 0} icon="mic-halo">
           {t('textDetail.sayNow')}
         </Button>
-        <Button variant="secondary" onClick={() => setChoosingMemory(true)} disabled={starting || segments.length === 0} icon="brain">
+        <Button
+          data-tour="memory"
+          variant="secondary"
+          onClick={() => setChoosingMemory(true)}
+          disabled={starting || segments.length === 0}
+          icon="brain"
+        >
           {t('memory.button')}
         </Button>
-        <ButtonLink to={`/tasks/new?text=${encodedId}`} variant="secondary" icon="list-checks">
+        <ButtonLink data-tour="task" to={`/tasks/new?text=${encodedId}`} variant="secondary" icon="list-checks">
           {t('textDetail.setTask')}
         </ButtonLink>
         {text.source === 'user' ? (

@@ -285,6 +285,8 @@ export interface MetaState {
   backupReminderSnoozedAt?: number
   /** Random id of this install on friend cards, so a friend's board updates instead of duplicating. */
   shareId?: string
+  /** The guided tour version this install has taken or declined (DECISIONS #127); absent = none. */
+  tourVersion?: number
 }
 
 export type SettingsRow =

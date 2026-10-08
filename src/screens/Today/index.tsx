@@ -116,7 +116,7 @@ export default function Today() {
         </Card>
       )}
 
-      <section className="card card-framed relative overflow-hidden p-6 animate-rise">
+      <section data-tour="goal" className="card card-framed relative overflow-hidden p-6 animate-rise">
         <div aria-hidden className="pointer-events-none absolute -top-20 -right-16 size-56 rounded-full bg-gold-soft/60 blur-3xl" />
         <div className="relative flex items-center justify-between gap-6">
           <div className="min-w-0">
@@ -148,7 +148,7 @@ export default function Today() {
         <GoldenQuarterHour readingMs={data.todayStats?.readingMs ?? 0} className="relative" />
       </section>
 
-      <div className="mt-6 animate-rise [animation-delay:80ms]">
+      <div data-tour="start" className="mt-6 animate-rise [animation-delay:80ms]">
         <Button
           size="hero"
           block

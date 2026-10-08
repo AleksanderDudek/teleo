@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
+import { declineTour, finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
 
 test.describe('onboarding', () => {
   test.use({ locale: 'en-US' })
@@ -24,6 +24,7 @@ test.describe('onboarding', () => {
 
     await expect(page).toHaveURL(/#\/$/)
     await libraryReady(page)
+    await declineTour(page)
     await expect(page.getByRole('link', { name: 'Your character: Michał' })).toBeVisible()
     await expect(page.getByText('Morning affirmations · 10 sentences')).toBeVisible()
     await expect(page.getByRole('progressbar', { name: 'Today’s goal' })).toHaveAttribute('aria-valuemax', '20')

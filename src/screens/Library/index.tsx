@@ -128,7 +128,7 @@ export default function Library() {
         />
 
         {areas.length > 0 && (
-          <section ref={needsSection} aria-labelledby="needs-heading" className="space-y-2">
+          <section ref={needsSection} data-tour="needs" aria-labelledby="needs-heading" className="space-y-2">
             <h2 id="needs-heading" className="font-serif text-xl font-semibold">
               {t('library.needsHeading')}
             </h2>
@@ -207,7 +207,12 @@ export default function Library() {
             )}
             <ul className="space-y-3">
               {filtered.map((entry, index) => (
-                <li key={entry.text.id} className="animate-rise" style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}>
+                <li
+                  key={entry.text.id}
+                  data-tour={index === 0 ? 'result' : undefined}
+                  className="animate-rise"
+                  style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
+                >
                   <TextCard entry={entry} footnote={milestoneOf(entry)} backTo={backTo} />
                 </li>
               ))}

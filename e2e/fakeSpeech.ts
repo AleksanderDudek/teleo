@@ -106,6 +106,13 @@ export async function finishOnboarding(page: Page) {
   await page.getByRole('button', { name: /Zaczynamy|Get started|Pomiń|Skip/ }).first().click()
   await page.waitForURL(/#\/$/)
   await libraryReady(page)
+  await declineTour(page)
+}
+
+/** After the setup Today invites to the guided tour (DECISIONS #127); tests about something else decline it. */
+export async function declineTour(page: Page) {
+  await page.getByRole('dialog').getByRole('button', { name: /^(Not now|Nie teraz)$/ }).click()
+  await expect(page.getByRole('dialog')).toHaveCount(0)
 }
 
 /**

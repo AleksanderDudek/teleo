@@ -203,6 +203,13 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(result.ok).toBe(true)
   })
 
+  it('accepts the guided tour version an install has seen, and rejects one that is not a number', () => {
+    const data = realisticData()
+    const meta = (tourVersion: unknown) => [{ key: 'meta', value: { schemaVersion: 1, seedVersion: 1, installedAt: 1000, tourVersion } }]
+    expect(validateBackup(backupWith({ ...data, settings: meta(1) } as unknown as BackupData)).ok).toBe(true)
+    expect(validateBackup(backupWith({ ...data, settings: meta('1') } as unknown as BackupData))).toMatchObject({ ok: false })
+  })
+
   it('accepts what a text is prayed for — any strings, even needs this version does not know — and rejects others', () => {
     const data = realisticData()
     const text = data.texts[0]!
