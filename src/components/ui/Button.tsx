@@ -84,7 +84,7 @@ export function IconButton({
       title={label}
       className={cn(
         'inline-flex shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-sunk hover:text-ink disabled:pointer-events-none disabled:opacity-40',
-        outlined ? 'size-12 border border-line bg-surface' : 'size-10',
+        outlined ? 'size-12 border border-line bg-surface' : 'size-11',
         className,
       )}
       {...rest}

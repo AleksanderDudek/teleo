@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { historyTotals, runHistoryRow, type RunLike } from './history'
+import { historyTotals, runHistoryRow, wasTried, type RunLike } from './history'
 import type { EntryState } from './types'
 
 const entry = (status: EntryState['status'], firstTry = status === 'accepted'): EntryState => ({ status, attempts: 1, firstTry, xp: 7 })
@@ -68,5 +68,15 @@ describe('historyTotals', () => {
       last30: { sessions: 3, minutes: 5 },
       all: { sessions: 5, minutes: 15 },
     })
+  })
+})
+
+describe('wasTried', () => {
+  it('leaves out a session opened and left before a word was said', () => {
+    const untouched: EntryState = { status: 'pending', attempts: 0, firstTry: false, xp: 0 }
+    expect(wasTried({ entries: [untouched, untouched] })).toBe(false)
+    expect(wasTried({ entries: [untouched, { ...untouched, attempts: 2 }] })).toBe(true)
+    expect(wasTried({ entries: [{ ...untouched, status: 'skipped' }] })).toBe(true)
+    expect(wasTried(run)).toBe(true)
   })
 })

@@ -113,7 +113,25 @@ export async function finishOnboarding(page: Page) {
 export async function declineTour(page: Page) {
   await page.getByRole('dialog').getByRole('button', { name: /^(Not now|Nie teraz)$/ }).click()
   await expect(page.getByRole('dialog')).toHaveCount(0)
+  // Stored before the test goes on: a reload right after would otherwise beat the write and invite again.
+  await expect.poll(() => seenTour(page)).toBeGreaterThan(0)
 }
+
+/** The tour version this install has taken or declined, as stored (`meta.tourVersion`). */
+export const seenTour = (page: Page) =>
+  page.evaluate(
+    () =>
+      new Promise<number>((resolve) => {
+        const open = indexedDB.open('teleo')
+        open.onsuccess = () => {
+          const get = open.result.transaction('settings').objectStore('settings').get('meta')
+          get.onsuccess = () => {
+            resolve((get.result as { value?: { tourVersion?: number } } | undefined)?.value?.tourVersion ?? 0)
+            open.result.close()
+          }
+        }
+      }),
+  )
 
 /**
  * Waits until the prayer library, written in the background after the first start (DECISIONS #126), is in — so a

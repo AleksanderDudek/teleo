@@ -185,6 +185,8 @@ export default function SessionBuilder() {
         onClose={() => setPicking(false)}
         onPick={(textId) => {
           setItems((current) => [...current, { key: newId(), textId, repeat: 1 }])
+          // A new session takes its first text's name until it is given one, so Save is not blocked by an empty name.
+          if (!name.trim()) setName(textsById.get(textId)?.title ?? '')
           setPicking(false)
         }}
       />

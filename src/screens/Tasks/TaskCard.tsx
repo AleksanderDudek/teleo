@@ -26,6 +26,8 @@ interface TaskCardProps {
   view: TaskView
   /** Extra actions under the card (manage screen). */
   actions?: ReactNode
+  /** Today's Start already says this task: its own button steps back to secondary. */
+  quiet?: boolean
   className?: string
 }
 
@@ -33,7 +35,7 @@ interface TaskCardProps {
  * One daily task: the text (a link to it in the library), where the task stands (day k of n, today done/of) and
  * "Say it", which starts a run of the repetitions left today. Finished for today → a check instead.
  */
-export function TaskCard({ view, actions, className }: TaskCardProps) {
+export function TaskCard({ view, actions, quiet, className }: TaskCardProps) {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { task, text, progress } = view
@@ -70,11 +72,11 @@ export function TaskCard({ view, actions, className }: TaskCardProps) {
         <IconHalo icon={doneToday ? 'check-circle' : 'list-checks'} tone={doneToday ? 'gold' : dueToday ? 'lapis' : 'sunk'} size={44} iconSize={22} />
         <div className="min-w-0 flex-1">
           {text ? (
-            <Link to={`/library/${encodeURIComponent(text.id)}`} className="block truncate font-serif text-xl font-semibold text-ink hover:underline">
+            <Link to={`/library/${encodeURIComponent(text.id)}`} className="line-clamp-2 font-serif text-xl leading-tight font-semibold text-ink hover:underline">
               {text.title}
             </Link>
           ) : (
-            <p className="truncate font-serif text-xl font-semibold text-ink-faint">{t('tasks.missingText')}</p>
+            <p className="line-clamp-2 font-serif text-xl leading-tight font-semibold text-ink-faint">{t('tasks.missingText')}</p>
           )}
           <p className="mt-0.5 text-sm text-ink-soft">
             {t('tasks.timesPerDay', { count: task.timesPerDay })} · {status}
@@ -86,19 +88,27 @@ export function TaskCard({ view, actions, className }: TaskCardProps) {
               <span className="tabular text-ink-faint">{t('tasks.totalProgress', { done: progress.doneTotal, total: progress.total })}</span>
             </p>
           )}
+          {/* Under the title, not beside it: on a phone a side button left the title a few characters. */}
+          {dueToday && text ? (
+            <Button
+              className="mt-3"
+              variant={quiet ? 'secondary' : 'primary'}
+              onClick={() => void say()}
+              disabled={starting}
+              icon="mic-halo"
+              aria-label={t('tasks.sayLabel', { title: text.title })}
+            >
+              {t('tasks.say')}
+            </Button>
+          ) : (
+            doneToday && (
+              <p className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-ok">
+                <Icon name="check" size={16} tone="plain" fillOpacity={0.3} />
+                {t('tasks.doneToday')}
+              </p>
+            )
+          )}
         </div>
-        {dueToday && text ? (
-          <Button onClick={() => void say()} disabled={starting} icon="mic-halo" aria-label={t('tasks.sayLabel', { title: text.title })}>
-            {t('tasks.say')}
-          </Button>
-        ) : (
-          doneToday && (
-            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ok">
-              <Icon name="check" size={16} tone="plain" fillOpacity={0.3} />
-              {t('tasks.doneToday')}
-            </span>
-          )
-        )}
       </div>
       {actions && <div className="mt-3 flex flex-wrap gap-1 border-t border-line pt-2">{actions}</div>}
     </div>

@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '@/db/schema'
-import { historyTotals, runHistoryRow, type HistoryRow, type HistoryTotals } from '@/domain/session/history'
+import { historyTotals, runHistoryRow, wasTried, type HistoryRow, type HistoryTotals } from '@/domain/session/history'
 import { dayKeyFor } from '@/domain/time/dayKey'
 
 export interface HistoryText {
@@ -26,8 +26,9 @@ export function useHistory(limit: number, dayStartHour: number): HistoryData | u
     // The totals walk every run but keep three numbers of each (a long Bible history is heavy to hold whole).
     const totalsOf: Array<Pick<HistoryRow, 'dayKey' | 'durationMs' | 'accepted'>> = []
     const [newest] = await Promise.all([
-      db.sessionRuns.orderBy('startedAt').reverse().limit(limit).toArray(),
+      db.sessionRuns.orderBy('startedAt').reverse().filter(wasTried).limit(limit).toArray(),
       db.sessionRuns.each((run) => {
+        if (!wasTried(run)) return
         const { dayKey, durationMs, accepted } = runHistoryRow(run)
         totalsOf.push({ dayKey, durationMs, accepted })
       }),

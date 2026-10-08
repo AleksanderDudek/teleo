@@ -12,13 +12,13 @@ export const TOUR_VERSION = 1
 /** The need the story looks for: one every language and content focus has texts for. */
 export const TOUR_NEED: NeedId = 'peace'
 
-export type TourStepId = 'start' | 'goal' | 'needs' | 'result' | 'say' | 'memory' | 'task' | 'sessions' | 'progress' | 'done'
+export type TourStepId = 'start' | 'goal' | 'needs' | 'say' | 'memory' | 'task' | 'session' | 'garden' | 'done'
 
 /** What the app does when a step begins — usually what puts the step's anchor on screen. */
 export type TourAction =
   | { kind: 'none' }
   | { kind: 'navigate'; to: string }
-  /** Open the first text the library lists for {@link TOUR_NEED} (skipped with its steps when there is none). */
+  /** Open the story's text for {@link TOUR_NEED} (left out with its steps when the language has none). */
   | { kind: 'openText' }
 
 export interface TourStep {
@@ -37,17 +37,17 @@ export const TOUR_STEPS: readonly TourStep[] = [
   { id: 'start', anchor: 'start', action: go('/') },
   { id: 'goal', anchor: 'goal', action: none },
   { id: 'needs', anchor: 'needs', action: go(tourLibraryPath()) },
-  { id: 'result', anchor: 'result', action: none },
   { id: 'say', anchor: 'say', action: { kind: 'openText' } },
   { id: 'memory', anchor: 'memory', action: none },
   { id: 'task', anchor: 'task', action: none },
-  { id: 'sessions', anchor: 'tab-sessions', action: go('/sessions') },
-  { id: 'progress', anchor: 'tab-progress', action: go('/progress') },
+  // Real content teaches more than a tab icon: the first session card, the garden on Progress.
+  { id: 'session', anchor: 'session', action: go('/sessions') },
+  { id: 'garden', anchor: 'garden', action: go('/progress') },
   { id: 'done', anchor: 'start', action: go('/') },
 ]
 
 /** Steps that show a text: without a text for the story's need (own texts only, say) they are left out up front. */
-const TEXT_STEPS: ReadonlySet<TourStepId> = new Set(['result', 'say', 'memory', 'task'])
+const TEXT_STEPS: ReadonlySet<TourStepId> = new Set(['say', 'memory', 'task'])
 
 /** The steps of one run of the tour. */
 export function tourSteps({ hasText }: { hasText: boolean }): TourStep[] {

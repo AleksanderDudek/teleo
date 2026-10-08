@@ -33,7 +33,8 @@ export function Switch({ checked, onChange, label, description, disabled }: Swit
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(
-          'relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border transition-colors duration-200 disabled:opacity-45',
+          // 28 px to the eye, 44 px to a finger (and the label toggles it too).
+          "relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border transition-colors duration-200 before:absolute before:-inset-2 before:content-[''] disabled:opacity-45",
           checked ? 'border-primary bg-primary' : 'border-line-strong bg-sunk',
         )}
       >

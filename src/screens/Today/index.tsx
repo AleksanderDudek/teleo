@@ -52,6 +52,10 @@ export default function Today() {
   const showBackup =
     data.hasActivity && now - lastBackup > BACKUP_EVERY_MS && now - (meta.backupReminderSnoozedAt ?? 0) > BACKUP_EVERY_MS
 
+  // Start follows what the person set up: an unfinished run, then a task still due today, then their session
+  // (DECISIONS #128) — a task made a minute ago must not lose to the pinned morning set.
+  const startTask = data.start.kind === 'resume' ? undefined : tasks?.find((view) => view.text && view.progress.remainingToday > 0)
+
   const begin = async () => {
     setStarting(true)
     try {
@@ -60,8 +64,9 @@ export default function Today() {
         await resumeRun(start.run.id)
         return navigate(`/play/${start.run.id}`)
       }
-      const run =
-        start.kind === 'template' && start.template
+      const run = startTask
+        ? await startRun({ kind: 'task', taskId: startTask.task.id })
+        : start.kind === 'template' && start.template
           ? await startRun({ kind: 'template', templateId: start.template.id })
           : await startRun({ kind: 'daily', title: t('today.dailyTitle') })
       navigate(`/play/${run.id}`)
@@ -73,8 +78,9 @@ export default function Today() {
     }
   }
 
-  const startHint =
-    data.start.kind === 'resume' && data.start.run
+  const startHint = startTask?.text
+    ? t('today.taskHint', { name: startTask.text.title, count: startTask.progress.remainingToday })
+    : data.start.kind === 'resume' && data.start.run
       ? t('today.resumeHint', {
           name: data.start.run.title,
           done: data.start.run.entries.filter((e) => e.status !== 'pending').length,
@@ -144,15 +150,19 @@ export default function Today() {
         <p className="relative mt-4 text-sm font-medium text-ink-soft">
           {t('today.goal')}: {left === 0 ? t('today.goalDone') : t('today.goalLeft', { count: left })}
         </p>
-        <div aria-hidden className="gilt-rule relative my-4" />
-        <GoldenQuarterHour readingMs={data.todayStats?.readingMs ?? 0} className="relative" />
+        {data.hasActivity && (
+          <>
+            <div aria-hidden className="gilt-rule relative my-4" />
+            <GoldenQuarterHour readingMs={data.todayStats?.readingMs ?? 0} className="relative" />
+          </>
+        )}
       </section>
 
       <div data-tour="start" className="mt-6 animate-rise [animation-delay:80ms]">
         <Button
           size="hero"
           block
-          disabled={starting || (!data.hasTexts && data.start.kind === 'daily')}
+          disabled={starting || (!data.hasTexts && data.start.kind === 'daily' && !startTask)}
           onClick={() => void begin()}
           icon={data.start.kind === 'resume' ? 'arrow-counter-clockwise' : 'play'}
           iconFill={data.start.kind !== 'resume'}
@@ -172,23 +182,26 @@ export default function Today() {
             <h2 id="today-tasks" className="text-2xl font-semibold">
               {t('today.tasks')}
             </h2>
-            <Link to="/tasks" className="text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            <Link to="/tasks" className="-my-3 py-3 text-sm font-semibold text-primary underline-offset-4 hover:underline">
               {t('today.allTasks')}
             </Link>
           </div>
           <ul className="space-y-3">
             {tasks.map((view) => (
               <li key={view.task.id}>
-                <TaskCard view={view} />
+                <TaskCard view={view} quiet={view.task.id === startTask?.task.id} />
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <Card className="mt-6 animate-rise [animation-delay:140ms]">
-        <LevelBar totalXp={game.totalXp} />
-      </Card>
+      {/* Points and levels appear once there is something to count: day 0 shows only what to do (DECISIONS #128). */}
+      {data.hasActivity && (
+        <Card className="mt-6 animate-rise [animation-delay:140ms]">
+          <LevelBar totalXp={game.totalXp} />
+        </Card>
+      )}
 
       {done > 0 && (
         <ShareDayButton

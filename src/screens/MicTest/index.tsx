@@ -114,7 +114,10 @@ export default function MicTest() {
           <MicButton listening={listening} busy={capture.phase === 'starting' || capture.phase === 'stopping'} disabled={!engine} onClick={toggle} />
         </div>
         <p className="mt-3 h-6 text-sm font-medium text-ink-soft" aria-live="polite">
-          {capture.phase === 'starting' ? t('speech.starting') : listening ? t('speech.listening') : capture.phase === 'stopping' ? t('speech.checking') : t('speech.spaceHint')}
+          {capture.phase === 'starting' ? t('speech.starting') : listening ? t('speech.listening') : capture.phase === 'stopping' ? t('speech.checking') : // No keyboard on a phone: its hint would say "Space".
+                window.matchMedia?.('(pointer: coarse)').matches
+                ? t('speech.tapHint')
+                : t('speech.spaceHint')}
         </p>
         {listening && capture.transcript && <p className="mt-2 max-w-xl font-serif text-lg text-ink-soft italic">{capture.transcript}</p>}
       </section>

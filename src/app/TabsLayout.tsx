@@ -118,7 +118,8 @@ export function TabsLayout() {
       <NavProgress />
       <main id="main" tabIndex={-1} className={cn('mx-auto w-full max-w-2xl px-5 outline-none sm:px-8 lg:pb-16', form ? 'pb-8' : 'pb-32')}>
         <Outlet />
-        {!form && <SupportBanner dayKey={dayKeyFor(openedAt, dayStartHour)} className="mt-14" />}
+        {/* On the five main screens only: not under a text, a reading, or right after "Delete everything" (#128). */}
+        {!form && TABS.some((tab) => tab.to === pathname) && <SupportBanner dayKey={dayKeyFor(openedAt, dayStartHour)} className="mt-14" />}
       </main>
       <TabBar active={tabOf(pathname)} hidden={form} />
       <GuidedTour />

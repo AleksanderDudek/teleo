@@ -538,6 +538,28 @@
     }
   }
 
+  /* A row of filter chips: wraps from `sm`, scrolls sideways on phones without a scrollbar, the edge fading out to
+     say there is more. */
+  .chip-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline: -1.25rem;
+    padding: 0.125rem 1.25rem 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, #000 calc(100% - 1.5rem), transparent);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    @media (width >= 40rem) {
+      flex-wrap: wrap;
+      margin-inline: 0;
+      padding-inline: 0;
+      overflow-x: visible;
+      mask-image: none;
+    }
+  }
+
   /* The guided tour's light (DECISIONS #127): its huge shadow dims everything else, a gilt ring marks the control. */
   .tour-hole {
     /* Darker than --backdrop, which is navy on the navy of the dark theme: the dim must read in both themes. */

@@ -12,7 +12,7 @@ test('the library finds a prayer by need, and the filter survives opening it and
   await page.getByRole('group', { name: 'Area of life' }).getByRole('button', { name: /^Health & body/ }).click()
   await page.getByRole('group', { name: 'Need' }).getByRole('button', { name: /^Sleep & nightmares/ }).click()
   await expect(page).toHaveURL(/#\/library\?area=health&need=sleep$/)
-  await expect(page.getByText('2 texts')).toBeVisible()
+  await expect(page.getByRole('status')).toHaveText('2 texts')
 
   // The text names what it is prayed for and whose words these are.
   await page.getByRole('link', { name: /Against Nightmares and Night Attacks/ }).click()
@@ -42,5 +42,5 @@ test('the text picker of a new session narrows the list by need', async ({ page 
   await dialog.getByRole('combobox', { name: 'What it is for' }).selectOption({ label: 'Sleep & nightmares (2)' })
   await expect(dialog.getByRole('listitem')).toHaveCount(2)
   await dialog.getByRole('button', { name: /Against Nightmares and Night Attacks/ }).click()
-  await expect(page.getByText('27 / 150 segments')).toBeVisible()
+  await expect(page.getByText('27 / 150 sentences')).toBeVisible()
 })

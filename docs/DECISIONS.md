@@ -645,3 +645,25 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     `TOUR_VERSION` re-offers a redesigned tour. Settings → *Show me around* replays it. Script and rules are pure
     (`src/domain/tour/tour.ts`), the host and overlay live in `src/components/tour/`, mounted in the tab layout so the
     tour survives its own navigations. e2e tests decline the invitation in `finishOnboarding`; `tour.spec.ts` walks it.
+128. **Mobile first, from a UX audit at 390 px in both languages and themes** (owner request: "easy to use and
+    follow"). What changed, and why:
+    - *Library* — with ~140 texts per language the alphabetical list buried the classic prayers (Ojcze nasz at #92).
+      Unfiltered it now opens with **Start here** (own texts, texts said before, texts of visible sessions), then all
+      texts; under a need, texts *mainly* for it come first (`needRank`). Type, source and hidden moved into a
+      **Filters** sheet, the Bible became a compact link, so results start on the first screen. Chip rows scroll
+      without scrollbars and fade at the edge; the result count is a `role="status"` instead of a live region
+      around the whole list.
+    - *Text page* — the text right under *Say it now / From memory / Set as daily task*; statistics and achievements
+      fold into *Your progress with this text*; copy/edit, hide and delete live in a **More** sheet. "Hide text"
+      became "Hide from the library" (next to "From memory" it read like hiding the words) and offers Undo.
+    - *Today* — Start prefers an unfinished run, then **a task still due today**, then the session; day 0 shows no
+      points bar or golden quarter-hour. *Progress* before the first session: the garden and one invitation.
+      Tasks follow the interface language like texts (#92). Untouched runs are not history.
+    - *Onboarding* — a PL/EN choice on the welcome step; the English mic phrase is "Good morning"; focus cards are a
+      radio group with one lit choice; the goal step keeps presets only; "Skip setup".
+    - *Everywhere* — 44 px touch targets (an invisible `::before` extension keeps small buttons' look); the interface
+      says *sentence*, never *segment*; session cards keep Start and From memory, the rest in a More sheet; the
+      support window appears on the five main screens only (not under a text, a reading or the Data screen).
+    - Not changed on purpose: the sticky support strip (the owner's choice; making it scroll away touches the
+      safe-area offsets of the app bar and needs a device check), Settings' engine control, the player layout.
+    e2e guards: no main screen may be wider than the phone (`smoke.spec.ts`).

@@ -36,7 +36,8 @@ export default function TextEditor() {
   const existing = useLiveQuery(() => (textId ? db.texts.get(textId) : undefined), [textId])
 
   const [title, setTitle] = useState('')
-  const [type, setType] = useState<TextType>('affirmation')
+  // A new text is what the person came to practise (a prayer for a prayers focus).
+  const [type, setType] = useState<TextType>(app.contentFocus === 'prayers' ? 'prayer' : 'affirmation')
   // A text speaks the interface language (one language at a time); an existing text keeps its own.
   const [lang, setLang] = useState<Lang>(app.uiLang)
   const [splitMode, setSplitMode] = useState<SplitMode>('sentence')
@@ -133,7 +134,8 @@ export default function TextEditor() {
       />
 
       <form
-        className="space-y-6"
+        // Room under the last field for the sticky Save button.
+        className="space-y-6 pb-20"
         onSubmit={(e) => {
           e.preventDefault()
           void save()

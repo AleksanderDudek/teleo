@@ -1,4 +1,5 @@
 import { db } from '@/db/schema'
+import { isListedText } from '@/domain/text/visibility'
 import type { TaskRow, TextItem } from '@/db/types'
 import { endDayFor, isTaskActiveOn, TASK_LIMITS, taskProgress, type TaskProgress } from '@/domain/tasks'
 import { dayKeyFor } from '@/domain/time/dayKey'
@@ -87,7 +88,10 @@ export interface TaskView {
   progress: TaskProgress
 }
 
-/** Every task with its progress as of `now`, newest first. */
+/**
+ * Every task of the interface language with its progress as of `now`, newest first. A task belongs to its text's
+ * language, so it is listed, due and counted only while that language is on (DECISIONS #92).
+ */
 export async function taskViews(now = Date.now()): Promise<TaskView[]> {
   const { app } = await readSettings()
   const today = dayKeyFor(now, app.dayStartHour)
@@ -95,6 +99,7 @@ export async function taskViews(now = Date.now()): Promise<TaskView[]> {
   const views: TaskView[] = []
   for (const task of tasks) {
     const [text, logs] = await Promise.all([db.texts.get(task.textId), db.taskLog.where('taskId').equals(task.id).toArray()])
+    if (text && !isListedText(text, app.uiLang)) continue
     views.push({ task, text, progress: taskProgress(task, logs.map((row) => row.dayKey), today) })
   }
   return views.sort((a, b) => b.task.createdAt - a.task.createdAt)

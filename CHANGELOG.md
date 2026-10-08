@@ -4,6 +4,18 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Easier to find your way
+
+- **A guided tour after the setup:** Teleo offers a one-minute walk — the screen dims, one control lights up, and the
+  app opens the screens for you: where to start, how to find a prayer for what is on your heart, how to say it,
+  learn it by heart and keep at it. Skip it any time; replay it from Settings.
+- **The library opens with what you use** — your texts, the ones you have said and the classics of your sessions —
+  and a Filters button keeps the rest out of the way. A need lists the prayers mainly for it first.
+- **The text comes first** on a text's page; your progress with it is one tap away.
+- **Start follows your daily task**, and the first day is calmer: points and charts appear once there is something
+  to count.
+- **Choose Polish or English on the first screen**, and find bigger, easier-to-tap buttons everywhere.
+
 ### A prayer library, found by what you pray for
 
 - **133 new prayers** by Prophet Lovy L. Elias, in English and in Polish — for fear and anxiety, healing, sleep,

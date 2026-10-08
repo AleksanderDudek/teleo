@@ -52,7 +52,6 @@
     "greetingEvening": "Dobry wieczór",
     "start": "Rozpocznij",
     "resume": "Wznów",
-    "startHint": "{{name}} · zdań: {{count}}",
     "resumeHint": "{{name}} · {{done}} z {{total}}",
     "streak_one": "{{count}} dzień z rzędu",
     "streak_few": "{{count}} dni z rzędu",
@@ -82,7 +81,7 @@
     "later": "Później",
     "nothingToStart": "Dodaj tekst lub sesję, aby zacząć.",
     "yourCharacter": "Twoja postać: {{name}}",
-    "guideStart": "Powiedz pierwsze zdanie, gdy tylko zechcesz. Będę słuchać.",
+    "guideStart": "Dotknij Rozpocznij i wypowiedz pierwsze zdanie na głos – tam będę słuchać.",
     "guideLeft_one": "Jeszcze jedno zdanie i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideLeft_few": "Jeszcze {{count}} zdania i dzisiejszy cel będzie wypełniony. Będę słuchać.",
     "guideLeft_many": "Jeszcze {{count}} zdań i dzisiejszy cel będzie wypełniony. Będę słuchać.",
@@ -90,11 +89,19 @@
     "guideDone": "Cel na dziś wypełniony. Odpocznij – albo mów dalej, jeśli serce tego chce.",
     "guideEmpty": "Dodaj tekst, który chcesz mówić na głos, a pomogę Ci liczyć.",
     "tasks": "Zadania na dziś",
-    "allTasks": "Wszystkie zadania"
+    "allTasks": "Wszystkie zadania",
+    "taskHint_one": "{{name}} · jeszcze raz dzisiaj",
+    "taskHint_few": "{{name}} · jeszcze {{count}} razy dzisiaj",
+    "taskHint_many": "{{name}} · jeszcze {{count}} razy dzisiaj",
+    "taskHint_other": "{{name}} · jeszcze {{count}} razy dzisiaj",
+    "startHint_one": "{{name}} · {{count}} zdanie",
+    "startHint_few": "{{name}} · {{count}} zdania",
+    "startHint_many": "{{name}} · {{count}} zdań",
+    "startHint_other": "{{name}} · {{count}} zdania"
   },
   "library": {
-    "rubric": "Biblioteka",
-    "title": "Teksty",
+    "rubric": "Modlitwy · afirmacje · teksty",
+    "title": "Biblioteka",
     "add": "Nowy tekst",
     "searchPlaceholder": "Szukaj w tytułach i słowach",
     "filterType": "Rodzaj",
@@ -118,7 +125,14 @@
     "results_one": "{{count}} tekst",
     "results_few": "{{count}} teksty",
     "results_many": "{{count}} tekstów",
-    "results_other": "{{count}} tekstu"
+    "results_other": "{{count}} tekstu",
+    "filters": "Filtry",
+    "startHere": "Na początek",
+    "allTexts": "Wszystkie teksty",
+    "showResults_one": "Pokaż {{count}} tekst",
+    "showResults_few": "Pokaż {{count}} teksty",
+    "showResults_many": "Pokaż {{count}} tekstów",
+    "showResults_other": "Pokaż {{count}} tekstu"
   },
   "editor": {
     "titleNew": "Nowy tekst",
@@ -129,12 +143,12 @@
     "fieldSplit": "Podział na",
     "splitSentence": "Zdania",
     "splitLine": "Linie",
-    "splitLineHint": "Każda linia to osobny segment – wygodne dla list afirmacji i wierszy.",
+    "splitLineHint": "Każdą linię wypowiadasz i sprawdzamy osobno – wygodne dla list afirmacji i wierszy.",
     "fieldBody": "Treść",
     "bodyPlaceholder": "Wklej lub wpisz tekst, który chcesz wypowiadać na głos…",
-    "preview": "Segmenty",
-    "previewHint": "Każdy segment wypowiadasz i sprawdzamy osobno. Popraw podział, jeśli trzeba.",
-    "previewEmpty": "Segmenty pojawią się tutaj, gdy zaczniesz pisać.",
+    "preview": "Zdania",
+    "previewHint": "Każde zdanie wypowiadasz i sprawdzamy osobno. Popraw podział, jeśli trzeba.",
+    "previewEmpty": "Zdania pojawią się tutaj, gdy zaczniesz pisać.",
     "segmentCount": "{{count}} / {{max}}",
     "splitHere": "Podziel tutaj",
     "chooseSplit": "Wybierz miejsce podziału",
@@ -143,12 +157,12 @@
     "mergePrevious": "Scal z poprzednim",
     "editSegment": "Edytuj",
     "applySuggestion": "Podziel w sugerowanym miejscu",
-    "segmentLabel": "Segment {{n}}",
+    "segmentLabel": "Zdanie {{n}}",
     "issueLong": "Długie zdanie ({{words}} słów) – rozpoznawanie mowy lepiej radzi sobie z krótszymi częściami.",
     "issueTooLong": "Za długie ({{words}} słów, maks. {{max}}) – podziel przed zapisaniem.",
     "issueShort": "Bardzo krótki – rozważ scalenie.",
     "issueDigits": "Zawiera cyfry – dla pewnego rozpoznawania zapisz liczby słownie.",
-    "issueTooMany": "Za dużo segmentów ({{count}}, maks. {{max}}).",
+    "issueTooMany": "Za dużo zdań ({{count}}, maks. {{max}}).",
     "resplitNotice": "Treść się zmieniła, więc podzieliliśmy ją ponownie.",
     "save": "Zapisz tekst",
     "saved": "Tekst zapisany",
@@ -156,9 +170,9 @@
       "titleEmpty": "Nadaj tekstowi tytuł.",
       "titleTooLong": "Tytuł jest za długi.",
       "noSegments": "Najpierw dodaj treść.",
-      "tooManySegments": "Za dużo segmentów (maks. 150).",
-      "segmentTooLong": "Jeden z segmentów jest za długi (maks. 80 słów).",
-      "segmentEmpty": "Segment nie zawiera słów.",
+      "tooManySegments": "Za dużo zdań (maks. 150).",
+      "segmentTooLong": "Jedno ze zdań jest za długie (maks. 80 słów).",
+      "segmentEmpty": "Zdanie nie zawiera słów.",
       "notEditable": "Tego tekstu nie można edytować."
     },
     "fieldNeeds": "W jakiej intencji? (opcjonalnie)",
@@ -169,14 +183,14 @@
     "copy": "Kopiuj jako własny",
     "copyTitle": "{{title}} (kopia)",
     "copied": "Skopiowano do Twoich tekstów",
-    "hide": "Ukryj tekst",
-    "unhide": "Pokaż tekst",
+    "hide": "Ukryj w bibliotece",
+    "unhide": "Pokaż w bibliotece",
     "hiddenNote": "Ten tekst jest ukryty w bibliotece i przy wyborze.",
     "delete": "Usuń tekst",
     "deleteTitle": "Usunąć „{{title}}”?",
     "deleteBody": "Tekst, jego statystyki i osiągnięcia zostaną usunięte. Twoja ogólna historia i XP pozostaną.",
     "deleted": "Tekst usunięty",
-    "segmentsHeading": "Segmenty",
+    "segmentsHeading": "Tekst",
     "statsHeading": "Statystyki",
     "achievementsHeading": "Osiągnięcia tego tekstu",
     "statRepetitions": "Powtórzenia",
@@ -189,7 +203,16 @@
     "builtinNote": "Tekstów wbudowanych nie można edytować – zrób kopię, aby coś zmienić.",
     "notFound": "Ten tekst już nie istnieje.",
     "setTask": "Ustaw jako codzienne zadanie",
-    "needsHeading": "Intencje"
+    "needsHeading": "Intencje",
+    "hiddenToast": "Ukryto w bibliotece",
+    "shownToast": "Znów w bibliotece",
+    "undo": "Cofnij",
+    "progressHeading": "Twoje postępy z tym tekstem",
+    "tags": "Tagi: {{tags}}",
+    "progressSummary_one": "{{count}} powtórzenie · ostatnio: {{last}}",
+    "progressSummary_few": "{{count}} powtórzenia · ostatnio: {{last}}",
+    "progressSummary_many": "{{count}} powtórzeń · ostatnio: {{last}}",
+    "progressSummary_other": "{{count}} powtórzenia · ostatnio: {{last}}"
   },
   "sessions": {
     "rubric": "Sesje",
@@ -212,19 +235,20 @@
     "builtin": "Wbudowana",
     "own": "Moja",
     "emptyTitle": "Nie masz jeszcze sesji",
-    "emptyBody": "Sesja to lista tekstów do wypowiedzenia za jednym razem, z powtórzeniami – do 150 segmentów.",
+    "emptyBody": "Sesja to lista tekstów do wypowiedzenia za jednym razem, z powtórzeniami – do 150 zdań.",
     "resumeTitle": "Niedokończona sesja",
     "resume": "Wznów",
     "progressOf": "{{done}} z {{total}}",
     "cantStart": "W tej sesji nie ma nic do powiedzenia – jej teksty usunięto lub ukryto.",
-    "someSegments": "{{count}} z {{total}} segmentów",
+    "someSegments": "{{count}} z {{total}} zdań",
     "missingText": "brak tekstu",
     "tasksTitle": "Codzienne zadania",
     "tasksBody": "Afirmacja kilka razy dziennie, przez parę tygodni.",
     "tasksToday_one": "{{count}} zadanie na dziś · do powiedzenia: {{left}}",
     "tasksToday_few": "{{count}} zadania na dziś · do powiedzenia: {{left}}",
     "tasksToday_many": "{{count}} zadań na dziś · do powiedzenia: {{left}}",
-    "tasksToday_other": "{{count}} zadania na dziś · do powiedzenia: {{left}}"
+    "tasksToday_other": "{{count}} zadania na dziś · do powiedzenia: {{left}}",
+    "what": "Sesja to kilka tekstów wypowiadanych jeden po drugim – jak dziesiątka różańca."
   },
   "builder": {
     "titleNew": "Nowa sesja",
@@ -239,20 +263,20 @@
     "repeat": "Powtórzenia",
     "repeatValue": "×{{count}}",
     "remove": "Usuń",
-    "segments": "Segmenty",
+    "segments": "Zdania",
     "allSegments": "Cały tekst",
-    "chooseSegments": "Wybierz segmenty",
+    "chooseSegments": "Wybierz zdania",
     "dragHandle": "Przeciągnij, aby zmienić kolejność",
-    "counter": "{{count}} / {{max}} segmentów",
-    "overLimit": "Sesja może mieć najwyżej {{max}} segmentów.",
+    "counter": "{{count}} / {{max}} zdań",
+    "overLimit": "Sesja może mieć najwyżej {{max}} zdań.",
     "save": "Zapisz sesję",
     "saved": "Sesja zapisana",
     "noItems": "Dodaj przynajmniej jeden tekst.",
     "errors": {
       "nameEmpty": "Nadaj sesji nazwę.",
       "noItems": "Dodaj przynajmniej jeden tekst.",
-      "overLimit": "Za dużo segmentów (maks. 150).",
-      "empty": "Wybrane teksty nie mają segmentów.",
+      "overLimit": "Za dużo zdań (maks. 150).",
+      "empty": "Wybrane teksty nie mają zdań.",
       "notFound": "Ta sesja już nie istnieje.",
       "notEditable": "Sesji wbudowanych nie można edytować – najpierw ją zduplikuj."
     },
@@ -276,7 +300,7 @@
     "stay": "Kontynuuj",
     "notFound": "Ta sesja już nie istnieje.",
     "repetition": "{{current}}/{{total}}",
-    "liveMode": "Na żywo",
+    "liveMode": "Słuchanie na żywo",
     "liveOn": "Słuchanie na żywo: po prostu mów dalej – każde zdanie sprawdzamy na bieżąco.",
     "liveOff": "Tryb dotyku: dotknij mikrofonu przy każdym zdaniu.",
     "listeningLive": "Słucham – mów we własnym tempie",
@@ -369,7 +393,10 @@
     "colReps": "Powtórzenia",
     "colBestStreak": "Najdłuższa seria",
     "colLast": "Ostatnio",
-    "emptyTexts": "Wypowiedz tekst w całości, aby pojawił się tutaj."
+    "emptyTexts": "Wypowiedz tekst w całości, aby pojawił się tutaj.",
+    "emptyTitle": "Twój ogród zaczyna się od pierwszego zdania",
+    "emptyBody": "Wypowiedz kilka zdań, a pojawią się tu Twoje dni, serie i osiągnięcia.",
+    "emptyAction": "Przejdź do startu"
   },
   "settings": {
     "rubric": "Ustawienia",
@@ -509,7 +536,7 @@
   },
   "onboarding": {
     "start": "Zaczynamy",
-    "skip": "Pomiń",
+    "skip": "Pomiń konfigurację",
     "next": "Dalej",
     "back": "Wstecz",
     "step": "Krok {{current}} z {{total}}",
@@ -541,7 +568,8 @@
     "characterTitle": "Wybierz swoją postać",
     "characterGuide": "Wybierz postać, która będzie Cię reprezentować. Zmienisz ją w każdej chwili.",
     "focusGuide": "Co chcesz praktykować? Przygotuję Twoją bibliotekę.",
-    "begin": "Rozpocznij"
+    "begin": "Rozpocznij",
+    "goalLater": "Zmienisz go w każdej chwili w Ustawieniach."
   },
   "textTypes": {
     "affirmation": "Afirmacja",
@@ -554,10 +582,10 @@
     "text": "Teksty"
   },
   "counts": {
-    "segments_one": "{{count}} segment",
-    "segments_few": "{{count}} segmenty",
-    "segments_many": "{{count}} segmentów",
-    "segments_other": "{{count}} segmentu",
+    "segments_one": "{{count}} zdanie",
+    "segments_few": "{{count}} zdania",
+    "segments_many": "{{count}} zdań",
+    "segments_other": "{{count}} zdania",
     "days_one": "{{count}} dzień",
     "days_few": "{{count}} dni",
     "days_many": "{{count}} dni",
@@ -574,7 +602,7 @@
       "great": "Świetnie!",
       "acceptedNear": "Zaliczone – kilka słów zabrzmiało nieco inaczej.",
       "empty": "Nic nie usłyszałem. Spróbuj jeszcze raz, trochę głośniej.",
-      "emptySource": "Ten segment nie zawiera słów do wypowiedzenia.",
+      "emptySource": "To zdanie nie zawiera słów do wypowiedzenia.",
       "extra_one": "Dodatkowe słowo: „{{words}}”. Spróbuj jeszcze raz.",
       "extra_few": "Dodatkowe słowa: „{{words}}”. Spróbuj jeszcze raz.",
       "extra_many": "Dodatkowe słowa: „{{words}}”. Spróbuj jeszcze raz.",
@@ -617,7 +645,8 @@
       "bodyOnDevice": "Teleo nigdy nie zapisuje Twojego głosu i niczego nam nie wysyła. Mowa jest rozpoznawana bezpośrednio na tym urządzeniu, więc nagranie go nie opuszcza."
     },
     "offline": "Jesteś offline. Ta przeglądarka potrzebuje internetu do rozpoznawania mowy – połącz się ponownie lub użyj rozpoznawania na urządzeniu, jeśli jest dostępne.",
-    "openSettings": "Ustawienia mowy"
+    "openSettings": "Ustawienia mowy",
+    "tapHint": "Dotknij mikrofonu, by zacząć lub skończyć"
   },
   "achievements": {
     "text": {
@@ -956,7 +985,7 @@
     "label": "Poziom {{level}}",
     "circle": "Teleo {{roman}}",
     "xp": "{{xp}} XP",
-    "toNext": "{{xp}} XP do: {{name}}",
+    "toNext": "{{xp}} XP do poziomu {{name}}",
     "up": "Nowy poziom: {{name}}"
   },
   "celebrate": {
@@ -1088,15 +1117,15 @@
     "currentMonth": "Ten miesiąc",
     "points": "{{points}} pkt",
     "best": "Twój rekord: {{points}} pkt",
-    "rankDay_one": "{{rank}}. miejsce spośród {{count}} dnia",
+    "rankDay_one": "Twój pierwszy dzień – tu zaczyna się Twój rekord",
     "rankDay_few": "{{rank}}. miejsce spośród {{count}} Twoich dni",
     "rankDay_many": "{{rank}}. miejsce spośród {{count}} Twoich dni",
     "rankDay_other": "{{rank}}. miejsce spośród {{count}} Twoich dni",
-    "rankWeek_one": "{{rank}}. miejsce spośród {{count}} tygodnia",
+    "rankWeek_one": "Twój pierwszy tydzień – tu zaczyna się Twój rekord",
     "rankWeek_few": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
     "rankWeek_many": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
     "rankWeek_other": "{{rank}}. miejsce spośród {{count}} Twoich tygodni",
-    "rankMonth_one": "{{rank}}. miejsce spośród {{count}} miesiąca",
+    "rankMonth_one": "Twój pierwszy miesiąc – tu zaczyna się Twój rekord",
     "rankMonth_few": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
     "rankMonth_many": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
     "rankMonth_other": "{{rank}}. miejsce spośród {{count}} Twoich miesięcy",
@@ -1329,7 +1358,7 @@
   "tasks": {
     "rubric": "Sesje",
     "title": "Codzienne zadania",
-    "lead": "Tekst do wypowiedzenia określoną liczbę razy dziennie przez tyle dni, ile wybierzesz – np. afirmacja trzy razy dziennie przez dwa tygodnie. Liczy się każda sesja.",
+    "lead": "Tekst do wypowiedzenia określoną liczbę razy dziennie przez tyle dni, ile wybierzesz – np. afirmacja trzy razy dziennie przez dwa tygodnie. Liczy się wypowiedzenie go w każdej sesji.",
     "add": "Nowe zadanie",
     "emptyTitle": "Nie masz jeszcze zadań",
     "emptyBody": "Wybierz afirmację lub modlitwę i ustal, jak często i jak długo ją wypowiadać. Będzie czekać na Ciebie na ekranie Dziś.",
@@ -1495,43 +1524,39 @@
     "steps": {
       "start": {
         "title": "Zacznij tutaj",
-        "body": "Każdego dnia jedno dotknięcie: Teleo wybiera sesję i słucha, jak wypowiadasz ją na głos, zdanie po zdaniu."
+        "body": "Tu zaczyna się Twoja codzienna modlitwa: jedno dotknięcie, a Teleo słucha, jak wypowiadasz ją na głos, zdanie po zdaniu."
       },
       "goal": {
         "title": "Twój dzień w skrócie",
-        "body": "Dni z rzędu i dzisiejszy cel — ile zdań chcesz wypowiedzieć. Zmienisz go w Ustawieniach."
+        "body": "Dzisiejszy cel i dni z rzędu – wypowiedz kilka zdań każdego dnia, a Twoja świeca nie zgaśnie."
       },
       "needs": {
         "title": "W jakiej intencji?",
-        "body": "W bibliotece wybierz obszar życia, a potem intencję. Tutaj: pokój serca."
-      },
-      "result": {
-        "title": "Modlitwy w tej intencji",
-        "body": "Lista pokazuje tylko to, co pasuje. Każda karta mówi, w jakiej intencji jest tekst."
+        "body": "Wybierz, co leży Ci na sercu – obszar życia, a potem intencję – a lista zostawi tylko teksty w tej intencji."
       },
       "say": {
         "title": "Powiedz teraz",
-        "body": "Czytaj na głos: Teleo sprawdza każde zdanie i przechodzi dalej, gdy tylko je usłyszy."
+        "body": "Czytaj na głos: Teleo sprawdza każde zdanie i przechodzi dalej, gdy tylko je usłyszy – bez pisania i klikania."
       },
       "memory": {
         "title": "Z pamięci",
-        "body": "Z każdym razem znika więcej słów, aż znasz tekst na pamięć."
+        "body": "Chcesz nauczyć się na pamięć? Słowa znikają krok po kroku, aż powiesz cały tekst z pamięci."
       },
       "task": {
         "title": "Codzienne zadanie",
-        "body": "Zrób z niego nawyk — na przykład trzy razy dziennie przez dwa tygodnie. Ekran Dziś liczy powtórzenia."
+        "body": "Zrób z niego nawyk: na przykład trzy razy dziennie przez dwa tygodnie – ekran Dziś policzy każde powtórzenie."
       },
-      "sessions": {
+      "session": {
         "title": "Sesje",
-        "body": "Gotowe zestawy, jak dziesiątka różańca — albo własne, z dowolnych tekstów."
+        "body": "Sesja to kilka tekstów wypowiadanych jeden po drugim – jak dziesiątka różańca. Rozpocznij gotową albo ułóż własną."
       },
-      "progress": {
-        "title": "Postępy",
-        "body": "Dni z rzędu, osiągnięcia i historia każdej sesji."
+      "garden": {
+        "title": "Twój ogród",
+        "body": "Każde wypowiedziane zdanie sprawia, że rośnie. Tu znajdziesz dni z rzędu, osiągnięcia i historię każdej sesji."
       },
       "done": {
         "title": "Wszystko gotowe",
-        "body": "Naciśnij Rozpocznij, kiedy zechcesz. Ten przewodnik znajdziesz w Ustawieniach."
+        "body": "Naciśnij Rozpocznij, kiedy zechcesz. Przypomnienia, język i ten przewodnik znajdziesz w Ustawieniach."
       }
     }
   }

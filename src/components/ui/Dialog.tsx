@@ -69,7 +69,7 @@ export function Dialog({ open, onClose, title, description, children, actions, l
               type="button"
               onClick={onClose}
               aria-label={t('common.close')}
-              className="-mt-1 -mr-2 inline-flex size-9 items-center justify-center rounded-full text-ink-soft hover:bg-sunk hover:text-ink"
+              className="-mt-2 -mr-3 inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink-soft hover:bg-sunk hover:text-ink"
             >
               <Icon name="x" size={20} />
             </button>

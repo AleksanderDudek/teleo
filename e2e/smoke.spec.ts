@@ -22,3 +22,25 @@ test('interface language can be switched in settings', async ({ page }) => {
   await page.getByText('Polski', { exact: true }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ustawienia')
 })
+
+test('no screen is wider than the phone it is on', async ({ page }) => {
+  await finishOnboarding(page)
+  for (const route of ['', 'library', 'library/new', 'sessions', 'sessions/new', 'tasks', 'progress', 'progress/history', 'bible', 'settings', 'settings/data']) {
+    await page.goto(`./#/${route}`)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    const [scrollWidth, innerWidth] = await page.evaluate(() => [document.scrollingElement?.scrollWidth ?? 0, window.innerWidth])
+    expect(scrollWidth, `/${route} scrolls sideways`).toBeLessThanOrEqual(innerWidth)
+  }
+})
+
+test.describe('first start in the other language', () => {
+  test.use({ locale: 'en-US' })
+
+  test('the welcome step lets a Polish speaker with an English phone switch at once', async ({ page }) => {
+    await page.goto('./')
+    await expect(page.getByRole('heading', { name: 'Speak it. Complete it.' })).toBeVisible()
+    await page.getByText('Polski', { exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Wypowiedz. Wypełnij.')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'pl')
+  })
+})

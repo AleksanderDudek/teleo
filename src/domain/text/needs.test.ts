@@ -9,6 +9,7 @@ import {
   NEED_AREAS,
   NEED_IDS,
   NEEDS_BY_AREA,
+  needRank,
   needsOf,
   parseNeedFilter,
 } from './needs'
@@ -60,6 +61,18 @@ describe('matchesNeed', () => {
     expect(matchesNeed(text, { area: 'deliverance' })).toBe(true)
     expect(matchesNeed(text, { area: 'family' })).toBe(false)
     expect(matchesNeed({}, { area: 'family' })).toBe(false)
+  })
+})
+
+describe('needRank', () => {
+  it('puts texts mainly for the chosen need (or area) before those that only touch it', () => {
+    const main = { needs: ['peace', 'anxiety'] }
+    const touches = { needs: ['warfare', 'peace'] }
+    expect(needRank(main, { area: 'emotions', need: 'peace' })).toBe(0)
+    expect(needRank(touches, { area: 'emotions', need: 'peace' })).toBe(1)
+    expect(needRank(main, { area: 'emotions' })).toBe(0)
+    expect(needRank(touches, { area: 'emotions' })).toBe(1)
+    expect(needRank(touches, {})).toBe(0)
   })
 })
 

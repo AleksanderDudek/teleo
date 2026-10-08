@@ -12,9 +12,10 @@ const VARIANTS: Record<ButtonVariant, string> = {
   gold: 'bg-gold-soft text-gold-ink shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:brightness-95',
 }
 
+// Small buttons keep their look but reach 44 px for a finger through an invisible extension (DECISIONS #128).
 const SIZES: Record<ButtonSize, string> = {
-  xs: 'h-8 gap-1.5 px-2.5 text-[0.8rem]',
-  sm: 'h-9 px-4 text-sm',
+  xs: "relative h-8 gap-1.5 px-2.5 text-[0.8rem] before:absolute before:-inset-y-1.5 before:inset-x-0 before:content-['']",
+  sm: "relative h-9 px-4 text-sm before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
   md: 'h-11 px-5 text-[0.95rem]',
   lg: 'h-14 px-7 text-lg',
   hero: 'h-16 px-7 text-xl',

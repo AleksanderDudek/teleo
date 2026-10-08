@@ -114,12 +114,13 @@ export default function Settings() {
     <>
       <PageHeader rubric={t('settings.rubric')} title={t('settings.title')} />
       <div className="space-y-10">
-        <div className="card flex items-center gap-4 p-4">
+        <div className="card flex flex-wrap items-center gap-x-4 gap-y-3 p-4">
           <IconHalo icon="question" size={44} iconSize={22} />
-          <p className="min-w-0 flex-1 text-sm text-ink-soft">{t('tour.replayBody')}</p>
+          <p className="min-w-[12rem] flex-1 text-sm text-ink-soft">{t('tour.replayBody')}</p>
           <Button
-            size="sm"
             variant="secondary"
+            icon="play"
+            className="max-sm:w-full"
             onClick={() => {
               useUiStore.getState().requestTour()
               navigate('/')
@@ -128,13 +129,35 @@ export default function Settings() {
             {t('tour.replay')}
           </Button>
         </div>
-        <Section id="character" title={t('settings.sectionCharacter')}>
-          <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
-          <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
-          <DisplayName value={app.displayName} placeholder={t(`characters.${app.character}`)} onSave={(displayName) => set({ displayName })} />
+        <Section id="practice" title={t('settings.sectionPractice')}>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="font-medium">{t('settings.dailyGoal')}</span>
+            <Stepper label={t('settings.dailyGoal')} value={app.dailyGoal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={(dailyGoal) => set({ dailyGoal })} />
+          </div>
+          <div>
+            <label className="flex flex-wrap items-center justify-between gap-3">
+              <span className="font-medium">{t('settings.dayStart')}</span>
+              <select
+                value={app.dayStartHour}
+                onChange={(e) => set({ dayStartHour: Number(e.target.value) })}
+                className="h-10 rounded-full border border-line-strong bg-surface px-4 font-semibold"
+              >
+                {Array.from({ length: DAY_START_HOURS.max - DAY_START_HOURS.min + 1 }, (_, i) => DAY_START_HOURS.min + i).map((hour) => (
+                  <option key={hour} value={hour}>
+                    {String(hour).padStart(2, '0')}:00
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.dayStartHint')}</p>
+          </div>
+          <Switch checked={app.listenFirst} onChange={(listenFirst) => set({ listenFirst })} label={t('settings.listenFirst')} description={t('settings.listenFirstHint')} />
+          <Switch checked={app.sounds} onChange={(sounds) => set({ sounds })} label={t('settings.sounds')} description={t('settings.soundsHint')} />
         </Section>
 
-        <InstallSection />
+        <Section id="reminders" title={t('settings.sectionReminders')}>
+          <RemindersSettings />
+        </Section>
 
         <Section id="appearance" title={t('settings.sectionAppearance')}>
           <Segmented<Lang>
@@ -207,32 +230,6 @@ export default function Settings() {
           </ButtonLink>
         </Section>
 
-        <Section id="practice" title={t('settings.sectionPractice')}>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="font-medium">{t('settings.dailyGoal')}</span>
-            <Stepper label={t('settings.dailyGoal')} value={app.dailyGoal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={(dailyGoal) => set({ dailyGoal })} />
-          </div>
-          <div>
-            <label className="flex flex-wrap items-center justify-between gap-3">
-              <span className="font-medium">{t('settings.dayStart')}</span>
-              <select
-                value={app.dayStartHour}
-                onChange={(e) => set({ dayStartHour: Number(e.target.value) })}
-                className="h-10 rounded-full border border-line-strong bg-surface px-4 font-semibold"
-              >
-                {Array.from({ length: DAY_START_HOURS.max - DAY_START_HOURS.min + 1 }, (_, i) => DAY_START_HOURS.min + i).map((hour) => (
-                  <option key={hour} value={hour}>
-                    {String(hour).padStart(2, '0')}:00
-                  </option>
-                ))}
-              </select>
-            </label>
-            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.dayStartHint')}</p>
-          </div>
-          <Switch checked={app.listenFirst} onChange={(listenFirst) => set({ listenFirst })} label={t('settings.listenFirst')} description={t('settings.listenFirstHint')} />
-          <Switch checked={app.sounds} onChange={(sounds) => set({ sounds })} label={t('settings.sounds')} description={t('settings.soundsHint')} />
-        </Section>
-
         <Section id="content" title={t('settings.sectionContent')}>
           <div>
             <Segmented<ContentFocus>
@@ -272,9 +269,13 @@ export default function Settings() {
           )}
         </Section>
 
-        <Section id="reminders" title={t('settings.sectionReminders')}>
-          <RemindersSettings />
+        <Section id="character" title={t('settings.sectionCharacter')}>
+          <p className="text-sm text-ink-soft">{t('settings.characterHint')}</p>
+          <CharacterPicker label={t('settings.character')} hideLabel value={app.character} onChange={(character) => set({ character })} size={60} />
+          <DisplayName value={app.displayName} placeholder={t(`characters.${app.character}`)} onSave={(displayName) => set({ displayName })} />
         </Section>
+
+        <InstallSection />
 
         <Section id="backup" title={t('settings.sectionBackup')}>
           <p className="text-sm text-ink-soft">{t('settings.backupHint')}</p>
@@ -292,9 +293,6 @@ export default function Settings() {
           <a className="inline-block font-semibold text-primary underline underline-offset-4" href={`${import.meta.env.BASE_URL}privacy.html`} target="_blank" rel="noreferrer">
             {t('settings.privacyPolicy')}
           </a>
-          <ButtonLink to="/settings/data" variant="secondary" icon="hard-drives">
-            {t('settings.dataLink')}
-          </ButtonLink>
         </Section>
 
         <Section id="about" title={t('settings.sectionAbout')}>

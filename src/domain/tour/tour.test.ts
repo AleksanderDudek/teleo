@@ -31,7 +31,7 @@ describe('the guided tour script', () => {
 describe('tourSteps', () => {
   it('leaves out the text steps when there is no text for the need', () => {
     expect(tourSteps({ hasText: true })).toEqual(TOUR_STEPS)
-    expect(tourSteps({ hasText: false }).map((step) => step.id)).toEqual(['start', 'goal', 'needs', 'sessions', 'progress', 'done'])
+    expect(tourSteps({ hasText: false }).map((step) => step.id)).toEqual(['start', 'goal', 'needs', 'session', 'garden', 'done'])
   })
 })
 

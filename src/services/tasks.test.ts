@@ -81,6 +81,18 @@ describe('a repetition counts for the task, whichever session said it', () => {
   })
 })
 
+describe('one language at a time (DECISIONS #92)', () => {
+  it('lists and counts only the tasks of texts in the interface language', async () => {
+    await createTask({ textId: GLORY, timesPerDay: 1, startDay: '2026-10-05', days: 7 }, at(5))
+    await createTask({ textId: builtinTextId('en.glory-be'), timesPerDay: 2, startDay: '2026-10-05', days: 7 }, at(5))
+    expect((await taskViews(at(6))).map((view) => view.task.textId)).toEqual([GLORY])
+    expect((await tasksDueToday(at(6))).map((view) => view.task.textId)).toEqual([GLORY])
+    expect(await repetitionsDueToday(at(6))).toBe(1)
+    await updateAppSettings({ uiLang: 'en' })
+    expect((await tasksDueToday(at(6))).map((view) => view.task.textId)).toEqual([builtinTextId('en.glory-be')])
+  })
+})
+
 describe('a run started from a task', () => {
   it('repeats the text for what is left today, and once when the day’s target is met', async () => {
     const task = await createTask({ textId: GLORY, timesPerDay: 3, startDay: '2026-10-05', days: 14 }, at(5))
