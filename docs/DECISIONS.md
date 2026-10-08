@@ -617,5 +617,12 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     chunks are still precached, so the library works offline from the first launch. Gendered sentences are stored
     inline as `{m,f,n}` and expanded on load (`expandLibraryText`), half the size of three full lists. `SEED_VERSION` 3
     adds them visible under the content focus; a change of focus walks the seeded rows instead of the bundled list.
-    Seeding reads texts and segments once, and `replaceSegments` writes only new or moved segments, so the first seed
-    of ~7,000 sentences and every later re-seed stay well under a second.
+    **The app does not wait for the library:** start-up awaits `seedCore` (core texts + sessions, as before), and
+    `seedLibraryInBackground` writes the ~7,000 library sentences 2 s later, 20 texts per transaction with 150 ms
+    between them, the interface language first — written in one go they kept Firefox and WebKit from showing the first
+    screen for seconds, and back-to-back chunks starved the screens' sequential queries. Each chunk reads the focus and
+    grammatical form inside its transaction, so choices made in onboarding meanwhile apply; `applyGrammaticalForm`
+    touches only texts that exist and change. The version is marked only when the whole library is in (an interrupted
+    run starts over on the next launch). `<html data-library="loading|ready">` reports it; e2e tests wait for `ready`
+    after onboarding instead of racing the writes. Seeding reads texts and segments once per transaction (no query per
+    text), and `replaceSegments` writes only new or moved segments.

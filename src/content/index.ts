@@ -46,13 +46,17 @@ export function expandLibraryText({ segments, ...def }: LibraryTextDef): Builtin
 }
 
 /**
- * Every builtin text: the core set plus the prayer library (`prayers/*.json`), which is a separate chunk loaded only
- * when builtins are seeded or re-rendered — not at start-up (DECISIONS #126).
+ * The prayer library (`prayers/*.json`): separate chunks loaded only when builtins are seeded or re-rendered, never
+ * at start-up (DECISIONS #126).
  */
-export async function loadBuiltinTexts(): Promise<BuiltinTextDef[]> {
+export async function loadLibraryTexts(): Promise<BuiltinTextDef[]> {
   const [en, pl] = await Promise.all([import('./prayers/en.json'), import('./prayers/pl.json')])
-  const library = [...en.default, ...pl.default] as LibraryTextDef[]
-  return [...CORE_TEXTS, ...library.map(expandLibraryText)]
+  return ([...en.default, ...pl.default] as LibraryTextDef[]).map(expandLibraryText)
+}
+
+/** Every builtin text: the core set, then the prayer library. */
+export async function loadBuiltinTexts(): Promise<BuiltinTextDef[]> {
+  return [...CORE_TEXTS, ...(await loadLibraryTexts())]
 }
 
 export const builtinTextId = (key: string) => `builtin:${key}`

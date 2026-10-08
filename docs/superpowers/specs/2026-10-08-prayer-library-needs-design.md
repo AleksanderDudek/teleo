@@ -51,7 +51,8 @@ with the stated reasons.
 7. **Own texts can carry needs too**: the editor has an optional *What is it for?* section with the same chips grouped by
    area; copying a builtin as one's own keeps its needs.
 8. **Seeding**: `SEED_VERSION` 3 adds the new texts visible according to the content focus (#25/#64) and refreshes the
-   needs of the old ones. Choosing a content focus now walks the builtin rows in the database instead of the bundled
+   needs of the old ones. Start-up waits only for the core texts; the library follows in the background in small
+   transactions (found during testing: written in one go it delayed the first screen by seconds in Firefox and WebKit). Choosing a content focus now walks the builtin rows in the database instead of the bundled
    list, so it needs no content download. Nothing else changes: the session of the day still picks the least recently
    practised visible texts, so the new prayers will come up there too.
 

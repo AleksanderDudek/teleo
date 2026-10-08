@@ -57,6 +57,8 @@ npm run typecheck    # tsc -b
   filters in the URL (`src/domain/text/libraryFilter.ts`). The library prayers are lazy chunks `src/content/prayers/{en,pl}.json`
   (PL gendered sentences inline as `{m,f,n}`), reached only through `loadBuiltinTexts()` — never import them statically;
   core texts stay in `texts.json`. Every builtin has 1–3 needs; EN/PL library pairs keep the same sentence count (tests).
+  Start-up awaits only `seedCore`; the library is written in the background (`seedLibraryInBackground`, small transactions)
+  and `<html data-library="ready">` marks the end — e2e tests wait for it via `libraryReady`/`finishOnboarding`.
 - Backups: `src/domain/backup` (validate, `crypto.ts` password envelope, `summary.ts`), `src/services/backup.ts`
   (import keeps a restore point in `restorePoints` — local only, never in `ALL_TABLES`), screen `src/screens/Data`
   (`/settings/data`). A new table must be added to `ALL_TABLES`, the backup validator (optional for old files) and

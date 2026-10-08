@@ -2,7 +2,16 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { builtinSessionId, builtinTextId, loadBuiltinTexts } from '@/content'
 import { db } from '@/db/schema'
 import { resetDb } from '@/test/db'
-import { applyContentPreferences, applyGrammaticalForm, applyLanguage, defaultPinnedSessionKey, SEED_VERSION, seedBuiltins } from './seed'
+import {
+  applyContentPreferences,
+  applyGrammaticalForm,
+  applyLanguage,
+  defaultPinnedSessionKey,
+  SEED_VERSION,
+  seedBuiltins,
+  seedCore,
+  seedLibrary,
+} from './seed'
 import { readSettings, updateAppSettings, updateMeta } from './settings'
 import { getActiveSegments } from './texts'
 
@@ -93,6 +102,40 @@ describe('seedBuiltins', () => {
     await seedBuiltins()
     expect((await db.texts.get(builtinTextId('pl.aniele-bozy')))?.archived).toBe(true)
     expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(false)
+  })
+})
+
+describe('seedCore and seedLibrary (the app awaits only the core, DECISIONS #126)', () => {
+  it('writes the core texts and sessions first and the library after, then marks the version', async () => {
+    expect(await seedCore()).toBe(true)
+    expect(await db.texts.count()).toBe(14)
+    expect(await db.sessionTemplates.count()).toBe(8)
+    expect((await readSettings()).meta.seedVersion).toBeLessThan(SEED_VERSION)
+    await seedLibrary()
+    expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
+    expect((await readSettings()).meta.seedVersion).toBe(SEED_VERSION)
+    expect(await seedCore()).toBe(false)
+  })
+
+  it('applies a focus chosen before the library arrives', async () => {
+    await seedCore()
+    await updateAppSettings({ contentFocus: 'affirmations' })
+    await applyContentPreferences('pl', 'affirmations')
+    await seedLibrary()
+    expect(await visibleLibraryPrayers()).toBe(0)
+  })
+
+  it('writes the library in a grammatical form chosen before it arrives, without stray sentences', async () => {
+    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.lovy-') && d.variants)
+    if (!def?.variants) throw new Error('no gendered library prayer')
+    await seedCore()
+    await updateAppSettings({ grammaticalForm: 'f' })
+    await applyGrammaticalForm('f')
+    expect(await db.segments.where('textId').equals(builtinTextId(def.key)).count()).toBe(0)
+    await seedLibrary()
+    const segments = await getActiveSegments(builtinTextId(def.key))
+    expect(segments.map((segment) => segment.content)).toEqual(def.variants.f)
+    expect(await db.segments.where('textId').equals(builtinTextId(def.key)).count()).toBe(def.variants.f.length)
   })
 })
 
