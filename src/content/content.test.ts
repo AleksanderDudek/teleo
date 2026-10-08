@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { countWords } from '@/domain/text/countWords'
-import { BUILTIN_SESSIONS, BUILTIN_TEXTS, builtinSegments } from './index'
+import { NEED_IDS, needsOf } from '@/domain/text/needs'
+import { BUILTIN_SESSIONS, builtinSegments, CORE_TEXTS, loadBuiltinTexts } from './index'
 
 const FORMS = ['m', 'f', 'n'] as const
+const BUILTIN_TEXTS = await loadBuiltinTexts()
 
 describe('builtin content', () => {
   it('has unique keys with a language prefix', () => {
@@ -44,8 +46,41 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
   })
 
-  it('sessions reference existing texts of the same language', () => {
-    const texts = new Map(BUILTIN_TEXTS.map((t) => [t.key, t]))
+  it('says what every text is for: one to three known needs, every need used (DECISIONS #125)', () => {
+    const problems = BUILTIN_TEXTS.flatMap((def) =>
+      def.needs.length >= 1 && def.needs.length <= 3 && needsOf(def).length === def.needs.length ? [] : [def.key],
+    )
+    expect(problems).toEqual([])
+    const used = new Set(BUILTIN_TEXTS.flatMap((def) => def.needs))
+    expect(NEED_IDS.filter((need) => !used.has(need))).toEqual([])
+  })
+
+  it('bundles the core texts and loads the prayer library apart (DECISIONS #126)', () => {
+    expect(BUILTIN_TEXTS.slice(0, CORE_TEXTS.length)).toEqual(CORE_TEXTS)
+    expect(CORE_TEXTS.some((def) => def.key.includes('.lovy-'))).toBe(false)
+  })
+
+  it('pairs every library prayer with its Polish translation, sentence for sentence (DECISIONS #126)', () => {
+    const byKey = new Map(BUILTIN_TEXTS.map((def) => [def.key, def]))
+    const english = BUILTIN_TEXTS.filter((def) => def.key.startsWith('en.lovy-'))
+    expect(english.length).toBeGreaterThan(100)
+    expect(BUILTIN_TEXTS.filter((def) => def.key.startsWith('pl.lovy-'))).toHaveLength(english.length)
+    const problems = english.flatMap((en) => {
+      const pl = byKey.get(en.key.replace(/^en\./, 'pl.'))
+      if (!pl) return [`${en.key}: no Polish pair`]
+      return [
+        ...(builtinSegments(pl, 'n').length === builtinSegments(en, 'n').length ? [] : [`${en.key}: sentence count`]),
+        ...(pl.needs.join() === en.needs.join() ? [] : [`${en.key}: needs differ`]),
+        ...(pl.type === en.type && en.tags.includes('Prophet Lovy L. Elias') && pl.tags.includes('prorok Lovy L. Elias')
+          ? []
+          : [`${en.key}: type or attribution`]),
+      ]
+    })
+    expect(problems).toEqual([])
+  })
+
+  it('sessions use the bundled core texts of the same language', () => {
+    const texts = new Map(CORE_TEXTS.map((t) => [t.key, t]))
     const problems = BUILTIN_SESSIONS.flatMap((session) =>
       session.items.flatMap((item) =>
         texts.get(item.text)?.lang === session.lang && item.repeat >= 1 ? [] : [`${session.key} → ${item.text}`],

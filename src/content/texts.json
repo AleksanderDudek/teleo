@@ -6,6 +6,7 @@
     "title": "Ojcze nasz",
     "splitMode": "sentence",
     "tags": ["tradycyjne", "różaniec"],
+    "needs": ["traditional"],
     "segments": [
       "Ojcze nasz, któryś jest w niebie, święć się imię Twoje, przyjdź królestwo Twoje, bądź wola Twoja jako w niebie, tak i na ziemi.",
       "Chleba naszego powszedniego daj nam dzisiaj.",
@@ -20,6 +21,7 @@
     "title": "Zdrowaś Maryjo",
     "splitMode": "sentence",
     "tags": ["tradycyjne", "różaniec"],
+    "needs": ["traditional"],
     "segments": [
       "Zdrowaś Maryjo, łaski pełna, Pan z Tobą, błogosławionaś Ty między niewiastami i błogosławiony owoc żywota Twojego, Jezus.",
       "Święta Maryjo, Matko Boża, módl się za nami grzesznymi teraz i w godzinę śmierci naszej. Amen."
@@ -32,6 +34,7 @@
     "title": "Chwała Ojcu",
     "splitMode": "sentence",
     "tags": ["tradycyjne", "różaniec"],
+    "needs": ["traditional"],
     "segments": [
       "Chwała Ojcu i Synowi, i Duchowi Świętemu.",
       "Jak była na początku, teraz i zawsze, i na wieki wieków. Amen."
@@ -44,6 +47,7 @@
     "title": "Aniele Boży",
     "splitMode": "sentence",
     "tags": ["tradycyjne"],
+    "needs": ["traditional", "protection"],
     "segments": [
       "Aniele Boży, stróżu mój, Ty zawsze przy mnie stój.",
       "Rano, wieczór, we dnie, w nocy bądź mi zawsze ku pomocy.",
@@ -57,6 +61,7 @@
     "title": "Poranek",
     "splitMode": "line",
     "tags": ["poranek"],
+    "needs": ["morning", "peace"],
     "variants": {
       "m": [
         "Jestem spokojny i skupiony.",
@@ -103,6 +108,7 @@
     "title": "The Lord’s Prayer",
     "splitMode": "sentence",
     "tags": ["traditional", "rosary"],
+    "needs": ["traditional"],
     "segments": [
       "Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven.",
       "Give us this day our daily bread.",
@@ -117,6 +123,7 @@
     "title": "Hail Mary",
     "splitMode": "sentence",
     "tags": ["traditional", "rosary"],
+    "needs": ["traditional"],
     "segments": [
       "Hail Mary, full of grace, the Lord is with thee.",
       "Blessed art thou among women, and blessed is the fruit of thy womb, Jesus.",
@@ -130,6 +137,7 @@
     "title": "Glory Be",
     "splitMode": "sentence",
     "tags": ["traditional", "rosary"],
+    "needs": ["traditional"],
     "segments": [
       "Glory be to the Father, and to the Son, and to the Holy Spirit.",
       "As it was in the beginning, is now, and ever shall be, world without end. Amen."
@@ -142,6 +150,7 @@
     "title": "Psalm 23",
     "splitMode": "line",
     "tags": ["scripture", "KJV"],
+    "needs": ["scripture", "peace"],
     "segments": [
       "The LORD is my shepherd; I shall not want.",
       "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
@@ -158,6 +167,7 @@
     "title": "Morning",
     "splitMode": "line",
     "tags": ["morning"],
+    "needs": ["morning", "peace"],
     "segments": [
       "I am calm and focused.",
       "Every day I am becoming a better version of myself.",
@@ -178,6 +188,7 @@
     "title": "Psalm 91",
     "splitMode": "line",
     "tags": ["scripture", "KJV", "psalm"],
+    "needs": ["scripture", "protection"],
     "segments": [
       "He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty.",
       "I will say of the LORD, He is my refuge and my fortress: my God; in him will I trust.",
@@ -204,6 +215,7 @@
     "title": "Verses of Strength",
     "splitMode": "line",
     "tags": ["scripture", "KJV", "strength", "courage"],
+    "needs": ["scripture", "strength"],
     "segments": [
       "I can do all things through Christ which strengtheneth me.",
       "Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest.",
@@ -227,6 +239,7 @@
     "title": "Through Christ",
     "splitMode": "line",
     "tags": ["faith", "identity"],
+    "needs": ["faith"],
     "segments": [
       "Through Jesus Christ, I am strong.",
       "Through Jesus Christ, I am loved.",
@@ -248,7 +261,8 @@
     "type": "affirmation",
     "title": "Przez Jezusa Chrystusa",
     "splitMode": "line",
-    "tags": ["wiara", "tozsamosc"],
+    "tags": ["wiara", "tożsamość"],
+    "needs": ["faith"],
     "variants": {
       "m": [
         "Przez Jezusa Chrystusa jestem silny.",

@@ -1,25 +1,24 @@
 import {
   BUILTIN_SESSIONS,
-  BUILTIN_TEXTS,
   builtinSegments,
   builtinSessionId,
   builtinTextId,
   joinSegments,
+  loadBuiltinTexts,
   type BuiltinSessionDef,
-  type BuiltinTextDef,
 } from '@/content'
 import { db } from '@/db/schema'
-import type { AppSettings, SessionTemplate, TextItem } from '@/db/types'
+import type { AppSettings, Segment, SessionTemplate, TextItem } from '@/db/types'
 import { isListedTemplate } from '@/domain/text/visibility'
-import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
+import type { ContentFocus, GrammaticalForm, Lang, TextType } from '@/domain/types'
 import { readSettings, updateMeta } from './settings'
 import { replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
-export const SEED_VERSION = 2
+export const SEED_VERSION = 3
 
-const typeFocus = (def: BuiltinTextDef): 'prayers' | 'affirmations' | null =>
-  def.type === 'prayer' ? 'prayers' : def.type === 'affirmation' ? 'affirmations' : null
+const typeFocus = (type: TextType): 'prayers' | 'affirmations' | null =>
+  type === 'prayer' ? 'prayers' : type === 'affirmation' ? 'affirmations' : null
 
 /** Builtin visibility for a focus choice; the language gate is applied when listing (DECISIONS #92). */
 function visible(focus: 'prayers' | 'affirmations' | null, prefs: Pick<AppSettings, 'contentFocus'>): boolean {
@@ -43,13 +42,21 @@ export function defaultPinnedSessionKey(uiLang: Lang, focus: ContentFocus): stri
 export async function seedBuiltins(now = Date.now()): Promise<void> {
   const { app, meta } = await readSettings()
   if (meta.seedVersion >= SEED_VERSION) return
+  // Loaded before the transaction: awaiting a dynamic import inside it would let the transaction commit early.
+  const defs = await loadBuiltinTexts()
 
   await db.transaction('rw', [...SEGMENT_EDIT_TABLES, db.sessionTemplates], async () => {
-    for (const def of BUILTIN_TEXTS) {
+    // Read in two queries, not two per text: hundreds of builtins are seeded while the app starts
+    // (one full read of the segments beats an `anyOf` over hundreds of keys).
+    const ids = defs.map((def) => builtinTextId(def.key))
+    const existingTexts = await db.texts.bulkGet(ids)
+    const active = activeSegmentsByText(await db.segments.toArray())
+    const texts: TextItem[] = []
+    for (const [index, def] of defs.entries()) {
       const id = builtinTextId(def.key)
       const segments = builtinSegments(def, app.grammaticalForm)
-      const existing = await db.texts.get(id)
-      const text: TextItem = {
+      const existing = existingTexts[index]
+      texts.push({
         id,
         title: def.title,
         type: def.type,
@@ -57,15 +64,16 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
         body: joinSegments(segments, def.splitMode),
         source: 'builtin',
         tags: def.tags,
-        archived: existing?.archived ?? !visible(typeFocus(def), app),
+        needs: def.needs,
+        archived: existing?.archived ?? !visible(typeFocus(def.type), app),
         splitMode: def.splitMode,
         createdAt: existing?.createdAt ?? now,
         updatedAt: now,
         builtinKey: def.key,
-      }
-      await db.texts.put(text)
-      await replaceSegments(id, segments)
+      })
+      await replaceSegments(id, segments, active.get(id) ?? [])
     }
+    await db.texts.bulkPut(texts)
 
     const pinnedKey = defaultPinnedSessionKey(app.uiLang, app.contentFocus)
     for (const def of BUILTIN_SESSIONS) {
@@ -75,6 +83,19 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
     }
   })
   await updateMeta({ seedVersion: SEED_VERSION })
+}
+
+/** Active segments grouped by text, each list in order (what `getActiveSegments` returns for one text). */
+function activeSegmentsByText(segments: readonly Segment[]): Map<string, Segment[]> {
+  const byText = new Map<string, Segment[]>()
+  for (const segment of segments) {
+    if (segment.archived) continue
+    const list = byText.get(segment.textId)
+    if (list) list.push(segment)
+    else byText.set(segment.textId, [segment])
+  }
+  for (const list of byText.values()) list.sort((a, b) => a.order - b.order)
+  return byText
 }
 
 function sessionRow(
@@ -107,9 +128,13 @@ export async function applyContentPreferences(uiLang: Lang, contentFocus: Conten
   const prefs = { contentFocus }
   const pinnedKey = defaultPinnedSessionKey(uiLang, contentFocus)
   await db.transaction('rw', [db.texts, db.sessionTemplates], async () => {
-    for (const def of BUILTIN_TEXTS) {
-      await db.texts.update(builtinTextId(def.key), { archived: !visible(typeFocus(def), prefs) })
-    }
+    // The seeded rows, not the bundled list: the prayer library is not loaded for a change of focus.
+    await db.texts
+      .where('source')
+      .equals('builtin')
+      .modify((text) => {
+        text.archived = !visible(typeFocus(text.type), prefs)
+      })
     for (const def of BUILTIN_SESSIONS) {
       await db.sessionTemplates.update(builtinSessionId(def.key), {
         archived: !visible(def.focus, prefs),
@@ -137,8 +162,9 @@ export async function applyLanguage(uiLang: Lang, contentFocus: ContentFocus): P
 
 /** Re-renders gendered builtin affirmations after the grammatical form changes (spec §15 #20). */
 export async function applyGrammaticalForm(form: GrammaticalForm, now = Date.now()): Promise<void> {
+  const defs = await loadBuiltinTexts()
   await db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
-    for (const def of BUILTIN_TEXTS) {
+    for (const def of defs) {
       if (!def.variants) continue
       const id = builtinTextId(def.key)
       const segments = builtinSegments(def, form)

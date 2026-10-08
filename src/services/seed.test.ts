@@ -1,13 +1,21 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { builtinSessionId, builtinTextId } from '@/content'
+import { builtinSessionId, builtinTextId, loadBuiltinTexts } from '@/content'
 import { db } from '@/db/schema'
 import { resetDb } from '@/test/db'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage, defaultPinnedSessionKey, SEED_VERSION, seedBuiltins } from './seed'
 import { readSettings, updateAppSettings, updateMeta } from './settings'
 import { getActiveSegments } from './texts'
 
+const isLibraryPrayer = (key: string | undefined) => key?.includes('.lovy-') ?? false
+/** Visible core builtins (the prayer library is checked apart: 266 keys would drown the lists). */
 const visibleTexts = async () =>
-  (await db.texts.toArray()).filter((t) => !t.archived).map((t) => t.builtinKey).sort()
+  (await db.texts.toArray())
+    .filter((t) => !t.archived && !isLibraryPrayer(t.builtinKey))
+    .map((t) => t.builtinKey)
+    .sort()
+const visibleLibraryPrayers = async () =>
+  (await db.texts.toArray()).filter((t) => !t.archived && isLibraryPrayer(t.builtinKey)).length
+const LIBRARY_PRAYERS = (await loadBuiltinTexts()).filter((def) => isLibraryPrayer(def.key)).length
 
 beforeEach(async () => {
   await resetDb()
@@ -17,7 +25,7 @@ beforeEach(async () => {
 describe('seedBuiltins', () => {
   it('inserts all builtin texts and sessions once', async () => {
     await seedBuiltins(10)
-    expect(await db.texts.count()).toBe(14)
+    expect(await db.texts.count()).toBe((await loadBuiltinTexts()).length)
     expect(await db.sessionTemplates.count()).toBe(8)
     expect((await readSettings()).meta.seedVersion).toBe(SEED_VERSION)
     const segmentsBefore = await db.segments.count()
@@ -53,6 +61,23 @@ describe('seedBuiltins', () => {
     ])
   })
 
+  it('seeds the prayer library with what each text is for, visible under the content focus', async () => {
+    await seedBuiltins()
+    expect(LIBRARY_PRAYERS).toBeGreaterThan(200)
+    expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
+    expect((await db.texts.get(builtinTextId('en.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
+    expect((await db.texts.get(builtinTextId('pl.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
+    expect((await db.texts.get(builtinTextId('pl.ojcze-nasz')))?.needs).toEqual(['traditional'])
+  })
+
+  it('gives the texts of an older seed their needs when content is re-seeded', async () => {
+    await seedBuiltins()
+    await db.texts.update(builtinTextId('en.psalm-91'), { needs: undefined })
+    await updateMeta({ seedVersion: 2 })
+    await seedBuiltins()
+    expect((await db.texts.get(builtinTextId('en.psalm-91')))?.needs).toEqual(['scripture', 'protection'])
+  })
+
   it('uses the neutral form of the Polish affirmations by default', async () => {
     await seedBuiltins()
     const segments = await getActiveSegments(builtinTextId('pl.poranek'))
@@ -84,6 +109,7 @@ describe('applyContentPreferences', () => {
       ['pl.poranne-afirmacje', false],
       ['pl.przez-jezusa-chrystusa-sesja', false],
     ])
+    expect(await visibleLibraryPrayers()).toBe(0)
   })
 
   it('prayers focus shows prayer texts in both languages', async () => {
@@ -100,11 +126,13 @@ describe('applyContentPreferences', () => {
       'pl.ojcze-nasz',
       'pl.zdrowas-maryjo',
     ])
+    expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
   })
 
   it('own texts hides every builtin', async () => {
     await applyContentPreferences('pl', 'own')
     expect(await visibleTexts()).toEqual([])
+    expect(await visibleLibraryPrayers()).toBe(0)
     expect(defaultPinnedSessionKey('pl', 'own')).toBeNull()
   })
 
