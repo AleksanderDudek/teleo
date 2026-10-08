@@ -1,25 +1,9 @@
 import { expect, test, type Page } from '@playwright/test'
-import { installFakeSpeech, libraryReady } from './fakeSpeech.ts'
+import { installFakeSpeech, libraryReady, seenTour } from './fakeSpeech.ts'
 
 test.use({ locale: 'en-US' })
 
 const panel = (page: Page) => page.getByRole('dialog', { name: /.+/ }).filter({ has: page.locator('#tour-step-title') })
-/** The tour version this install has taken, as stored (`meta.tourVersion`). */
-const seenTour = (page: Page) =>
-  page.evaluate(
-    () =>
-      new Promise<number>((resolve) => {
-        const open = indexedDB.open('teleo')
-        open.onsuccess = () => {
-          const get = open.result.transaction('settings').objectStore('settings').get('meta')
-          get.onsuccess = () => {
-            resolve((get.result as { value?: { tourVersion?: number } } | undefined)?.value?.tourVersion ?? 0)
-            open.result.close()
-          }
-        }
-      }),
-  )
-
 const expectStep = async (page: Page, title: string, url: RegExp) => {
   await expect(panel(page).getByRole('heading', { name: title })).toBeVisible()
   await expect(page).toHaveURL(url)
