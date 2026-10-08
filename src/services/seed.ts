@@ -12,7 +12,7 @@ import type { AppSettings, Segment, SessionTemplate, TextItem } from '@/db/types
 import { isListedTemplate } from '@/domain/text/visibility'
 import type { ContentFocus, GrammaticalForm, Lang, TextType } from '@/domain/types'
 import { readSettings, updateMeta } from './settings'
-import { replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
+import { newSegment, replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
 export const SEED_VERSION = 3
@@ -52,6 +52,7 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
     const existingTexts = await db.texts.bulkGet(ids)
     const active = activeSegmentsByText(await db.segments.toArray())
     const texts: TextItem[] = []
+    const fresh: Segment[] = [] // segments of texts seen for the first time, written in one go
     for (const [index, def] of defs.entries()) {
       const id = builtinTextId(def.key)
       const segments = builtinSegments(def, app.grammaticalForm)
@@ -71,9 +72,12 @@ export async function seedBuiltins(now = Date.now()): Promise<void> {
         updatedAt: now,
         builtinKey: def.key,
       })
-      await replaceSegments(id, segments, active.get(id) ?? [])
+      const current = active.get(id)
+      if (current) await replaceSegments(id, segments, current)
+      else fresh.push(...segments.map((content, order) => newSegment(id, order, content)))
     }
     await db.texts.bulkPut(texts)
+    await db.segments.bulkPut(fresh)
 
     const pinnedKey = defaultPinnedSessionKey(app.uiLang, app.contentFocus)
     for (const def of BUILTIN_SESSIONS) {
@@ -164,12 +168,13 @@ export async function applyLanguage(uiLang: Lang, contentFocus: ContentFocus): P
 export async function applyGrammaticalForm(form: GrammaticalForm, now = Date.now()): Promise<void> {
   const defs = await loadBuiltinTexts()
   await db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
+    const active = activeSegmentsByText(await db.segments.toArray())
     for (const def of defs) {
       if (!def.variants) continue
       const id = builtinTextId(def.key)
       const segments = builtinSegments(def, form)
       await db.texts.update(id, { body: joinSegments(segments, def.splitMode), updatedAt: now })
-      await replaceSegments(id, segments)
+      await replaceSegments(id, segments, active.get(id) ?? [])
     }
   })
 }

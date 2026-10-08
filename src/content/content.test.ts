@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { countWords } from '@/domain/text/countWords'
 import { NEED_IDS, needsOf } from '@/domain/text/needs'
-import { BUILTIN_SESSIONS, builtinSegments, CORE_TEXTS, loadBuiltinTexts } from './index'
+import { BUILTIN_SESSIONS, builtinSegments, CORE_TEXTS, expandLibraryText, loadBuiltinTexts, type LibraryTextDef } from './index'
 
 const FORMS = ['m', 'f', 'n'] as const
 const BUILTIN_TEXTS = await loadBuiltinTexts()
@@ -77,6 +77,26 @@ describe('builtin content', () => {
       ]
     })
     expect(problems).toEqual([])
+  })
+
+  it('expands inline m/f/n sentences of the library into variants', () => {
+    const base = { key: 'pl.x', lang: 'pl', type: 'prayer', title: 'X', splitMode: 'sentence', tags: [], needs: [] } satisfies Omit<
+      LibraryTextDef,
+      'segments'
+    >
+    const plain = expandLibraryText({ ...base, segments: ['Jeden.', 'Dwa.'] })
+    expect(plain).toMatchObject({ segments: ['Jeden.', 'Dwa.'] })
+    expect(plain.variants).toBeUndefined()
+    const gendered = expandLibraryText({
+      ...base,
+      segments: ['Jeden.', { m: 'Jestem wolny.', f: 'Jestem wolna.', n: 'Mam wolność.' }],
+    })
+    expect(gendered.segments).toBeUndefined()
+    expect(gendered.variants).toEqual({
+      m: ['Jeden.', 'Jestem wolny.'],
+      f: ['Jeden.', 'Jestem wolna.'],
+      n: ['Jeden.', 'Mam wolność.'],
+    })
   })
 
   it('sessions use the bundled core texts of the same language', () => {

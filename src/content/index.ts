@@ -30,13 +30,29 @@ export interface BuiltinSessionDef {
 export const CORE_TEXTS = textsJson as BuiltinTextDef[]
 export const BUILTIN_SESSIONS = sessionsJson as BuiltinSessionDef[]
 
+/** A sentence of the prayer library: one string, or m/f/n forms where it shows the speaker's gender. */
+export type LibrarySentence = string | Record<GrammaticalForm, string>
+
+/** How the prayer library is stored: gendered sentences inline, not three full lists (half the download). */
+export interface LibraryTextDef extends Omit<BuiltinTextDef, 'segments' | 'variants'> {
+  segments: LibrarySentence[]
+}
+
+/** A library text as a builtin definition: `variants` as soon as one sentence has m/f/n forms. */
+export function expandLibraryText({ segments, ...def }: LibraryTextDef): BuiltinTextDef {
+  if (segments.every((segment) => typeof segment === 'string')) return { ...def, segments }
+  const form = (f: GrammaticalForm) => segments.map((segment) => (typeof segment === 'string' ? segment : segment[f]))
+  return { ...def, variants: { m: form('m'), f: form('f'), n: form('n') } }
+}
+
 /**
- * Every builtin text: the core set plus the prayer library (`prayers/*.json`, ~0.5 MB), which is a separate chunk
- * loaded only when builtins are seeded or re-rendered — not at start-up (DECISIONS #126).
+ * Every builtin text: the core set plus the prayer library (`prayers/*.json`), which is a separate chunk loaded only
+ * when builtins are seeded or re-rendered — not at start-up (DECISIONS #126).
  */
 export async function loadBuiltinTexts(): Promise<BuiltinTextDef[]> {
   const [en, pl] = await Promise.all([import('./prayers/en.json'), import('./prayers/pl.json')])
-  return [...CORE_TEXTS, ...(en.default as BuiltinTextDef[]), ...(pl.default as BuiltinTextDef[])]
+  const library = [...en.default, ...pl.default] as LibraryTextDef[]
+  return [...CORE_TEXTS, ...library.map(expandLibraryText)]
 }
 
 export const builtinTextId = (key: string) => `builtin:${key}`

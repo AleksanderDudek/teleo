@@ -157,6 +157,18 @@ describe('applyGrammaticalForm', () => {
     expect(kept).toHaveLength(8)
     expect((await db.texts.get(id))?.body.split('\n')[0]).toBe('Jestem spokojna i skupiona.')
   })
+
+  it('speaks the Polish prayer library in the chosen form too', async () => {
+    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.lovy-') && d.variants)
+    const variants = def?.variants
+    if (!def || !variants) throw new Error('no gendered library prayer')
+    const index = variants.m.findIndex((sentence, i) => sentence !== variants.f[i])
+    await seedBuiltins()
+    const id = builtinTextId(def.key)
+    expect((await getActiveSegments(id))[index]?.content).toBe(variants.n[index])
+    await applyGrammaticalForm('f')
+    expect((await getActiveSegments(id))[index]?.content).toBe(variants.f[index])
+  })
 })
 
 describe('applyLanguage', () => {

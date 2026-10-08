@@ -69,6 +69,16 @@ async function segmentsInUnfinishedRuns(): Promise<Set<string>> {
   return new Set(runs.flatMap((run) => run.plan.map((entry) => entry.segmentId)))
 }
 
+/** A fresh active segment. */
+export const newSegment = (textId: string, order: number, content: string): Segment => ({
+  id: newId(),
+  textId,
+  order,
+  content,
+  wordCount: countWords(content),
+  archived: false,
+})
+
 /** Tables `replaceSegments` touches — include them in the caller's transaction. */
 export const SEGMENT_EDIT_TABLES = [db.texts, db.segments, db.attempts, db.sessionRuns] as const
 
@@ -96,9 +106,7 @@ export async function replaceSegments(
   const writes: Segment[] = []
   const next: Segment[] = contents.map((content, order) => {
     const reused = pool.get(content)?.shift()
-    const segment = reused
-      ? { ...reused, order }
-      : { id: newId(), textId, order, content, wordCount: countWords(content), archived: false }
+    const segment = reused ? { ...reused, order } : newSegment(textId, order, content)
     if (reused?.order !== order) writes.push(segment)
     return segment
   })
