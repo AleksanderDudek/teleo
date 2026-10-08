@@ -591,3 +591,31 @@ Each entry: **decision** — why.
     notice sit in the same dock. Sentences over 24 words are set one size step smaller (`.scripture-long`); a new
     sentence starts at the top of the middle, a verdict scrolls the sentence's first line into view, and while a long
     verse is read aloud the middle follows the words heard so nobody scrolls mid-sentence.
+
+## Prayer library and filters by need (owner request, 2026-10-08)
+
+Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpowers/specs/2026-10-08-prayer-library-needs-design.md).
+
+125. **Texts say what they are prayed for; the library filters by need.** A language-independent taxonomy of nine areas
+    of life and 43 needs (`src/domain/text/needs.ts`); labels live in i18n (`needs.areas.*`, `needs.items.*`), so one
+    classification serves both languages. A text row carries an optional `needs: string[]` — main need first, no index,
+    no schema version (the library filters in memory, as before); every builtin has one to three needs and every need
+    is used (content test). Ids the app does not know are ignored when read (`needsOf`), so backups accept any strings
+    and a newer backup still restores. The library asks *What do you pray for?*: area chips with counts, then the needs
+    of the chosen area; counts follow every other filter, and only areas/needs with something to show appear. A card
+    names its main need; a text page lists its needs as links (`/library?need=…`). All library filters live in the URL
+    (`src/domain/text/libraryFilter.ts`, replacing component state, updates replace the history entry), and a card
+    passes that URL in the link state, so the back arrow returns to the same filtered list. The editor offers the
+    same needs (optional, in the order chosen); a copy keeps them. Search covers titles, words and tags.
+126. **The prayer library ships as two lazy chunks, in both languages.** 133 prayers of Prophet Lovy L. Elias
+    (`src/content/prayers/en.json`, given; `pl.json`, translated sentence for sentence — same count and order, held by
+    a test — with a fixed glossary and m/f/n forms where the speaker's gender shows, #26). Every text is tagged
+    *Prophet Lovy L. Elias* / *prorok Lovy L. Elias* (shown on the text page, searchable); the per-sentence sermon
+    trace is not shipped. These are the first builtins that are neither public domain nor written for the project — an
+    exception to the content rule of spec §13 made at the owner's request, with texts the owner supplied. Bundling ~0.6 MB of JSON would double the start-up script for data read once per content
+    version, so `loadBuiltinTexts()` imports them dynamically — only seeding and the grammatical form need them; the
+    chunks are still precached, so the library works offline from the first launch. Gendered sentences are stored
+    inline as `{m,f,n}` and expanded on load (`expandLibraryText`), half the size of three full lists. `SEED_VERSION` 3
+    adds them visible under the content focus; a change of focus walks the seeded rows instead of the bundled list.
+    Seeding reads texts and segments once, and `replaceSegments` writes only new or moved segments, so the first seed
+    of ~7,000 sentences and every later re-seed stay well under a second.
