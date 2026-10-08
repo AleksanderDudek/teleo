@@ -182,7 +182,7 @@ export default function Today() {
             <h2 id="today-tasks" className="text-2xl font-semibold">
               {t('today.tasks')}
             </h2>
-            <Link to="/tasks" className="text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            <Link to="/tasks" className="-my-3 py-3 text-sm font-semibold text-primary underline-offset-4 hover:underline">
               {t('today.allTasks')}
             </Link>
           </div>

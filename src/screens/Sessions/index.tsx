@@ -42,6 +42,7 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
   const { template } = entry
   const [busy, setBusy] = useState(false)
   const [choosingMemory, setChoosingMemory] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
 
   const start = async (memoryLevel?: MemoryLevel) => {
     setBusy(true)
@@ -77,49 +78,72 @@ function TemplateCard({ entry, onDelete }: { entry: TemplateEntry; onDelete: (te
           {t('sessions.start')}
         </Button>
       </div>
+      {/* From memory stays one tap away; pin, edit, duplicate and hide/delete wait in one sheet (DECISIONS #128). */}
       <div className="flex flex-wrap gap-1 border-t border-line px-3 py-2">
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => void setTemplatePinned(template.id, !template.pinned)}
-          icon={template.pinned ? 'push-pin-slash' : 'push-pin'}
-        >
-          {template.pinned ? t('sessions.unpin') : t('sessions.pin')}
-        </Button>
-        {template.source === 'user' && (
-          <ButtonLink size="sm" variant="ghost" to={`/sessions/${encodeURIComponent(template.id)}/edit`} icon="pencil-simple">
-            {t('sessions.edit')}
-          </ButtonLink>
-        )}
         <Button size="sm" variant="ghost" disabled={entry.segmentCount === 0} onClick={() => setChoosingMemory(true)} icon="brain">
           {t('memory.button')}
         </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          icon="copy"
-          onClick={async () => {
-            const copy = await duplicateTemplate(template.id, t('sessions.duplicateName', { name: template.name }))
-            navigate(`/sessions/${encodeURIComponent(copy.id)}/edit`)
-          }}
-        >
-          {t('sessions.duplicate')}
+        <span className="flex-1" />
+        <Button size="sm" variant="ghost" icon="dots-three" onClick={() => setMoreOpen(true)} aria-haspopup="dialog">
+          {t('common.more')}
         </Button>
-        {template.source === 'builtin' ? (
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => void setTemplateArchived(template.id, !template.archived)}
-            icon={template.archived ? 'eye' : 'eye-slash'}
-          >
-            {template.archived ? t('sessions.unhide') : t('sessions.hide')}
-          </Button>
-        ) : (
-          <Button size="sm" variant="ghost" onClick={() => onDelete(template)} icon="trash">
-            {t('sessions.delete')}
-          </Button>
-        )}
       </div>
+      <Dialog open={moreOpen} onClose={() => setMoreOpen(false)} title={template.name}>
+        <div className="mt-4 flex flex-col gap-2">
+          <Button
+            block
+            variant="secondary"
+            onClick={() => {
+              setMoreOpen(false)
+              void setTemplatePinned(template.id, !template.pinned)
+            }}
+            icon={template.pinned ? 'push-pin-slash' : 'push-pin'}
+          >
+            {template.pinned ? t('sessions.unpin') : t('sessions.pin')}
+          </Button>
+          {template.source === 'user' && (
+            <ButtonLink block variant="secondary" to={`/sessions/${encodeURIComponent(template.id)}/edit`} icon="pencil-simple">
+              {t('sessions.edit')}
+            </ButtonLink>
+          )}
+          <Button
+            block
+            variant="secondary"
+            icon="copy"
+            onClick={async () => {
+              const copy = await duplicateTemplate(template.id, t('sessions.duplicateName', { name: template.name }))
+              navigate(`/sessions/${encodeURIComponent(copy.id)}/edit`)
+            }}
+          >
+            {t('sessions.duplicate')}
+          </Button>
+          {template.source === 'builtin' ? (
+            <Button
+              block
+              variant="ghost"
+              onClick={() => {
+                setMoreOpen(false)
+                void setTemplateArchived(template.id, !template.archived)
+              }}
+              icon={template.archived ? 'eye' : 'eye-slash'}
+            >
+              {template.archived ? t('sessions.unhide') : t('sessions.hide')}
+            </Button>
+          ) : (
+            <Button
+              block
+              variant="ghost"
+              onClick={() => {
+                setMoreOpen(false)
+                onDelete(template)
+              }}
+              icon="trash"
+            >
+              {t('sessions.delete')}
+            </Button>
+          )}
+        </div>
+      </Dialog>
       <MemoryStartDialog
         open={choosingMemory}
         onClose={() => setChoosingMemory(false)}
@@ -148,6 +172,7 @@ export default function Sessions() {
       <PageHeader
         rubric={t('sessions.rubric')}
         title={t('sessions.title')}
+        subtitle={t('sessions.what')}
         actions={
           <ButtonLink to="/sessions/new" size="sm" icon="plus">
             {t('sessions.add')}

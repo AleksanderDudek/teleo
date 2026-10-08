@@ -22,7 +22,7 @@ export function Stepper({ value, min, max, onChange, label, step = 1, format }: 
         onClick={() => set(value - step)}
         disabled={value <= min}
         aria-label={`${label}: −${step}`}
-        className="inline-flex size-9 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
+        className="inline-flex size-11 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
       >
         <Icon name="minus" size={16} />
       </button>
@@ -35,7 +35,7 @@ export function Stepper({ value, min, max, onChange, label, step = 1, format }: 
         disabled={value >= max}
         aria-label={`${label}: +${step}`}
         title={t('common.add')}
-        className="inline-flex size-9 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
+        className="inline-flex size-11 items-center justify-center rounded-full text-ink-soft hover:text-ink disabled:opacity-35"
       >
         <Icon name="plus" size={16} />
       </button>

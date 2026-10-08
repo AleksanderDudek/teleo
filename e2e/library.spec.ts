@@ -42,5 +42,5 @@ test('the text picker of a new session narrows the list by need', async ({ page 
   await dialog.getByRole('combobox', { name: 'What it is for' }).selectOption({ label: 'Sleep & nightmares (2)' })
   await expect(dialog.getByRole('listitem')).toHaveCount(2)
   await dialog.getByRole('button', { name: /Against Nightmares and Night Attacks/ }).click()
-  await expect(page.getByText('27 / 150 segments')).toBeVisible()
+  await expect(page.getByText('27 / 150 sentences')).toBeVisible()
 })
