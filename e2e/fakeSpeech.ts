@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import { expect, type Page } from '@playwright/test'
 
 /**
  * Installs a scriptable `SpeechRecognition` before the app loads.
@@ -105,4 +105,13 @@ export async function finishOnboarding(page: Page) {
   await page.goto('./')
   await page.getByRole('button', { name: /Zaczynamy|Get started|Pomiń|Skip/ }).first().click()
   await page.waitForURL(/#\/$/)
+  await libraryReady(page)
+}
+
+/**
+ * Waits until the prayer library, written in the background after the first start (DECISIONS #126), is in — so a
+ * test does not race those writes (lists still growing, transactions queued behind them).
+ */
+export async function libraryReady(page: Page) {
+  await expect(page.locator('html')).toHaveAttribute('data-library', 'ready', { timeout: 30_000 })
 }

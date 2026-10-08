@@ -32,8 +32,9 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 - **Honest checking:** a sentence counts when enough of its words were said and nothing was added — 90 % on
   the first try, 80 % on the second, 70 % from the third on (recognition slips such as missing Polish letters,
   words written together or apart and misheard words are forgiven; fillers like “um” ignored).
-- **Texts & sessions:** builtin public-domain prayers (PL/EN, incl. the Rosary decade and Psalm 23)
-  and original affirmations, your own texts with automatic sentence/line splitting and manual
+- **Texts & sessions:** builtin public-domain prayers (PL/EN, incl. the Rosary decade and Psalm 23),
+  a library of 133 prayers by Prophet Lovy L. Elias (EN, with a Polish translation) filtered by what you pray for
+  (nine areas of life, 43 needs), and original affirmations, your own texts with automatic sentence/line splitting and manual
   split/merge, sessions of up to 150 sentences with repetitions and drag-and-drop ordering.
 - **Calm gamification:** XP, 20 plant-themed levels (then “circles”), 65 achievements (every text gets
   its own automatically), streaks with freezes, daily goal, comeback and “steady rhythm” rewards.
@@ -109,7 +110,9 @@ public/         icons, privacy policy · e2e/ Playwright tests
 
 © 2026 Aleksander Dudek — **all rights reserved** (see [LICENSE](LICENSE)). The code is public to read,
 but it may not be used, copied, modified or redistributed without prior written agreement. Builtin texts are traditional public-domain prayers (Polish liturgical wording, English
-traditional wording, Psalm 23 KJV) and original affirmations written for this project. Fonts:
+traditional wording, Psalm 23 KJV), original affirmations written for this project, and the prayer library built from
+the words of Prophet Lovy L. Elias, attributed to him on every text (the Polish version is a translation made for this
+project). Fonts:
 Alegreya, Alegreya SC and Instrument Sans (SIL Open Font License). Icons: Phosphor Icons (MIT) and
 custom Teleo Glyphs; the illustrated figures are drawn in code for this project. Bible texts: King James Version (Pure
 Cambridge Edition) and Biblia Gdańska (1881), public domain, via scrollmapper/bible_databases.

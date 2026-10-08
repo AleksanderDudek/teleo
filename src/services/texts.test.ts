@@ -54,6 +54,12 @@ describe('createText', () => {
     ])
   })
 
+  it('stores what the text is prayed for, keeping only known needs', async () => {
+    const text = await createText(input(['Jestem spokojny.'], { needs: ['peace', 'not-a-need', 'peace', 'sleep'] }))
+    expect((await db.texts.get(text.id))?.needs).toEqual(['peace', 'sleep'])
+    expect((await createText(input(['Jestem spokojny.']))).needs).toEqual([])
+  })
+
   it('joins sentence-mode bodies with spaces', async () => {
     const text = await createText(input(['Pierwsze zdanie tutaj.', 'Drugie zdanie.'], { splitMode: 'sentence' }))
     expect(text.body).toBe('Pierwsze zdanie tutaj. Drugie zdanie.')
@@ -103,6 +109,13 @@ describe('updateText', () => {
     expect(await db.segments.get(strong!.id)).toMatchObject({ archived: true, content: 'Jestem silny.' })
   })
 
+  it('keeps the needs when the editor sends none and replaces them when it does', async () => {
+    const text = await createText(input(['Jestem spokojny.'], { needs: ['peace'] }))
+    expect((await updateText(text.id, input(['Jestem spokojna.']))).needs).toEqual(['peace'])
+    expect((await updateText(text.id, input(['Jestem spokojna.'], { needs: ['healing'] }))).needs).toEqual(['healing'])
+    expect((await updateText(text.id, input(['Jestem spokojna.'], { needs: [] }))).needs).toEqual([])
+  })
+
   it('refuses to edit builtin texts', async () => {
     await db.texts.add({ id: 'builtin:x', title: 'X', type: 'prayer', lang: 'pl', body: 'A b c.', source: 'builtin', tags: [], archived: false, splitMode: 'sentence', createdAt: 0, updatedAt: 0 })
     await expect(updateText('builtin:x', input(['A b c.']))).rejects.toMatchObject({ code: 'notEditable' })
@@ -117,9 +130,9 @@ describe('other text operations', () => {
   })
 
   it('copies a text as the user’s own', async () => {
-    const original = await createText(input(['Jestem spokojny.', 'Idę dalej.']))
+    const original = await createText(input(['Jestem spokojny.', 'Idę dalej.'], { needs: ['peace', 'strength'] }))
     const copy = await copyTextAsOwn(original.id, 'Kopia')
-    expect(copy).toMatchObject({ title: 'Kopia', source: 'user', lang: 'pl' })
+    expect(copy).toMatchObject({ title: 'Kopia', source: 'user', lang: 'pl', needs: ['peace', 'strength'] })
     expect((await getActiveSegments(copy.id)).map((s) => s.content)).toEqual(['Jestem spokojny.', 'Idę dalej.'])
   })
 

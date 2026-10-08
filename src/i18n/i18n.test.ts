@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { NEED_AREAS, NEED_IDS } from '@/domain/text/needs'
 import en from './en.json'
 import pl from './pl.json'
 
@@ -54,5 +55,14 @@ describe('translations', () => {
       keys.filter((k) => k.split('.').reduce<unknown>((o, p) => (o as Record<string, unknown>)[p], obj) === '')
     expect(empty(en, enKeys)).toEqual([])
     expect(empty(pl, plKeys)).toEqual([])
+  })
+})
+
+describe('need labels', () => {
+  it('name every area and need of the taxonomy, and nothing else (DECISIONS #125)', () => {
+    for (const lang of [en, pl]) {
+      expect(Object.keys(lang.needs.areas).sort()).toEqual([...NEED_AREAS].sort())
+      expect(Object.keys(lang.needs.items).sort()).toEqual([...NEED_IDS].sort())
+    }
   })
 })

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { Chip } from '@/components/ui/Chip'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Segmented } from '@/components/ui/Segmented'
 import { db } from '@/db/schema'
@@ -17,6 +18,7 @@ import {
   splitSegmentAt,
   type SegmentIssue,
 } from '@/domain/segmenter'
+import { NEED_AREAS, NEEDS_BY_AREA, needsOf, type NeedId } from '@/domain/text/needs'
 import type { Lang, SplitMode, TextType } from '@/domain/types'
 import { TEXT_TYPES } from '@/domain/types'
 import { createText, getActiveSegments, TextValidationError, updateText } from '@/services/texts'
@@ -39,6 +41,9 @@ export default function TextEditor() {
   const [lang, setLang] = useState<Lang>(app.uiLang)
   const [splitMode, setSplitMode] = useState<SplitMode>('sentence')
   const [body, setBody] = useState('')
+  /** In the order chosen: the first is the main need, shown on the card. */
+  const [needs, setNeeds] = useState<NeedId[]>([])
+  const [needsOpen, setNeedsOpen] = useState(false)
   const [segments, setSegments] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
@@ -56,6 +61,8 @@ export default function TextEditor() {
       setLang(existing.lang)
       setSplitMode(existing.splitMode)
       setBody(existing.body)
+      setNeeds(needsOf(existing))
+      setNeedsOpen(needsOf(existing).length > 0)
       setSegments(rows.map((r) => r.content))
       manual.current = true
     })
@@ -105,7 +112,7 @@ export default function TextEditor() {
     setError(null)
     setSaving(true)
     try {
-      const input = { title, type, lang, splitMode, segments }
+      const input = { title, type, lang, splitMode, segments, needs }
       const saved = textId ? await updateText(textId, input) : await createText(input)
       toast({ kind: 'success', title: t('editor.saved') })
       navigate(`/library/${encodeURIComponent(saved.id)}`, { replace: true })
@@ -164,6 +171,35 @@ export default function TextEditor() {
             />
             {splitMode === 'line' && <p className="mt-1.5 text-sm text-ink-soft">{t('editor.splitLineHint')}</p>}
           </div>
+          <details open={needsOpen} onToggle={(e) => setNeedsOpen(e.currentTarget.open)}>
+            <summary className="cursor-pointer font-medium text-ink marker:text-ink-faint">
+              {t('editor.fieldNeeds')}
+              {needs.length > 0 && (
+                <span className="ml-2 text-sm font-normal text-ink-soft">
+                  {needs.map((need) => t(`needs.items.${need}`)).join(' · ')}
+                </span>
+              )}
+            </summary>
+            <p className="mt-1.5 mb-3 text-sm text-ink-soft">{t('editor.needsHint')}</p>
+            <div className="space-y-3">
+              {NEED_AREAS.map((area) => (
+                <div key={area} role="group" aria-label={t(`needs.areas.${area}`)}>
+                  <p className="mb-1.5 text-xs font-semibold tracking-wide text-ink-soft uppercase">{t(`needs.areas.${area}`)}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {NEEDS_BY_AREA[area].map((need) => (
+                      <Chip
+                        key={need}
+                        pressed={needs.includes(need)}
+                        onClick={() => setNeeds((list) => (list.includes(need) ? list.filter((n) => n !== need) : [...list, need]))}
+                      >
+                        {t(`needs.items.${need}`)}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </details>
           <label className="block">
             <span className="mb-2 block font-medium text-ink">{t('editor.fieldBody')}</span>
             <textarea

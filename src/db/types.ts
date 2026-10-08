@@ -26,6 +26,11 @@ export interface TextItem {
   /** `bible`: a Bible-challenge reading, materialised when started; hidden from the library and pickers. */
   source: 'builtin' | 'user' | 'bible'
   tags: string[]
+  /**
+   * What it is prayed for: need ids of `src/domain/text/needs.ts`, main need first (DECISIONS #125). Not indexed;
+   * absent on rows written before v1.7. Read through `needsOf`, which drops ids this version does not know.
+   */
+  needs?: string[]
   /** Hidden from the library and pickers (builtin texts can only be hidden, never deleted). */
   archived: boolean
   splitMode: SplitMode
