@@ -387,11 +387,12 @@ function Player({ data }: { data: PlayerData }) {
               onClick={() => void switchMode()}
               title={app.handsFree ? t('player.liveOn') : t('player.liveOff')}
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-colors',
+                // 44 px tall, as every control on a phone (it was a 26 px pill).
+                'inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold transition-colors',
                 app.handsFree ? 'border-ok/40 bg-ok-soft text-ok' : 'border-line bg-surface text-ink-soft',
               )}
             >
-              <Icon name="radiance" size={14} />
+              <Icon name="radiance" size={16} />
               {t('player.liveMode')}
             </button>
             )}
@@ -479,7 +480,7 @@ function Player({ data }: { data: PlayerData }) {
         </div>
         <div className="flex items-center gap-5">
           {ttsSupported() && segment ? (
-            <IconButton outlined label={t('player.listen')} icon="bell" onClick={() => void readAloud(false)} disabled={speaking || finished} />
+            <IconButton outlined label={t('player.listen')} icon="speaker-high" onClick={() => void readAloud(false)} disabled={speaking || finished} />
           ) : (
             <span className="size-12" />
           )}

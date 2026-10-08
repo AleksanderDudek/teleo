@@ -278,7 +278,7 @@
     "stay": "Keep going",
     "notFound": "This session no longer exists.",
     "repetition": "{{current}}/{{total}}",
-    "liveMode": "Live",
+    "liveMode": "Live listening",
     "liveOn": "Live listening: just keep speaking — each sentence is checked as you go.",
     "liveOff": "Tap mode: tap the microphone for each sentence.",
     "listeningLive": "Listening — speak at your own pace",
@@ -510,7 +510,7 @@
   },
   "onboarding": {
     "start": "Get started",
-    "skip": "Skip",
+    "skip": "Skip setup",
     "next": "Next",
     "back": "Back",
     "step": "Step {{current}} of {{total}}",
@@ -528,7 +528,7 @@
     "formTitle": "Polish affirmations are gendered — which form fits you?",
     "micTitle": "Let’s test the microphone",
     "micBody": "Tap the microphone and say the phrase below.",
-    "micPhrase": "Teleo",
+    "micPhrase": "Good morning",
     "micOk": "I heard you — everything works.",
     "micRetry": "Not quite — try once more, or skip this step.",
     "goalTitle": "How many sentences a day?",
@@ -540,7 +540,8 @@
     "characterTitle": "Choose your character",
     "characterGuide": "Choose the figure that stands for you. You can change it any time.",
     "focusGuide": "What would you like to practise? I’ll prepare your library.",
-    "begin": "Begin"
+    "begin": "Begin",
+    "goalLater": "You can change it any time in Settings."
   },
   "textTypes": {
     "affirmation": "Affirmation",

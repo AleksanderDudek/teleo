@@ -8,14 +8,14 @@ test.describe('onboarding', () => {
     // Playwright's headless shell has no speech service and crashes on SpeechRecognition.available().
     await installFakeSpeech(page)
     await page.goto('./')
-    // No language question: it comes from the browser (and can be changed in Settings).
+    // The language comes from the browser and can be changed right on the welcome step.
     await expect(page.getByRole('heading', { name: 'Speak it. Complete it.' })).toBeVisible()
-    await expect(page.getByRole('radio', { name: 'Polski' })).toHaveCount(0)
+    await expect(page.getByRole('radio', { name: 'English' })).toBeChecked()
     await page.getByRole('button', { name: 'Get started' }).click()
     await page.getByText('Michał', { exact: true }).click()
     await expect(page.getByRole('radio', { name: 'Michał' })).toBeChecked()
     await page.getByRole('button', { name: 'Next' }).click()
-    await page.getByRole('button', { name: /^Affirmations/ }).click()
+    await page.getByRole('radio', { name: /^Affirmations/ }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await expect(page.getByRole('heading', { name: 'Let’s test the microphone' })).toBeVisible()
     await page.getByRole('button', { name: 'Next' }).click()

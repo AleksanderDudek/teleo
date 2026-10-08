@@ -11,9 +11,8 @@ import { speechVendor } from '@/components/speech/vendor'
 import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
-import { IconHalo, type HaloTone } from '@/components/ui/IconHalo'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { Segmented } from '@/components/ui/Segmented'
-import { Stepper } from '@/components/ui/Stepper'
 import { COVERAGE_LADDER, evaluate } from '@/domain/matcher'
 import { SPEECH_LANG, type ContentFocus, type GrammaticalForm, type Lang } from '@/domain/types'
 import { useSpeechEngine } from '@/hooks/useSpeechEngine'
@@ -21,16 +20,16 @@ import { useTapCapture } from '@/hooks/useTapCapture'
 import { cn } from '@/lib/cn'
 import { requestPersistentStorage } from '@/services/backup'
 import { applyContentPreferences, applyGrammaticalForm } from '@/services/seed'
-import { DAILY_GOAL, updateAppSettings } from '@/services/settings'
+import { updateAppSettings } from '@/services/settings'
 import { useAppSettings } from '@/stores/settings'
 
 const STEPS = 5
 
-const FOCUS: ReadonlyArray<{ value: ContentFocus; key: 'Prayers' | 'Affirmations' | 'Both' | 'Own'; icon: IconName; tone: HaloTone }> = [
-  { value: 'prayers', key: 'Prayers', icon: 'praying-hands', tone: 'gold' },
-  { value: 'affirmations', key: 'Affirmations', icon: 'radiant-heart', tone: 'sunk' },
-  { value: 'both', key: 'Both', icon: 'mandorla-star', tone: 'lapis' },
-  { value: 'own', key: 'Own', icon: 'scroll-ribbon', tone: 'sunk' },
+const FOCUS: ReadonlyArray<{ value: ContentFocus; key: 'Prayers' | 'Affirmations' | 'Both' | 'Own'; icon: IconName }> = [
+  { value: 'prayers', key: 'Prayers', icon: 'praying-hands' },
+  { value: 'affirmations', key: 'Affirmations', icon: 'radiant-heart' },
+  { value: 'both', key: 'Both', icon: 'mandorla-star' },
+  { value: 'own', key: 'Own', icon: 'scroll-ribbon' },
 ]
 
 /** A centred step: the Guardian (or a window), a serif title and a line of body text. */
@@ -76,7 +75,14 @@ function MicStep({ lang, onHeard }: { lang: Lang; onHeard: () => void }) {
         <MicButton listening={capture.phase === 'listening'} busy={capture.phase === 'starting' || capture.phase === 'stopping'} disabled={!engine} onClick={capture.toggle} />
       </div>
       <p aria-live="polite" className={cn('mt-4 min-h-6 font-semibold', verdict === 'ok' ? 'text-ok' : 'text-near')}>
-        {verdict === 'retry' ? t('onboarding.micRetry') : verdict === 'ok' ? '' : capture.transcript}
+        {verdict === 'retry'
+          ? t('onboarding.micRetry')
+          : verdict === 'ok'
+            ? ''
+            : // While the browser asks for the microphone, say so: a greyed-out button alone looked broken.
+              capture.phase === 'starting'
+              ? t('speech.starting')
+              : capture.transcript}
       </p>
       {(capture.error || engineState.status === 'unsupported') && (
         <p role="alert" className="mt-2 text-sm text-bad">
@@ -125,6 +131,19 @@ export default function Onboarding() {
         title={t('onboarding.welcomeTitle')}
         body={t('onboarding.welcomeBody')}
       />
+      {/* The browser guesses the language; a phone set to English may belong to someone who prays in Polish. */}
+      <div className="mx-auto mt-5 flex justify-center">
+        <Segmented<Lang>
+          label={t('settings.language')}
+          hideLabel
+          value={app.uiLang}
+          options={[
+            { value: 'pl', label: 'Polski' },
+            { value: 'en', label: 'English' },
+          ]}
+          onChange={(uiLang) => void updateAppSettings({ uiLang })}
+        />
+      </div>
     </Fragment>,
     // 2 · the figure that stands for the user
     <Fragment key="character">
@@ -151,22 +170,25 @@ export default function Onboarding() {
       <GuideBubble mood="teach" size={96} compact>
         {t('onboarding.focusGuide')}
       </GuideBubble>
-      <div className="mt-4 grid gap-2.5">
-        {FOCUS.map(({ value, key, icon, tone }) => {
+      <div className="mt-4 grid gap-2.5" role="radiogroup" aria-labelledby="step-title">
+        {FOCUS.map(({ value, key, icon }) => {
           const selected = focus === value
           return (
             <button
               key={value}
               type="button"
-              aria-pressed={selected}
+              role="radio"
+              aria-checked={selected}
               onClick={() => setFocus(value)}
               className={cn('card flex items-center gap-3.5 p-3.5 text-left transition-colors', selected ? 'card-framed border-primary' : 'hover:border-line-strong')}
             >
-              <IconHalo icon={icon} tone={tone} size={46} />
+              {/* One look for the choice: only the selected card is lit and checked (a fixed lapis halo read as a second choice). */}
+              <IconHalo icon={icon} tone={selected ? 'lapis' : 'sunk'} size={46} />
               <span className="flex-1">
                 <span className="block font-serif text-[1.2rem] font-semibold">{t(`onboarding.focus${key}`)}</span>
                 <span className="block text-sm text-ink-soft">{t(`onboarding.focus${key}Body`)}</span>
               </span>
+              <Icon name="check-circle" size={24} className={cn('shrink-0 text-primary', !selected && 'invisible')} />
             </button>
           )
         })}
@@ -191,20 +213,15 @@ export default function Onboarding() {
     // 5 · daily goal
     <div key="goal" className="flex flex-col items-center">
       <Lead figure={<Guardian mood="encourage" size={180} decorative />} title={t('onboarding.goalTitle')} body={t('onboarding.goalBody')} />
-      <div className="mt-5 flex flex-wrap justify-center gap-2">
+      <div className="mt-5 flex flex-wrap justify-center gap-2" role="group" aria-label={t('settings.dailyGoal')}>
         {[5, 10, 20, 30].map((preset) => (
           <Chip key={preset} pressed={goal === preset} onClick={() => setGoal(preset)}>
             {t('onboarding.goalSentences', { count: preset })}
           </Chip>
         ))}
       </div>
-      <div className="mt-4">
-        <Stepper label={t('settings.dailyGoal')} value={goal} min={DAILY_GOAL.min} max={DAILY_GOAL.max} onChange={setGoal} />
-      </div>
-      <p className="mt-4 flex items-center gap-2 text-center text-sm font-medium text-gold-ink">
-        <Icon name="mandorla-star" size={16} />
-        {t('golden.hint')}
-      </p>
+      {/* Presets only: a stepper for the same number was a second control for one choice (it is in Settings). */}
+      <p className="mt-3 text-center text-sm text-ink-soft">{t('onboarding.goalLater')}</p>
       <p className="mt-5 flex items-center gap-2 text-center text-[0.8rem] text-ink-soft">
         <Icon name="shield-cross" size={16} className="text-primary" />
         <span>

@@ -119,7 +119,7 @@ test.describe('English', () => {
     await page.goto('./')
     await page.getByRole('button', { name: 'Get started' }).click()
     await page.getByRole('button', { name: 'Next' }).click()
-    await page.getByRole('button', { name: /^Affirmations/ }).click()
+    await page.getByRole('radio', { name: /^Affirmations/ }).click()
     await page.getByRole('button', { name: 'Skip' }).click()
     await libraryReady(page)
     await declineTour(page)

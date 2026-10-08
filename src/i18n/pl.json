@@ -296,7 +296,7 @@
     "stay": "Kontynuuj",
     "notFound": "Ta sesja już nie istnieje.",
     "repetition": "{{current}}/{{total}}",
-    "liveMode": "Na żywo",
+    "liveMode": "Słuchanie na żywo",
     "liveOn": "Słuchanie na żywo: po prostu mów dalej – każde zdanie sprawdzamy na bieżąco.",
     "liveOff": "Tryb dotyku: dotknij mikrofonu przy każdym zdaniu.",
     "listeningLive": "Słucham – mów we własnym tempie",
@@ -532,7 +532,7 @@
   },
   "onboarding": {
     "start": "Zaczynamy",
-    "skip": "Pomiń",
+    "skip": "Pomiń konfigurację",
     "next": "Dalej",
     "back": "Wstecz",
     "step": "Krok {{current}} z {{total}}",
@@ -564,7 +564,8 @@
     "characterTitle": "Wybierz swoją postać",
     "characterGuide": "Wybierz postać, która będzie Cię reprezentować. Zmienisz ją w każdej chwili.",
     "focusGuide": "Co chcesz praktykować? Przygotuję Twoją bibliotekę.",
-    "begin": "Rozpocznij"
+    "begin": "Rozpocznij",
+    "goalLater": "Zmienisz go w każdej chwili w Ustawieniach."
   },
   "textTypes": {
     "affirmation": "Afirmacja",
