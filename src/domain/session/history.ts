@@ -43,9 +43,23 @@ export interface HistoryRow {
 export const wasTried = (run: Pick<RunLike, 'entries'>): boolean =>
   run.entries.some((entry) => entry.attempts > 0 || entry.status !== 'pending')
 
-/** One line of the session history (owner request 2026-10-05): what a run was about and what was done in it. */
-export function runHistoryRow(run: RunLike): HistoryRow {
-  const summary = summarizeRun(run.plan, run.entries)
+/** Whether a text was said in a run (an answer to at least one of its sentences), not only planned in it. */
+export const saidText = (run: Pick<RunLike, 'plan' | 'entries'>, textId: string): boolean =>
+  run.plan.some((entry, index) => {
+    const state = run.entries[index]
+    return entry.textId === textId && state !== undefined && (state.attempts > 0 || state.status !== 'pending')
+  })
+
+/**
+ * One line of the session history (owner request 2026-10-05): what a run was about and what was done in it. With
+ * `textId` (one text's history, DECISIONS #129) the counts are that text's sentences in the run.
+ */
+export function runHistoryRow(run: RunLike, textId?: string): HistoryRow {
+  const keep = (index: number) => textId === undefined || run.plan[index]?.textId === textId
+  const summary = summarizeRun(
+    run.plan.filter((_, index) => keep(index)),
+    run.entries.filter((_, index) => keep(index)),
+  )
   const textIds: string[] = []
   for (const entry of run.plan) if (!textIds.includes(entry.textId)) textIds.push(entry.textId)
   return {

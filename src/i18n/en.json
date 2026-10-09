@@ -194,7 +194,9 @@
     "progressHeading": "Your progress with this text",
     "tags": "Tags: {{tags}}",
     "progressSummary_one": "{{count}} repetition · last: {{last}}",
-    "progressSummary_other": "{{count}} repetitions · last: {{last}}"
+    "progressSummary_other": "{{count}} repetitions · last: {{last}}",
+    "historyLink": "History of this text",
+    "historyHint": "Every session in which you said it, day by day"
   },
   "sessions": {
     "rubric": "Sessions",
@@ -1380,7 +1382,10 @@
     "firstTry": "{{percent}}% first try",
     "more_one": "Show {{count}} more",
     "more_other": "Show {{count}} more",
-    "open": "Summary"
+    "open": "Summary",
+    "textLead": "Every session in which you said it, newest first.",
+    "textEmptyTitle": "Not said yet",
+    "textEmptyBody": "Once you say it, every session with it will be listed here."
   },
   "needs": {
     "areas": {

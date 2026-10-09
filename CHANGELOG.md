@@ -14,6 +14,7 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 - **The text comes first** on a text's page; your progress with it is one tap away.
 - **Start follows your daily task**, and the first day is calmer: points and charts appear once there is something
   to count.
+- **The history of each text:** a text's page links to every session in which you said it, day by day.
 - **Choose Polish or English on the first screen**, and find bigger, easier-to-tap buttons everywhere.
 
 ### A prayer library, found by what you pray for

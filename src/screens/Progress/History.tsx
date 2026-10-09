@@ -1,11 +1,13 @@
+import { useLiveQuery } from 'dexie-react-hooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import { Icon } from '@/components/icons/Icon'
 import { StatTile } from '@/components/progress/StatTile'
 import { Button } from '@/components/ui/Button'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { db } from '@/db/schema'
 import type { HistoryRow } from '@/domain/session/history'
 import { dayKeyToLocalDate } from '@/domain/time/dayKey'
 import { useHistory, type HistoryData } from '@/hooks/useHistory'
@@ -68,13 +70,20 @@ function Row({ row, data }: { row: HistoryRow; data: HistoryData }) {
   )
 }
 
-/** Every session, newest first, grouped by day: what it was about and what was done (owner request 2026-10-05). */
+/**
+ * Every session, newest first, grouped by day: what it was about and what was done (owner request 2026-10-05).
+ * `?text=<id>` narrows it to one text — every session in which it was said (DECISIONS #129).
+ */
 export default function History() {
   const { t, i18n } = useTranslation()
   const { dayStartHour } = useAppSettings()
+  const [params] = useSearchParams()
+  const textId = params.get('text') ?? undefined
   const [limit, setLimit] = useState(PAGE)
-  const data = useHistory(limit, dayStartHour)
-  if (!data) return null
+  const data = useHistory(limit, dayStartHour, textId)
+  // `null` once looked up and gone (a deleted text): the history of all sessions is shown instead.
+  const text = useLiveQuery(async () => (textId ? ((await db.texts.get(textId)) ?? null) : null), [textId])
+  if (!data || text === undefined) return null
 
   const days: Array<{ dayKey: string; rows: HistoryRow[] }> = []
   for (const row of data.rows) {
@@ -89,7 +98,11 @@ export default function History() {
 
   return (
     <>
-      <PageHeader backTo="/progress" rubric={t('history.rubric')} title={t('history.title')} subtitle={t('history.lead')} />
+      {text ? (
+        <PageHeader backTo={`/library/${encodeURIComponent(text.id)}`} rubric={t('history.title')} title={text.title} subtitle={t('history.textLead')} />
+      ) : (
+        <PageHeader backTo="/progress" rubric={t('history.rubric')} title={t('history.title')} subtitle={t('history.lead')} />
+      )}
 
       <dl className="grid grid-cols-3 gap-3">
         {tile(t('history.last7'), data.totals.last7)}
@@ -98,7 +111,11 @@ export default function History() {
       </dl>
 
       {data.rows.length === 0 ? (
-        <EmptyState title={t('history.emptyTitle')} body={t('history.emptyBody')} />
+        text ? (
+          <EmptyState title={t('history.textEmptyTitle')} body={t('history.textEmptyBody')} />
+        ) : (
+          <EmptyState title={t('history.emptyTitle')} body={t('history.emptyBody')} />
+        )
       ) : (
         <div className="mt-8 space-y-8">
           {days.map(({ dayKey, rows }) => (

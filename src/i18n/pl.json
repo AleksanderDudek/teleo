@@ -212,7 +212,9 @@
     "progressSummary_one": "{{count}} powtórzenie · ostatnio: {{last}}",
     "progressSummary_few": "{{count}} powtórzenia · ostatnio: {{last}}",
     "progressSummary_many": "{{count}} powtórzeń · ostatnio: {{last}}",
-    "progressSummary_other": "{{count}} powtórzenia · ostatnio: {{last}}"
+    "progressSummary_other": "{{count}} powtórzenia · ostatnio: {{last}}",
+    "historyLink": "Historia tego tekstu",
+    "historyHint": "Każda sesja, w której go wypowiadasz, dzień po dniu"
   },
   "sessions": {
     "rubric": "Sesje",
@@ -1444,7 +1446,10 @@
     "more_few": "Pokaż jeszcze {{count}}",
     "more_many": "Pokaż jeszcze {{count}}",
     "more_other": "Pokaż jeszcze {{count}}",
-    "open": "Podsumowanie"
+    "open": "Podsumowanie",
+    "textLead": "Każda sesja, w której go wypowiedziano – od najnowszej.",
+    "textEmptyTitle": "Jeszcze nie wypowiedziany",
+    "textEmptyBody": "Gdy go wypowiesz, każda sesja z nim pojawi się tutaj."
   },
   "needs": {
     "areas": {
