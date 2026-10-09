@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { historyTotals, runHistoryRow, wasTried, type RunLike } from './history'
+import { historyTotals, runHistoryRow, saidText, wasTried, type RunLike } from './history'
 import type { EntryState } from './types'
 
 const entry = (status: EntryState['status'], firstTry = status === 'accepted'): EntryState => ({ status, attempts: 1, firstTry, xp: 7 })
@@ -78,5 +78,20 @@ describe('wasTried', () => {
     expect(wasTried({ entries: [untouched, { ...untouched, attempts: 2 }] })).toBe(true)
     expect(wasTried({ entries: [{ ...untouched, status: 'skipped' }] })).toBe(true)
     expect(wasTried(run)).toBe(true)
+  })
+})
+
+describe('one text’s history', () => {
+  it('keeps runs where the text was actually said, not only planned', () => {
+    expect(saidText(run, 'A')).toBe(true)
+    expect(saidText(run, 'B')).toBe(true) // skipped is an answer too
+    const untouched: EntryState = { status: 'pending', attempts: 0, firstTry: false, xp: 0 }
+    expect(saidText({ ...run, entries: [entry('accepted'), entry('accepted'), untouched, untouched] }, 'B')).toBe(false)
+    expect(saidText(run, 'C')).toBe(false)
+  })
+
+  it('counts only that text’s sentences in the row', () => {
+    expect(runHistoryRow(run, 'A')).toMatchObject({ accepted: 3, total: 3, skipped: 0, textIds: ['A', 'B'] })
+    expect(runHistoryRow(run, 'B')).toMatchObject({ accepted: 0, total: 1, skipped: 1 })
   })
 })

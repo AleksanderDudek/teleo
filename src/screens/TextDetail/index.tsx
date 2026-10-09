@@ -5,6 +5,7 @@ import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { chipClass } from '@/components/ui/chipClasses'
 import { Dialog } from '@/components/ui/Dialog'
+import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { MemoryStartDialog } from '@/components/MemoryStartDialog'
 import { Icon } from '@/components/icons/Icon'
@@ -164,6 +165,15 @@ export default function TextDetail() {
           <TextAchievements text={text} stats={stats} segmentCount={segments.length} />
         </div>
       </details>
+
+      <Link to={`/progress/history?text=${encodedId}`} className="card card-lift mt-3 flex items-center gap-4 p-4">
+        <IconHalo icon="clock-counter-clockwise" tone="sunk" size={40} iconSize={20} />
+        <span className="min-w-0 flex-1">
+          <span className="block font-serif text-lg font-semibold">{t('textDetail.historyLink')}</span>
+          <span className="block text-sm text-ink-soft">{t('textDetail.historyHint')}</span>
+        </span>
+        <Icon name="caret-right" size={20} className="shrink-0 text-ink-faint" />
+      </Link>
 
       <Dialog open={moreOpen} onClose={() => setMoreOpen(false)} title={text.title}>
         <div className="mt-4 flex flex-col gap-2">

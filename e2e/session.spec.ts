@@ -38,6 +38,12 @@ test.describe('tap mode', () => {
     await expect(page.getByText(/^10 powtórzeń · ostatnio:/)).toBeVisible()
     await progress.click()
     await expect(page.getByRole('term').filter({ hasText: 'Powtórzenia' }).locator('..')).toContainText('10')
+
+    // Its own history: the rosary session in which it was said, counting its sentences (DECISIONS #129).
+    await page.getByRole('link', { name: /Historia tego tekstu/ }).click()
+    await expect(page).toHaveURL(/#\/progress\/history\?text=builtin%3Apl\.zdrowas-maryjo$/)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Zdrowaś Maryjo')
+    await expect(page.getByRole('link', { name: 'Dziesiątka różańca' }).first()).toBeVisible()
   })
 })
 

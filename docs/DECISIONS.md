@@ -667,3 +667,13 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     - Not changed on purpose: the sticky support strip (the owner's choice; making it scroll away touches the
       safe-area offsets of the app bar and needs a device check), Settings' engine control, the player layout.
     e2e guards: no main screen may be wider than the phone (`smoke.spec.ts`).
+
+## One text's history (owner request, 2026-10-09)
+
+129. **Every time a text was said, on its own page.** The session history (#119–#122) lists sessions; a person asked
+    to see "each prayer" there. Rather than a second log, the history screen takes `?text=<id>`
+    (`/progress/history?text=…`): only runs in which that text was *said* — at least one of its sentences answered
+    or skipped, not merely planned (a rosary left after the Our Father does not count for the Hail Mary) — with the
+    row's sentence counts and the totals limited to that text's sentences. The text page links to it (*History of
+    this text*) under its folded progress. Pure rules in `src/domain/session/history.ts` (`saidText`,
+    `runHistoryRow(run, textId)`), the filter in `useHistory`; nothing new is stored.
