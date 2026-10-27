@@ -729,10 +729,15 @@ findability instead.
 
 ## Prayers for tearing down strongholds (owner request, 2026-10-27)
 
-132. **Artur Ceroński's *Demony burzące* prayers join the library, with a note read before praying.** 25 prayers in
-    both languages (`*.stronghold-*`): two to start with, built from the method of parts 4 and 1, then one for each part
-    the owner's write-up covers (1–13, 15, 18–20, 22–27), as rewritten there to pray for oneself, with its six changes
-    that keep every prayer within Scripture. Tags *Artur Ceroński* and *Demony burzące* (searchable).
+132. **Artur Ceroński's *Demony burzące* prayers join the library, with a note read before praying.** 29 prayers in
+    both languages (`*.stronghold-*`): two to start with, built from the method of parts 4 and 1, then one for each of
+    the 27 parts but part 4 (whose method they are), as rewritten in the owner's write-up to pray for oneself, with its
+    six changes that keep every prayer within Scripture. Tags *Artur Ceroński* and *Demony burzące* (searchable).
+    - **Parts 14, 16, 17 and 21 came later, from the transcripts** the owner then sent (manipulation, pessimism, fears,
+      humanism), written the same way: Polish first-hand, English from it, the same six changes. Part 14's opening
+      reading (*You shall not steal*, read as taking a person captive) gives way to the verse its prayer stands on
+      (2 Corinthians 2:11, which he attributes to Jesus; the note says it is Paul's). Where a recording is unclear (the
+      end of part 16, much of part 21) the note says the prayer is completed or pieced together from what can be heard.
     - **Nothing to fill in while speaking.** The write-up's brackets (*[name it]*, *[names]*) cannot be checked by ear,
       so the sentences say it in general (*I name it before You: this is a stronghold in my life.*) and the note tells
       the reader to name it in their own words or to make a copy and write the names in. Scripture references
@@ -749,4 +754,4 @@ findability instead.
     - **A new need, *Strongholds & bad patterns* / *Warownie i złe wzorce*** (`strongholds`, deliverance, after
       `warfare`): every prayer of the series carries it; the main need stays the issue itself where one fits well
       (rejection and humiliation → *Rejection & shame*, compulsions → *Fear & anxiety*, atheism → *Faith*, addiction →
-      *Addiction*). Lovy's *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 5.
+      *Addiction*). Lovy's *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 6.
