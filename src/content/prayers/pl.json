@@ -4045,6 +4045,7 @@
       "prorok Lovy L. Elias"
     ],
     "needs": [
+      "strongholds",
       "warfare",
       "peace"
     ],
@@ -6087,6 +6088,737 @@
       "Przyjmuję dziś Twój odpoczynek.",
       "Proklamuję, że ta noc jest dla mnie nocą odnowy.",
       "Kładę się do snu w potężnym imieniu Jezusa. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-method",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Burzenie warowni",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "warfare",
+      "forgiveness"
+    ],
+    "note": "„Poznacie prawdę, a prawda was wyswobodzi.” — J 8,32 (Biblia Gdańska)\n\nZbudowana z jedenastu kroków, których Artur Ceroński uczy w części 4. cyklu „Demony burzące”, jego słowami tam, gdzie je podaje. Każe stosować tę metodę wobec każdej warowni: najpierw ta modlitwa, potem modlitwa o warownię, którą rozpoznajesz.\n\nTam, gdzie modlitwa coś nazywa — warownię, zachowanie, korzeń, z którego wyrosła, osoby, którym przebaczasz, prawdę w miejsce kłamstwa — powiedz to własnymi słowami albo zrób kopię tej modlitwy i wpisz nazwy. Werset w niej to 1 J 1,9.\n\nJeśli masz natręctwa (OCD) albo niechciane myśli, nie zamieniaj codziennego odpychania ani wypowiadania myśli w rytuał — to może karmić kompulsję. Pomódl się raz, zostaw to Bogu i trzymaj się leczenia.\n\nJego krok 10. mówi, aby zerwać szkodliwe kontakty, nawet z bliską rodziną, i w razie potrzeby zmienić pracę; wobec rodziny granice idą w parze z szacunkiem, a tam, gdzie jest przemoc, najpierw bezpieczeństwo.\n\nJeśli masz myśli o skrzywdzeniu siebie albo odebraniu sobie życia, zadzwoń teraz pod numer alarmowy 112. Możesz też zadzwonić pod 116 123 (całą dobę).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, przychodzę do Ciebie w imieniu Jezusa.",
+      {
+        "m": "Nie będę udawał, że nie ma problemu.",
+        "f": "Nie będę udawała, że nie ma problemu.",
+        "n": "Nie będę udawać, że nie ma problemu."
+      },
+      "Nazywam go przed Tobą: to jest warownia w moim życiu.",
+      {
+        "m": "Tam, gdzie w tym zgrzeszyłem, nazywam rzecz po imieniu: to jest grzech, wypaczenie Twojej prawdy.",
+        "f": "Tam, gdzie w tym zgrzeszyłam, nazywam rzecz po imieniu: to jest grzech, wypaczenie Twojej prawdy.",
+        "n": "Tam, gdzie jest w tym mój grzech, nazywam rzecz po imieniu: to jest grzech, wypaczenie Twojej prawdy."
+      },
+      "Wyznaję go Tobie i przyjmuję Twoje przebaczenie, bo Ty jesteś wierny i sprawiedliwy, aby mi przebaczyć i oczyścić mnie.",
+      "W imieniu Jezusa wyrzucam po kolei każdego złego ducha związanego z tą warownią.",
+      {
+        "m": "Nie pozwalam im wrócić i codziennie będę je od siebie odpychał, dopóki mój sposób myślenia się nie zmieni.",
+        "f": "Nie pozwalam im wrócić i codziennie będę je od siebie odpychała, dopóki mój sposób myślenia się nie zmieni.",
+        "n": "Nie pozwalam im wrócić i codziennie będę je od siebie odpychać, dopóki mój sposób myślenia się nie zmieni."
+      },
+      "Ojcze, widzę owoc tej warowni w moim życiu.",
+      "W imieniu Jezusa przeklinam ten owoc i zatrzymuję jego wzrost.",
+      "Widzę korzeń, z którego wyrósł.",
+      "W imieniu Jezusa przeklinam także ten korzeń i w wierze nakazuję, aby zniknęło zarówno to zachowanie, jak i jego korzeń.",
+      {
+        "m": "Ale, Ojcze, jestem w tych dziedzinach poraniony.",
+        "f": "Ale, Ojcze, jestem w tych dziedzinach poraniona.",
+        "n": "Ale, Ojcze, noszę w tych dziedzinach rany."
+      },
+      "Przynoszę je teraz Tobie i przez wiarę przyjmuję uzdrowienie w imieniu Jezusa.",
+      "Przebaczam każdemu, kto przyczynił się do powstania tego korzenia.",
+      "Oddaję ich Tobie.",
+      "Ojcze, w miejsce każdego kłamstwa przyjmuję Twoją prawdę.",
+      "Wprowadź mnie w głęboką, bliską relację z Tobą.",
+      {
+        "m": "Będę codziennie na głos wyznawał tę prawdę, bo śmierć i życie są w mocy języka.",
+        "f": "Będę codziennie na głos wyznawała tę prawdę, bo śmierć i życie są w mocy języka.",
+        "n": "Będę codziennie na głos wyznawać tę prawdę, bo śmierć i życie są w mocy języka."
+      },
+      {
+        "m": "Będę ją wprowadzał w życie zgodnie z miarą mojej wiary, bez pośpiechu i bez zwlekania.",
+        "f": "Będę ją wprowadzała w życie zgodnie z miarą mojej wiary, bez pośpiechu i bez zwlekania.",
+        "n": "Będę ją wprowadzać w życie zgodnie z miarą mojej wiary, bez pośpiechu i bez zwlekania."
+      },
+      "Kiedy stary tok myślowy znowu zapuka, nie poddam się.",
+      "Jeśli upadnę, wstanę, obmyję się we krwi Jezusa, wyrzucę stary tok myślowy wyznaniem moich ust i zacznę wyznawać właściwy.",
+      {
+        "m": "Daj mi odwagę, abym zmienił to, co karmi tę warownię, i abym prosił o pomoc, kiedy jej potrzebuję.",
+        "f": "Daj mi odwagę, abym zmieniła to, co karmi tę warownię, i abym prosiła o pomoc, kiedy jej potrzebuję.",
+        "n": "Daj mi odwagę, by zmienić to, co karmi tę warownię, i prosić o pomoc, kiedy jej potrzebuję."
+      },
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-freedom",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Uwolnienie od złych duchów",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "warfare",
+      "strongholds",
+      "bloodline"
+    ],
+    "note": "„Poddajcież się tedy Bogu, a dajcie odpór dyjabłu, a uciecze od was.” — Jk 4,7 (Biblia Gdańska)\n\nZbudowana z kroków, których Artur Ceroński uczy w części 1. cyklu „Demony burzące”, aby zostać uwolnionym i zachować wolność. Módl się nią albo modlitwą „Burzenie warowni” przed modlitwą o warownię, którą rozpoznajesz.\n\nTam, gdzie modlitwa coś nazywa — twój problem, twoje grzechy, patologie w rodzinie, każdą formę okultyzmu, osoby, którym przebaczasz — powiedz to własnymi słowami albo zrób kopię tej modlitwy i wpisz nazwy. Werset w niej to 1 P 5,8-9.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, uniżam się przed Tobą.",
+      {
+        "m": "Będę wobec Ciebie uczciwy i nazwę mój problem.",
+        "f": "Będę wobec Ciebie uczciwa i nazwę mój problem.",
+        "n": "Mówię Ci uczciwie o moim problemie i nazywam go po imieniu."
+      },
+      "Wyznaję moją wiarę w Jezusa Chrystusa: On jest moim Panem, umarł za moje grzechy, a Ty wskrzesiłeś Go z martwych.",
+      "Wyznaję Ci każdy grzech, o którym wiem.",
+      "Nazywam patologie w mojej rodzinie i dziś podejmuję decyzję, że zrywam z nimi i z moim własnym grzechem.",
+      "Wyrzekam się każdej formy okultyzmu, nazywając przed Tobą każdą po kolei.",
+      "Przebaczam każdemu człowiekowi, który mnie skrzywdził.",
+      "Poddaję się Tobie, Ojcze.",
+      "Twoja prawda jest ostateczną wykładnią tego, kim Ty jesteś, kim ja jestem w Tobie i co mam i co mogę w Tobie.",
+      "I przeciwstawiam się diabłu: w imieniu Jezusa musi ode mnie uciec.",
+      {
+        "m": "Pomóż mi być trzeźwym, czujnym i mocnym w wierze.",
+        "f": "Pomóż mi być trzeźwą, czujną i mocną w wierze.",
+        "n": "Pomóż mi zachować trzeźwość, czujność i moc wiary."
+      },
+      "Niech Jezus będzie w centrum wszystkiego w moim życiu.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-foundations",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O przyjęcie nauczania o warowniach",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "wisdom"
+    ],
+    "note": "„Trzeźwymi bądźcie, czujcie; albowiem przeciwnik wasz dyjabeł, jako lew ryczący obchodzi, szukając kogo by pożarł. Któremu dawajcie odpór, mocni będąc w wierze.” — 1 P 5,8-9 (Biblia Gdańska)\n\nZ części 1. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Modli się nią nad słuchaczami na końcu nauczania o szatanie i demonach; módl się nią, zanim przeczytasz albo wysłuchasz nauczania o warowniach. Prosisz o przyjęcie Bożego słowa i to, co słyszysz, badasz Pismem (1 Tes 5,21).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za Twoje słowo.",
+      "Przynoszę Ci wszystko, czego uczę się o burzeniu demonicznych warowni.",
+      "W imieniu Jezusa pomóż mi przyjąć z tego to, co jest Twoim słowem.",
+      "Niech to będą narzędzia włożone w moje ręce.",
+      "Niech każda informacja będzie przetwarzana przez mojego odrodzonego ducha.",
+      "Uzbrój ją w Twoją moc i niech będzie orężem przeciwko demonicznym siłom w moim życiu.",
+      "Otwieram serce, aby przyjąć trwały przyczółek wolności.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-rejection",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni odrzucenia",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "shame",
+      "strongholds"
+    ],
+    "note": "„Najwzgardzeńszy był, i najpodlejszy z ludzi, mąż boleści, a świadomy niemocy, i jako zakrywający twarz swoję; najwzgardzeńszy mówię, skądeśmy go za nic nie mieli.” — Iz 53,3 (Biblia Gdańska)\n\nZ części 2. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nMałe lisy, które niszczą winnicę, pochodzą z Pieśni nad Pieśniami 2,15.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Boże, Ojcze mój, dziękuję Ci, że mnie kochasz.",
+      "Dziękuję Ci za Jezusa, który za mnie umarł, wziął na siebie cały mój grzech, spłacił mój dług i zabrał moje poczucie odrzucenia.",
+      {
+        "m": "Ponieważ przychodzę do Ciebie przez Jezusa, nie jestem odrzucony, niechciany ani na marginesie.",
+        "f": "Ponieważ przychodzę do Ciebie przez Jezusa, nie jestem odrzucona, niechciana ani na marginesie.",
+        "n": "Ponieważ przychodzę do Ciebie przez Jezusa, Ty mnie nie odrzucasz, chcesz mnie i nie stawiasz mnie na marginesie."
+      },
+      "Wiem, że naprawdę mnie kochasz i że Ci na mnie zależy; jestem Twoim dzieckiem, a Ty jesteś moim Ojcem.",
+      {
+        "m": "Panie Jezu, zostałeś odrzucony, abym ja mógł zostać przyjęty.",
+        "f": "Panie Jezu, zostałeś odrzucony, abym ja mogła zostać przyjęta.",
+        "n": "Panie Jezu, zostałeś odrzucony, aby mnie przyjęto."
+      },
+      "Wierzę w to, zanim to poczuję.",
+      "Pokutuję teraz z owocu odrzucenia w moim życiu i przebaczam każdemu, kto mnie odrzucił, zdradził albo zawiódł.",
+      "Wierzę, że mi przebaczyłeś, i wierzę, że mnie akceptujesz.",
+      "Jestem Twoim dziełem, więc akceptuję siebie.",
+      "Ojcze, dziękuję Ci, że wprowadzasz mnie w miejsce, gdzie odrzucenie nie będzie miało absolutnie żadnego wpływu na moje życie.",
+      {
+        "m": "Dziękuję Ci, że jestem przez Ciebie zaakceptowany i że wszystko to dzieje się przez Jezusa Chrystusa.",
+        "f": "Dziękuję Ci, że jestem przez Ciebie zaakceptowana i że wszystko to dzieje się przez Jezusa Chrystusa.",
+        "n": "Dziękuję Ci, że mnie akceptujesz i że wszystko to dzieje się przez Jezusa Chrystusa."
+      },
+      "On jest moją mocą i moją siłą; w Nim mogę rozbić każdą formację wroga w moim życiu.",
+      "Pochwyć każdego małego lisa, który niszczy winnicę, nawet najdrobniejszy owoc odrzucenia.",
+      {
+        "m": "Otwórz mi oczy, abym zobaczył, co mnie niszczyło.",
+        "f": "Otwórz mi oczy, abym zobaczyła, co mnie niszczyło.",
+        "n": "Otwórz mi oczy na to, co mnie niszczyło."
+      },
+      "Duchu Święty, w imieniu Jezusa biorę autorytet nad każdą demoniczną siłą odrzucenia, nad każdym owocem odrzucenia i nad każdym duchem, który ten owoc spowodował.",
+      {
+        "m": "Demonie odrzucenia, związuję cię i ograbiam cię; nie masz żadnej władzy nad tym obszarem mojego życia, ponieważ Chrystus został odrzucony, abym ja został przyjęty do Bożej rodziny.",
+        "f": "Demonie odrzucenia, związuję cię i ograbiam cię; nie masz żadnej władzy nad tym obszarem mojego życia, ponieważ Chrystus został odrzucony, abym ja została przyjęta do Bożej rodziny.",
+        "n": "Demonie odrzucenia, związuję cię i ograbiam cię; nie masz żadnej władzy nad tym obszarem mojego życia, ponieważ Chrystus został odrzucony, aby mnie przyjęto do Bożej rodziny."
+      },
+      "Nie pozwalam, aby odrzucenie się we mnie rozwijało ani owocowało.",
+      "W imieniu Jezusa ogłaszam osobistą wolność od każdej formy odrzucenia.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-light",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O światło na moje warownie",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "wisdom"
+    ],
+    "note": "„Tedy mówi: Wrócę się do domu mego, skądem wyszedł; a przyszedłszy znajduje go próżny i umieciony i ochędożony.” — Mt 12,44 (Biblia Gdańska)\n\nZ części 3. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Modli się nią na końcu nauczania o tym, czym są demoniczne warownie; módl się nią, kiedy chcesz jasno zobaczyć swoją sytuację.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za te słowa i za to, że mogę ich słuchać.",
+      "W imieniu Jezusa niech światło Twojego Świętego Ducha wypełni mnie teraz.",
+      "Chcę mieć głęboki, jasny ogląd mojej sytuacji: pozwól mi zobaczyć, czym jest warownia, i niech to się we mnie jasno zarysuje.",
+      "Niech Twoje światło już od tej chwili oświeca mnie w tej sprawie.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-word",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O słowo, które mnie wyzwala",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "faith"
+    ],
+    "note": "„Poznacie prawdę, a prawda was wyswobodzi.” — J 8,32 (Biblia Gdańska)\n\nZ części 4. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Modli się nią na końcu nauczania o tym, jak zniszczyć demoniczną warownię. Sama metoda to modlitwa „Burzenie warowni”.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za to słowo.",
+      "W imieniu Jezusa niech dotrze do głębi mojego serca i niech mnie przeniknie.",
+      "Dziękuję Ci, że już do mnie dociera.",
+      "W imieniu Jezusa ogłaszam, że nikt nie zniszczy tego, co zostało do mnie powiedziane: nie zostanie wykorzenione, ale mocno się we mnie ugruntuje.",
+      "To słowo jest bronią — Ojcze, niech mi służy.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-instability",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowniom chwiejności",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "peace"
+    ],
+    "note": "„Mąż umysłu dwoistego jest niestateczny we wszystkich drogach swoich.” — Jk 1,8 (Biblia Gdańska)\n\nZ części 5. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nJego lista objawów „pogranicza” bardzo przypomina osobowość z pogranicza (borderline) i obejmuje groźby samookaleczenia albo samobójstwa. Jeśli to o tobie, powiedz komuś jeszcze dziś i skontaktuj się z lekarzem albo telefonem kryzysowym. Ten stan dobrze reaguje na specjalistyczną terapię.\n\nJeśli masz myśli o skrzywdzeniu siebie albo odebraniu sobie życia, zadzwoń teraz pod numer alarmowy 112. Możesz też zadzwonić pod 116 123 (całą dobę).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, przychodzę do Ciebie z wiarą.",
+      "Nie zgadzam się na funkcjonowanie w moim życiu żadnej warowni chwiejności — ani warowni popędliwości, ani warowni pogranicza.",
+      "W imieniu Jezusa przeklinam każdą warownię chwiejności we mnie.",
+      "Niech nie zostanie z niej kamień na kamieniu; niech zostanie wykorzeniona i wyrwana.",
+      "Odrzucenie, z którego żyje, niech zostanie obnażone i wyrzucone z mojego życia.",
+      "Duchu Święty, w Twojej potężnej mocy postanawiam teraz rozbić każdą warownię chwiejności.",
+      "Ojcze, uwielbiam Cię za to, że jesteś ze mną i że dałeś mi absolutne zwycięstwo.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-self-admiration",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni samozachwytu",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„Podniosło cię serce twoje dla piękności twojej, na złeś używał mądrości swojej dla jasności twojej; przetoż cię uderzę o ziemię, a przed obliczem królów położę cię, abyć się dziwowali.” — Ez 28,17 (Biblia Gdańska)\n\nZ części 6. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nJego zdanie, że „nie ma już żadnego ja”, zastępuje tu List do Galatów 2,20 dosłownie. „Zawsze mnie wysłuchujesz” to słowa Jezusa (J 11,42); wierzący wypowiada je z ufnością z 1 J 5,14.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci, że zawsze mnie wysłuchujesz.",
+      "Pozwól mi zobaczyć jasno i wyraźnie każdy objaw samozachwytu w moim życiu.",
+      "Pomóż mi podjąć działanie i zacząć rozbijać tę warownię.",
+      "Przeciwstawiam się teraz każdej demonicznej sile samozachwytu.",
+      "W imieniu Jezusa przeklinam demoniczne siły samozachwytu.",
+      "Wykorzeniam tę warownię w sobie i związuję duchy, które w niej są.",
+      "Nie zgadzam się na samozachwyt w moim życiu.",
+      {
+        "m": "Ogłaszam: razem z Chrystusem zostałem ukrzyżowany; już nie ja żyję, lecz żyje we mnie Chrystus.",
+        "f": "Ogłaszam: razem z Chrystusem zostałam ukrzyżowana; już nie ja żyję, lecz żyje we mnie Chrystus.",
+        "n": "Ogłaszam: moje dawne życie umarło razem z Chrystusem na krzyżu; już nie ja żyję, lecz żyje we mnie Chrystus."
+      },
+      {
+        "m": "Moje stare ja nie zasiada już na tronie i nie będę oddawał czci nikomu poza Bogiem.",
+        "f": "Moje stare ja nie zasiada już na tronie i nie będę oddawała czci nikomu poza Bogiem.",
+        "n": "Moje stare ja nie zasiada już na tronie i nie będę oddawać czci nikomu poza Bogiem."
+      },
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-compulsions",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw perfekcjonizmowi i natręctwom",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "anxiety",
+      "strongholds",
+      "peace"
+    ],
+    "note": "„Słyszysz wargi powstawających przeciwko mnie, i przemyśliwanie ich przeciwko mnie przez cały dzień.” — Lm 3,62 (Biblia Gdańska)\n\nZ części 7. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nJego modlitwa urywa się po dziękczynieniu; reszta jest uzupełniona z tej części, która wśród sił tej warowni wymienia lęk, zakon i kontrolę.\n\nJeśli niechciane myśli — bluźniercze, agresywne albo seksualne — wciąż wracają i cię przerażają, to dobrze znany objaw zaburzenia obsesyjno-kompulsyjnego (OCD), a nie dowód na demona, i dobrze się leczy. Pomódl się tą modlitwą raz i zostaw to Bogu; powtarzanie modlitwy w kółko, aby „cofnąć” myśl, może karmić kompulsję.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Dobry Ojcze, dziękuję Ci za to słowo i dziękuję Ci za to objawienie.",
+      "Tam, gdzie perfekcjonizm albo natręctwa mają nade mną władzę, przynoszę je Tobie.",
+      "Nie muszę zasługiwać na Twoją miłość ani trzymać wszystkiego pod kontrolą; Jezus dokonał wszystkiego.",
+      "W imieniu Jezusa odrzucam lęk, kontrolę i prawo zasługiwania, z których żyje ta warownia, i ufam Tobie.",
+      "Daj mi Twój pokój w miejsce sprawdzania i powtarzania i poprowadź mnie do pomocy, której potrzebuję.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-paranoia",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni paranoi",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "anxiety"
+    ],
+    "note": "„Majętność bogatego jest miastem jego mocnem, a jako mur wysoki w myśli jego.” — Prz 18,11 (Biblia Gdańska)\n\nZ części 8. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nMówi, że człowiekowi z tą warownią bardzo trudno dostrzec ją samemu, więc poproś o pomoc kogoś, komu ufasz. Silna, utrwalona podejrzliwość albo przekonania, których nikt nie potrafi podważyć, mogą być objawami stanu, który się leczy; idź do lekarza.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Drogi Ojcze, dziękuję Ci, że te słowa mogły zostać do mnie skierowane.",
+      "Ojcze, modlę się teraz w imieniu Jezusa, przed Twoim tronem: przeklinam każdą warownię paranoi w moim życiu.",
+      "W imieniu Jezusa podważam tę warownię i związuję byty demoniczne, które w niej są.",
+      {
+        "m": "W imieniu Jezusa Chrystusa jestem uwolniony od wpływu demonicznej warowni paranoi.",
+        "f": "W imieniu Jezusa Chrystusa jestem uwolniona od wpływu demonicznej warowni paranoi.",
+        "n": "W imieniu Jezusa Chrystusa Bóg uwalnia mnie od wpływu demonicznej warowni paranoi."
+      },
+      "Duchu Święty, niech te słowa mnie przenikają.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-antisocial",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni antyspołecznej",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„Bo sobie pobłaża w oczach swoich, aby wykonał nieprawość swoję aż do obmierzenia.” — Ps 36,3 (Biblia Gdańska)\n\nZ części 9. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nTam, gdzie kogoś skrzywdziłeś(-aś) albo oszukałeś(-aś), wyznaj to, napraw i przyjmij konsekwencje (Łk 19,8). Jeśli boisz się, że możesz kogoś skrzywdzić, poszukaj pomocy jeszcze dziś. Jako jedną z możliwych przyczyn wymienia też uszkodzenie układu nerwowego — to sprawa dla lekarza.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za Twoje słowo; pomóż mi je przyjąć.",
+      "Ojcze, modlę się teraz w imieniu Jezusa: niech moc Twojego Świętego Ducha mnie przenika.",
+      "Dziękuję Ci, że zawsze mnie wysłuchujesz.",
+      "Tam, gdzie rozpoznaję w sobie warownię antyspołeczną, uderzam w nią całą mocą Twojego Świętego Ducha.",
+      "Ojcze, przeklinam warownię antyspołeczną w moim życiu.",
+      "Ochroń mnie, aby demoniczne siły agresji i kłamstwa nie wyprowadziły mnie w pole i nie doprowadziły do zniszczenia.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-dependence",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni zależności",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "faith"
+    ],
+    "note": "„Tak mówi Pan: Przeklęty mąż, który ufa w człowieku, i który pokłada ciało ramieniem swojem, a od Pana odstępuje serce jego.” — Jr 17,5 (Biblia Gdańska)\n\nZ części 10. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nOddziela łagodność i zaparcie się siebie, które są dobre, od zależności, która zakopuje każdą potrzebę i boi się każdej różnicy zdań. Następny werset jest obietnicą: „Błogosławiony mąż, który ufa w Panu, a Pan jest nadzieją jego” (Jr 17,7). Jeśli zależysz od kogoś, kto cię kontroluje albo krzywdzi, najpierw twoje bezpieczeństwo.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się w imieniu Jezusa: niech moc Twojego Świętego Ducha mnie przenika.",
+      "Duchu Święty, niech Twoja obecność wypełni mnie teraz.",
+      "Pomóż mi widzieć i jasno oceniać moją sytuację.",
+      "Tam, gdzie rozpoznaję w sobie warownię odrzucenia albo warownię zależności, występuję przeciwko niej z całą siłą Ducha Świętego, który jest we mnie, i rozbijam ją.",
+      {
+        "m": "Daj mi odwagę, abym śmiało przeciwko niej występował.",
+        "f": "Daj mi odwagę, abym śmiało przeciwko niej występowała.",
+        "n": "Daj mi odwagę, by śmiało przeciwko niej występować."
+      },
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-acting",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni aktorstwa",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„Tedy się układł Amnon, zmyślając sobie chorobę.” — 2 Sm 13,6 (Biblia Gdańska)\n\nZ części 11. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Drogi Ojcze, dziękuję Ci za te słowa.",
+      "Dziękuję Ci za mądrość i rozum i za to, że jesteś Bogiem, który objawia mi rzeczy potężne.",
+      "Ojcze, tam, gdzie żyję pod wpływem warowni aktorstwa, przeklinam ją.",
+      "Nie zgadzam się na działanie tego typu warowni w moim życiu ani w Twoim Kościele.",
+      "W imieniu Jezusa wykorzeniam ją.",
+      {
+        "m": "Duchu Święty, pobudzaj mnie, abym przyjmował od Ciebie objawienie, brał moc i rozbijał demoniczne siły w imieniu Jezusa. Amen.",
+        "f": "Duchu Święty, pobudzaj mnie, abym przyjmowała od Ciebie objawienie, brała moc i rozbijała demoniczne siły w imieniu Jezusa. Amen.",
+        "n": "Duchu Święty, pobudzaj mnie, by przyjmować od Ciebie objawienie, brać moc i rozbijać demoniczne siły w imieniu Jezusa. Amen."
+      }
+    ]
+  },
+  {
+    "key": "pl.stronghold-isolation",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni izolacji",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "grief"
+    ],
+    "note": "„Człowiek swej myśli, szuka tego, co mu się podoba, a w każdą rzecz wtrąca się.” — Prz 18,1 (Biblia Gdańska)\n\nZ części 12. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nJedno słowo o demonach zginęło w nagraniu; „występuję przeciwko” wypełnia lukę. Cichość i introwersja nie są warownią; Jezus często usuwał się na modlitwę (Łk 5,16).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, w imieniu Jezusa obnażam warownię izolacji w moim życiu.",
+      "W imieniu Jezusa Chrystusa ustanawiam, że izolacja jest przeklętą formą działania demonicznego, i występuję przeciwko demonom, które są w tej warowni.",
+      "Ojcze, w imieniu Jezusa przyjmuję Twoją prawdę i Twoje wyzwolenie.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-humiliation",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni poniżenia",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "shame",
+      "strongholds",
+      "sadness"
+    ],
+    "note": "„Ściągnął mocarze z stolic ich, a wywyższył uniżone.” — Łk 1,52 (Biblia Gdańska)\n\nZ części 13. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nWśród sił tej warowni wymienia depresję. Depresja się leczy; obok modlitwy idź do lekarza.\n\nJeśli masz myśli o skrzywdzeniu siebie albo odebraniu sobie życia, zadzwoń teraz pod numer alarmowy 112. Możesz też zadzwonić pod 116 123 (całą dobę).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się w imieniu Jezusa: niech te słowa dotrą do głębi mojej duszy.",
+      "Ojcze, w imieniu Jezusa przeklinam wszelkie poniżenie we mnie.",
+      "Dyskredytuję działania demoniczne i podważam tę warownię.",
+      "Mówię teraz do każdej demonicznej siły zgrupowanej w warowni poniżenia: usuń się teraz ode mnie.",
+      "Przeklinam cię, demoniczna warownio poniżenia, a wy, wszystkie demony, które tam jesteście, musicie odejść teraz w imieniu Jezusa.",
+      "Ojcze, pomóż mi przyjąć Twoje słowo; niech moc Twojego Świętego Ducha mnie przenika.",
+      "Dziękuję Ci, Panie, że zawsze mnie wysłuchujesz.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-immaturity",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni niedojrzałości",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„Bracia! nie bądźcie dziećmi wyrozumieniem, ale bądźcie dziećmi złością, a wyrozumieniem dorosłymi bądźcie.” — 1 Kor 14,20 (Biblia Gdańska)\n\nZ części 15. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nTam, gdzie on wydaje polecenia aniołom, ty prosisz Ojca, który posyła ich, aby służyli tym, którzy mają odziedziczyć zbawienie (Hbr 1,14).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się teraz w imieniu Jezusa.",
+      "Dziękuję Ci, że pokazałeś mi warownię dziecinności w moim życiu.",
+      "Ojcze, w imieniu Jezusa przeklinam demoniczne siły w tej warowni.",
+      "W imieniu Jezusa związuję je i nie pozwalam im działać we mnie; podchodzę do tego z wiarą.",
+      {
+        "m": "Pomóż mi też przyjąć właściwą postawę wobec ludzi wokół mnie, którzy są pod wpływem tej warowni, aby te siły nie mogły mnie dotykać, a może także abym mógł im pomóc.",
+        "f": "Pomóż mi też przyjąć właściwą postawę wobec ludzi wokół mnie, którzy są pod wpływem tej warowni, aby te siły nie mogły mnie dotykać, a może także abym mogła im pomóc.",
+        "n": "Pomóż mi też przyjąć właściwą postawę wobec ludzi wokół mnie, którzy są pod wpływem tej warowni, aby te siły nie mogły mnie dotykać, a może także, by im pomóc."
+      },
+      "Ojcze, dziękuję Ci za Twoje słowo, za Twoje namaszczenie i za aniołów, których posyłasz, aby służyli tym, którzy mają odziedziczyć zbawienie.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-sexual",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni seksualnej",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„A Jam cię był nasadził winną macicą wyborną, którejby wszystko nasienie było prawdziwe; jakożeś mi się tedy odmieniła w płonne gałęzie obcej macicy?” — Jr 2,21 (Biblia Gdańska)\n\nZ części 18. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nPowiedz o tym jednej zaufanej osobie i ustal, przed kim się rozliczasz. Wśród objawów tej warowni wymienia słabe pożądanie i trudność z osiągnięciem orgazmu. Takie trudności są częste, zwykle mają przyczyny medyczne albo w relacji i same w sobie nie są grzechem ani znakiem demona; idź do lekarza, a często też do terapeuty. Jeśli w twojej walce ktoś jest krzywdzony albo chodzi o dziecko, przestań i jeszcze dziś poszukaj profesjonalnej pomocy.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się teraz w imieniu Jezusa i przynoszę siebie Tobie.",
+      {
+        "m": "Duchu Święty, daj mi moc, abym podważył demoniczną warownię seksualności, jeżeli jest w moim życiu, i abym mógł usłużyć innym, którzy potrzebują wolności.",
+        "f": "Duchu Święty, daj mi moc, abym podważyła demoniczną warownię seksualności, jeżeli jest w moim życiu, i abym mogła usłużyć innym, którzy potrzebują wolności.",
+        "n": "Duchu Święty, daj mi moc, by podważyć demoniczną warownię seksualności, jeżeli jest w moim życiu, i usłużyć innym, którzy potrzebują wolności."
+      },
+      "W imieniu Jezusa przeklinam każdą warownię seksualną w moim życiu.",
+      "W imieniu Jezusa Chrystusa nie zgadzam się na demoniczne siły atakujące moją seksualność.",
+      "Ojcze, poślij swoich aniołów, aby mi pomagali w sięganiu po wolność.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-foolishness",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni głupoty",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "wisdom"
+    ],
+    "note": "„Zjątrzyły się, i pogniły rany moje, dla głupstwa mojego.” — Ps 38,6 (Biblia Gdańska)\n\nZ części 19. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Duchu Święty, w imieniu Jezusa przeklinam każdą warownię głupoty w moim życiu.",
+      "Ojcze, jeżeli jest we mnie taka warownia, modlę się, aby została teraz podważona.",
+      "Ojcze, proszę Cię też o umiejętność usługiwania innym ludziom w niszczeniu warowni głupoty w ich życiu.",
+      "Duchu Święty, niech Twoi aniołowie mnie wspomagają.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-religion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni religii",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "closeness"
+    ],
+    "note": "„Albowiem wy opuściwszy przykazania Boże, trzymacie ustawy ludzkie.” — Mk 7,8 (Biblia Gdańska)\n\nZ części 20. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nPrzez „religię” rozumie wierzenia i praktyki, które zastępują żywą relację z Bogiem. Pismo używa tego słowa także dobrze: czysta pobożność to troska o sieroty i wdowy i zachowanie siebie nieskalanym od świata (Jk 1,27).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci, że to słowo zostało dziś uwolnione.",
+      "Dziękuję Ci za moc Twojego słowa i za to, że teraz do mnie dociera.",
+      "W imieniu Jezusa przychodzę do Ciebie z wiarą i zgadzam się z Tobą co do rozbicia demonicznej warowni religii w moim życiu.",
+      "Przeklinam tę warownię w moim życiu.",
+      "Ojcze, w imieniu Jezusa niech Twoi aniołowie mnie wspomagają.",
+      "Niech Twój Święty Duch prowadzi mnie teraz w imieniu Jezusa. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-atheism",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni ateizmu",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "faith",
+      "strongholds"
+    ],
+    "note": "„Niepobożny dla pychy, którą po sobie pokazuje, nie pyta się o Boga; wszystka myśl jego, że niemasz Boga.” — Ps 10,4 (Biblia Gdańska)\n\nZ części 22. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nWersety w niej to J 16,8, Iz 11,2, Ef 1,17, J 14,26 i J 16,14. Jego „Ty jesteś mądrością Bożą” — tytuł, który Pismo daje Chrystusowi (1 Kor 1,24) — zmienia się tu w „Duch mądrości”.\n\nSzczere pytania i wątpliwości nie są warownią. Może się tak modlić każdy, kto chce uwierzyć.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za Twoje słowo; pomóż mi je przyjąć.",
+      "Duchu Święty, chcę, aby Twoja święta obecność mnie przenikała; bądź teraz we mnie aktywny.",
+      "Chcę rozumieć to słowo i przez nie dojść do pełni poznania prawdy.",
+      "W imieniu Jezusa przeklinam każdą warownię ateizmu i niewiary we mnie.",
+      "Duchu Święty, Ty przekonujesz świat o grzechu, o sprawiedliwości i o sądzie: dotknij mnie teraz Twoją wielką mocą.",
+      "Duchu Święty, Ty jesteś Duchem mądrości; przypominasz mi wszystko, co powiedział Chrystus, i uwielbiasz Chrystusa.",
+      "Dotknij mnie teraz w imieniu Jezusa. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-racism",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw rasizmowi, nacjonalizmowi i kastowości",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "holiness"
+    ],
+    "note": "„Nie masz Żyda, ani Greka; nie masz niewolnika ani wolnego; nie masz mężczyzny i niewiasty; albowiem wszyscy wy jednym jesteście w Chrystusie Jezusie.” — Ga 3,28 (Biblia Gdańska)\n\nZ części 23. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nMiłość do własnej rodziny, kultury i kraju jest dobra. Grzechem jest ocenianie ludzi jako więcej albo mniej wartych z powodu rasy, narodu albo klasy (Jk 2,1-9).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się teraz, bo to nauczanie dotarło do mojego serca.",
+      "Ojcze, przeklinam teraz każdą warownię rasizmu, każdą warownię nacjonalizmu i każdą warownię kastowości we mnie.",
+      "W imieniu Jezusa podważam te warownie i zabraniam im się rozwijać.",
+      "W imieniu Jezusa nakazuję, aby demoniczne siły, które za nimi stoją, zostały obnażone.",
+      "Duchu Święty, dziękuję Ci, że biorę teraz autorytet nad tymi demonicznymi siłami i że te warownie się kruszą i są burzone.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-greed",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni chciwości",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "money"
+    ],
+    "note": "„Umartwiajcież tedy członki wasze, które są na ziemi; wszeteczeństwo, nieczystość, namiętność, złą pożądliwość i łakomstwo, które jest bałwochwalstwem.” — Kol 3,5 (Biblia Gdańska)\n\nZ części 24. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nWładza nad wężami i skorpionami to Łk 10,19. Oddziela chciwość od zdrowego oszczędzania: odkładanie więcej, niż potrzebujesz, aby dawać i budować, jest dobre; trzymanie się pieniędzy ze strachu przed stratą — nie.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci, że zawsze mnie wysłuchujesz.",
+      "Dziękuję Ci, że w imieniu Jezusa dałeś mi władzę deptać po wężach i skorpionach i nad całą potęgą nieprzyjaciela.",
+      "W imieniu Jezusa występuję teraz przeciwko każdej demonicznej warowni chciwości w moim życiu i przeciwko każdej warowni zbudowanej na chciwości.",
+      "Ojcze, nie chcę tego w moim życiu i w imieniu Jezusa przeklinam te warownie.",
+      "Ojcze, niech zostaną rozbite i wykorzenione.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-lies",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni kłamstwa",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "wisdom"
+    ],
+    "note": "„A wykonam sąd według sznuru, a sprawiedliwość według wagi; i potłucze grad nadzieję omylną, a ucieczkę wody zatopią.” — Iz 28,17 (Biblia Gdańska)\n\nZ części 25. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się w imieniu Jezusa i dziękuję Ci, że jesteś Bogiem, który chce mojej wolności.",
+      "Ojcze, ogłaszam w imieniu Jezusa, że mam wolność w Chrystusie i stoję w miejscu Jego autorytetu.",
+      "Każda demoniczna warownia kłamstwa, każde fałszywe przekonanie w moim życiu — w imieniu Jezusa ustanawiam, że upadnie.",
+      "Ojcze, poślij swoich aniołów, aby mi pomagali w rozbiciu demonicznych sił, które obsadzają tę warownię.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-pleasures",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni martwych upodobań",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "addiction"
+    ],
+    "note": "„Wszystko mi wolno, ale nie wszystko pożyteczno; wszystko mi wolno, ale ja się nie dam zniewolić żadnej rzeczy.” — 1 Kor 6,12 (Biblia Gdańska)\n\nZ części 26. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nHobby samo w sobie nie jest grzechem. Zadaj jego trzy pytania: Czy to jest pożyteczne? Czy buduje? Czy mnie zniewala? Rozstrzygnij to przed Bogiem, a nie ze strachu przed tym, co ktoś inny ci powiedział.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci za wolność, którą dajesz.",
+      "Ojcze, w imieniu Jezusa przeklinam każdą demoniczną warownię martwych upodobań w moim życiu: każde hobby, które w jakikolwiek sposób ma niszczący wpływ na moje życie.",
+      "Ojcze, w imieniu Jezusa chcę, aby wszelkie niszczące upodobania zostały teraz rozbite przez potężne imię Jezusa.",
+      "Duchu Święty, dziękuję Ci za Twoich aniołów, którzy pomagają mi w wykorzenianiu tej warowni. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-addictions",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni nałogów",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "addiction",
+      "strongholds"
+    ],
+    "note": "„Aby obaczywszy się, wywikłali się z sidła dyjabelskiego, od którego pojmani są ku czynieniu woli jego.” — 2 Tm 2,26 (Biblia Gdańska)\n\nZ części 27. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nPowiedz komuś jeszcze dziś i poszukaj pomocy lekarskiej, aby przestać. Nagłe odstawienie alkoholu, leków nasennych, uspokajających albo niektórych narkotyków bez lekarza może być niebezpieczne. Wielu ludziom w trwaniu w wolności pomaga grupa wsparcia.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się teraz w zgodzie z Tobą, w imieniu Jezusa.",
+      "Rozpoznaję w moim życiu demoniczną warownię nałogów i przeklinam ją.",
+      "W imieniu Jezusa biorę nad nią autorytet i rozbijam ją przez potężne imię Jezusa.",
+      "Przeklinam wszelkie nałogi w moim życiu w imieniu Jezusa Chrystusa.",
+      "Ojcze, dziękuję Ci, że zawsze mnie wysłuchujesz.",
+      "W imieniu Jezusa, amen."
     ]
   }
 ]

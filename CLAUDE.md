@@ -59,6 +59,8 @@ npm run typecheck    # tsc -b
   core texts stay in `texts.json`. Every builtin has 1–3 needs; EN/PL library pairs keep the same sentence count (tests).
   Search: `src/domain/text/librarySearch.ts` (ranked, words in any order, need labels searchable — DECISIONS #130,
   index built by `textSearchIndex`); a text page's *More for this need* is `relatedTexts` in `needs.ts`.
+  A builtin may carry a `note` (read before praying, never spoken — verses with references, cautions; DECISIONS #132);
+  sentences hold no digits and no `[fill-ins]` (content tests). Library series: Lovy (`*.lovy-*`), Ceroński (`*.stronghold-*`).
   Start-up awaits only `seedCore`; the library is written in the background (`seedLibraryInBackground`, small transactions)
   and `<html data-library="ready">` marks the end — e2e tests wait for it via `libraryReady`/`finishOnboarding`.
 - Backups: `src/domain/backup` (validate, `crypto.ts` password envelope, `summary.ts`), `src/services/backup.ts`

@@ -108,6 +108,19 @@ export default function TextDetail() {
 
       {text.archived && <p className="mt-4 rounded-xl bg-sunk px-4 py-3 text-sm text-ink-soft">{t('textDetail.hiddenNote')}</p>}
 
+      {text.note && (
+        <section aria-labelledby="note-heading" className="mt-6 rounded-2xl bg-sunk px-5 py-4">
+          <h2 id="note-heading" className="mb-2 text-xs font-semibold tracking-wide text-ink-soft uppercase">
+            {t('textDetail.noteHeading')}
+          </h2>
+          {text.note.split('\n\n').map((paragraph, index) => (
+            <p key={index} className="mt-2 text-sm leading-relaxed text-ink first-of-type:mt-0">
+              {paragraph}
+            </p>
+          ))}
+        </section>
+      )}
+
       {/* The text itself first; statistics and achievements below, folded (DECISIONS #128). */}
       <section aria-labelledby="segments-heading" className="mt-8">
         <h2 id="segments-heading" className="mb-3 text-2xl font-semibold">

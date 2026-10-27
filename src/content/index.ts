@@ -14,6 +14,8 @@ export interface BuiltinTextDef {
   needs: string[]
   segments?: string[]
   variants?: Record<GrammaticalForm, string[]>
+  /** Shown on the text page before the text, never spoken (DECISIONS #132). */
+  note?: string
 }
 
 export interface BuiltinSessionDef {

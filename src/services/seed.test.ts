@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { builtinSessionId, builtinTextId, loadBuiltinTexts } from '@/content'
+import { builtinSessionId, builtinTextId, CORE_TEXTS, loadBuiltinTexts } from '@/content'
 import { db } from '@/db/schema'
 import { resetDb } from '@/test/db'
 import {
@@ -15,8 +15,9 @@ import {
 import { readSettings, updateAppSettings, updateMeta } from './settings'
 import { getActiveSegments } from './texts'
 
-const isLibraryPrayer = (key: string | undefined) => key?.includes('.lovy-') ?? false
-/** Visible core builtins (the prayer library is checked apart: 266 keys would drown the lists). */
+const CORE_KEYS = new Set(CORE_TEXTS.map((def) => def.key))
+const isLibraryPrayer = (key: string | undefined) => key !== undefined && !CORE_KEYS.has(key)
+/** Visible core builtins (the prayer library is checked apart: 316 keys would drown the lists). */
 const visibleTexts = async () =>
   (await db.texts.toArray())
     .filter((t) => !t.archived && !isLibraryPrayer(t.builtinKey))
@@ -77,6 +78,13 @@ describe('seedBuiltins', () => {
     expect((await db.texts.get(builtinTextId('en.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
     expect((await db.texts.get(builtinTextId('pl.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
     expect((await db.texts.get(builtinTextId('pl.ojcze-nasz')))?.needs).toEqual(['traditional'])
+  })
+
+  it('writes the note read before a prayer, and none where a text has no note (DECISIONS #132)', async () => {
+    await seedBuiltins()
+    expect((await db.texts.get(builtinTextId('en.stronghold-paranoia')))?.note).toContain('Proverbs 18:11')
+    expect((await db.texts.get(builtinTextId('pl.stronghold-paranoia')))?.note).toContain('Prz 18,11')
+    expect(await db.texts.get(builtinTextId('pl.ojcze-nasz'))).not.toHaveProperty('note')
   })
 
   it('gives the texts of an older seed their needs when content is re-seeded', async () => {

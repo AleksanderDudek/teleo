@@ -62,21 +62,36 @@ describe('builtin content', () => {
 
   it('pairs every library prayer with its Polish translation, sentence for sentence (DECISIONS #126)', () => {
     const byKey = new Map(BUILTIN_TEXTS.map((def) => [def.key, def]))
-    const english = BUILTIN_TEXTS.filter((def) => def.key.startsWith('en.lovy-'))
-    expect(english.length).toBeGreaterThan(100)
-    expect(BUILTIN_TEXTS.filter((def) => def.key.startsWith('pl.lovy-'))).toHaveLength(english.length)
+    const library = BUILTIN_TEXTS.slice(CORE_TEXTS.length)
+    const english = library.filter((def) => def.lang === 'en')
+    expect(english.length).toBeGreaterThan(150)
+    expect(library.filter((def) => def.lang === 'pl')).toHaveLength(english.length)
     const problems = english.flatMap((en) => {
       const pl = byKey.get(en.key.replace(/^en\./, 'pl.'))
       if (!pl) return [`${en.key}: no Polish pair`]
       return [
         ...(builtinSegments(pl, 'n').length === builtinSegments(en, 'n').length ? [] : [`${en.key}: sentence count`]),
         ...(pl.needs.join() === en.needs.join() ? [] : [`${en.key}: needs differ`]),
-        ...(pl.type === en.type && en.tags.includes('Prophet Lovy L. Elias') && pl.tags.includes('prorok Lovy L. Elias')
-          ? []
-          : [`${en.key}: type or attribution`]),
+        ...(pl.type === en.type && en.tags.length > 0 && pl.tags.length === en.tags.length ? [] : [`${en.key}: type or attribution`]),
+        ...(Boolean(pl.note) === Boolean(en.note) ? [] : [`${en.key}: note in one language only`]),
       ]
     })
     expect(problems).toEqual([])
+    const lovy = english.filter((def) => def.key.startsWith('en.lovy-'))
+    expect(lovy.every((def) => def.tags.includes('Prophet Lovy L. Elias'))).toBe(true)
+    expect(lovy.every((def) => byKey.get(def.key.replace(/^en\./, 'pl.'))?.tags.includes('prorok Lovy L. Elias'))).toBe(true)
+  })
+
+  it('keeps what is read before praying apart from what is said (DECISIONS #132)', () => {
+    const problems = BUILTIN_TEXTS.flatMap((def) => [
+      ...(def.note === undefined || (def.note.trim() !== '' && !def.note.includes('\n\n\n')) ? [] : [`${def.key}: empty note or paragraph`]),
+      // A fill-in like "[name it]" cannot be checked by ear: it belongs in the note, said in one's own words.
+      ...FORMS.flatMap((form) => builtinSegments(def, form).filter((segment) => /[[\]]/.test(segment)).map((segment) => `${def.key}/${form}: ${segment}`)),
+    ])
+    expect(problems).toEqual([])
+    const strongholds = BUILTIN_TEXTS.filter((def) => def.key.includes('.stronghold-'))
+    expect(strongholds).toHaveLength(50)
+    expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes('Artur Ceroński'))).toBe(true)
   })
 
   it('holds no duplicates: one title per language, and no two texts sharing half their sentences (DECISIONS #130)', () => {
