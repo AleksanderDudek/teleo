@@ -17,6 +17,7 @@ import { useText } from '@/hooks/useText'
 import { startRun } from '@/services/sessions'
 import { copyTextAsOwn, deleteUserText, setTextArchived } from '@/services/texts'
 import { toast } from '@/stores/ui'
+import { RelatedTexts } from './RelatedTexts'
 import { TextAchievements } from './TextAchievements'
 
 function Stat({ label, value }: { label: string; value: string | number }) {
@@ -142,6 +143,8 @@ export default function TextDetail() {
       )}
       {text.tags.length > 0 && <p className="mt-3 text-sm text-ink-soft">{t('textDetail.tags', { tags: text.tags.join(' · ') })}</p>}
       {text.source === 'builtin' && <p className="mt-3 text-sm text-ink-soft">{t('textDetail.builtinNote')}</p>}
+
+      <RelatedTexts text={text} backTo={backTo} />
 
       <details className="group mt-8 rounded-3xl border border-line bg-surface">
         <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 px-5 py-3 [&::-webkit-details-marker]:hidden">

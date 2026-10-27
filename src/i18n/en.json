@@ -91,7 +91,7 @@
     "rubric": "Prayers · affirmations · texts",
     "title": "Library",
     "add": "New text",
-    "searchPlaceholder": "Search titles and words",
+    "searchPlaceholder": "Search: fear, debt, sleep…",
     "filterType": "Type",
     "filterSource": "Source",
     "sourceAll": "All",
@@ -188,6 +188,7 @@
     "notFound": "This text no longer exists.",
     "setTask": "Set as a daily task",
     "needsHeading": "Prayed for",
+    "relatedHeading": "More for this need",
     "hiddenToast": "Hidden from the library",
     "shownToast": "Back in the library",
     "undo": "Undo",
@@ -774,10 +775,6 @@
       }
     },
     "session": {
-      "first": {
-        "name": "First Session",
-        "desc": "Your first completed session"
-      },
       "10": {
         "name": "Sessions ×10",
         "desc": "10 completed sessions"
@@ -789,6 +786,10 @@
       "100": {
         "name": "Sessions ×100",
         "desc": "100 completed sessions"
+      },
+      "first": {
+        "name": "First Session",
+        "desc": "Your first completed session"
       },
       "perfect": {
         "name": "Clean Session",
@@ -1427,6 +1428,8 @@
       "protection": "Protection",
       "bloodline": "Generational curses",
       "warfare": "Spiritual warfare",
+      "witchcraft": "Witchcraft & evil altars",
+      "spiritSpouse": "Spirit spouses & soul ties",
       "words": "Spoken words",
       "addiction": "Addiction",
       "enemies": "Enemies & court cases",

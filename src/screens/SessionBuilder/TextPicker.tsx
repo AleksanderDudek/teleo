@@ -5,7 +5,8 @@ import { Dialog } from '@/components/ui/Dialog'
 import { TextTypeIcon } from '@/components/TextTypeIcon'
 import type { TextItem } from '@/db/types'
 import { countNeeds, isNeedId, mainNeed, matchesNeed, NEED_AREAS, NEEDS_BY_AREA, type NeedArea, type NeedId } from '@/domain/text/needs'
-import { searchKey } from '@/lib/search'
+import { rankBySearch, searchTerms } from '@/domain/text/librarySearch'
+import { textSearchIndex } from '@/i18n/dynamic'
 
 interface TextPickerProps {
   open: boolean
@@ -20,13 +21,19 @@ export function TextPicker({ open, texts, segmentCounts, onPick, onClose }: Text
   const [query, setQuery] = useState('')
   // Kept between picks: several texts for one need are often added in a row.
   const [need, setNeed] = useState<NeedId | undefined>()
-  const searched = useMemo(() => {
-    const q = searchKey(query.trim())
-    return texts
-      .filter((text) => !text.archived && (segmentCounts.get(text.id) ?? 0) > 0)
-      .filter((text) => !q || searchKey(`${text.title} ${text.tags.join(' ')} ${text.body}`).includes(q))
-      .sort((a, b) => a.title.localeCompare(b.title))
-  }, [texts, segmentCounts, query])
+  const pickable = useMemo(
+    () =>
+      texts
+        .filter((text) => !text.archived && (segmentCounts.get(text.id) ?? 0) > 0)
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((text) => ({ text, index: textSearchIndex(t, text) })),
+    [texts, segmentCounts, t],
+  )
+  // Best matches first, as in the library (DECISIONS #130).
+  const searched = useMemo(
+    () => rankBySearch(pickable, searchTerms(query), (entry) => entry.index).map((entry) => entry.text),
+    [pickable, query],
+  )
   const counts = useMemo(() => countNeeds(searched), [searched])
   const filtered = useMemo(() => searched.filter((text) => matchesNeed(text, { need })), [searched, need])
   const mainNeedLabel = (text: TextItem) => {

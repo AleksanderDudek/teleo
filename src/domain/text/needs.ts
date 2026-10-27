@@ -10,7 +10,7 @@ export const NEEDS_BY_AREA = {
   family: ['marriage', 'spouse', 'children', 'home', 'forgiveness'],
   work: ['money', 'job', 'business', 'favor', 'studies'],
   direction: ['breakthrough', 'wisdom', 'purpose', 'restoration'],
-  deliverance: ['protection', 'bloodline', 'warfare', 'words', 'addiction', 'enemies'],
+  deliverance: ['protection', 'bloodline', 'warfare', 'witchcraft', 'spiritSpouse', 'words', 'addiction', 'enemies'],
   spiritual: ['closeness', 'holiness', 'faith', 'gifts', 'church'],
   stages: ['youth', 'newStart', 'oldAge'],
   daily: ['morning', 'evening', 'thanksgiving', 'traditional', 'scripture'],
@@ -83,4 +83,32 @@ export function countNeeds(texts: Iterable<WithNeeds>): { areas: Map<NeedArea, n
 export function parseNeedFilter(area: string | null, need: string | null): NeedFilter {
   if (isNeedId(need)) return { area: areaOf(need), need }
   return isNeedArea(area) ? { area } : {}
+}
+
+/**
+ * What a text page offers next (DECISIONS #130): a few texts for each of its needs, taking turns — the best one for its
+ * main need, the best one for its second need, … then the next of each — so a prayer against spirit spouses in a
+ * marriage leads both to other marriage prayers and to the other spirit-spouse prayer. For one need, texts mainly for it
+ * come before texts that only touch it, then by title. The caller passes only texts it lists (this language).
+ */
+export function relatedTexts<T extends WithNeeds & { id: string; title: string }>(text: T, others: readonly T[], limit = 4): T[] {
+  const candidates = others.filter((other) => other.id !== text.id)
+  const queues = needsOf(text).map((need) =>
+    candidates
+      .filter((other) => needsOf(other).includes(need))
+      .sort((a, b) => needRank(a, { need }) - needRank(b, { need }) || a.title.localeCompare(b.title)),
+  )
+  const picked: T[] = []
+  const seen = new Set<string>()
+  while (picked.length < limit && queues.some((queue) => queue.length > 0)) {
+    for (const queue of queues) {
+      let next = queue.shift()
+      while (next && seen.has(next.id)) next = queue.shift()
+      if (!next) continue
+      seen.add(next.id)
+      picked.push(next)
+      if (picked.length === limit) break
+    }
+  }
+  return picked
 }

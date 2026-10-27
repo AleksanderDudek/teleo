@@ -57,6 +57,8 @@ npm run typecheck    # tsc -b
   filters in the URL (`src/domain/text/libraryFilter.ts`). The library prayers are lazy chunks `src/content/prayers/{en,pl}.json`
   (PL gendered sentences inline as `{m,f,n}`), reached only through `loadBuiltinTexts()` — never import them statically;
   core texts stay in `texts.json`. Every builtin has 1–3 needs; EN/PL library pairs keep the same sentence count (tests).
+  Search: `src/domain/text/librarySearch.ts` (ranked, words in any order, need labels searchable — DECISIONS #130,
+  index built by `textSearchIndex`); a text page's *More for this need* is `relatedTexts` in `needs.ts`.
   Start-up awaits only `seedCore`; the library is written in the background (`seedLibraryInBackground`, small transactions)
   and `<html data-library="ready">` marks the end — e2e tests wait for it via `libraryReady`/`finishOnboarding`.
 - Backups: `src/domain/backup` (validate, `crypto.ts` password envelope, `summary.ts`), `src/services/backup.ts`

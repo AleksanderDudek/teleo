@@ -103,7 +103,7 @@
     "rubric": "Modlitwy · afirmacje · teksty",
     "title": "Biblioteka",
     "add": "Nowy tekst",
-    "searchPlaceholder": "Szukaj w tytułach i słowach",
+    "searchPlaceholder": "Szukaj: lęk, długi, sen…",
     "filterType": "Rodzaj",
     "filterSource": "Źródło",
     "sourceAll": "Wszystkie",
@@ -204,6 +204,7 @@
     "notFound": "Ten tekst już nie istnieje.",
     "setTask": "Ustaw jako codzienne zadanie",
     "needsHeading": "Intencje",
+    "relatedHeading": "Więcej w tej intencji",
     "hiddenToast": "Ukryto w bibliotece",
     "shownToast": "Znów w bibliotece",
     "undo": "Cofnij",
@@ -808,10 +809,6 @@
       }
     },
     "session": {
-      "first": {
-        "name": "Pierwsza sesja",
-        "desc": "Twoja pierwsza ukończona sesja"
-      },
       "10": {
         "name": "Sesje ×10",
         "desc": "10 ukończonych sesji"
@@ -823,6 +820,10 @@
       "100": {
         "name": "Sesje ×100",
         "desc": "100 ukończonych sesji"
+      },
+      "first": {
+        "name": "Pierwsza sesja",
+        "desc": "Twoja pierwsza ukończona sesja"
       },
       "perfect": {
         "name": "Czysta sesja",
@@ -1491,6 +1492,8 @@
       "protection": "Ochrona",
       "bloodline": "Przekleństwa pokoleniowe",
       "warfare": "Walka duchowa",
+      "witchcraft": "Czary i złe ołtarze",
+      "spiritSpouse": "Duchowi małżonkowie i więzi dusz",
       "words": "Wypowiedziane słowa",
       "addiction": "Uzależnienia",
       "enemies": "Wrogowie i sprawy sądowe",

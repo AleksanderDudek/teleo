@@ -24,13 +24,41 @@ test('the library finds a prayer by need, and the filter survives opening it and
 
   // A need on a text page is a link to the library filtered by it.
   await page.getByRole('link', { name: /Against Nightmares and Night Attacks/ }).click()
-  await page.getByRole('link', { name: 'Spiritual warfare' }).click()
+  await page.getByRole('link', { name: 'Spiritual warfare', exact: true }).click()
   await expect(page).toHaveURL(/#\/library\?need=warfare$/)
   await expect(page.getByRole('button', { name: /^Deliverance & protection/ })).toHaveAttribute('aria-pressed', 'true')
 
   await page.getByRole('button', { name: 'Clear filters' }).click()
   await expect(page).toHaveURL(/#\/library$/)
   await expect(page.getByRole('group', { name: 'Need' })).toHaveCount(0)
+})
+
+test('search takes words in any order, puts the best match first, and a text page leads to more for its needs', async ({
+  page,
+}) => {
+  await installFakeSpeech(page)
+  await finishOnboarding(page)
+  await page.getByRole('navigation').getByRole('link', { name: 'Library' }).click()
+
+  await page.getByRole('searchbox', { name: 'Search' }).fill('spouse spirit')
+  await expect(page).toHaveURL(/#\/library\?q=spouse\+spirit$/)
+  const cards = page.getByRole('main').getByRole('listitem')
+  await expect(cards.first()).toContainText('Against Spirit Spouses Fighting My Marriage')
+  await expect(cards.nth(1)).toContainText('Breaking Spirit Spouse Bondage')
+
+  // A need's name is searchable too: nothing in this title says "nightmares".
+  await page.getByRole('searchbox', { name: 'Search' }).fill('nightmares')
+  await expect(page.getByRole('link', { name: /A Night Prayer/ })).toBeVisible()
+
+  await page.getByRole('searchbox', { name: 'Search' }).fill('spouse spirit')
+  await cards.first().getByRole('link').click()
+  const related = page.getByRole('region', { name: 'More for this need' })
+  await expect(related.getByRole('link', { name: /Breaking Spirit Spouse Bondage/ })).toBeVisible()
+  await related.getByRole('link', { name: /Breaking Spirit Spouse Bondage/ }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Breaking Spirit Spouse Bondage' })).toBeVisible()
+  // The way back still leads to the search the first text was found by.
+  await page.getByRole('link', { name: 'Back' }).click()
+  await expect(page).toHaveURL(/#\/library\?q=spouse\+spirit$/)
 })
 
 test('the text picker of a new session narrows the list by need', async ({ page }) => {
