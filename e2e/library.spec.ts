@@ -72,3 +72,39 @@ test('the text picker of a new session narrows the list by need', async ({ page 
   await dialog.getByRole('button', { name: /Against Nightmares and Night Attacks/ }).click()
   await expect(page.getByText('27 / 150 sentences')).toBeVisible()
 })
+
+test.describe('in Polish', () => {
+  test.use({ locale: 'pl-PL' })
+
+  test('search finds other forms of a word typed without diacritics, need names, and leads to more for the need', async ({
+    page,
+  }) => {
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    const search = page.getByRole('searchbox', { name: 'Szukaj' })
+    const cards = page.getByRole('main').getByRole('listitem')
+
+    // "dlugi" (no ł, another form) still finds the prayer about debts, first.
+    await search.fill('dlugi')
+    await expect(cards.first()).toContainText('O uwolnienie od długów')
+
+    // A need's name is searchable too: the title of the evening prayer says nothing of nightmares.
+    await search.fill('koszmary')
+    await expect(page.getByRole('link', { name: /Modlitwa wieczorna/ })).toBeVisible()
+
+    // Words in any order and in other forms: both spirit-spouse prayers come first.
+    await search.fill('małżonek duchowy')
+    const spiritSpouse = /Przeciw duchowym małżonkom atakującym moje małżeństwo|Wyzwolenie z niewoli duchowego małżonka/
+    await expect(cards.nth(0)).toContainText(spiritSpouse)
+    await expect(cards.nth(1)).toContainText(spiritSpouse)
+    const listUrl = page.url()
+
+    await page.getByRole('link', { name: /Przeciw duchowym małżonkom atakującym moje małżeństwo/ }).click()
+    const related = page.getByRole('region', { name: 'Więcej w tej intencji' })
+    await related.getByRole('link', { name: /Wyzwolenie z niewoli duchowego małżonka/ }).click()
+    await expect(page.getByRole('heading', { level: 1, name: 'Wyzwolenie z niewoli duchowego małżonka' })).toBeVisible()
+    await page.getByRole('link', { name: 'Wstecz' }).click()
+    await expect(page).toHaveURL(listUrl)
+  })
+})
