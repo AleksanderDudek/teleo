@@ -1,10 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { createLiveTracker, type LiveEvent } from '@/domain/live/liveTracker'
 import { FakeRecognition } from '@/test/fakeRecognition'
 import { SpeechError } from './SpeechEngine'
 import { WebSpeechEngine } from './WebSpeechEngine'
 
 const CHROME_UA = 'Mozilla/5.0 (Macintosh) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36'
 const SAFARI_UA = 'Mozilla/5.0 (Macintosh) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/19.0 Safari/605.1.15'
+const ANDROID_UA = 'Mozilla/5.0 (Linux; Android 15; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Mobile Safari/537.36'
+/** Chrome on Android with "Desktop site" on: nothing in the user agent says Android. */
+const ANDROID_DESKTOP_SITE_UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36'
 
 const engine = (userAgent = CHROME_UA) =>
   new WebSpeechEngine({ scope: { SpeechRecognition: FakeRecognition }, userAgent })
@@ -151,7 +155,7 @@ describe('WebSpeechEngine', () => {
     await expect(e.start({ lang: 'pl-PL' })).rejects.toMatchObject({ code: 'busy' })
   })
 
-  it('collapses cumulative results on WebKit only', async () => {
+  it('collapses cumulative results on WebKit, keeps genuine repetitions on desktop Chrome', async () => {
     const safari = engine(SAFARI_UA)
     await safari.start({ lang: 'en-US' })
     last().emit([true, 'I am calm'], [true, 'I am calm and focused'])
@@ -161,6 +165,47 @@ describe('WebSpeechEngine', () => {
     await chrome.start({ lang: 'en-US' })
     last().emit([true, 'I am calm'], [true, 'I am calm'])
     expect((await chrome.stop()).alternatives[0]).toBe('I am calm I am calm')
+  })
+
+  it('does not repeat what was said on Android, where every growth step arrives as a new final result', async () => {
+    const transcripts: string[] = []
+    const e = engine(ANDROID_UA)
+    await e.start({ lang: 'pl-PL', continuous: true, onTranscript: (text) => transcripts.push(text) })
+    last().emit([true, 'Jestem'])
+    last().emit([true, 'Jestem'], [true, 'Jestem spokojny'])
+    last().emit([true, 'Jestem'], [true, 'Jestem spokojny'], [false, 'Jestem spokojny i pewny'])
+    last().emit([true, 'Jestem'], [true, 'Jestem spokojny'], [true, 'Jestem spokojny i pewny siebie'], [true, 'Jestem spokojny i'])
+    expect(transcripts).toEqual(['Jestem', 'Jestem spokojny', 'Jestem spokojny i pewny', 'Jestem spokojny i pewny siebie'])
+  })
+
+  it('lets live mode accept a sentence on Android and go on to the next one with no extra words', async () => {
+    const tracker = createLiveTracker({ lang: 'pl' })
+    const sentences = ['Jestem spokojny i pewny siebie.', 'Dziękuję za ten dzień.']
+    const events: LiveEvent[] = []
+    const take = (found: LiveEvent[]) => {
+      events.push(...found)
+      if (found.some((event) => event.type === 'accepted')) take(tracker.setTarget({ entryIndex: 1, source: sentences[1]! }))
+    }
+    const e = engine(ANDROID_UA)
+    await e.start({ lang: 'pl-PL', continuous: true, onTranscript: (text, _final, others) => take(tracker.update(text, others)) })
+    take(tracker.setTarget({ entryIndex: 0, source: sentences[0]! }))
+    const first: Array<[boolean, string]> = [[true, 'Jestem'], [true, 'Jestem spokojny'], [true, 'Jestem spokojny i pewny siebie']]
+    for (let i = 1; i <= first.length; i++) last().emit(...first.slice(0, i))
+    last().emit(...first, [true, 'dziękuję'])
+    last().emit(...first, [true, 'dziękuję'], [false, 'dziękuję za ten dzień'])
+    expect(events.filter((event) => event.type !== 'progress')).toMatchObject([
+      { type: 'accepted', entryIndex: 0 },
+      { type: 'accepted', entryIndex: 1 },
+    ])
+  })
+
+  it('learns that results are cumulative when the user agent does not say Android', async () => {
+    const transcripts: string[] = []
+    const e = engine(ANDROID_DESKTOP_SITE_UA)
+    await e.start({ lang: 'en-US', continuous: true, onTranscript: (text) => transcripts.push(text) })
+    last().emit([true, 'I'], [true, 'I am'], [true, 'I am calm'])
+    last().emit([true, 'I'], [true, 'I am'], [true, 'I am calm'], [true, 'I am calm and'], [true, 'I am calm'])
+    expect(transcripts).toEqual(['I am calm', 'I am calm and'])
   })
 
   it('abort during start leaves no microphone running and settles start()', async () => {

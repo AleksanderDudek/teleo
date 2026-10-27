@@ -709,3 +709,20 @@ findability instead.
       prayers and to the other spirit-spouse prayer. The links keep the way back to the list the first text came from.
     - A content test now holds the library free of duplicates: one title per language, and no two texts sharing half
       their sentences.
+
+## Speech on Android (owner report, 2026-10-27)
+
+131. **Cumulative recognition results are collapsed on Android too.** Owner report: live mode repeated what was said
+    and kept showing errors on sentences said correctly, never moving on. Cause: the Chrome-family recognisers on
+    Android (Chrome, Samsung Internet, Brave) report one utterance cumulatively in continuous mode — a new, often
+    already final, result for every growth step (*Jestem*, *Jestem spokojny*, *Jestem spokojny i pewny*), sometimes
+    a shorter or revised copy late — and only WebKit's were collapsed, so the transcript read *Jestem Jestem spokojny
+    Jestem spokojny i pewny*: extra words for the sentence, and for the one after it. Now `reportsCumulativeResults`
+    (user agent: WebKit, iOS or Android) switches on `collapseCumulative` (`src/domain/speech/transcript.ts`), which
+    compares words without case or punctuation: a result that grows the one before, or repeats it with at most its
+    last quarter revised (and never shorter), replaces it; one that repeats or shortens it is dropped. Chrome on
+    Android with *Desktop site* on hides Android from the user agent, so the engine also learns it from the results:
+    three results in a row, each growing the one before (`showsGrowth`) — a speaker who starts again makes one such
+    step, a cumulative recogniser one per word. Desktop Chrome, Edge and Opera keep their results as they come
+    (two identical results there are a genuine repetition). Trade-off on cumulative recognisers: a phrase said twice
+    in one take without a pause can count once — it never invents or loses a new word.

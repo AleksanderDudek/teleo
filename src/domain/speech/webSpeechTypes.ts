@@ -59,8 +59,11 @@ export function getRecognitionCtor(scope: object = globalThis): RecognitionCtorL
   return holder.SpeechRecognition ?? holder.webkitSpeechRecognition
 }
 
-/** WebKit (Safari, every iOS browser) reports cumulative results in continuous mode. */
-export function isWebKitEngine(userAgent: string): boolean {
-  if (/iPhone|iPad|iPod/.test(userAgent)) return true
-  return /AppleWebKit/.test(userAgent) && /Safari/.test(userAgent) && !/Chrome|Chromium|CriOS|Edg|OPR|SamsungBrowser|Android/.test(userAgent)
+/**
+ * Recognisers that report cumulative results in continuous mode: WebKit (Safari, every iOS browser) and the
+ * Chrome-family ones on Android (Chrome, Samsung Internet, Brave…). Desktop Chrome, Edge and Opera report stable ones.
+ */
+export function reportsCumulativeResults(userAgent: string): boolean {
+  if (/iPhone|iPad|iPod|Android/.test(userAgent)) return true
+  return /AppleWebKit/.test(userAgent) && /Safari/.test(userAgent) && !/Chrome|Chromium|CriOS|Edg|OPR/.test(userAgent)
 }

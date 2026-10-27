@@ -1,9 +1,9 @@
 import type { SpeechLang } from '@/domain/types'
 import { SpeechError, type SpeechEngine, type SpeechErrorCode, type SpeechResult, type SpeechStartOptions } from './SpeechEngine'
-import { bestTranscript, collapseCumulative, transcriptAlternatives, type ResultSnapshot } from './transcript'
+import { bestTranscript, collapseCumulative, showsGrowth, transcriptAlternatives, type ResultSnapshot } from './transcript'
 import {
   getRecognitionCtor,
-  isWebKitEngine,
+  reportsCumulativeResults,
   type AvailabilityStatus,
   type RecognitionCtorLike,
   type RecognitionLike,
@@ -67,7 +67,8 @@ export class WebSpeechEngine implements SpeechEngine {
   readonly id = 'webspeech' as const
   readonly #timings: WebSpeechTimings
   readonly #scope: object
-  readonly #webkit: boolean
+  /** The recogniser reports each utterance cumulatively (known from the user agent, or learnt from its results). */
+  #cumulative: boolean
   readonly #onDevice = new Map<SpeechLang, boolean>()
   #session: Session | null = null
   /** Identifies the `start()` call that is still checking on-device support. */
@@ -76,7 +77,7 @@ export class WebSpeechEngine implements SpeechEngine {
   constructor(options: { timings?: Partial<WebSpeechTimings>; scope?: object; userAgent?: string } = {}) {
     this.#timings = { ...DEFAULT_TIMINGS, ...options.timings }
     this.#scope = options.scope ?? globalThis
-    this.#webkit = isWebKitEngine(options.userAgent ?? globalThis.navigator?.userAgent ?? '')
+    this.#cumulative = reportsCumulativeResults(options.userAgent ?? globalThis.navigator?.userAgent ?? '')
   }
 
   #ctor(): RecognitionCtorLike | undefined {
@@ -215,7 +216,9 @@ export class WebSpeechEngine implements SpeechEngine {
       }
       snapshots.push({ alternatives, isFinal: result.isFinal })
     }
-    session.results = this.#webkit ? collapseCumulative(snapshots) : snapshots
+    // Chrome on Android with "Desktop site" on hides Android from the user agent: tell by the results themselves.
+    if (!this.#cumulative && showsGrowth(snapshots)) this.#cumulative = true
+    session.results = this.#cumulative ? collapseCumulative(snapshots) : snapshots
     session.heardSinceStart = true
     // Any speech cancels the "nothing heard" timer; the silence timer restarts on every result.
     for (const timer of session.timers) clearTimeout(timer)
