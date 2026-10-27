@@ -18,7 +18,7 @@ import { readSettings, updateMeta } from './settings'
 import { newSegment, replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
-export const SEED_VERSION = 4
+export const SEED_VERSION = 5
 
 const typeFocus = (type: TextType): 'prayers' | 'affirmations' | null =>
   type === 'prayer' ? 'prayers' : type === 'affirmation' ? 'affirmations' : null
@@ -124,6 +124,7 @@ async function writeBuiltinTexts(defs: readonly BuiltinTextDef[], app: AppSettin
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
       builtinKey: def.key,
+      ...(def.note ? { note: def.note } : {}),
     })
     if (existing) await replaceSegments(id, segments, active.get(id) ?? [])
     else fresh.push(...segments.map((content, order) => newSegment(id, order, content)))

@@ -38,6 +38,11 @@ export interface TextItem {
   updatedAt: number
   /** Stable identifier of builtin content, used for idempotent seeding. */
   builtinKey?: string
+  /**
+   * Read before praying (DECISIONS #132): the opening verse, where the prayer comes from, cautions. Never spoken, so it
+   * may hold references and numbers; paragraphs are separated by a blank line. Builtin texts only, kept by a copy.
+   */
+  note?: string
   /** Where a Bible reading comes from. */
   bible?: { translation: BibleTranslation; book: string; index: number; ofBook: number }
 }

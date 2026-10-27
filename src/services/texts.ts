@@ -32,6 +32,8 @@ export interface TextInput {
   tags?: string[]
   /** What it is prayed for (need ids); unknown ids are dropped. Omitted on update: the text keeps its own. */
   needs?: string[]
+  /** A builtin's note, carried into a personal copy (DECISIONS #132); not edited, kept on update. */
+  note?: string
 }
 
 function validate(input: TextInput): string[] {
@@ -136,6 +138,7 @@ export async function createText(input: TextInput, now = Date.now()): Promise<Te
     splitMode: input.splitMode,
     createdAt: now,
     updatedAt: now,
+    ...(input.note ? { note: input.note } : {}),
   }
   await db.transaction('rw', SEGMENT_EDIT_TABLES, async () => {
     await db.texts.add(text)
@@ -178,7 +181,7 @@ export async function copyTextAsOwn(textId: string, title: string, now = Date.no
   if (!source) throw new TextValidationError('notEditable')
   const segments = (await getActiveSegments(textId)).map((s) => s.content)
   return createText(
-    { title, type: source.type, lang: source.lang, splitMode: source.splitMode, segments, tags: source.tags, needs: source.needs },
+    { title, type: source.type, lang: source.lang, splitMode: source.splitMode, segments, tags: source.tags, needs: source.needs, note: source.note },
     now,
   )
 }

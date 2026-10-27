@@ -726,3 +726,27 @@ findability instead.
     step, a cumulative recogniser one per word. Desktop Chrome, Edge and Opera keep their results as they come
     (two identical results there are a genuine repetition). Trade-off on cumulative recognisers: a phrase said twice
     in one take without a pause can count once — it never invents or loses a new word.
+
+## Prayers for tearing down strongholds (owner request, 2026-10-27)
+
+132. **Artur Ceroński's *Demony burzące* prayers join the library, with a note read before praying.** 25 prayers in
+    both languages (`*.stronghold-*`): two to start with, built from the method of parts 4 and 1, then one for each part
+    the owner's write-up covers (1–13, 15, 18–20, 22–27), as rewritten there to pray for oneself, with its six changes
+    that keep every prayer within Scripture. Tags *Artur Ceroński* and *Demony burzące* (searchable).
+    - **Nothing to fill in while speaking.** The write-up's brackets (*[name it]*, *[names]*) cannot be checked by ear,
+      so the sentences say it in general (*I name it before You: this is a stronghold in my life.*) and the note tells
+      the reader to name it in their own words or to make a copy and write the names in. Scripture references
+      (digits) leave the spoken text for the note; the verses themselves stay. A content test forbids brackets in
+      sentences.
+    - **A note on builtin texts** (`note` on the definition and the row, optional in backups): shown on the text page
+      as *Before you pray* / *Zanim zaczniesz*, before the text, never spoken. For this series it holds the opening
+      verse (English as in the write-up; Polish from the Gdańsk Bible already shipped for the Bible challenge, Polish
+      Psalm numbering), where the prayer comes from and that the method prayer comes first, the write-up's caution for
+      that part, what *curse* means here (stopping a pattern's growth, never aimed at a person), and that prayer goes
+      alongside medical, psychological and pastoral help — with crisis numbers where the part touches self-harm or
+      depression (method, part 5, part 13). A personal copy keeps the note (it is what makes copying the method prayer
+      safe), and editing the copy keeps it.
+    - **A new need, *Strongholds & bad patterns* / *Warownie i złe wzorce*** (`strongholds`, deliverance, after
+      `warfare`): every prayer of the series carries it; the main need stays the issue itself where one fits well
+      (rejection and humiliation → *Rejection & shame*, compulsions → *Fear & anxiety*, atheism → *Faith*, addiction →
+      *Addiction*). Lovy's *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 5.

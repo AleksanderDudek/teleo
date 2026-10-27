@@ -136,6 +136,14 @@ describe('other text operations', () => {
     expect((await getActiveSegments(copy.id)).map((s) => s.content)).toEqual(['Jestem spokojny.', 'Idę dalej.'])
   })
 
+  it('keeps the note of the text it copies, through later edits (DECISIONS #132)', async () => {
+    const original = await createText(input(['Jestem spokojny.'], { note: 'Najpierw przeczytaj.' }))
+    const copy = await copyTextAsOwn(original.id, 'Kopia')
+    expect(copy.note).toBe('Najpierw przeczytaj.')
+    await updateText(copy.id, input(['Jestem spokojny i pewny.']))
+    expect((await db.texts.get(copy.id))?.note).toBe('Najpierw przeczytaj.')
+  })
+
   it('deletes a user text with its segments, stats, achievements and template items but keeps history', async () => {
     const text = await createText(input(['Jestem spokojny.']))
     const [segment] = await getActiveSegments(text.id)

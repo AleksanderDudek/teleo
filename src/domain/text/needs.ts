@@ -10,7 +10,7 @@ export const NEEDS_BY_AREA = {
   family: ['marriage', 'spouse', 'children', 'home', 'forgiveness'],
   work: ['money', 'job', 'business', 'favor', 'studies'],
   direction: ['breakthrough', 'wisdom', 'purpose', 'restoration'],
-  deliverance: ['protection', 'bloodline', 'warfare', 'witchcraft', 'spiritSpouse', 'words', 'addiction', 'enemies'],
+  deliverance: ['protection', 'bloodline', 'warfare', 'strongholds', 'witchcraft', 'spiritSpouse', 'words', 'addiction', 'enemies'],
   spiritual: ['closeness', 'holiness', 'faith', 'gifts', 'church'],
   stages: ['youth', 'newStart', 'oldAge'],
   daily: ['morning', 'evening', 'thanksgiving', 'traditional', 'scripture'],

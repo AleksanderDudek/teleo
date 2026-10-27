@@ -218,6 +218,14 @@ describe('validateBackup: tables added later (v1.3)', () => {
     expect(bad).toEqual({ ok: false, code: 'invalidShape', path: 'data.texts[0].needs[1]' })
   })
 
+  it('accepts the note of a builtin text, and rejects one that is not text', () => {
+    const data = realisticData()
+    const text = data.texts[0]!
+    expect(validateBackup(backupWith({ ...data, texts: [{ ...text, note: 'Read first.' }] })).ok).toBe(true)
+    const bad = validateBackup(backupWith({ ...data, texts: [{ ...text, note: 7 }] } as unknown as BackupData))
+    expect(bad).toEqual({ ok: false, code: 'invalidShape', path: 'data.texts[0].note' })
+  })
+
   it('accepts valid Bible readings and friends', () => {
     const result = validateBackup(backupWith({ ...emptyData(), bibleReadings: [reading], friends: [friend] } as BackupData))
     expect(result.ok).toBe(true)

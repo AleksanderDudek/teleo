@@ -61,6 +61,24 @@ test('search takes words in any order, puts the best match first, and a text pag
   await expect(page).toHaveURL(/#\/library\?q=spouse\+spirit$/)
 })
 
+test('a stronghold is found by its name, and its page says what to read before praying (DECISIONS #132)', async ({ page }) => {
+  await installFakeSpeech(page)
+  await finishOnboarding(page)
+  await page.getByRole('navigation').getByRole('link', { name: 'Library' }).click()
+  await page.getByRole('searchbox', { name: 'Search' }).fill('paranoia')
+  await expect(page.getByRole('main').getByRole('listitem').first()).toContainText('Against the Stronghold of Paranoia')
+
+  await page.getByRole('link', { name: /Against the Stronghold of Paranoia/ }).click()
+  const note = page.getByRole('region', { name: 'Before you pray' })
+  await expect(note).toContainText('Proverbs 18:11')
+  await expect(note).toContainText('Start with “Tearing Down a Stronghold”')
+  await expect(page.getByRole('link', { name: 'Strongholds & bad patterns', exact: true })).toBeVisible()
+  // The note is read, never said: the sentences start with the prayer itself.
+  const text = page.getByRole('region', { name: 'Text', exact: true })
+  await expect(text.getByRole('listitem').first()).toContainText('Dear Father, thank You that these words could be spoken to me.')
+  await expect(text).not.toContainText('Proverbs')
+})
+
 test('the text picker of a new session narrows the list by need', async ({ page }) => {
   await installFakeSpeech(page)
   await finishOnboarding(page)
@@ -106,5 +124,17 @@ test.describe('in Polish', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Wyzwolenie z niewoli duchowego małżonka' })).toBeVisible()
     await page.getByRole('link', { name: 'Wstecz' }).click()
     await expect(page).toHaveURL(listUrl)
+  })
+
+  test('finds a stronghold by another form of its name and shows the note in Polish', async ({ page }) => {
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
+    await page.getByRole('searchbox', { name: 'Szukaj' }).fill('paranoja')
+    await page.getByRole('link', { name: /Przeciw warowni paranoi/ }).click()
+    const note = page.getByRole('region', { name: 'Zanim zaczniesz' })
+    await expect(note).toContainText('Prz 18,11')
+    await expect(note).toContainText('Zacznij od modlitwy „Burzenie warowni”')
+    await expect(page.getByRole('link', { name: 'Warownie i złe wzorce', exact: true })).toBeVisible()
   })
 })
