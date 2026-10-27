@@ -987,7 +987,7 @@
     ],
     "needs": [
       "marriage",
-      "warfare"
+      "spiritSpouse"
     ],
     "segments": [
       "Father, deliver me.",
@@ -1073,7 +1073,7 @@
     ],
     "needs": [
       "marriage",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       "Father, in the name of Jesus, because of the blood of Jesus, I am free.",
@@ -1236,7 +1236,7 @@
     ],
     "needs": [
       "spouse",
-      "warfare"
+      "spiritSpouse"
     ],
     "segments": [
       "Father, deliver me.",
@@ -1279,8 +1279,8 @@
       "Prophet Lovy L. Elias"
     ],
     "needs": [
-      "forgiveness",
-      "warfare"
+      "spiritSpouse",
+      "forgiveness"
     ],
     "segments": [
       "Father, today I give my life to you.",
@@ -1983,7 +1983,7 @@
     ],
     "needs": [
       "money",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       "Father, in the name of your holy son Jesus Christ, I stand my ground against every evil spiritual power, sorcery, witchcraft, hidden altars and blood covenants that have been set up against me and my family.",
@@ -2024,7 +2024,7 @@
     ],
     "needs": [
       "money",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       "Father, I thank you, for you have commanded the blessing upon me.",
@@ -3146,7 +3146,8 @@
       "Prophet Lovy L. Elias"
     ],
     "needs": [
-      "warfare"
+      "witchcraft",
+      "protection"
     ],
     "segments": [
       "Father, in the name of Jesus, because of the blood of Jesus, I am free.",
@@ -3228,7 +3229,8 @@
       "Prophet Lovy L. Elias"
     ],
     "needs": [
-      "warfare"
+      "witchcraft",
+      "bloodline"
     ],
     "segments": [
       "Father, in the name of Jesus, because of your son Jesus and the amazing sacrifice on the cross, I have been saved.",

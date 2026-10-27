@@ -79,6 +79,25 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
   })
 
+  it('holds no duplicates: one title per language, and no two texts sharing half their sentences (DECISIONS #130)', () => {
+    const fold = (sentence: string) => sentence.toLowerCase().replace(/[^\p{L} ]/gu, '').replace(/\s+/g, ' ').trim()
+    const problems: string[] = []
+    for (const lang of ['en', 'pl'] as const) {
+      const texts = BUILTIN_TEXTS.filter((def) => def.lang === lang)
+      const titles = texts.map((def) => def.title.toLowerCase())
+      problems.push(...titles.filter((title, index) => titles.indexOf(title) !== index).map((title) => `${lang}: title ${title}`))
+      const sentences = texts.map((def) => new Set(builtinSegments(def, 'n').map(fold)))
+      for (const [i, a] of sentences.entries()) {
+        for (let j = i + 1; j < sentences.length; j++) {
+          const b = sentences[j] as Set<string>
+          const shared = [...a].filter((sentence) => b.has(sentence)).length
+          if (shared / Math.min(a.size, b.size) >= 0.5) problems.push(`${texts[i]?.key} ~ ${texts[j]?.key}`)
+        }
+      }
+    }
+    expect(problems).toEqual([])
+  })
+
   it('expands inline m/f/n sentences of the library into variants', () => {
     const base = { key: 'pl.x', lang: 'pl', type: 'prayer', title: 'X', splitMode: 'sentence', tags: [], needs: [] } satisfies Omit<
       LibraryTextDef,

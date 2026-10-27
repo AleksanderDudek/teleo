@@ -12,6 +12,7 @@ import {
   needRank,
   needsOf,
   parseNeedFilter,
+  relatedTexts,
 } from './needs'
 
 describe('need taxonomy', () => {
@@ -106,5 +107,45 @@ describe('parseNeedFilter', () => {
   it('ignores what it does not know', () => {
     expect(parseNeedFilter('nowhere', 'nothing')).toEqual({})
     expect(parseNeedFilter('health', 'nothing')).toEqual({ area: 'health' })
+  })
+})
+
+describe('relatedTexts', () => {
+  const text = (id: string, needs: string[], title = id) => ({ id, title, needs })
+  const self = text('self', ['marriage', 'spiritSpouse'])
+  const all = [
+    self,
+    text('marriage-b', ['marriage', 'home'], 'B marriage'),
+    text('marriage-a', ['marriage'], 'A marriage'),
+    text('marriage-touch', ['home', 'marriage'], 'C marriage'),
+    text('spirit-spouse', ['spouse', 'spiritSpouse'], 'Spirit spouse'),
+    text('soul-ties', ['spiritSpouse', 'forgiveness'], 'Soul ties'),
+    text('unrelated', ['sleep']),
+  ]
+
+  it('takes turns over the needs of the text, main need first, each best first', () => {
+    // For each need: texts mainly for it before texts that only touch it, then by title.
+    expect(relatedTexts(self, all).map((other) => other.id)).toEqual(['marriage-a', 'soul-ties', 'marriage-b', 'spirit-spouse'])
+  })
+
+  it('fills the turns of a need that has run out with the others', () => {
+    expect(relatedTexts(self, all, 6).map((other) => other.id)).toEqual([
+      'marriage-a',
+      'soul-ties',
+      'marriage-b',
+      'spirit-spouse',
+      'marriage-touch',
+    ])
+  })
+
+  it('never lists the text itself, a text twice, or past the limit', () => {
+    const both = text('both', ['spiritSpouse', 'marriage'], 'Both')
+    const ids = relatedTexts(self, [...all, both], 3).map((other) => other.id)
+    expect(ids).toEqual(['marriage-a', 'both', 'marriage-b'])
+    expect(relatedTexts(self, all, 2)).toHaveLength(2)
+  })
+
+  it('has nothing for a text without needs', () => {
+    expect(relatedTexts(text('mine', []), all)).toEqual([])
   })
 })

@@ -22,11 +22,11 @@ import {
   type LibraryFilter,
   type SourceFilter,
 } from '@/domain/text/libraryFilter'
+import { rankBySearch, searchTerms } from '@/domain/text/librarySearch'
 import { countNeeds, matchesNeed, NEED_AREAS, NEEDS_BY_AREA, needRank } from '@/domain/text/needs'
 import { TEXT_TYPES } from '@/domain/types'
-import { achievementName } from '@/i18n/dynamic'
+import { achievementName, textSearchIndex } from '@/i18n/dynamic'
 import { useLibrary, type LibraryEntry } from '@/hooks/useLibrary'
-import { searchKey } from '@/lib/search'
 import { useAppSettings } from '@/stores/settings'
 
 export default function Library() {
@@ -46,31 +46,32 @@ export default function Library() {
   // Replacing the entry: typing in the search box must not fill the history.
   const update = (patch: Partial<LibraryFilter>) => setParams(libraryFilterParams({ ...filter, ...patch }), { replace: true })
 
-  // Titles, words and tags (the attribution of the prayer library), folded once per data change, not per keystroke.
-  const searchKeys = useMemo(
-    () => new Map(entries?.map(({ text }) => [text.id, searchKey(`${text.title} ${text.tags.join(' ')} ${text.body}`)])),
-    [entries],
+  // Titles, what a text is prayed for (in this language), tags and words, folded once per data change, not per keystroke.
+  const searchIndexes = useMemo(
+    () => new Map(entries?.map(({ text }) => [text.id, textSearchIndex(t, text)])),
+    [entries, t],
   )
+  const terms = useMemo(() => searchTerms(filter.query), [filter.query])
 
-  /** Every filter but the need: what the need chips count. */
+  /** Every filter but the need: what the need chips count. Best matches first while searching (DECISIONS #130). */
   const candidates = useMemo(() => {
     if (!entries) return []
-    const q = searchKey(filter.query.trim())
-    return entries.filter(({ text }) => {
+    const kept = entries.filter(({ text }) => {
       if (!filter.showHidden && text.archived) return false
       if (filter.types.length && !filter.types.includes(text.type)) return false
       if (filter.source !== 'all' && text.source !== filter.source) return false
-      if (q && !searchKeys.get(text.id)?.includes(q)) return false
       return true
     })
-  }, [entries, filter, searchKeys])
+    return rankBySearch(kept, terms, ({ text }) => searchIndexes.get(text.id))
+  }, [entries, filter, searchIndexes, terms])
 
   const counts = useMemo(() => countNeeds(candidates.map((entry) => entry.text)), [candidates])
   // Texts mainly for the chosen need first (DECISIONS #128); the hook already sorts by title, and the sort is stable.
-  const filtered = useMemo(
-    () => candidates.filter(({ text }) => matchesNeed(text, filter)).sort((a, b) => needRank(a.text, filter) - needRank(b.text, filter)),
-    [candidates, filter],
-  )
+  // While searching, the search order wins — the need only narrows.
+  const filtered = useMemo(() => {
+    const matching = candidates.filter(({ text }) => matchesNeed(text, filter))
+    return terms.length ? matching : matching.sort((a, b) => needRank(a.text, filter) - needRank(b.text, filter))
+  }, [candidates, filter, terms])
 
   const filtering = isFiltered(filter)
   /** Unfiltered, the library opens with what a person uses — own texts, texts said before, texts of their sessions. */

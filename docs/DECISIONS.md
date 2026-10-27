@@ -677,3 +677,35 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     row's sentence counts and the totals limited to that text's sentences. The text page links to it (*History of
     this text*) under its folded progress. Pure rules in `src/domain/session/history.ts` (`saidText`,
     `runHistoryRow(run, textId)`), the filter in `useHistory`; nothing new is stored.
+
+## Finding a prayer for a specific need (owner request, 2026-10-27)
+
+The owner sent the 133 prayers of Prophet Lovy L. Elias again (texts, by-area document, sermon trace) asking to add
+all of them without duplicates and to make them findable by topic. All 133 were already in, EN and PL, sentence for
+sentence identical to the file (#126). Checked for duplicates: none — the closest pairs share at most 29 % of their
+sentences word for word (≈46 % allowing small wording changes: *Cancelling Words I Spoke over My Finances* vs
+*Breaking Self-Curses*, the marriage vs the single spirit-spouse prayer), each with its own focus, so all stay. Four
+prayers repeat one sentence on purpose (*Father, I choose to forgive.* twice); kept as given. The work went into
+findability instead.
+
+130. **Search ranks, takes words in any order, and knows what a text is for.** `src/domain/text/librarySearch.ts`
+    (pure, tested): every word of the query must *start* a word of the text (no matches in the middle of words), in
+    any order; the title weighs 8, the names of the text's needs and their areas in the interface language 4, tags 2,
+    the words 1 (a little more for a word said up to three times). A word of five letters or more is also tried one
+    letter shorter, of seven or more two shorter (never under four), at half weight — so one Polish form finds
+    another (*długi* → *długów*, *dziecko* → *dzieci*) while an exact form still wins; true homonyms stay (*długi* is
+    also *long*). While searching, results come best first (title order among equals); otherwise the need order of
+    #128 holds. The library and the session text picker share one index builder (`textSearchIndex` in
+    `src/i18n/dynamic.ts`); the placeholder now shows examples (*Search: fear, debt, sleep…*). Fuzzy matching was
+    rejected: on prayer words it found too much that is not meant.
+    - **Two needs split out of *Spiritual warfare*** (19 prayers, the largest bucket): *Witchcraft & evil altars*
+      (`witchcraft`, 5 prayers) and *Spirit spouses & soul ties* (`spiritSpouse`, 3) in *Deliverance & protection* —
+      the two topics of this library a person most often comes for by name. `warfare` keeps oppression, strongholds,
+      territorial spirits and the like. 45 needs now; `SEED_VERSION` 4 carries the new needs to existing installs
+      (the re-seed writes only rows and moved sentences, #126).
+    - **A text page offers *More for this need*:** up to four listed texts, taking turns over the text's needs — the
+      best one for its main need, then for its second, then the next of each — each queue mainly-for first, then by
+      title (`relatedTexts` in `needs.ts`). So the marriage prayer against spirit spouses leads both to marriage
+      prayers and to the other spirit-spouse prayer. The links keep the way back to the list the first text came from.
+    - A content test now holds the library free of duplicates: one title per language, and no two texts sharing half
+      their sentences.

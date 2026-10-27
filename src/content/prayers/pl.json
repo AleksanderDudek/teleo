@@ -1083,7 +1083,7 @@
     ],
     "needs": [
       "marriage",
-      "warfare"
+      "spiritSpouse"
     ],
     "segments": [
       "Ojcze, wybaw mnie.",
@@ -1177,7 +1177,7 @@
     ],
     "needs": [
       "marriage",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       {
@@ -1352,7 +1352,7 @@
     ],
     "needs": [
       "spouse",
-      "warfare"
+      "spiritSpouse"
     ],
     "segments": [
       "Ojcze, wybaw mnie.",
@@ -1399,8 +1399,8 @@
       "prorok Lovy L. Elias"
     ],
     "needs": [
-      "forgiveness",
-      "warfare"
+      "spiritSpouse",
+      "forgiveness"
     ],
     "segments": [
       "Ojcze, dziś oddaję Ci moje życie.",
@@ -2135,7 +2135,7 @@
     ],
     "needs": [
       "money",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       "Ojcze, w imię Twojego świętego Syna Jezusa Chrystusa nie ustępuję pola żadnej złej mocy duchowej, czarnoksięstwu, czarom, ukrytym ołtarzom i przymierzom krwi ustanowionym przeciwko mnie i mojej rodzinie.",
@@ -2180,7 +2180,7 @@
     ],
     "needs": [
       "money",
-      "warfare"
+      "witchcraft"
     ],
     "segments": [
       "Ojcze, dziękuję Ci, bo rozkazałeś błogosławieństwu spocząć na mnie.",
@@ -3358,7 +3358,8 @@
       "prorok Lovy L. Elias"
     ],
     "needs": [
-      "warfare"
+      "witchcraft",
+      "protection"
     ],
     "segments": [
       {
@@ -3456,7 +3457,8 @@
       "prorok Lovy L. Elias"
     ],
     "needs": [
-      "warfare"
+      "witchcraft",
+      "bloodline"
     ],
     "segments": [
       {
