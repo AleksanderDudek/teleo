@@ -6576,6 +6576,32 @@
     ]
   },
   {
+    "key": "pl.stronghold-manipulation",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowniom manipulacji",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "witchcraft"
+    ],
+    "note": "„Albowiem zamysły jego nie są nam tajne.” — 2 Kor 2,11 (Biblia Gdańska)\n\nZ części 14. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nNa początku czyta przykazanie „Nie będziesz kradł” (Wj 20,15), które rozumie jako branie drugiego człowieka w niewolę; werset powyżej to ten, na którym stoi jego modlitwa, a słowa są Pawła, nie Jezusa. Tam, gdzie on uwalnia mądrość i światło nad słuchaczami, ty je przyjmujesz.\n\nNazywa dwie warownie: manipulację czynną, którą nazywa czarami — autorytet, poczucie winy, strach, litość albo ból użyte, by nagiąć cudzą wolę — i manipulację bierną, którą nazywa aluzją: przytyki, fochy, sarkazm i milczenie zamiast mówienia wprost. Jeśli ktoś cię kontroluje albo tobą manipuluje, porozmawiaj z kimś, komu ufasz; tam, gdzie jest przemoc, najpierw bezpieczeństwo.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, dziękuję Ci w imieniu Jezusa za to nauczanie.",
+      "Pomóż mi przyjąć je jako słowo, które pomaga rozpoznać diabła.",
+      "Twoje słowo mówi, że zamysły przeciwnika nie są nam nieznane.",
+      "Staję teraz na tym słowie i ogłaszam w imieniu Jezusa, że ta wiedza pozwoli mi rozpoznać przeciwnika w moim życiu.",
+      "W imieniu Jezusa Chrystusa przeklinam każdą demoniczną warownię manipulacji w moim życiu, czynnej i biernej.",
+      "Przyjmuję teraz Twoją mądrość i Twoje światło w moje życie.",
+      "Duchu Święty, inspiruj mnie, ucz mnie i wprowadzaj mnie we wszelką prawdę.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
     "key": "pl.stronghold-immaturity",
     "lang": "pl",
     "type": "prayer",
@@ -6601,6 +6627,57 @@
         "n": "Pomóż mi też przyjąć właściwą postawę wobec ludzi wokół mnie, którzy są pod wpływem tej warowni, aby te siły nie mogły mnie dotykać, a może także, by im pomóc."
       },
       "Ojcze, dziękuję Ci za Twoje słowo, za Twoje namaszczenie i za aniołów, których posyłasz, aby służyli tym, którzy mają odziedziczyć zbawienie.",
+      "W imieniu Jezusa, amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-pessimism",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni pesymizmu",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "sadness"
+    ],
+    "note": "„Ale którzy oczekują Pana, nabywają nowej siły; podnoszą się piórami jako orły, bieżą a nie spracują się, chodzą a nie ustawają.” — Iz 40,31 (Biblia Gdańska)\n\nZ części 16. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nKoniec jego modlitwy jest w nagraniu niewyraźny; ostatnie zdanie uzupełnia go z tego, co słychać. Tam, gdzie on posyła aniołów, ty prosisz Ojca, aby ich posłał (Hbr 1,14).\n\nOpisuje nawyk widzenia tylko ciemnej strony, często napędzany lękiem i troską; jasne widzenie zagrożeń nie jest warownią. Obniżony nastrój, który trwa tygodniami, może być depresją, a depresja się leczy; obok modlitwy idź do lekarza.\n\nJeśli masz myśli o skrzywdzeniu siebie albo odebraniu sobie życia, zadzwoń teraz pod numer alarmowy 112. Możesz też zadzwonić pod 116 123 (całą dobę).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się teraz w imieniu Jezusa i dziękuję Ci za to nauczanie.",
+      "Niech to słowo mnie przenika i niech ta prawda mnie dotyka.",
+      "Przynoszę Ci siebie tam, gdzie żyję pod wpływem warowni pesymizmu.",
+      "Przeklinam tę warownię i podważam ją.",
+      "W imieniu Jezusa wykorzeniam ją.",
+      "Ojcze, poślij swoich aniołów, aby mi pomagali wyrzucić każdą demoniczną siłę związaną z warownią pesymizmu.",
+      "Pomóż mi podjąć działanie, aby pesymizm w moim życiu został potępiony i zniszczony w imieniu Jezusa. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-fears",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowniom lęku",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "anxiety",
+      "strongholds"
+    ],
+    "note": "„A iżby wyswobodził tych, którzy dla bojaźni śmierci po wszystek czas żywota podlegli byli niewoli.” — Hbr 2,15 (Biblia Gdańska)\n\nZ części 17. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nOprócz metody z części 4. dodaje jeden krok przeciw lękowi: świadomie i krok po kroku skonfrontuj się ze źródłem lęku i módl się właśnie tam. Jego przykład: jeśli boisz się ciemności, zgaś lampkę i módl się po ciemku. Odwaga, mówi, to działanie mimo lęku, a nie brak lęku.\n\nDuszność, ból w klatce piersiowej i kołatanie serca, które wymienia wśród objawów, mogą mieć też przyczyny medyczne; idź do lekarza. Ataki paniki i fobie się leczy, a stopniowe mierzenie się z lękiem to także sposób, w jaki leczy je terapia; przy silnej panice albo fobii rób to z pomocą specjalisty.\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Ojcze, modlę się i dziękuję Ci, że zawsze mnie wysłuchujesz.",
+      "W imieniu Jezusa przeklinam teraz każdą demoniczną warownię lęku w moim życiu.",
+      "Ojcze, podważam każdy lęk.",
+      "W imieniu Jezusa związuję demoniczne siły, które zasiedlają warownię lęku.",
+      "W imieniu Jezusa zgadzam się z Tobą w wierze, że każdy lęk w moim życiu jest bezprawny.",
+      "Ojcze, dziękuję Ci, że teraz mnie wspomagasz i że Twój Święty Duch mnie przenika.",
+      "Wprowadź mnie w miejsce, w którym Twoją mocą podważę i rozbiję warownię lęku w moim życiu.",
       "W imieniu Jezusa, amen."
     ]
   },
@@ -6677,6 +6754,29 @@
       "Przeklinam tę warownię w moim życiu.",
       "Ojcze, w imieniu Jezusa niech Twoi aniołowie mnie wspomagają.",
       "Niech Twój Święty Duch prowadzi mnie teraz w imieniu Jezusa. Amen."
+    ]
+  },
+  {
+    "key": "pl.stronghold-humanism",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw warowni humanizmu",
+    "splitMode": "sentence",
+    "tags": [
+      "Artur Ceroński",
+      "Demony burzące"
+    ],
+    "needs": [
+      "strongholds",
+      "faith"
+    ],
+    "note": "„Nie jestci Bóg jako człowiek, aby kłamał, ani jako syn człowieczy, ażeby żałował; azaż on rzecze, a nie uczyni? wymówi, a nie wypełni?” — Lb 23,19 (Biblia Gdańska)\n\nZ części 21. cyklu Artura Cerońskiego „Demony burzące”, przepisana tak, abyś modlił(a) się nią za siebie. Zacznij od modlitwy „Burzenie warowni”, potem módl się tą.\n\nNagranie jest częściowo niewyraźne; modlitwa jest złożona z tego, co słychać, a końcowe amen jest dodane.\n\nPrzez humanizm rozumie stawianie człowieka w miejscu Boga: opieranie poczucia bezpieczeństwa na ludziach, stawianie ludzkiego zdania, opinii albo wiedzy ponad Bożą prawdę, niezdolność do życia bez ludzkiej akceptacji. Troska o człowieka, jego godność i wolność jest dobra i biblijna; warownią staje się dopiero wtedy, gdy człowiek zajmuje miejsce Boga (Jr 17,5-6).\n\n„Przeklinam” znaczy tu to, czego naucza w części 4.: zatrzymuję wzrost złego wzorca (Am 2,9; Łk 17,6; por. drzewo figowe, Mk 11,14.20-21). Dotyczy warowni i złych duchów, nigdy człowieka (Rz 12,14).\n\nMódl się tą modlitwą obok pomocy lekarskiej, psychologicznej i duszpasterskiej, nigdy zamiast niej.",
+    "segments": [
+      "Dobry Ojcze, dziękuję Ci, że Twoja obecność mnie teraz przenika, gdy przez wiarę przyjmuję te słowa.",
+      "Pomóż mi wziąć narzędzia, które dostaję, i użyć ich do podważania warowni humanizmu w moim życiu.",
+      "W imieniu Jezusa przeklinam warownię humanizmu wszędzie tam, gdzie rozpoznaję ją w moim życiu.",
+      "Zgadzam się z Tobą w modlitwie, aby ta warownia została zniszczona doszczętnie.",
+      "W imieniu Jezusa, amen."
     ]
   },
   {

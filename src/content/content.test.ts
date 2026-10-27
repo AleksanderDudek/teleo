@@ -90,7 +90,7 @@ describe('builtin content', () => {
     ])
     expect(problems).toEqual([])
     const strongholds = BUILTIN_TEXTS.filter((def) => def.key.includes('.stronghold-'))
-    expect(strongholds).toHaveLength(50)
+    expect(strongholds).toHaveLength(58)
     expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes('Artur Ceroński'))).toBe(true)
   })
 
