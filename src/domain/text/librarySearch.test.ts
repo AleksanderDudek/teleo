@@ -42,7 +42,7 @@ describe('searchScore', () => {
 
   it('searches what a text is prayed for, its tags and its words', () => {
     expect(searchScore(doc('A Night Prayer', { labels: ['Sleep & nightmares'] }), searchTerms('nightmares'))).toBeGreaterThan(0)
-    expect(searchScore(doc('Any', { tags: ['Demony burzące'] }), searchTerms('demony'))).toBeGreaterThan(0)
+    expect(searchScore(doc('Any', { tags: ['Cykl o warowniach'] }), searchTerms('warowniach'))).toBeGreaterThan(0)
     expect(searchScore(doc('Any', { body: 'I break every chain of debt.' }), searchTerms('debt'))).toBeGreaterThan(0)
   })
 

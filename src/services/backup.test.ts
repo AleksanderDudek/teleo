@@ -171,6 +171,21 @@ describe('backups made while language dialogues existed (DECISIONS #118)', () =>
   })
 })
 
+describe('backups made before the library prayers moved to their new keys (DECISIONS #134)', () => {
+  it('import under the new keys, with the progress made under the old ones', async () => {
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.life-peace') })
+    await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: { accepted: true, coverage: 1, extra: 0, wrong: 0, transcript: 'ok' }, engine: 'webspeech', durationMs: 900 })
+    const before = await snapshot()
+    const json = JSON.stringify(await exportBackup(1))
+    const old = json.replace(/\b(en|pl)\.life-/g, '$1.lovy-')
+    expect(old).not.toBe(json)
+    await wipeAllData()
+
+    expect(await importBackupJson(old, 10)).toEqual({ ok: true })
+    expect(await snapshot()).toEqual(before)
+  })
+})
+
 describe('prepareBackup', () => {
   it('builds a plain backup file ready to save or share', async () => {
     const prepared = await prepareBackup({ now: new Date(2026, 9, 1, 9).getTime() })

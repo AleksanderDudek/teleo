@@ -7,6 +7,7 @@ import {
   parseBackup,
   summarizeBackup,
   withoutRetiredRows,
+  withRenamedKeys,
   type BackupData,
   type BackupErrorCode,
   type BackupFile,
@@ -26,10 +27,10 @@ async function readAll(): Promise<BackupData> {
 /**
  * Replaces every table with `backup`; call inside a read-write transaction covering them. The only way a backup's
  * data gets into the tables (import and restore points alike), so rows of retired features — language dialogues
- * in older backups and restore points (DECISIONS #118) — are dropped here.
+ * in older backups and restore points (DECISIONS #118) — are dropped here, and old builtin keys renamed (#134).
  */
 async function replaceAll(backup: BackupData): Promise<void> {
-  const data = withoutRetiredRows(backup)
+  const data = withRenamedKeys(withoutRetiredRows(backup))
   for (const name of ALL_TABLES) {
     const table = db.table(name)
     await table.clear()

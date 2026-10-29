@@ -1,4 +1,5 @@
 export * from './crypto'
+export * from './renamed'
 export * from './retired'
 export * from './summary'
 export * from './validate'

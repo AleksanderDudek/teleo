@@ -2,9 +2,9 @@
 
 Owner request (2026-10-08): *"Use these prayers to be stored in our library. I want to introduce better filters based on
 prayer needs in this app. Translate it for both languages present right now. Analyze the current system, use best
-practices, pick recommended."* Attached: 133 English prayers in Teleo's builtin format (`lovy-prayers.texts.json`, 3,481
-sentences built from what Prophet Lovy L. Elias said while leading prayer, each traced to a sermon video in
-`lovy-prayers.trace.json`), grouped into nine areas of life. The owner was away; the choices below were made by Claude
+practices, pick recommended."* Attached: 133 English prayers in Teleo's builtin format (a `.texts.json` file, 3,481
+sentences built from what a contemporary preacher said while leading prayer, each traced to a sermon video in a
+`.trace.json` file), grouped into nine areas of life. The owner was away; the choices below were made by Claude
 with the stated reasons.
 
 ## What happens today
@@ -20,12 +20,12 @@ with the stated reasons.
 
 ## Decisions
 
-1. **The prayers ship as builtin texts in both languages.** `en.lovy-<slug>` as given; `pl.lovy-<slug>` translated
+1. **The prayers ship as builtin texts in both languages.** `en.life-<slug>` as given (keys renamed by DECISIONS #134); `pl.life-<slug>` translated
    sentence for sentence (same count and order, so the pair stays comparable and a test can hold it), in natural Polish
    prayer language with a fixed glossary ("w potężnym imieniu Jezusa", "mocą krwi Jezusa", "… jest moim udziałem").
    Polish first-person sentences that reveal the speaker's gender ("jestem wolny/wolna") use the existing m/f/n variant
-   mechanism (#26): the neutral form rephrases without gender. Every text carries the tag *Prophet Lovy L. Elias* /
-   *prorok Lovy L. Elias* — shown on the text and searchable — so the words are attributed. Sentences repeated in the
+   mechanism (#26): the neutral form rephrases without gender. Every text carried the preacher's name as a tag —
+   shown on the text and searchable — so the words were attributed (removed by DECISIONS #134). Sentences repeated in the
    source on purpose ("I will dream again.") stay repeated.
 2. **The new content is loaded lazily.** It is ~250 kB of English and as much Polish; bundling it would double the
    start-up script for a file read once per content version. `src/content/prayers/{en,pl}.json` are dynamic imports
@@ -67,7 +67,7 @@ with the stated reasons.
 
 - `needs.ts`: taxonomy integrity (every need in one area, ids unique), `needsOf` drops unknown ids, filter matching by
   area/need, counts per area/need.
-- Content: every builtin has 1–3 known needs; every need is used; Lovy pairs EN/PL have equal sentence counts and equal
+- Content: every builtin has 1–3 known needs; every need is used; library pairs EN/PL have equal sentence counts and equal
   needs; segments 3–40 words, no digits (existing rule) for every form.
 - Seed: lazy content is seeded with needs; focus preferences reach the new texts; restore of an old backup re-seeds.
 - Backup: `needs` optional and validated as strings.

@@ -57,7 +57,7 @@ describe('builtin content', () => {
 
   it('bundles the core texts and loads the prayer library apart (DECISIONS #126)', () => {
     expect(BUILTIN_TEXTS.slice(0, CORE_TEXTS.length)).toEqual(CORE_TEXTS)
-    expect(CORE_TEXTS.some((def) => def.key.includes('.lovy-'))).toBe(false)
+    expect(CORE_TEXTS.some((def) => def.key.includes('.life-'))).toBe(false)
   })
 
   it('pairs every library prayer with its Polish translation, sentence for sentence (DECISIONS #126)', () => {
@@ -79,10 +79,10 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
   })
 
-  it('names no public figure in a title, a tag or a note (DECISIONS #134)', () => {
-    const named = /Lovy|Elias\b|Ceroń/
-    const problems = BUILTIN_TEXTS.filter((def) => [def.title, ...def.tags, def.note ?? ''].some((field) => named.test(field)))
-    expect(problems.map((def) => def.key)).toEqual([])
+  it('names no preacher or teaching series in a key, a title, a tag, a note or a sentence (DECISIONS #134)', () => {
+    // Biblical names (Elijah — Eliasz, Elias in the KJV) stay: only the people and series the library came from are out.
+    const named = /lovy|ceroń|demony burzące|demolishing demons/i
+    expect(BUILTIN_TEXTS.filter((def) => named.test(JSON.stringify(def))).map((def) => def.key)).toEqual([])
   })
 
   it('keeps what is read before praying apart from what is said (DECISIONS #132)', () => {
@@ -94,7 +94,7 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
     const strongholds = BUILTIN_TEXTS.filter((def) => def.key.includes('.stronghold-'))
     expect(strongholds).toHaveLength(58)
-    expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes('Demony burzące'))).toBe(true)
+    expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes(def.lang === 'en' ? 'Series on strongholds' : 'Cykl o warowniach'))).toBe(true)
   })
 
   it('holds no duplicates: one title per language, and no two texts sharing half their sentences (DECISIONS #130)', () => {
