@@ -19,12 +19,12 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ### A prayer library, found by what you pray for
 
-- **133 new prayers** by Prophet Lovy L. Elias, in English and in Polish — for fear and anxiety, healing, sleep,
+- **133 new prayers** in English and in Polish — for fear and anxiety, healing, sleep,
   marriage, children, work and money, protection, the spiritual life and every stage of life. The Polish
   translation follows the original sentence for sentence and uses your grammatical form where it matters.
 - **“What do you pray for?”** in the library: choose an area of life, then a need, and the list narrows to the
   prayers for it. Each card names what it is mainly for; a text's page lists its needs as links.
-- **Filters that stay:** going back from a text returns to the same filtered list, and search also finds authors.
+- **Filters that stay:** going back from a text returns to the same filtered list, and search also finds a prayer’s tags.
 - **Your own texts** can say what they are for too (optional, in the editor).
 
 - **The language conversations moved to a separate app, Fluentum** — Teleo stays with prayers, affirmations and

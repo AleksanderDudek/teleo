@@ -775,3 +775,10 @@ findability instead.
       mercy.*) is not cut short at 60 %. Likewise a short pause in the middle of a sentence holds a pass below 90 %
       (#123 settled any pass at once): at 60 % a breath after most of a long verse would otherwise pass it and spill the
       rest into the next one. On the strict lower rungs this delays an imperfect pass to the pause or the next words.
+
+134. **No public figure is named in the prayers.** Owner request: titles, tags and notes name no person. The author tags
+    are gone (the `*.lovy-*` prayers carry no tag now; the stronghold prayers keep the series tag *Demony burzące*).
+    The stronghold notes say *the series*, *this part* or *the original prayer* where they named the teacher or said
+    *he* / *his*. Keys stay: they are ids that progress, tasks and backups point to, seen only in a link. A content test
+    guards titles, tags and notes; `SEED_VERSION` 7 carries the change to existing installs. README and CHANGELOG no
+    longer name them either.

@@ -14,10 +14,9 @@ test('the library finds a prayer by need, and the filter survives opening it and
   await expect(page).toHaveURL(/#\/library\?area=health&need=sleep$/)
   await expect(page.getByRole('status')).toHaveText('2 texts')
 
-  // The text names what it is prayed for and whose words these are.
+  // The text names what it is prayed for.
   await page.getByRole('link', { name: /Against Nightmares and Night Attacks/ }).click()
   await expect(page.getByRole('heading', { name: 'Prayed for' })).toBeVisible()
-  await expect(page.getByText('Prophet Lovy L. Elias')).toBeVisible()
   await page.getByRole('link', { name: 'Back' }).click()
   await expect(page).toHaveURL(/#\/library\?area=health&need=sleep$/)
   await expect(page.getByRole('button', { name: /^Sleep & nightmares/ })).toHaveAttribute('aria-pressed', 'true')
