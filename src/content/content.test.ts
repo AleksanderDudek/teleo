@@ -72,14 +72,17 @@ describe('builtin content', () => {
       return [
         ...(builtinSegments(pl, 'n').length === builtinSegments(en, 'n').length ? [] : [`${en.key}: sentence count`]),
         ...(pl.needs.join() === en.needs.join() ? [] : [`${en.key}: needs differ`]),
-        ...(pl.type === en.type && en.tags.length > 0 && pl.tags.length === en.tags.length ? [] : [`${en.key}: type or attribution`]),
+        ...(pl.type === en.type && pl.tags.length === en.tags.length ? [] : [`${en.key}: type or tags`]),
         ...(Boolean(pl.note) === Boolean(en.note) ? [] : [`${en.key}: note in one language only`]),
       ]
     })
     expect(problems).toEqual([])
-    const lovy = english.filter((def) => def.key.startsWith('en.lovy-'))
-    expect(lovy.every((def) => def.tags.includes('Prophet Lovy L. Elias'))).toBe(true)
-    expect(lovy.every((def) => byKey.get(def.key.replace(/^en\./, 'pl.'))?.tags.includes('prorok Lovy L. Elias'))).toBe(true)
+  })
+
+  it('names no public figure in a title, a tag or a note (DECISIONS #134)', () => {
+    const named = /Lovy|Elias\b|Ceroń/
+    const problems = BUILTIN_TEXTS.filter((def) => [def.title, ...def.tags, def.note ?? ''].some((field) => named.test(field)))
+    expect(problems.map((def) => def.key)).toEqual([])
   })
 
   it('keeps what is read before praying apart from what is said (DECISIONS #132)', () => {
@@ -91,7 +94,7 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
     const strongholds = BUILTIN_TEXTS.filter((def) => def.key.includes('.stronghold-'))
     expect(strongholds).toHaveLength(58)
-    expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes('Artur Ceroński'))).toBe(true)
+    expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes('Demony burzące'))).toBe(true)
   })
 
   it('holds no duplicates: one title per language, and no two texts sharing half their sentences (DECISIONS #130)', () => {
