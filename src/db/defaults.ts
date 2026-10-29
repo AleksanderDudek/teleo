@@ -20,6 +20,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   speechPrivacyAcknowledged: false,
   character: 'anna',
   sounds: true,
+  checking: 'gentle',
   displayName: '',
 }
 

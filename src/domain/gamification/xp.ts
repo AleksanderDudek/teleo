@@ -38,6 +38,16 @@ export function goldenMultiplier(readingMsBefore: number): number {
   return readingMsBefore >= GOLDEN_WINDOW.startMs && readingMsBefore < GOLDEN_WINDOW.endMs ? GOLDEN_WINDOW.multiplier : 1
 }
 
+/**
+ * A first try counts as one (first-try bonus, perfect runs, first-try achievements) only when it said at least 90 % of
+ * the sentence — the strict first rung — so gentle checking passes sentences without making perfection cheaper.
+ */
+export const FIRST_TRY_COVERAGE = 0.9
+
+export function isCleanFirstTry(accepted: boolean, attempts: number, coverage: number): boolean {
+  return accepted && attempts === 1 && coverage >= FIRST_TRY_COVERAGE
+}
+
 export interface SegmentXpBreakdown {
   /** `5 + words`, capped at 30 (a negative word count counts as 0). */
   base: number
@@ -47,6 +57,8 @@ export interface SegmentXpBreakdown {
   multiplier: number
   /** Golden quarter-hour multiplier. */
   golden: number
+  /** Share of the sentence said (its coverage, 0…1): full points need every word (DECISIONS #133). */
+  accuracy: number
   total: number
 }
 
@@ -56,13 +68,16 @@ export function segmentXp(
   streak: number,
   /** Today's estimated reading time before this sentence. */
   readingMsBefore = 0,
+  /** Coverage of the accepted attempt. */
+  accuracy = 1,
 ): SegmentXpBreakdown {
   const words = Math.max(0, wordCount)
   const base = Math.min(XP_RULES.segmentBase + words, XP_RULES.segmentCap)
   const bonus = firstTry ? XP_RULES.firstTryBonus : 0
   const multiplier = streakMultiplier(streak)
   const golden = goldenMultiplier(readingMsBefore)
-  return { base, bonus, multiplier, golden, total: Math.round((base + bonus) * multiplier * golden) }
+  const share = Number.isNaN(accuracy) ? 0 : Math.min(Math.max(accuracy, 0), 1)
+  return { base, bonus, multiplier, golden, accuracy: share, total: Math.round((base + bonus) * share * multiplier * golden) }
 }
 
 /** Bonus for completing a whole text: 20% of the XP its segments earned in that run. */

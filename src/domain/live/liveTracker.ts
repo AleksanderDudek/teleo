@@ -51,6 +51,12 @@ const TAIL_TOKENS = 3
 const RESTART_WORDS = 3
 /** Raw words of the sentence still ahead of the last one heard, from which a pause counts as mid-sentence. */
 const MID_SENTENCE_WORDS = 2
+/**
+ * A sentence said this fully is taken the moment it is heard. Below it (gentle checking, lower rungs) "passes" and
+ * "finished" part ways: the sentence is taken once the speaker is clearly done — the words that follow are not its own,
+ * or a pause — so a breath, or a sentence that says its opening again, is not cut short (DECISIONS #133).
+ */
+const SURE_COVERAGE = 0.9
 
 const splitWords = (text: string) => text.split(/\s+/u).filter(Boolean)
 
@@ -143,6 +149,15 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
 
   const thresholdOf = (sentence: LiveTarget) => sentence.threshold ?? COVERAGE_LADDER[0]
 
+  /** Whether a passing prefix ends the sentence now: said in full enough, or followed by words that are not its own. */
+  const isFinished = (sentence: LiveTarget, window: string, consumedRawWords: number, coverage: number): boolean => {
+    if (coverage >= SURE_COVERAGE) return true
+    const raw = splitWords(window)
+    if (consumedRawWords >= raw.length) return false
+    const said = (text: string) => progressOf(sentence.source, text, lang).covered.filter(Boolean).length
+    return said(window) <= said(raw.slice(0, consumedRawWords).join(' '))
+  }
+
   const check = (): LiveEvent[] => {
     const sentence = target
     if (!sentence) return []
@@ -150,7 +165,7 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
     const tailBefore = previousTail
     const threshold = thresholdOf(sentence)
     const match = window ? matchPrefix(sentence.source, window, { lang, threshold, previousTail: tailBefore }) : null
-    if (match) {
+    if (match && isFinished(sentence, window, match.consumedRawWords, match.result.coverage)) {
       lastAccepted = { start: consumed, source: sentence.source, threshold, tail: tailBefore }
       consumed += match.consumedRawWords
       return accept(sentence, match.result, match.result.transcript)
@@ -220,7 +235,9 @@ export function createLiveTracker(options: LiveTrackerOptions): LiveTracker {
       // which the prefix rule deliberately waits on while the speaker might continue.
       const result = evaluate(sentence.source, windows, { lang, threshold: thresholdOf(sentence) })
       // Nothing is settled yet: the words stay in the window for the rest of the sentence.
-      if (!result.accepted && length === 'short' && midSentence(sentence, window)) return [{ type: 'holding', entryIndex: sentence.entryIndex }]
+      // A pass below 90 % in the middle of the sentence waits too: the rest of it may follow the breath.
+      const settled = result.accepted && result.coverage >= SURE_COVERAGE
+      if (!settled && length === 'short' && midSentence(sentence, window)) return [{ type: 'holding', entryIndex: sentence.entryIndex }]
       discardWindow()
       if (result.accepted) return accept(sentence, result, result.transcript)
       return [{ type: 'rejected', entryIndex: sentence.entryIndex, result, transcript: window, cause: 'pause' }]

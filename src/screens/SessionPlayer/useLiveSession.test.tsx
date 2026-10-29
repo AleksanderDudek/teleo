@@ -40,9 +40,12 @@ describe('useLiveSession', () => {
     })
     expect(verdicts).toMatchObject([{ accepted: false, reason: 'coverage', threshold: 0.9 }])
 
-    // The player moves the same sentence to the next rung; the same words now pass.
+    // The player moves the same sentence to the next rung; the same words now pass — below 90 %, once the speaker
+    // is clearly done (here: the pause).
     hook.rerender(sentence(0.8))
     await act(async () => speech().onTranscript?.(`${EIGHT} ${EIGHT}`, false, []))
+    expect(verdicts).toHaveLength(1)
+    await act(async () => speech().onSilence?.())
     expect(verdicts).toMatchObject([{ accepted: false }, { accepted: true, missing: 2, threshold: 0.8 }])
   })
 

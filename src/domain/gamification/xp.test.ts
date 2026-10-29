@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { GOLDEN_WINDOW, goldenMultiplier, segmentXp, streakMultiplier, textCompletionXp, TIER_XP, XP_RULES } from './xp'
+import { FIRST_TRY_COVERAGE, GOLDEN_WINDOW, goldenMultiplier, isCleanFirstTry, segmentXp, streakMultiplier, textCompletionXp, TIER_XP, XP_RULES } from './xp'
 
 describe('XP constants', () => {
   it('match the XP table of spec §9.2', () => {
@@ -35,7 +35,7 @@ describe('streakMultiplier', () => {
 
 describe('segmentXp', () => {
   it('gives 5 XP plus one per word', () => {
-    expect(segmentXp(3, false, 0)).toEqual({ base: 8, bonus: 0, multiplier: 1, golden: 1, total: 8 })
+    expect(segmentXp(3, false, 0)).toEqual({ base: 8, bonus: 0, multiplier: 1, golden: 1, accuracy: 1, total: 8 })
   })
 
   it('caps the word-based part at 30', () => {
@@ -44,16 +44,40 @@ describe('segmentXp', () => {
   })
 
   it('adds the first-try bonus on top of the cap', () => {
-    expect(segmentXp(25, true, 0)).toEqual({ base: 30, bonus: 2, multiplier: 1, golden: 1, total: 32 })
+    expect(segmentXp(25, true, 0)).toEqual({ base: 30, bonus: 2, multiplier: 1, golden: 1, accuracy: 1, total: 32 })
   })
 
   it('treats a negative word count as 0', () => {
-    expect(segmentXp(-3, false, 0)).toEqual({ base: 5, bonus: 0, multiplier: 1, golden: 1, total: 5 })
+    expect(segmentXp(-3, false, 0)).toEqual({ base: 5, bonus: 0, multiplier: 1, golden: 1, accuracy: 1, total: 5 })
   })
 
   it('multiplies base and bonus by the streak multiplier and rounds', () => {
-    expect(segmentXp(5, true, 3)).toEqual({ base: 10, bonus: 2, multiplier: 1.1, golden: 1, total: 13 })
+    expect(segmentXp(5, true, 3)).toEqual({ base: 10, bonus: 2, multiplier: 1.1, golden: 1, accuracy: 1, total: 13 })
     expect(segmentXp(30, true, 30).total).toBe(48)
+  })
+})
+
+describe('segmentXp follows accuracy (DECISIONS #133)', () => {
+  it('pays the share of the sentence that was said: all of it for 100 %, 60 % for 60 %', () => {
+    expect(segmentXp(5, false, 0, 0, 1).total).toBe(10)
+    expect(segmentXp(5, false, 0, 0, 0.6)).toEqual({ base: 10, bonus: 0, multiplier: 1, golden: 1, accuracy: 0.6, total: 6 })
+    expect(segmentXp(25, true, 7, 0, 0.8).total).toBe(Math.round(32 * 0.8 * 1.25))
+  })
+
+  it('keeps accuracy within 0…1', () => {
+    expect(segmentXp(5, false, 0, 0, 1.4).accuracy).toBe(1)
+    expect(segmentXp(5, false, 0, 0, -1).total).toBe(0)
+    expect(segmentXp(5, false, 0, 0, Number.NaN).total).toBe(0)
+  })
+})
+
+describe('isCleanFirstTry', () => {
+  it('needs the first attempt to pass with at least 90 % of the words, whatever the way of checking', () => {
+    expect(FIRST_TRY_COVERAGE).toBe(0.9)
+    expect(isCleanFirstTry(true, 1, 0.9)).toBe(true)
+    expect(isCleanFirstTry(true, 1, 0.6)).toBe(false)
+    expect(isCleanFirstTry(true, 2, 1)).toBe(false)
+    expect(isCleanFirstTry(false, 1, 1)).toBe(false)
   })
 })
 
@@ -78,7 +102,7 @@ describe('goldenMultiplier (the golden quarter-hour)', () => {
 
 describe('segmentXp in the golden quarter-hour', () => {
   it('doubles the sentence XP, on top of the streak multiplier', () => {
-    expect(segmentXp(5, true, 3, 6 * 60_000)).toEqual({ base: 10, bonus: 2, multiplier: 1.1, golden: 2, total: 26 })
+    expect(segmentXp(5, true, 3, 6 * 60_000)).toEqual({ base: 10, bonus: 2, multiplier: 1.1, golden: 2, accuracy: 1, total: 26 })
   })
 
   it('is plain XP before and after the window', () => {

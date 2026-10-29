@@ -32,7 +32,8 @@ interface SegmentStageProps {
   /** Hint held down: show the full text. */
   reveal?: boolean
   /** Reward of the last accepted sentence (shown once per `praiseKey`). */
-  gain?: { xp: number; golden: boolean; combo: number }
+  /** Points of the last accepted sentence; `accuracy` < 1 says why they were fewer (DECISIONS #133). */
+  gain?: { xp: number; golden: boolean; combo: number; accuracy: number }
 }
 
 /** Above this many words a sentence (a Bible verse, typically) is set one step smaller. */
@@ -88,6 +89,7 @@ export function SegmentStage({ previous, previousDone, current, next, covered, d
             {gain && gain.xp > 0 && (
               <span aria-hidden className="text-lg font-bold text-gold-ink tabular animate-float-up [animation-duration:2.2s]">
                 +{gain.xp} XP{gain.golden ? ` ${t('golden.badge')}` : ''}
+                {gain.accuracy < 1 && ` · ${t('player.accuracy', { percent: Math.floor(gain.accuracy * 100) })}`}
               </span>
             )}
             {gain && gain.combo >= 3 && (

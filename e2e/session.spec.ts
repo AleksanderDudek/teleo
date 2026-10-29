@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 import { declineTour, finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
 
 test.describe('tap mode', () => {
@@ -140,23 +140,42 @@ test.describe('English', () => {
   })
 })
 
-test.describe('coverage ladder', () => {
+test.describe('how sentences are checked (DECISIONS #133)', () => {
   test.use({ locale: 'pl-PL' })
+  // 19 of 23 words (82 %): enough for gentle checking; strict needs 21 on the first try, 19 on the second.
+  const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie na ziemi'
 
-  test('a sentence missing four words fails at 90 % and passes on the next try at 80 %', async ({ page }, testInfo) => {
-    test.setTimeout(120_000)
-    await installFakeSpeech(page)
-    await finishOnboarding(page)
+  const openOurFather = async (page: Page, texts: string[]) => {
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
     await page.getByRole('link', { name: /Ojcze nasz/ }).click()
     await page.getByRole('button', { name: 'Powiedz teraz' }).click()
     await page.getByRole('switch', { name: 'Na żywo' }).click()
-    // 19 of 23 words (82 %): the first try needs 21, the second 19.
-    const almost = 'ojcze nasz któryś jest w niebie święć się imię twoje przyjdź twoje bądź twoja jako w niebie na ziemi'
-    await page.evaluate((text) => {
+    await page.evaluate((queued) => {
       const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
-      fake.queue.push(text, text)
-    }, almost)
+      fake.queue.push(...queued)
+    }, texts)
+  }
+
+  test('gentle by default: a sentence missing four words passes at once, for its share of the points', async ({ page }) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await openOurFather(page, [almost])
+    await page.getByRole('button', { name: 'Mów' }).click()
+    await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
+    await expect(page.getByText('82% słów')).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Zdanie 2 z 4' })).toBeVisible({ timeout: 10_000 })
+  })
+
+  test('strict, chosen in Settings: the same sentence fails at 90 % and passes on the next try at 80 %', async ({ page }, testInfo) => {
+    test.setTimeout(120_000)
+    await installFakeSpeech(page)
+    await finishOnboarding(page)
+    await page.getByRole('navigation').getByRole('link', { name: 'Ustawienia' }).click()
+    await page.getByText('Ściśle', { exact: true }).click()
+    await expect(page.getByRole('radio', { name: 'Ściśle' })).toBeChecked()
+    await expect(page.getByText('za pierwszym razem potrzeba 90% jego słów')).toBeVisible()
+    await openOurFather(page, [almost, almost])
 
     const mic = page.getByRole('button', { name: 'Mów' })
     await mic.click()

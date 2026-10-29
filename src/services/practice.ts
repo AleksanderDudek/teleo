@@ -4,6 +4,7 @@ import {
   computeStreak,
   dayMarksFrom,
   freezeAward,
+  isCleanFirstTry,
   isComeback,
   levelInfo,
   nextTextDayStreak,
@@ -60,6 +61,8 @@ export interface AttemptOutcome extends ProgressOutcome {
   segmentXp: number
   /** Golden quarter-hour multiplier applied to this sentence (1 outside the window). */
   golden: number
+  /** Share of the sentence said, which scaled its points (DECISIONS #133); 0 when rejected. */
+  accuracy: number
   /** Today's estimated reading time after this attempt. */
   readingMs: number
   run: SessionRun
@@ -171,7 +174,8 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     const levelBefore = levelInfo(game.totalXp).level
     const accepted = input.evaluation.accepted
     entry.attempts += 1
-    const firstTry = accepted && entry.attempts === 1
+    // A first try that passed with less than 90 % is a pass, not a first try (DECISIONS #133).
+    const firstTry = isCleanFirstTry(accepted, entry.attempts, input.evaluation.coverage)
 
     const attempt: Attempt = {
       id: newId(),
@@ -203,6 +207,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
       firstTry,
       segmentXp: 0,
       golden: 1,
+      accuracy: 0,
       readingMs: daily.readingMs ?? 0,
       run,
       failedAttempts: entry.attempts - (accepted ? 1 : 0),
@@ -253,7 +258,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     }
 
     const readBefore = daily.readingMs ?? 0
-    const breakdown = segmentXp(segment.wordCount, firstTry, streak, readBefore)
+    const breakdown = segmentXp(segment.wordCount, firstTry, streak, readBefore, input.evaluation.coverage)
     const xp = breakdown.total
     daily.readingMs = readBefore + readingMs(segment.wordCount, text.lang)
     await db.xpLedger.add({ timestamp: now, dayKey, reason: 'segment', amount: xp, refId: attempt.id })
@@ -318,6 +323,7 @@ export async function recordAttempt(input: AttemptInput): Promise<AttemptOutcome
     Object.assign(result, {
       segmentXp: xp,
       golden: breakdown.golden,
+      accuracy: breakdown.accuracy,
       readingMs: daily.readingMs,
       xpGained: gained + achievementXp,
       unlocked,

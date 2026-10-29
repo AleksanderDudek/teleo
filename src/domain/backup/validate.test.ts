@@ -302,6 +302,7 @@ describe('validateBackup: acceptance', () => {
           character: 'michal',
           sounds: true,
           displayName: '',
+          checking: 'gentle',
         },
       },
     ]
@@ -542,6 +543,7 @@ describe('validateBackup: per-table field rejection', () => {
             character: 'zeus' as never,
             sounds: true,
             displayName: '',
+            checking: 'gentle',
           },
         }
       },
@@ -572,6 +574,7 @@ describe('validateBackup: per-table field rejection', () => {
             character: 'anna',
             sounds: true,
             displayName: '',
+            checking: 'gentle',
           },
         }
       },

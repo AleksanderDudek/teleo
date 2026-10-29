@@ -35,7 +35,8 @@ npm run typecheck    # tsc -b
 - No `enum`/`namespace`; prefer string-literal unions and `as const` objects.
 - Matcher = heart of the app: change it only test-first (`src/domain/matcher/*.test.ts`).
 - Key modules: `src/domain/matcher` (evaluate, diff, live `matchPrefix`/`progressOf`; the coverage a try needs comes
-  from the ladder `coverageNeeded(failedTries)` — 90/80/70 %, DECISIONS #93),
+  from `coverageNeeded(failedTries, checking)` — gentle 60 %, the default, or the strict 90/80/70 % ladder; XP follows
+  coverage and a first try counts from 90 %, DECISIONS #93, #133),
   `src/domain/live/liveTracker.ts` (continuous-listening state machine), `src/services/practice.ts`
   (one transaction per attempt: stats, XP ledger, streaks/freezes, achievements),
   `src/screens/SessionPlayer` (live + tap modes, memory mode, listen-first; a fixed `100dvh` screen — header,

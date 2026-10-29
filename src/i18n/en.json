@@ -299,7 +299,8 @@
     "praiseLovely": "Lovely!",
     "combo_one": "{{count}} in a row",
     "combo_other": "{{count}} in a row",
-    "nextTry": "Next try: {{percent}}% of the words is enough."
+    "nextTry": "Next try: {{percent}}% of the words is enough.",
+    "accuracy": "{{percent}}% of the words"
   },
   "summary": {
     "title": "Well done",
@@ -399,7 +400,10 @@
     "engineWeb": "Browser",
     "engineWhisper": "Offline Whisper",
     "checking": "How we check",
-    "checkingHint": "Every try of a sentence is gentler than the one before: the first needs 90% of its words, the second 80%, and from the third on 70%. A word heard as a different one counts as not said; a word added to the text still fails the try.",
+    "checkingGentle": "Gentle",
+    "checkingStrict": "Strict",
+    "checkingGentleHint": "A sentence passes when 60% of its words are said. Points follow what you said: every word earns full points, fewer words earn fewer. A word added to the text still fails the try.",
+    "checkingStrictHint": "Every try of a sentence is gentler than the one before: the first needs 90% of its words, the second 80%, and from the third on 70%. Points follow what you said. A word added to the text still fails the try.",
     "handsFree": "Live listening (hands-free)",
     "handsFreeHint": "Keep listening through the whole session and check each sentence as you speak.",
     "saveTranscripts": "Save transcripts",
@@ -585,7 +589,8 @@
       "coverage": "{{percent}}% of the words matched — {{needed}}% needed."
     },
     "howWeCount": "How do we check?",
-    "howWeCountBody": "A sentence counts when enough of its words were said and you added no extra words. The first try needs 90% of the words, the second 80%, and every try after that 70% — so a short sentence may need every word at first. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); a word heard as a different one only counts as not said, and filler sounds like “um” are ignored.",
+    "howWeCountGentle": "A sentence counts when at least 60% of its words were said and you added no extra words. The points follow what you said: all the words earn full points, 60% of them earn 60% of the points — and a first try counts as one from 90% on. For a stricter check, choose “Strict” in Settings. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); a word heard as a different one only counts as not said, and filler sounds like “um” are ignored.",
+    "howWeCountStrict": "A sentence counts when enough of its words were said and you added no extra words. The first try needs 90% of the words, the second 80%, and every try after that 70% — so a short sentence may need every word at first. The points follow what you said: all the words earn full points. Recognition slips are forgiven: missing Polish letters, one wrong letter in a longer word, the same sound spelled differently (“Bóg” → “bug”), and words written together or apart (“w niebie” → “wniebie”); a word heard as a different one only counts as not said, and filler sounds like “um” are ignored.",
     "legendMatch": "said",
     "legendNear": "close enough",
     "legendMissing": "missing",

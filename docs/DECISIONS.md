@@ -755,3 +755,23 @@ findability instead.
       `warfare`): every prayer of the series carries it; the main need stays the issue itself where one fits well
       (rejection and humiliation → *Rejection & shame*, compulsions → *Fear & anxiety*, atheism → *Faith*, addiction →
       *Addiction*). Lovy's *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 6.
+
+## Gentle checking, points that follow accuracy (owner request, 2026-10-29)
+
+133. **Two ways of checking; gentle (60 %) is the default, and the points follow the words said.** A setting
+    *How we check* (`checking`, Settings → Speech): **gentle** — every try of a sentence needs 60 % of its words — and
+    **strict**, the coverage ladder as it was (90 → 80 → 70 %, #93). Installs that never chose get gentle
+    (`DEFAULT_SETTINGS`; optional in backups). `CHECKING_LADDERS` / `coverageNeeded(failedTries, checking)` in the matcher.
+    Words added to the text still fail a try in both ways: gentle forgives words left out, not words put in.
+    - **Points = share of the sentence said.** A sentence's XP is multiplied by its coverage (`segmentXp(…, accuracy)`):
+      every word earns the full points, 60 % of the words 60 % of them; the text bonus (20 % of its sentences' XP)
+      follows. The player shows the share next to the points (*+7 XP · 71% of the words*) whenever it is below 100 %.
+    - **A first try counts from 90 %** (`isCleanFirstTry`, `FIRST_TRY_COVERAGE`): the first-try bonus, combos, perfect
+      runs and sessions and the first-try achievements keep meaning what they meant under the old rule, so gentle
+      checking passes sentences without making perfection cheaper. Strict checking is unchanged by it.
+    - **Live mode below 90 % waits until the speaker is done** (`liveTracker`, `SURE_COVERAGE`): a passing prefix said
+      this fully is taken at once as before; below it the sentence is taken once the words that follow are not its own,
+      or at the pause — so a sentence that says its opening again (*Lord, have mercy. Christ, have mercy. Lord, have
+      mercy.*) is not cut short at 60 %. Likewise a short pause in the middle of a sentence holds a pass below 90 %
+      (#123 settled any pass at once): at 60 % a breath after most of a long verse would otherwise pass it and spill the
+      rest into the next one. On the strict lower rungs this delays an imperfect pass to the pause or the next words.

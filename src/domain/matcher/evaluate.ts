@@ -1,3 +1,4 @@
+import type { Checking } from '@/domain/types'
 import { align } from './align'
 import { removeFillers } from './fillers'
 import { normalize } from './normalize'
@@ -9,10 +10,17 @@ import type { EvaluateOptions, MatchOp, MatchResult, OpEntry, RejectReason } fro
  */
 export const COVERAGE_LADDER = [0.9, 0.8, 0.7] as const
 
+/**
+ * The ways of checking (DECISIONS #133): gentle — the default — needs 60 % of the words on every try; strict climbs
+ * down the coverage ladder. Either way the points follow the words actually said.
+ */
+export const CHECKING_LADDERS: Record<Checking, readonly number[]> = { gentle: [0.6], strict: COVERAGE_LADDER }
+
 /** The coverage the next try of a sentence needs after `failedTries` rejected ones. */
-export function coverageNeeded(failedTries: number): number {
-  const rung = Math.min(Math.max(0, Math.floor(failedTries)), COVERAGE_LADDER.length - 1)
-  return COVERAGE_LADDER[rung] ?? COVERAGE_LADDER[0]
+export function coverageNeeded(failedTries: number, checking: Checking): number {
+  const ladder = CHECKING_LADDERS[checking]
+  const rung = Math.min(Math.max(0, Math.floor(failedTries)), ladder.length - 1)
+  return ladder[rung] ?? COVERAGE_LADDER[0]
 }
 
 /** The verdict on one alignment, before it is tagged with its alternative and text. */
