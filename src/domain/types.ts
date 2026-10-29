@@ -14,6 +14,9 @@ export type EngineId = 'webspeech' | 'whisper'
 export type Tier = 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond'
 export type GrammaticalForm = 'm' | 'f' | 'n'
 export type ContentFocus = 'prayers' | 'affirmations' | 'both' | 'own'
+/** How sentences are checked (DECISIONS #133): gentle (60 %, the default) or strict (the 90/80/70 % ladder). */
+export type Checking = 'gentle' | 'strict'
+export const CHECKINGS = ['gentle', 'strict'] as const satisfies readonly Checking[]
 /** The figure that stands for the user (four women, four men), shown as their avatar. */
 export type CharacterId = 'anna' | 'maria' | 'grace' | 'ewa' | 'jan' | 'michal' | 'david' | 'piotr'
 export const CHARACTER_IDS = ['anna', 'maria', 'grace', 'ewa', 'jan', 'michal', 'david', 'piotr'] as const satisfies readonly CharacterId[]

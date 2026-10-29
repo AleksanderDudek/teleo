@@ -187,7 +187,9 @@ describe('LiveTracker', () => {
     expect(first.pause()).toMatchObject([{ type: 'rejected', result: { reason: 'coverage', threshold: 0.9 } }])
     const second = createLiveTracker({ lang: 'pl' })
     second.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 })
-    expect(second.update(eightOfTen)).toMatchObject([{ type: 'accepted', result: { missing: 2, threshold: 0.8 } }])
+    // Below 90 % the sentence is taken once the speaker is clearly done: here, at the pause.
+    expect(accepted(second.update(eightOfTen))).toEqual([])
+    expect(second.pause()).toMatchObject([{ type: 'accepted', result: { missing: 2, threshold: 0.8 } }])
   })
 
   it('checks the words already heard again when the same sentence comes back with a lower threshold', () => {
@@ -197,7 +199,58 @@ describe('LiveTracker', () => {
     // A slip ("bardzo"), then a fresh start that leaves out two words: rejected once, waiting on 90 %.
     const events = tracker.update('każdego dnia rano bardzo każdego dnia rano wcześnie i za nowy dzień')
     expect(events.map((e) => e.type)).toEqual(['rejected', 'progress'])
-    expect(accepted(tracker.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 }))).toEqual([0])
+    expect(accepted(tracker.setTarget({ entryIndex: 0, source: TEN, threshold: 0.8 }))).toEqual([])
+    expect(accepted(tracker.pause())).toEqual([0])
+  })
+
+  describe('gentle checking: 60 % (DECISIONS #133)', () => {
+    const TEN = 'Każdego dnia rano wstaję wcześnie i dziękuję za nowy dzień.'
+    const eightOfTen = 'każdego dnia rano wcześnie i za nowy dzień'
+
+    it('takes a finished sentence below 90 % as soon as the next one starts', () => {
+      const targets = [
+        { entryIndex: 0, source: TEN, threshold: 0.6 },
+        { entryIndex: 1, source: S2, threshold: 0.6 },
+      ]
+      const { events } = stream(targets, `${eightOfTen} Idę dalej z odwagą`)
+      expect(accepted(events)).toEqual([0, 1])
+      expect(events.find((e) => e.type === 'accepted')).toMatchObject({ result: { coverage: 0.8 }, transcript: eightOfTen })
+    })
+
+    it('takes it at the pause when nothing follows', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: TEN, threshold: 0.6 })
+      expect(accepted(tracker.update(eightOfTen))).toEqual([])
+      expect(accepted(tracker.pause())).toEqual([0])
+    })
+
+    it('does not cut short a sentence that says its opening again', () => {
+      const litany = 'Lord, have mercy. Christ, have mercy. Lord, have mercy.'
+      const targets = [
+        { entryIndex: 0, source: litany, threshold: 0.6 },
+        { entryIndex: 1, source: 'I am calm and focused.', threshold: 0.6 },
+      ]
+      const { events } = stream(targets, 'Lord have mercy Christ have mercy Lord have mercy I am calm and focused', 'en')
+      expect(accepted(events)).toEqual([0, 1])
+      expect(events.filter((e) => e.type === 'accepted').map((e) => e.type === 'accepted' && e.result.coverage)).toEqual([1, 1])
+    })
+
+    it('waits through a breath after most of a long sentence instead of passing it', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: TWENTY, threshold: 0.6 })
+      const words = TWENTY.replace(/[.,]/g, '').split(' ')
+      tracker.update(words.slice(0, 14).join(' '))
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(tracker.update(words.join(' '))).toMatchObject([{ type: 'accepted', result: { coverage: 1 } }])
+    })
+
+    it('passes what was said when the quiet lasts', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: TWENTY, threshold: 0.6 })
+      tracker.update(TWENTY.replace(/[.,]/g, '').split(' ').slice(0, 14).join(' '))
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(tracker.pause('long')).toMatchObject([{ type: 'accepted', result: { coverage: 0.7 } }])
+    })
   })
 
   describe('long sentences (Bible readings)', () => {
@@ -301,13 +354,21 @@ describe('LiveTracker', () => {
       expect(tracker.pause()).toMatchObject([{ type: 'rejected', cause: 'pause' }])
     })
 
-    it('settle at once when what was said already passes', () => {
+    it('settle at once when what was said already holds nearly all of the sentence (90 %)', () => {
       const tracker = createLiveTracker({ lang: 'pl' })
       tracker.setTarget({ entryIndex: 0, source: TWENTY, threshold: 0.7 })
-      // 15 of the 20 words, then a pause: enough on the third rung.
-      const fifteen = TWENTY.replace(/[.,]/g, '').split(' ').slice(0, 15).join(' ')
-      tracker.update(fifteen)
+      const words = TWENTY.replace(/[.,]/g, '').split(' ')
+      // 18 of the 20 words, then a pause: passes at once.
+      tracker.update(words.slice(0, 18).join(' '))
       expect(accepted(tracker.pause())).toEqual([0])
+    })
+
+    it('hold a pass below 90 % in the middle of the sentence: the rest may still come', () => {
+      const tracker = createLiveTracker({ lang: 'pl' })
+      tracker.setTarget({ entryIndex: 0, source: TWENTY, threshold: 0.7 })
+      tracker.update(TWENTY.replace(/[.,]/g, '').split(' ').slice(0, 15).join(' '))
+      expect(tracker.pause()).toEqual([{ type: 'holding', entryIndex: 0 }])
+      expect(accepted(tracker.pause('long'))).toEqual([0])
     })
   })
 

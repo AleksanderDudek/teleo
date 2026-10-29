@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Lang } from '@/domain/types'
-import { COVERAGE_LADDER, coverageNeeded, evaluate } from './evaluate'
+import { CHECKING_LADDERS, COVERAGE_LADDER, coverageNeeded, evaluate } from './evaluate'
 import type { EvaluateOptions } from './types'
 
 const JESTEM = 'Jestem spokojny i pewny siebie.'
@@ -11,7 +11,7 @@ const EN_20 =
 
 /** `failedTries` picks the rung of the coverage ladder; 0 = the first try (90 %). */
 const run = (lang: Lang, source: string, alternatives: readonly string[], failedTries = 0) =>
-  evaluate(source, alternatives, { lang, threshold: coverageNeeded(failedTries) })
+  evaluate(source, alternatives, { lang, threshold: coverageNeeded(failedTries, 'strict') })
 const pl = (source: string, ...alternatives: string[]) => run('pl', source, alternatives)
 const en = (source: string, ...alternatives: string[]) => run('en', source, alternatives)
 
@@ -430,7 +430,17 @@ describe('evaluate — the coverage ladder (owner request 2026-09-27)', () => {
 
   it('needs 90 % on the first try, 80 % on the second, 70 % from the third on', () => {
     expect(COVERAGE_LADDER).toEqual([0.9, 0.8, 0.7])
-    expect([0, 1, 2, 3, 4, 10].map(coverageNeeded)).toEqual([0.9, 0.8, 0.7, 0.7, 0.7, 0.7])
+    expect([0, 1, 2, 3, 4, 10].map((failed) => coverageNeeded(failed, 'strict'))).toEqual([0.9, 0.8, 0.7, 0.7, 0.7, 0.7])
+  })
+
+  it('is the strict way of checking; the gentle way, the default, needs 60 % on every try (DECISIONS #133)', () => {
+    expect(CHECKING_LADDERS).toEqual({ gentle: [0.6], strict: COVERAGE_LADDER })
+    expect([0, 1, 2, 10].map((failed) => coverageNeeded(failed, 'gentle'))).toEqual([0.6, 0.6, 0.6, 0.6])
+    const gentle = (spoken: string) => evaluate(TEN, [spoken], { lang: 'pl', threshold: coverageNeeded(0, 'gentle') })
+    expect(gentle(omitting(TEN, 1, 3, 6, 8))).toMatchObject({ accepted: true, missing: 4, coverage: 0.6 })
+    expect(gentle(omitting(TEN, 1, 3, 5, 6, 8))).toMatchObject({ accepted: false, reason: 'coverage' })
+    // Gentle on words left out, not on words added.
+    expect(gentle(`${spokenWords(TEN).join(' ')} bardzo`)).toMatchObject({ accepted: false, reason: 'extra' })
   })
 
   it('lets one more word in ten be lost with each failed try, down to three', () => {

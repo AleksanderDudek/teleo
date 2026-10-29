@@ -81,6 +81,17 @@ describe('a full PL rosary decade', () => {
     expect(second.segmentXp).toBe(5 + 7) // "Chwała Ojcu i Synowi, i Duchowi Świętemu." has 7 words
     await expect(recordAttempt({ runId: run.id, entryIndex: 0, evaluation: ok, engine: 'webspeech', durationMs: 1 })).rejects.toMatchObject({ code: 'outOfOrder' })
   })
+
+  it('pays the share of the sentence that was said, and keeps the first try for 90 % and more (DECISIONS #133)', async () => {
+    const run = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, at(25))
+    const gentle = { ...ok, coverage: 5 / 7 }
+    const outcome = await recordAttempt({ runId: run.id, entryIndex: 0, evaluation: gentle, engine: 'webspeech', durationMs: 1, now: at(25, 12, 1) })
+    expect(outcome).toMatchObject({ accepted: true, firstTry: false, accuracy: 5 / 7 })
+    expect(outcome.segmentXp).toBe(Math.round((5 + 7) * (5 / 7)))
+    expect((await db.attempts.toArray())[0]).toMatchObject({ accepted: true, firstTry: false })
+    const clean = await recordAttempt({ runId: run.id, entryIndex: 1, evaluation: { ...ok, coverage: 0.9 }, engine: 'webspeech', durationMs: 1, now: at(25, 12, 2) })
+    expect(clean).toMatchObject({ firstTry: true, accuracy: 0.9 })
+  })
 })
 
 describe('the golden quarter-hour', () => {

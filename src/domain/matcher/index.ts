@@ -15,7 +15,7 @@ export type {
 } from './types'
 export { align } from './align'
 export { buildDiff } from './diff'
-export { COVERAGE_LADDER, coverageNeeded, evaluate } from './evaluate'
+export { CHECKING_LADDERS, COVERAGE_LADDER, coverageNeeded, evaluate } from './evaluate'
 export { removeFillers } from './fillers'
 export { matchPrefix, progressOf } from './live'
 export { normalize } from './normalize'

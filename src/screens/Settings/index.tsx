@@ -11,7 +11,7 @@ import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
 import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
-import type { ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
+import type { Checking, ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
 import { promptInstall, useInstallState } from '@/lib/install'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
@@ -213,8 +213,16 @@ export default function Settings() {
           </div>
           <WhisperSettings />
           <div>
-            <p className="font-medium text-ink">{t('settings.checking')}</p>
-            <p className="mt-1.5 text-sm text-ink-soft">{t('settings.checkingHint')}</p>
+            <Segmented<Checking>
+              label={t('settings.checking')}
+              value={app.checking}
+              options={[
+                { value: 'gentle', label: t('settings.checkingGentle') },
+                { value: 'strict', label: t('settings.checkingStrict') },
+              ]}
+              onChange={(checking) => set({ checking })}
+            />
+            <p className="mt-1.5 text-sm text-ink-soft">{t(app.checking === 'strict' ? 'settings.checkingStrictHint' : 'settings.checkingGentleHint')}</p>
           </div>
           <div className="divide-y divide-line">
             <Switch checked={app.handsFree} onChange={(handsFree) => set({ handsFree })} label={t('settings.handsFree')} description={t('settings.handsFreeHint')} />

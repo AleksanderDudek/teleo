@@ -79,9 +79,9 @@ function Player({ data }: { data: PlayerData }) {
   const segment = segments.get(planEntry.segmentId)
   const text = texts.get(planEntry.textId)
   const lang = text?.lang ?? app.uiLang
-  // The coverage ladder: each failed try on this sentence lowers what the next one needs (90 → 80 → 70 %).
+  // Gentle checking needs 60 % on every try; strict climbs down the coverage ladder (90 → 80 → 70 %), DECISIONS #133.
   const failed = run.entries[index]?.attempts ?? 0
-  const needed = coverageNeeded(failed)
+  const needed = coverageNeeded(failed, app.checking)
 
   const engineState = useSpeechEngine(SPEECH_LANG[lang])
   const engine = engineState.status === 'ready' ? engineState.engine : null
@@ -92,7 +92,7 @@ function Player({ data }: { data: PlayerData }) {
 
   const [feedback, setFeedback] = useState<Feedback | null>(null)
   const [praiseKey, setPraiseKey] = useState(0)
-  const [gain, setGain] = useState<{ xp: number; golden: boolean; combo: number } | undefined>(undefined)
+  const [gain, setGain] = useState<{ xp: number; golden: boolean; combo: number; accuracy: number } | undefined>(undefined)
   const [unlockLines, setUnlockLines] = useState<string[]>([])
   const [askPrivacy, setAskPrivacy] = useState(false)
   const [leaving, setLeaving] = useState(false)
@@ -131,7 +131,7 @@ function Player({ data }: { data: PlayerData }) {
       navigator.vibrate?.(35)
       setFeedback(null)
       const combo = firstTryCombo(outcome.run.entries, entryIndex)
-      setGain({ xp: outcome.xpGained, golden: outcome.golden > 1, combo })
+      setGain({ xp: outcome.xpGained, golden: outcome.golden > 1, combo, accuracy: outcome.accuracy })
       if (app.sounds) playChime(outcome.goalReached || outcome.levelUp ? 'goal' : outcome.textCompleted ? 'text' : 'sentence', Math.max(0, combo - 1))
       setPraiseKey((k) => k + 1)
       return outcome.run.cursor >= total

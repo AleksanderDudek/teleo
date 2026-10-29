@@ -16,7 +16,7 @@ import type {
   XpLedgerRow,
 } from '@/db/types'
 import { BIBLE_TRANSLATIONS } from '@/domain/bible/types'
-import { CHARACTER_IDS } from '@/domain/types'
+import { CHARACTER_IDS, CHECKINGS } from '@/domain/types'
 
 export const BACKUP_APP = 'teleo'
 export const BACKUP_SCHEMA_VERSION = 1
@@ -194,6 +194,8 @@ const appSettings: Checker = objectFields([
   ['character', optional(enumOf(...CHARACTER_IDS))],
   ['sounds', optional(boolean_)],
   ['displayName', optional(string_)],
+  // v1.8 (DECISIONS #133); older backups get the gentle default.
+  ['checking', optional(enumOf(...CHECKINGS))],
 ])
 
 const gameState: Checker = objectFields([

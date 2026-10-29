@@ -321,7 +321,8 @@
     "combo_few": "{{count}} z rzędu",
     "combo_many": "{{count}} z rzędu",
     "combo_other": "{{count}} z rzędu",
-    "nextTry": "Następna próba: wystarczy {{percent}}% słów."
+    "nextTry": "Następna próba: wystarczy {{percent}}% słów.",
+    "accuracy": "{{percent}}% słów"
   },
   "summary": {
     "title": "Pięknie",
@@ -423,7 +424,10 @@
     "engineWeb": "Przeglądarka",
     "engineWhisper": "Whisper offline",
     "checking": "Jak sprawdzamy",
-    "checkingHint": "Każda kolejna próba zdania jest łagodniejsza: za pierwszym razem potrzeba 90% jego słów, za drugim 80%, a od trzeciej próby 70%. Słowo usłyszane jako inne liczy się jako pominięte; słowo dodane spoza tekstu nadal nie zalicza próby.",
+    "checkingGentle": "Łagodnie",
+    "checkingStrict": "Ściśle",
+    "checkingGentleHint": "Zdanie jest zaliczone, gdy powiesz 60% jego słów. Punkty idą za tym, co powiesz: każde słowo daje pełne punkty, mniej słów – mniej punktów. Słowo dodane spoza tekstu nadal nie zalicza próby.",
+    "checkingStrictHint": "Każda kolejna próba zdania jest łagodniejsza: za pierwszym razem potrzeba 90% jego słów, za drugim 80%, a od trzeciej próby 70%. Punkty idą za tym, co powiesz. Słowo dodane spoza tekstu nadal nie zalicza próby.",
     "handsFree": "Słuchanie na żywo (bez rąk)",
     "handsFreeHint": "Słuchaj przez całą sesję i sprawdzaj każde zdanie na bieżąco.",
     "saveTranscripts": "Zapisuj transkrypcje",
@@ -619,7 +623,8 @@
       "coverage": "Dopasowano {{percent}}% słów – potrzeba {{needed}}%."
     },
     "howWeCount": "Jak liczymy?",
-    "howWeCountBody": "Zdanie jest zaliczone, gdy wypowiesz wystarczająco dużo jego słów i nie dodasz żadnego słowa. Za pierwszym razem potrzeba 90% słów, za drugim 80%, a przy każdej kolejnej próbie 70% – w krótkim zdaniu na początku oznacza to wszystkie słowa. Potknięcia rozpoznawania wybaczamy: brak polskich znaków, jedną literę w dłuższym słowie, inną pisownię tego samego dźwięku („Bóg” → „bug”) oraz słowa zapisane razem lub osobno („w niebie” → „wniebie”); słowo usłyszane jako inne liczy się tylko jako pominięte, a dźwięki typu „yyy” pomijamy.",
+    "howWeCountGentle": "Zdanie jest zaliczone, gdy wypowiesz co najmniej 60% jego słów i nie dodasz żadnego słowa. Punkty idą za tym, co powiesz: wszystkie słowa dają pełne punkty, 60% słów – 60% punktów, a pierwsza próba liczy się jako udana od 90%. Jeśli wolisz dokładniejsze sprawdzanie, wybierz w Ustawieniach „Ściśle”. Potknięcia rozpoznawania wybaczamy: brak polskich znaków, jedną literę w dłuższym słowie, inną pisownię tego samego dźwięku („Bóg” → „bug”) oraz słowa zapisane razem lub osobno („w niebie” → „wniebie”); słowo usłyszane jako inne liczy się tylko jako pominięte, a dźwięki typu „yyy” pomijamy.",
+    "howWeCountStrict": "Zdanie jest zaliczone, gdy wypowiesz wystarczająco dużo jego słów i nie dodasz żadnego słowa. Za pierwszym razem potrzeba 90% słów, za drugim 80%, a przy każdej kolejnej próbie 70% – w krótkim zdaniu na początku oznacza to wszystkie słowa. Punkty idą za tym, co powiesz: wszystkie słowa dają pełne punkty. Potknięcia rozpoznawania wybaczamy: brak polskich znaków, jedną literę w dłuższym słowie, inną pisownię tego samego dźwięku („Bóg” → „bug”) oraz słowa zapisane razem lub osobno („w niebie” → „wniebie”); słowo usłyszane jako inne liczy się tylko jako pominięte, a dźwięki typu „yyy” pomijamy.",
     "legendMatch": "powiedziane",
     "legendNear": "prawie",
     "legendMissing": "pominięte",

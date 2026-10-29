@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/icons/Icon'
 import { Dialog } from '@/components/ui/Dialog'
+import { useAppSettings } from '@/stores/settings'
 
-/** "How do we check?" — the 95 % rule explained (spec §6.1). */
+/** "How do we check?" — the way of checking in use explained (gentle or strict, DECISIONS #133). */
 export function HowWeCount({ compact = false }: { compact?: boolean }) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const { checking } = useAppSettings()
   return (
     <>
       {compact ? (
@@ -29,7 +31,7 @@ export function HowWeCount({ compact = false }: { compact?: boolean }) {
           {t('speech.howWeCount')}
         </button>
       )}
-      <Dialog open={open} onClose={() => setOpen(false)} guide="teach" title={t('speech.howWeCount')} description={t('speech.howWeCountBody')} />
+      <Dialog open={open} onClose={() => setOpen(false)} guide="teach" title={t('speech.howWeCount')} description={t(checking === 'strict' ? 'speech.howWeCountStrict' : 'speech.howWeCountGentle')} />
     </>
   )
 }

@@ -5,6 +5,7 @@ import type { DiffPart, EvaluateOptions, MatchResult } from '@/domain/matcher'
 describe('matcher public API', () => {
   it('exports exactly the documented functions', () => {
     expect(Object.keys(matcher).sort()).toEqual([
+      'CHECKING_LADDERS',
       'COVERAGE_LADDER',
       'align',
       'buildDiff',

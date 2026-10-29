@@ -4,6 +4,7 @@ import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
 import type {
+  Checking,
   CharacterId,
   ContentFocus,
   DayKey,
@@ -265,6 +266,8 @@ export interface AppSettings {
   character: CharacterId
   /** Chime for every accepted sentence. */
   sounds: boolean
+  /** How sentences are checked: gentle (60 %, the default) or strict (90/80/70 %) — DECISIONS #133. */
+  checking: Checking
   /** Name on shared cards and friends' leaderboards; empty = the character's name. */
   displayName: string
 }
