@@ -1,6 +1,6 @@
 [
   {
-    "key": "en.lovy-fear-anxiety",
+    "key": "en.life-fear-anxiety",
     "lang": "en",
     "type": "prayer",
     "title": "Against Fear and Anxiety",
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "key": "en.lovy-depression-heaviness",
+    "key": "en.life-depression-heaviness",
     "lang": "en",
     "type": "prayer",
     "title": "Against Depression and Heaviness",
@@ -79,7 +79,7 @@
     ]
   },
   {
-    "key": "en.lovy-mind-torment",
+    "key": "en.life-mind-torment",
     "lang": "en",
     "type": "prayer",
     "title": "For a Sound Mind and Peace",
@@ -121,7 +121,7 @@
     ]
   },
   {
-    "key": "en.lovy-discouragement",
+    "key": "en.life-discouragement",
     "lang": "en",
     "type": "prayer",
     "title": "When I Am Weary and Discouraged",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "key": "en.lovy-rejection-shame",
+    "key": "en.life-rejection-shame",
     "lang": "en",
     "type": "prayer",
     "title": "Against Rejection and Shame",
@@ -201,7 +201,7 @@
     ]
   },
   {
-    "key": "en.lovy-peace",
+    "key": "en.life-peace",
     "lang": "en",
     "type": "prayer",
     "title": "For Peace",
@@ -242,7 +242,7 @@
     ]
   },
   {
-    "key": "en.lovy-grief-loss",
+    "key": "en.life-grief-loss",
     "lang": "en",
     "type": "prayer",
     "title": "Comfort in Grief and Loss",
@@ -282,7 +282,7 @@
     ]
   },
   {
-    "key": "en.lovy-loneliness",
+    "key": "en.life-loneliness",
     "lang": "en",
     "type": "prayer",
     "title": "When I Feel Alone",
@@ -321,7 +321,7 @@
     ]
   },
   {
-    "key": "en.lovy-healing",
+    "key": "en.life-healing",
     "lang": "en",
     "type": "prayer",
     "title": "For Healing of My Body",
@@ -361,7 +361,7 @@
     ]
   },
   {
-    "key": "en.lovy-sleep-nightmares",
+    "key": "en.life-sleep-nightmares",
     "lang": "en",
     "type": "prayer",
     "title": "Against Nightmares and Night Attacks",
@@ -402,7 +402,7 @@
     ]
   },
   {
-    "key": "en.lovy-fertility",
+    "key": "en.life-fertility",
     "lang": "en",
     "type": "prayer",
     "title": "For the Fruit of the Womb",
@@ -443,7 +443,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-generational",
+    "key": "en.life-health-generational",
     "lang": "en",
     "type": "prayer",
     "title": "Against Generational Sickness",
@@ -483,7 +483,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-infirmity",
+    "key": "en.life-health-infirmity",
     "lang": "en",
     "type": "prayer",
     "title": "Against the Spirit of Infirmity",
@@ -522,7 +522,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-self-curse",
+    "key": "en.life-health-self-curse",
     "lang": "en",
     "type": "prayer",
     "title": "Cancelling Words I Spoke over My Body",
@@ -564,7 +564,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-untimely-death",
+    "key": "en.life-health-untimely-death",
     "lang": "en",
     "type": "prayer",
     "title": "Against Untimely Death",
@@ -606,7 +606,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-pregnancy",
+    "key": "en.life-health-pregnancy",
     "lang": "en",
     "type": "prayer",
     "title": "For a Safe Pregnancy and Delivery",
@@ -647,7 +647,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-mind-emotions",
+    "key": "en.life-health-mind-emotions",
     "lang": "en",
     "type": "prayer",
     "title": "For Healing of My Mind and Emotions",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "key": "en.lovy-health-strength",
+    "key": "en.life-health-strength",
     "lang": "en",
     "type": "prayer",
     "title": "For Strength and Renewed Energy",
@@ -731,7 +731,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage",
+    "key": "en.life-marriage",
     "lang": "en",
     "type": "prayer",
     "title": "For My Marriage",
@@ -771,7 +771,7 @@
     ]
   },
   {
-    "key": "en.lovy-finding-spouse",
+    "key": "en.life-finding-spouse",
     "lang": "en",
     "type": "prayer",
     "title": "For a Godly Spouse",
@@ -810,7 +810,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-family",
+    "key": "en.life-children-family",
     "lang": "en",
     "type": "prayer",
     "title": "For My Children and Family",
@@ -852,7 +852,7 @@
     ]
   },
   {
-    "key": "en.lovy-forgiveness",
+    "key": "en.life-forgiveness",
     "lang": "en",
     "type": "prayer",
     "title": "To Forgive and Release Bitterness",
@@ -891,7 +891,7 @@
     ]
   },
   {
-    "key": "en.lovy-covering-home",
+    "key": "en.life-covering-home",
     "lang": "en",
     "type": "prayer",
     "title": "Covering My Home",
@@ -931,7 +931,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage-spirit-spouse",
+    "key": "en.life-marriage-spirit-spouse",
     "lang": "en",
     "type": "prayer",
     "title": "Against Spirit Spouses Fighting My Marriage",
@@ -973,7 +973,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage-patterns",
+    "key": "en.life-marriage-patterns",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Patterns of Broken Marriages",
@@ -1013,7 +1013,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage-witchcraft",
+    "key": "en.life-marriage-witchcraft",
     "lang": "en",
     "type": "prayer",
     "title": "Against Witchcraft in My Home",
@@ -1052,7 +1052,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage-restoration",
+    "key": "en.life-marriage-restoration",
     "lang": "en",
     "type": "prayer",
     "title": "For Restoration of My Marriage",
@@ -1093,7 +1093,7 @@
     ]
   },
   {
-    "key": "en.lovy-marriage-love-unity",
+    "key": "en.life-marriage-love-unity",
     "lang": "en",
     "type": "prayer",
     "title": "For Love and Unity in My Marriage",
@@ -1129,7 +1129,7 @@
     ]
   },
   {
-    "key": "en.lovy-single-delay",
+    "key": "en.life-single-delay",
     "lang": "en",
     "type": "prayer",
     "title": "Against Delay in Marriage",
@@ -1168,7 +1168,7 @@
     ]
   },
   {
-    "key": "en.lovy-single-spirit-spouse",
+    "key": "en.life-single-spirit-spouse",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Spirit Spouse Bondage",
@@ -1210,7 +1210,7 @@
     ]
   },
   {
-    "key": "en.lovy-soul-ties",
+    "key": "en.life-soul-ties",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Ungodly Soul Ties",
@@ -1249,7 +1249,7 @@
     ]
   },
   {
-    "key": "en.lovy-betrayal",
+    "key": "en.life-betrayal",
     "lang": "en",
     "type": "prayer",
     "title": "When I Have Been Betrayed",
@@ -1286,7 +1286,7 @@
     ]
   },
   {
-    "key": "en.lovy-household-enemies",
+    "key": "en.life-household-enemies",
     "lang": "en",
     "type": "prayer",
     "title": "Against Household Enemies",
@@ -1327,7 +1327,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-destiny",
+    "key": "en.life-children-destiny",
     "lang": "en",
     "type": "prayer",
     "title": "For My Children's Destiny",
@@ -1366,7 +1366,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-protection",
+    "key": "en.life-children-protection",
     "lang": "en",
     "type": "prayer",
     "title": "For Protection over My Children",
@@ -1404,7 +1404,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-wayward",
+    "key": "en.life-children-wayward",
     "lang": "en",
     "type": "prayer",
     "title": "For My Wayward Child",
@@ -1441,7 +1441,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-curses",
+    "key": "en.life-children-curses",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Curses off My Children",
@@ -1479,7 +1479,7 @@
     ]
   },
   {
-    "key": "en.lovy-children-dedication",
+    "key": "en.life-children-dedication",
     "lang": "en",
     "type": "prayer",
     "title": "Dedicating My Children to God",
@@ -1517,7 +1517,7 @@
     ]
   },
   {
-    "key": "en.lovy-parents",
+    "key": "en.life-parents",
     "lang": "en",
     "type": "prayer",
     "title": "For My Parents",
@@ -1553,7 +1553,7 @@
     ]
   },
   {
-    "key": "en.lovy-financial-lack",
+    "key": "en.life-financial-lack",
     "lang": "en",
     "type": "prayer",
     "title": "Against Poverty and Financial Lack",
@@ -1594,7 +1594,7 @@
     ]
   },
   {
-    "key": "en.lovy-prosperity-work",
+    "key": "en.life-prosperity-work",
     "lang": "en",
     "type": "prayer",
     "title": "For Prosperity in My Work and Business",
@@ -1636,7 +1636,7 @@
     ]
   },
   {
-    "key": "en.lovy-open-doors",
+    "key": "en.life-open-doors",
     "lang": "en",
     "type": "prayer",
     "title": "For Open Doors and Opportunities",
@@ -1675,7 +1675,7 @@
     ]
   },
   {
-    "key": "en.lovy-favor",
+    "key": "en.life-favor",
     "lang": "en",
     "type": "prayer",
     "title": "For Divine Favor",
@@ -1714,7 +1714,7 @@
     ]
   },
   {
-    "key": "en.lovy-giving",
+    "key": "en.life-giving",
     "lang": "en",
     "type": "prayer",
     "title": "When I Give to God",
@@ -1756,7 +1756,7 @@
     ]
   },
   {
-    "key": "en.lovy-exams-studies",
+    "key": "en.life-exams-studies",
     "lang": "en",
     "type": "prayer",
     "title": "For Success in Studies and Exams",
@@ -1796,7 +1796,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-generational-poverty",
+    "key": "en.life-fin-generational-poverty",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Generational Poverty",
@@ -1838,7 +1838,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-self-curse",
+    "key": "en.life-fin-self-curse",
     "lang": "en",
     "type": "prayer",
     "title": "Cancelling Words I Spoke over My Finances",
@@ -1879,7 +1879,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-evil-altars",
+    "key": "en.life-fin-evil-altars",
     "lang": "en",
     "type": "prayer",
     "title": "Against Evil Altars over My Finances",
@@ -1918,7 +1918,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-witchcraft",
+    "key": "en.life-fin-witchcraft",
     "lang": "en",
     "type": "prayer",
     "title": "Against Witchcraft over My Finances",
@@ -1958,7 +1958,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-devourer",
+    "key": "en.life-fin-devourer",
     "lang": "en",
     "type": "prayer",
     "title": "Against the Devourer and Wasters",
@@ -1995,7 +1995,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-debt",
+    "key": "en.life-fin-debt",
     "lang": "en",
     "type": "prayer",
     "title": "Freedom from Debt",
@@ -2036,7 +2036,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-provision",
+    "key": "en.life-fin-provision",
     "lang": "en",
     "type": "prayer",
     "title": "For Daily Provision",
@@ -2075,7 +2075,7 @@
     ]
   },
   {
-    "key": "en.lovy-fin-overflow",
+    "key": "en.life-fin-overflow",
     "lang": "en",
     "type": "prayer",
     "title": "For Overflow and Abundance",
@@ -2115,7 +2115,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-job-seeking",
+    "key": "en.life-work-job-seeking",
     "lang": "en",
     "type": "prayer",
     "title": "When I Am Looking for a Job",
@@ -2155,7 +2155,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-promotion",
+    "key": "en.life-work-promotion",
     "lang": "en",
     "type": "prayer",
     "title": "For Promotion and Elevation",
@@ -2195,7 +2195,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-workplace-attacks",
+    "key": "en.life-work-workplace-attacks",
     "lang": "en",
     "type": "prayer",
     "title": "Against Attacks at My Workplace",
@@ -2234,7 +2234,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-labour-without-reward",
+    "key": "en.life-work-labour-without-reward",
     "lang": "en",
     "type": "prayer",
     "title": "Against Labour Without Reward",
@@ -2273,7 +2273,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-new-business",
+    "key": "en.life-work-new-business",
     "lang": "en",
     "type": "prayer",
     "title": "For My Business",
@@ -2312,7 +2312,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-success",
+    "key": "en.life-work-success",
     "lang": "en",
     "type": "prayer",
     "title": "For Success and Excellence",
@@ -2353,7 +2353,7 @@
     ]
   },
   {
-    "key": "en.lovy-work-destiny-helpers",
+    "key": "en.life-work-destiny-helpers",
     "lang": "en",
     "type": "prayer",
     "title": "For Divine Connections and Helpers",
@@ -2392,7 +2392,7 @@
     ]
   },
   {
-    "key": "en.lovy-favor-with-people",
+    "key": "en.life-favor-with-people",
     "lang": "en",
     "type": "prayer",
     "title": "For Favor with People",
@@ -2431,7 +2431,7 @@
     ]
   },
   {
-    "key": "en.lovy-favor-authorities",
+    "key": "en.life-favor-authorities",
     "lang": "en",
     "type": "prayer",
     "title": "For Favor before Authorities",
@@ -2471,7 +2471,7 @@
     ]
   },
   {
-    "key": "en.lovy-favor-name",
+    "key": "en.life-favor-name",
     "lang": "en",
     "type": "prayer",
     "title": "For My Name and Reputation",
@@ -2510,7 +2510,7 @@
     ]
   },
   {
-    "key": "en.lovy-delay-stagnation",
+    "key": "en.life-delay-stagnation",
     "lang": "en",
     "type": "prayer",
     "title": "Against Delay and Stagnation",
@@ -2550,7 +2550,7 @@
     ]
   },
   {
-    "key": "en.lovy-breakthrough",
+    "key": "en.life-breakthrough",
     "lang": "en",
     "type": "prayer",
     "title": "For Breakthrough",
@@ -2590,7 +2590,7 @@
     ]
   },
   {
-    "key": "en.lovy-restoration",
+    "key": "en.life-restoration",
     "lang": "en",
     "type": "prayer",
     "title": "For Restoration of What Was Lost",
@@ -2629,7 +2629,7 @@
     ]
   },
   {
-    "key": "en.lovy-confusion-direction",
+    "key": "en.life-confusion-direction",
     "lang": "en",
     "type": "prayer",
     "title": "For Direction and Clear Decisions",
@@ -2668,7 +2668,7 @@
     ]
   },
   {
-    "key": "en.lovy-wisdom",
+    "key": "en.life-wisdom",
     "lang": "en",
     "type": "prayer",
     "title": "For Wisdom and Understanding",
@@ -2707,7 +2707,7 @@
     ]
   },
   {
-    "key": "en.lovy-purpose-destiny",
+    "key": "en.life-purpose-destiny",
     "lang": "en",
     "type": "prayer",
     "title": "For My Purpose and Destiny",
@@ -2748,7 +2748,7 @@
     ]
   },
   {
-    "key": "en.lovy-new-season",
+    "key": "en.life-new-season",
     "lang": "en",
     "type": "prayer",
     "title": "For a New Season",
@@ -2787,7 +2787,7 @@
     ]
   },
   {
-    "key": "en.lovy-waiting-timing",
+    "key": "en.life-waiting-timing",
     "lang": "en",
     "type": "prayer",
     "title": "While I Wait on God",
@@ -2826,7 +2826,7 @@
     ]
   },
   {
-    "key": "en.lovy-generational-curses",
+    "key": "en.life-generational-curses",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Generational Curses",
@@ -2866,7 +2866,7 @@
     ]
   },
   {
-    "key": "en.lovy-evil-patterns",
+    "key": "en.life-evil-patterns",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Evil Cycles and Patterns",
@@ -2906,7 +2906,7 @@
     ]
   },
   {
-    "key": "en.lovy-addiction",
+    "key": "en.life-addiction",
     "lang": "en",
     "type": "prayer",
     "title": "For Freedom from Addiction",
@@ -2947,7 +2947,7 @@
     ]
   },
   {
-    "key": "en.lovy-protection",
+    "key": "en.life-protection",
     "lang": "en",
     "type": "prayer",
     "title": "For Divine Protection",
@@ -2987,7 +2987,7 @@
     ]
   },
   {
-    "key": "en.lovy-witchcraft",
+    "key": "en.life-witchcraft",
     "lang": "en",
     "type": "prayer",
     "title": "Against Witchcraft and Evil Arrows",
@@ -3026,7 +3026,7 @@
     ]
   },
   {
-    "key": "en.lovy-spiritual-attack",
+    "key": "en.life-spiritual-attack",
     "lang": "en",
     "type": "prayer",
     "title": "Against Spiritual Attacks and Oppression",
@@ -3066,7 +3066,7 @@
     ]
   },
   {
-    "key": "en.lovy-evil-altars",
+    "key": "en.life-evil-altars",
     "lang": "en",
     "type": "prayer",
     "title": "Against Evil Altars and Covenants",
@@ -3105,7 +3105,7 @@
     ]
   },
   {
-    "key": "en.lovy-enemies-battles",
+    "key": "en.life-enemies-battles",
     "lang": "en",
     "type": "prayer",
     "title": "When Enemies Rise Against Me",
@@ -3145,7 +3145,7 @@
     ]
   },
   {
-    "key": "en.lovy-travel",
+    "key": "en.life-travel",
     "lang": "en",
     "type": "prayer",
     "title": "For Safe Travel",
@@ -3185,7 +3185,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-ancestral-covenants",
+    "key": "en.life-roots-ancestral-covenants",
     "lang": "en",
     "type": "prayer",
     "title": "Renouncing Ancestral Covenants",
@@ -3223,7 +3223,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-dedications-idols",
+    "key": "en.life-roots-dedications-idols",
     "lang": "en",
     "type": "prayer",
     "title": "Renouncing Family Idols and Dedications",
@@ -3261,7 +3261,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-familiar-spirits",
+    "key": "en.life-roots-familiar-spirits",
     "lang": "en",
     "type": "prayer",
     "title": "Against Familiar Spirits in My Family",
@@ -3297,7 +3297,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-bloodline-repentance",
+    "key": "en.life-roots-bloodline-repentance",
     "lang": "en",
     "type": "prayer",
     "title": "Repenting for My Bloodline",
@@ -3337,7 +3337,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-self-curses",
+    "key": "en.life-roots-self-curses",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Self-Curses",
@@ -3376,7 +3376,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-word-curses",
+    "key": "en.life-roots-word-curses",
     "lang": "en",
     "type": "prayer",
     "title": "Breaking Word Curses Spoken against Me",
@@ -3415,7 +3415,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-demonic-oppression",
+    "key": "en.life-roots-demonic-oppression",
     "lang": "en",
     "type": "prayer",
     "title": "For Deliverance from Demonic Oppression",
@@ -3453,7 +3453,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-devil-devices",
+    "key": "en.life-roots-devil-devices",
     "lang": "en",
     "type": "prayer",
     "title": "Against the Devices of the Devil",
@@ -3489,7 +3489,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-evil-arrows",
+    "key": "en.life-roots-evil-arrows",
     "lang": "en",
     "type": "prayer",
     "title": "Against Evil Arrows",
@@ -3529,7 +3529,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-evil-plantings",
+    "key": "en.life-roots-evil-plantings",
     "lang": "en",
     "type": "prayer",
     "title": "Uprooting Evil Plantings",
@@ -3568,7 +3568,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-strongholds",
+    "key": "en.life-roots-strongholds",
     "lang": "en",
     "type": "prayer",
     "title": "Pulling Down Strongholds",
@@ -3611,7 +3611,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-open-doors",
+    "key": "en.life-roots-open-doors",
     "lang": "en",
     "type": "prayer",
     "title": "Closing Every Open Door to the Enemy",
@@ -3652,7 +3652,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-territorial",
+    "key": "en.life-roots-territorial",
     "lang": "en",
     "type": "prayer",
     "title": "Against Territorial Spirits",
@@ -3692,7 +3692,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-rejection-spirit",
+    "key": "en.life-roots-rejection-spirit",
     "lang": "en",
     "type": "prayer",
     "title": "Against the Spirit of Rejection",
@@ -3730,7 +3730,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-untimely-patterns",
+    "key": "en.life-roots-untimely-patterns",
     "lang": "en",
     "type": "prayer",
     "title": "Against Failure at the Edge of Success",
@@ -3769,7 +3769,7 @@
     ]
   },
   {
-    "key": "en.lovy-roots-legal-battles",
+    "key": "en.life-roots-legal-battles",
     "lang": "en",
     "type": "prayer",
     "title": "For Victory in Legal Battles",
@@ -3806,7 +3806,7 @@
     ]
   },
   {
-    "key": "en.lovy-trials-endurance",
+    "key": "en.life-trials-endurance",
     "lang": "en",
     "type": "prayer",
     "title": "For Strength in Trials",
@@ -3845,7 +3845,7 @@
     ]
   },
   {
-    "key": "en.lovy-identity",
+    "key": "en.life-identity",
     "lang": "en",
     "type": "prayer",
     "title": "For My Identity in Christ",
@@ -3884,7 +3884,7 @@
     ]
   },
   {
-    "key": "en.lovy-repentance",
+    "key": "en.life-repentance",
     "lang": "en",
     "type": "prayer",
     "title": "A Prayer of Repentance",
@@ -3925,7 +3925,7 @@
     ]
   },
   {
-    "key": "en.lovy-temptation-holiness",
+    "key": "en.life-temptation-holiness",
     "lang": "en",
     "type": "prayer",
     "title": "For Purity and Victory over Temptation",
@@ -3964,7 +3964,7 @@
     ]
   },
   {
-    "key": "en.lovy-salvation",
+    "key": "en.life-salvation",
     "lang": "en",
     "type": "prayer",
     "title": "A Prayer of Salvation",
@@ -4004,7 +4004,7 @@
     ]
   },
   {
-    "key": "en.lovy-holy-spirit",
+    "key": "en.life-holy-spirit",
     "lang": "en",
     "type": "prayer",
     "title": "For the Fire of the Holy Spirit",
@@ -4044,7 +4044,7 @@
     ]
   },
   {
-    "key": "en.lovy-hunger-for-god",
+    "key": "en.life-hunger-for-god",
     "lang": "en",
     "type": "prayer",
     "title": "For Hunger and Intimacy with God",
@@ -4083,7 +4083,7 @@
     ]
   },
   {
-    "key": "en.lovy-prayer-life",
+    "key": "en.life-prayer-life",
     "lang": "en",
     "type": "prayer",
     "title": "For a Strong Prayer Life",
@@ -4121,7 +4121,7 @@
     ]
   },
   {
-    "key": "en.lovy-discernment",
+    "key": "en.life-discernment",
     "lang": "en",
     "type": "prayer",
     "title": "For Spiritual Sight and Discernment",
@@ -4163,7 +4163,7 @@
     ]
   },
   {
-    "key": "en.lovy-dreams-visions",
+    "key": "en.life-dreams-visions",
     "lang": "en",
     "type": "prayer",
     "title": "For Dreams and Visions from God",
@@ -4205,7 +4205,7 @@
     ]
   },
   {
-    "key": "en.lovy-anointing",
+    "key": "en.life-anointing",
     "lang": "en",
     "type": "prayer",
     "title": "For a Fresh Anointing",
@@ -4246,7 +4246,7 @@
     ]
   },
   {
-    "key": "en.lovy-nations-church",
+    "key": "en.life-nations-church",
     "lang": "en",
     "type": "prayer",
     "title": "For My Church and Nation",
@@ -4287,7 +4287,7 @@
     ]
   },
   {
-    "key": "en.lovy-speech-tongue",
+    "key": "en.life-speech-tongue",
     "lang": "en",
     "type": "prayer",
     "title": "For My Words and Confession",
@@ -4328,7 +4328,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-dryness",
+    "key": "en.life-spirit-dryness",
     "lang": "en",
     "type": "prayer",
     "title": "When I Am Spiritually Dry",
@@ -4369,7 +4369,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-consecration",
+    "key": "en.life-spirit-consecration",
     "lang": "en",
     "type": "prayer",
     "title": "Consecrating Myself to God",
@@ -4409,7 +4409,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-communion",
+    "key": "en.life-spirit-communion",
     "lang": "en",
     "type": "prayer",
     "title": "When I Take Communion",
@@ -4449,7 +4449,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-fasting",
+    "key": "en.life-spirit-fasting",
     "lang": "en",
     "type": "prayer",
     "title": "When I Fast",
@@ -4488,7 +4488,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-gifts",
+    "key": "en.life-spirit-gifts",
     "lang": "en",
     "type": "prayer",
     "title": "Activating My Gifts and Calling",
@@ -4528,7 +4528,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-grace",
+    "key": "en.life-spirit-grace",
     "lang": "en",
     "type": "prayer",
     "title": "For Grace",
@@ -4566,7 +4566,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-obedience",
+    "key": "en.life-spirit-obedience",
     "lang": "en",
     "type": "prayer",
     "title": "For an Obedient Heart",
@@ -4604,7 +4604,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-fear-of-god",
+    "key": "en.life-spirit-fear-of-god",
     "lang": "en",
     "type": "prayer",
     "title": "For the Fear of the Lord",
@@ -4644,7 +4644,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-humility",
+    "key": "en.life-spirit-humility",
     "lang": "en",
     "type": "prayer",
     "title": "Against Pride",
@@ -4683,7 +4683,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-angels",
+    "key": "en.life-spirit-angels",
     "lang": "en",
     "type": "prayer",
     "title": "For Angelic Help",
@@ -4723,7 +4723,7 @@
     ]
   },
   {
-    "key": "en.lovy-spirit-blood-covering",
+    "key": "en.life-spirit-blood-covering",
     "lang": "en",
     "type": "prayer",
     "title": "By Reason of the Blood",
@@ -4765,7 +4765,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-youth",
+    "key": "en.life-stage-youth",
     "lang": "en",
     "type": "prayer",
     "title": "For a Young Person",
@@ -4803,7 +4803,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-student",
+    "key": "en.life-stage-student",
     "lang": "en",
     "type": "prayer",
     "title": "For a Student",
@@ -4842,7 +4842,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-newlywed",
+    "key": "en.life-stage-newlywed",
     "lang": "en",
     "type": "prayer",
     "title": "For a New Marriage",
@@ -4881,7 +4881,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-new-parent",
+    "key": "en.life-stage-new-parent",
     "lang": "en",
     "type": "prayer",
     "title": "For My Newborn Child",
@@ -4920,7 +4920,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-parents-teens",
+    "key": "en.life-stage-parents-teens",
     "lang": "en",
     "type": "prayer",
     "title": "For Parents of Teenagers",
@@ -4961,7 +4961,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-turning-point",
+    "key": "en.life-stage-turning-point",
     "lang": "en",
     "type": "prayer",
     "title": "For a Turning Point in My Life",
@@ -5003,7 +5003,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-old-age",
+    "key": "en.life-stage-old-age",
     "lang": "en",
     "type": "prayer",
     "title": "For Strength in Old Age",
@@ -5044,7 +5044,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-new-land",
+    "key": "en.life-stage-new-land",
     "lang": "en",
     "type": "prayer",
     "title": "For a New Land and My Papers",
@@ -5085,7 +5085,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-new-home",
+    "key": "en.life-stage-new-home",
     "lang": "en",
     "type": "prayer",
     "title": "For My New Home",
@@ -5126,7 +5126,7 @@
     ]
   },
   {
-    "key": "en.lovy-stage-new-job",
+    "key": "en.life-stage-new-job",
     "lang": "en",
     "type": "prayer",
     "title": "For a New Beginning at Work",
@@ -5167,7 +5167,7 @@
     ]
   },
   {
-    "key": "en.lovy-joy-gratitude",
+    "key": "en.life-joy-gratitude",
     "lang": "en",
     "type": "prayer",
     "title": "Thanksgiving and Gratitude",
@@ -5206,7 +5206,7 @@
     ]
   },
   {
-    "key": "en.lovy-morning",
+    "key": "en.life-morning",
     "lang": "en",
     "type": "prayer",
     "title": "A Morning Prayer",
@@ -5244,7 +5244,7 @@
     ]
   },
   {
-    "key": "en.lovy-night",
+    "key": "en.life-night",
     "lang": "en",
     "type": "prayer",
     "title": "A Night Prayer",
@@ -5291,14 +5291,14 @@
     "title": "Tearing Down a Stronghold",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "warfare",
       "forgiveness"
     ],
-    "note": "“Then you will know the truth, and the truth will set you free.” — John 8:32\n\nBuilt from the eleven steps taught in part 4 of the series Demony burzące (Demolishing Demons), in the series’ own words where it scripts them. The series says to use this method against every stronghold: pray it first, then the prayer for the stronghold you recognise.\n\nWhere the prayer names something — the stronghold, what it makes you do, the root it grew from, the people you forgive, the truth that replaces the lie — say it in your own words, or make a copy of this prayer and write the names in. The verse in it is 1 John 1:9.\n\nIf you have OCD or unwanted intrusive thoughts, do not turn the daily pushing away or speaking out of thoughts into a ritual; that can feed the compulsion. Pray once, leave it with God, and follow your treatment.\n\nStep 10 says to cut off harmful contacts, even with close family, and to change jobs if needed; with family, boundaries and honour go together, and where there is abuse, safety comes first.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Then you will know the truth, and the truth will set you free.” — John 8:32\n\nBuilt from the eleven steps taught in part 4 of a teaching series on strongholds, in the series’ own words where it scripts them. The series says to use this method against every stronghold: pray it first, then the prayer for the stronghold you recognise.\n\nWhere the prayer names something — the stronghold, what it makes you do, the root it grew from, the people you forgive, the truth that replaces the lie — say it in your own words, or make a copy of this prayer and write the names in. The verse in it is 1 John 1:9.\n\nIf you have OCD or unwanted intrusive thoughts, do not turn the daily pushing away or speaking out of thoughts into a ritual; that can feed the compulsion. Pray once, leave it with God, and follow your treatment.\n\nStep 10 says to cut off harmful contacts, even with close family, and to change jobs if needed; with family, boundaries and honour go together, and where there is abuse, safety comes first.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I come to You in the name of Jesus.",
       "I will not pretend there is no problem.",
@@ -5332,14 +5332,14 @@
     "title": "Freedom from Evil Spirits",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "warfare",
       "strongholds",
       "bloodline"
     ],
-    "note": "“Submit yourselves, then, to God. Resist the devil, and he will flee from you.” — James 4:7\n\nBuilt from the steps taught in part 1 of the series Demony burzące (Demolishing Demons) for being set free and keeping freedom. Pray it, or “Tearing Down a Stronghold”, before the prayer for the stronghold you recognise.\n\nWhere the prayer names something — your problem, your sins, the patterns of sin in your family, each form of the occult, the people you forgive — say it in your own words, or make a copy of this prayer and write the names in. The verse in it is 1 Peter 5:8-9.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Submit yourselves, then, to God. Resist the devil, and he will flee from you.” — James 4:7\n\nBuilt from the steps taught in part 1 of a teaching series on strongholds for being set free and keeping freedom. Pray it, or “Tearing Down a Stronghold”, before the prayer for the stronghold you recognise.\n\nWhere the prayer names something — your problem, your sins, the patterns of sin in your family, each form of the occult, the people you forgive — say it in your own words, or make a copy of this prayer and write the names in. The verse in it is 1 Peter 5:8-9.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I humble myself before You.",
       "I will be honest with You and name my problem.",
@@ -5363,13 +5363,13 @@
     "title": "To Receive the Teaching on Strongholds",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "wisdom"
     ],
-    "note": "“Be sober-minded and alert. Your adversary the devil prowls around like a roaring lion, seeking someone to devour. Resist him, standing firm in your faith.” — 1 Peter 5:8-9\n\nFrom part 1 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. In the series it is prayed over the listeners at the end of the teaching on Satan and demons; pray it before you read or listen to teaching on strongholds. You ask to receive God’s word, and you test what you hear by Scripture (1 Thessalonians 5:21).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Be sober-minded and alert. Your adversary the devil prowls around like a roaring lion, seeking someone to devour. Resist him, standing firm in your faith.” — 1 Peter 5:8-9\n\nFrom part 1 of a teaching series on strongholds, rewritten so that you pray it for yourself. In the series it is prayed over the listeners at the end of the teaching on Satan and demons; pray it before you read or listen to teaching on strongholds. You ask to receive God’s word, and you test what you hear by Scripture (1 Thessalonians 5:21).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for Your word.",
       "I bring to You all that I am learning about tearing down strongholds.",
@@ -5388,13 +5388,13 @@
     "title": "Against the Stronghold of Rejection",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "shame",
       "strongholds"
     ],
-    "note": "“He was despised and rejected by men, a man of sorrows, acquainted with grief. Like one from whom men hide their faces, He was despised, and we esteemed Him not.” — Isaiah 53:3\n\nFrom part 2 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe little foxes that ruin the vineyard are from Song of Songs 2:15.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“He was despised and rejected by men, a man of sorrows, acquainted with grief. Like one from whom men hide their faces, He was despised, and we esteemed Him not.” — Isaiah 53:3\n\nFrom part 2 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe little foxes that ruin the vineyard are from Song of Songs 2:15.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "God, my Father, thank You that You love me.",
       "Thank You for Jesus, who died for me, carried all my sin, paid my debt and took away my sense of rejection.",
@@ -5424,13 +5424,13 @@
     "title": "For Light on My Strongholds",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "wisdom"
     ],
-    "note": "“Then it says, ‘I will return to the house I left.’ On its return, it finds the house vacant, swept clean, and put in order.” — Matthew 12:44\n\nFrom part 3 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. In the series it is prayed at the end of the teaching on what demonic strongholds are; pray it when you want to see your own situation clearly.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Then it says, ‘I will return to the house I left.’ On its return, it finds the house vacant, swept clean, and put in order.” — Matthew 12:44\n\nFrom part 3 of a teaching series on strongholds, rewritten so that you pray it for yourself. In the series it is prayed at the end of the teaching on what demonic strongholds are; pray it when you want to see your own situation clearly.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for these words, and that I can hear them.",
       "In the name of Jesus, let the light of Your Holy Spirit fill me now.",
@@ -5446,13 +5446,13 @@
     "title": "For the Word That Sets Me Free",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "faith"
     ],
-    "note": "“Then you will know the truth, and the truth will set you free.” — John 8:32\n\nFrom part 4 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. In the series it is prayed at the end of the teaching on how to tear down a stronghold. The method itself is the prayer “Tearing Down a Stronghold”.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Then you will know the truth, and the truth will set you free.” — John 8:32\n\nFrom part 4 of a teaching series on strongholds, rewritten so that you pray it for yourself. In the series it is prayed at the end of the teaching on how to tear down a stronghold. The method itself is the prayer “Tearing Down a Stronghold”.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for this word.",
       "In the name of Jesus, let it reach the depths of my heart and go right through me.",
@@ -5469,13 +5469,13 @@
     "title": "Against the Strongholds of Instability",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "peace"
     ],
-    "note": "“He is a double-minded man, unstable in all his ways.” — James 1:8\n\nFrom part 5 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part’s checklist for the “borderland” closely follows borderline personality disorder, and includes threats of self-harm or suicide. If that is you, tell someone today and contact a doctor or a crisis line. This condition responds well to specialist therapy.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“He is a double-minded man, unstable in all his ways.” — James 1:8\n\nFrom part 5 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part’s checklist for the “borderland” closely follows borderline personality disorder, and includes threats of self-harm or suicide. If that is you, tell someone today and contact a doctor or a crisis line. This condition responds well to specialist therapy.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I come to You in faith.",
       "I do not agree with any stronghold of instability working in my life, whether the stronghold of impulsiveness or the stronghold of the borderland.",
@@ -5494,13 +5494,13 @@
     "title": "Against the Stronghold of Self-Admiration",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“Your heart grew proud of your beauty; you corrupted your wisdom because of your splendor; so I cast you to the earth; I made you a spectacle before kings.” — Ezekiel 28:17\n\nFrom part 6 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe original line that “there is no ‘I’ left” is replaced here by Galatians 2:20 as written. “You always hear me” borrows Jesus’ words (John 11:42); a believer prays them with the confidence of 1 John 5:14.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Your heart grew proud of your beauty; you corrupted your wisdom because of your splendor; so I cast you to the earth; I made you a spectacle before kings.” — Ezekiel 28:17\n\nFrom part 6 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe original line that “there is no ‘I’ left” is replaced here by Galatians 2:20 as written. “You always hear me” borrows Jesus’ words (John 11:42); a believer prays them with the confidence of 1 John 5:14.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You that You always hear me.",
       "Let me see clearly and plainly every sign of self-admiration in my life.",
@@ -5521,14 +5521,14 @@
     "title": "Against Perfectionism and Compulsions",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "anxiety",
       "strongholds",
       "peace"
     ],
-    "note": "“the slander and murmuring of my assailants against me all day long.” — Lamentations 3:62\n\nFrom part 7 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe original prayer stops after the opening thanks; the rest is completed from this part, which names fear, law and control among the forces of this stronghold.\n\nIf unwanted thoughts — blasphemous, violent or sexual — keep coming and horrify you, that is a well-known symptom of OCD, not proof of a demon, and it responds well to treatment. Pray this prayer once and leave it with God; repeating a prayer again and again to “undo” a thought can feed the compulsion.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“the slander and murmuring of my assailants against me all day long.” — Lamentations 3:62\n\nFrom part 7 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe original prayer stops after the opening thanks; the rest is completed from this part, which names fear, law and control among the forces of this stronghold.\n\nIf unwanted thoughts — blasphemous, violent or sexual — keep coming and horrify you, that is a well-known symptom of OCD, not proof of a demon, and it responds well to treatment. Pray this prayer once and leave it with God; repeating a prayer again and again to “undo” a thought can feed the compulsion.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Good Father, thank You for this word, and thank You for this revelation.",
       "Where perfectionism or compulsions have a hold on me, I bring them to You.",
@@ -5545,13 +5545,13 @@
     "title": "Against the Stronghold of Paranoia",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "anxiety"
     ],
-    "note": "“A rich man’s wealth is his fortified city; it is like a high wall in his imagination.” — Proverbs 18:11\n\nFrom part 8 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part says a person with this stronghold finds it very hard to see it alone, so ask someone you trust to help. Strong, fixed suspicion or beliefs that others cannot shake can be signs of a treatable condition; see a doctor.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“A rich man’s wealth is his fortified city; it is like a high wall in his imagination.” — Proverbs 18:11\n\nFrom part 8 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part says a person with this stronghold finds it very hard to see it alone, so ask someone you trust to help. Strong, fixed suspicion or beliefs that others cannot shake can be signs of a treatable condition; see a doctor.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Dear Father, thank You that these words could be spoken to me.",
       "Father, I pray now in the name of Jesus, before Your throne: I curse every stronghold of paranoia in my life.",
@@ -5568,13 +5568,13 @@
     "title": "Against the Antisocial Stronghold",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“For his eyes are too full of conceit to detect or hate his own sin.” — Psalm 36:2\n\nFrom part 9 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nWhere you have harmed or cheated others, confess it, make it right and accept the consequences (Luke 19:8). If you fear you may hurt someone, get help today. This part also names damage to the nervous system as one possible cause, which needs a doctor.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“For his eyes are too full of conceit to detect or hate his own sin.” — Psalm 36:2\n\nFrom part 9 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nWhere you have harmed or cheated others, confess it, make it right and accept the consequences (Luke 19:8). If you fear you may hurt someone, get help today. This part also names damage to the nervous system as one possible cause, which needs a doctor.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for Your word; help me to receive it.",
       "Father, I pray now in the name of Jesus: let the power of Your Holy Spirit go right through me.",
@@ -5592,13 +5592,13 @@
     "title": "Against the Stronghold of Dependence",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "faith"
     ],
-    "note": "“This is what the LORD says: ‘Cursed is the man who trusts in mankind, who makes the flesh his strength and turns his heart from the LORD.’” — Jeremiah 17:5\n\nFrom part 10 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part separates gentleness and self-denial, which are good, from a dependence that buries every need and fears every disagreement. The verse that follows is the promise: “But blessed is the man who trusts in the LORD, whose confidence is in Him” (Jeremiah 17:7). If you depend on someone who controls or abuses you, your safety comes first.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“This is what the LORD says: ‘Cursed is the man who trusts in mankind, who makes the flesh his strength and turns his heart from the LORD.’” — Jeremiah 17:5\n\nFrom part 10 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part separates gentleness and self-denial, which are good, from a dependence that buries every need and fears every disagreement. The verse that follows is the promise: “But blessed is the man who trusts in the LORD, whose confidence is in Him” (Jeremiah 17:7). If you depend on someone who controls or abuses you, your safety comes first.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray in the name of Jesus: let the power of Your Holy Spirit go right through me.",
       "Holy Spirit, let Your presence fill me now.",
@@ -5615,13 +5615,13 @@
     "title": "Against the Stronghold of Acting",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“So Amnon lay down and feigned illness.” — 2 Samuel 13:6\n\nFrom part 11 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“So Amnon lay down and feigned illness.” — 2 Samuel 13:6\n\nFrom part 11 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Dear Father, thank You for these words.",
       "Thank You for wisdom and understanding, and that You are a God who reveals mighty things to me.",
@@ -5638,13 +5638,13 @@
     "title": "Against the Stronghold of Isolation",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "grief"
     ],
-    "note": "“He who isolates himself pursues selfish desires; he rebels against all sound judgment.” — Proverbs 18:1\n\nFrom part 12 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nOne word about the demons is lost in the recording; “I come against” fills the gap. Quietness and introversion are not a stronghold; Jesus often withdrew to pray (Luke 5:16).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“He who isolates himself pursues selfish desires; he rebels against all sound judgment.” — Proverbs 18:1\n\nFrom part 12 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nOne word about the demons is lost in the recording; “I come against” fills the gap. Quietness and introversion are not a stronghold; Jesus often withdrew to pray (Luke 5:16).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, in the name of Jesus I expose the stronghold of isolation in my life.",
       "In the name of Jesus Christ I declare that isolation is a cursed work of darkness, and I come against the demons in this stronghold.",
@@ -5659,14 +5659,14 @@
     "title": "Against the Stronghold of Humiliation",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "shame",
       "strongholds",
       "sadness"
     ],
-    "note": "“He has brought down rulers from their thrones, but has exalted the humble.” — Luke 1:52\n\nFrom part 13 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part lists depression among the forces of this stronghold. Depression is treatable; see a doctor as well as praying.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“He has brought down rulers from their thrones, but has exalted the humble.” — Luke 1:52\n\nFrom part 13 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThis part lists depression among the forces of this stronghold. Depression is treatable; see a doctor as well as praying.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray in the name of Jesus: let these words reach the depths of my soul.",
       "Father, in the name of Jesus I curse all humiliation in me.",
@@ -5685,13 +5685,13 @@
     "title": "Against the Strongholds of Manipulation",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "witchcraft"
     ],
-    "note": "“in order that Satan should not outwit us. For we are not unaware of his schemes.” — 2 Corinthians 2:11\n\nFrom part 14 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe opening reading is the commandment “You shall not steal” (Exodus 20:15), read as taking another person captive; the verse above is the one the original prayer stands on, and the words are Paul’s, not Jesus’. Where the original releases wisdom and light over the listeners, you receive them.\n\nThis part names two strongholds: active manipulation, called witchcraft — authority, guilt, fear, pity or pain used to bend another person’s will — and passive manipulation, called allusion: hints, sulking, sarcasm and silence instead of saying things plainly. If someone controls or manipulates you, talk to someone you trust; where there is abuse, safety comes first.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“in order that Satan should not outwit us. For we are not unaware of his schemes.” — 2 Corinthians 2:11\n\nFrom part 14 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe opening reading is the commandment “You shall not steal” (Exodus 20:15), read as taking another person captive; the verse above is the one the original prayer stands on, and the words are Paul’s, not Jesus’. Where the original releases wisdom and light over the listeners, you receive them.\n\nThis part names two strongholds: active manipulation, called witchcraft — authority, guilt, fear, pity or pain used to bend another person’s will — and passive manipulation, called allusion: hints, sulking, sarcasm and silence instead of saying things plainly. If someone controls or manipulates you, talk to someone you trust; where there is abuse, safety comes first.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I thank You in the name of Jesus for this teaching.",
       "Help me to receive it as a word that helps me recognise the devil.",
@@ -5710,13 +5710,13 @@
     "title": "Against the Stronghold of Immaturity",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“Brothers, stop thinking like children. In regard to evil be infants, but in your thinking be mature.” — 1 Corinthians 14:20\n\nFrom part 15 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nWhere the original commands angels, you ask the Father, who sends them to serve those who will inherit salvation (Hebrews 1:14).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Brothers, stop thinking like children. In regard to evil be infants, but in your thinking be mature.” — 1 Corinthians 14:20\n\nFrom part 15 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nWhere the original commands angels, you ask the Father, who sends them to serve those who will inherit salvation (Hebrews 1:14).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray now in the name of Jesus.",
       "Thank You for showing me the stronghold of childishness in my life.",
@@ -5734,13 +5734,13 @@
     "title": "Against the Stronghold of Pessimism",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "sadness"
     ],
-    "note": "“But those who wait upon the LORD will renew their strength; they will mount up with wings like eagles; they will run and not grow weary, they will walk and not faint.” — Isaiah 40:31\n\nFrom part 16 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe end of the original prayer is unclear in the recording; the last sentence completes it from what can be heard. Where the original sends angels, you ask the Father to send them (Hebrews 1:14).\n\nThis part describes a habit of seeing only the dark side, often driven by fear and worry; seeing risks clearly is not a stronghold. A low mood that lasts for weeks can be depression, which is treatable; see a doctor as well as praying.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“But those who wait upon the LORD will renew their strength; they will mount up with wings like eagles; they will run and not grow weary, they will walk and not faint.” — Isaiah 40:31\n\nFrom part 16 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe end of the original prayer is unclear in the recording; the last sentence completes it from what can be heard. Where the original sends angels, you ask the Father to send them (Hebrews 1:14).\n\nThis part describes a habit of seeing only the dark side, often driven by fear and worry; seeing risks clearly is not a stronghold. A low mood that lasts for weeks can be depression, which is treatable; see a doctor as well as praying.\n\nIf you have thoughts of harming yourself or ending your life, call 112 (EU), 911 (US) or your local emergency number now. In Poland you can also call 116 123 (24/7); in the US, call or text 988.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray now in the name of Jesus, and I thank You for this teaching.",
       "Let this word go right through me, and let this truth touch me.",
@@ -5758,13 +5758,13 @@
     "title": "Against the Strongholds of Fear",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "anxiety",
       "strongholds"
     ],
-    "note": "“and free those who all their lives were held in slavery by their fear of death.” — Hebrews 2:15\n\nFrom part 17 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nBesides the method of part 4, this part adds one step against fear: face its source on purpose, step by step, and pray right there. Its example: if you are afraid of the dark, switch off the night light and pray in the dark. Courage, it says, is acting despite fear, not feeling none.\n\nBreathlessness, chest pain and a racing heart, which this part lists among the signs, can also have medical causes; see a doctor. Panic attacks and phobias are treatable, and facing a fear gradually is also how therapy treats them; with strong panic or a phobia, do it with professional help.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“and free those who all their lives were held in slavery by their fear of death.” — Hebrews 2:15\n\nFrom part 17 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nBesides the method of part 4, this part adds one step against fear: face its source on purpose, step by step, and pray right there. Its example: if you are afraid of the dark, switch off the night light and pray in the dark. Courage, it says, is acting despite fear, not feeling none.\n\nBreathlessness, chest pain and a racing heart, which this part lists among the signs, can also have medical causes; see a doctor. Panic attacks and phobias are treatable, and facing a fear gradually is also how therapy treats them; with strong panic or a phobia, do it with professional help.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray, and I thank You that You always hear me.",
       "In the name of Jesus I curse every demonic stronghold of fear in my life.",
@@ -5783,13 +5783,13 @@
     "title": "Against the Sexual Stronghold",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“I had planted you like a choice vine from the very best seed. How could you turn yourself before Me into a rotten, wild vine?” — Jeremiah 2:21\n\nFrom part 18 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nTell one trusted person and set up accountability. This part counts low desire and trouble reaching orgasm among this stronghold’s signs. Such difficulties are common, usually have medical or relational causes, and are not in themselves sin or a sign of a demon; see a doctor, and often a therapist. If your struggle involves anyone being harmed, or a child, stop and get professional help today.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“I had planted you like a choice vine from the very best seed. How could you turn yourself before Me into a rotten, wild vine?” — Jeremiah 2:21\n\nFrom part 18 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nTell one trusted person and set up accountability. This part counts low desire and trouble reaching orgasm among this stronghold’s signs. Such difficulties are common, usually have medical or relational causes, and are not in themselves sin or a sign of a demon; see a doctor, and often a therapist. If your struggle involves anyone being harmed, or a child, stop and get professional help today.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray now in the name of Jesus, and I bring myself to You.",
       "Holy Spirit, give me Your power to undermine the demonic stronghold of sexuality, if it is in my life, and to serve others who need freedom.",
@@ -5806,13 +5806,13 @@
     "title": "Against the Stronghold of Foolishness",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "wisdom"
     ],
-    "note": "“My wounds are foul and festering because of my sinful folly.” — Psalm 38:5\n\nFrom part 19 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“My wounds are foul and festering because of my sinful folly.” — Psalm 38:5\n\nFrom part 19 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Holy Spirit, in the name of Jesus I curse every stronghold of foolishness in my life.",
       "Father, I pray that if there is such a stronghold in me, it will be undermined now.",
@@ -5828,13 +5828,13 @@
     "title": "Against the Stronghold of Religion",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "closeness"
     ],
-    "note": "“You have disregarded the commandment of God to keep the tradition of men.” — Mark 7:8\n\nFrom part 20 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nBy “religion” the series means beliefs and practices that replace a living relationship with God. Scripture also uses the word well: pure religion is caring for orphans and widows and keeping yourself unstained by the world (James 1:27).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“You have disregarded the commandment of God to keep the tradition of men.” — Mark 7:8\n\nFrom part 20 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nBy “religion” the series means beliefs and practices that replace a living relationship with God. Scripture also uses the word well: pure religion is caring for orphans and widows and keeping yourself unstained by the world (James 1:27).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You that this word has been released today.",
       "Thank You for the power of Your word, and that it is reaching me now.",
@@ -5851,13 +5851,13 @@
     "title": "Against the Stronghold of Humanism",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "faith"
     ],
-    "note": "“God is not a man, that He should lie, or a son of man, that He should change His mind. Does He speak and not act? Does He promise and not fulfill?” — Numbers 23:19\n\nFrom part 21 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe recording is partly garbled; the prayer is pieced together from what can be heard, and the closing amen is added.\n\nBy humanism the series means putting man in God’s place: resting your security on people, putting human opinion, reputation or knowledge above God’s truth, being unable to live without people’s approval. Caring for people, their dignity and their freedom is good and biblical; it becomes a stronghold only when man takes God’s place (Jeremiah 17:5-6).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“God is not a man, that He should lie, or a son of man, that He should change His mind. Does He speak and not act? Does He promise and not fulfill?” — Numbers 23:19\n\nFrom part 21 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe recording is partly garbled; the prayer is pieced together from what can be heard, and the closing amen is added.\n\nBy humanism the series means putting man in God’s place: resting your security on people, putting human opinion, reputation or knowledge above God’s truth, being unable to live without people’s approval. Caring for people, their dignity and their freedom is good and biblical; it becomes a stronghold only when man takes God’s place (Jeremiah 17:5-6).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Good Father, thank You that Your presence is going right through me now, as I receive these words by faith.",
       "Help me to take the tools I have been given, and to use them to undermine the stronghold of humanism in my life.",
@@ -5873,13 +5873,13 @@
     "title": "Against the Stronghold of Atheism",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "faith",
       "strongholds"
     ],
-    "note": "“In his pride the wicked man does not seek Him; in all his schemes there is no God.” — Psalm 10:4\n\nFrom part 22 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe verses in it are John 16:8, Isaiah 11:2, Ephesians 1:17, John 14:26 and John 16:14. The original “You are the wisdom of God”, a title Scripture gives to Christ (1 Corinthians 1:24), becomes “the Spirit of wisdom”.\n\nHonest questions and doubts are not a stronghold. Anyone who wants to believe can pray this.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“In his pride the wicked man does not seek Him; in all his schemes there is no God.” — Psalm 10:4\n\nFrom part 22 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe verses in it are John 16:8, Isaiah 11:2, Ephesians 1:17, John 14:26 and John 16:14. The original “You are the wisdom of God”, a title Scripture gives to Christ (1 Corinthians 1:24), becomes “the Spirit of wisdom”.\n\nHonest questions and doubts are not a stronghold. Anyone who wants to believe can pray this.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for Your word; help me to receive it.",
       "Holy Spirit, I want Your holy presence to go right through me; be active in me now.",
@@ -5897,13 +5897,13 @@
     "title": "Against Racism, Nationalism and Caste",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "holiness"
     ],
-    "note": "“There is neither Jew nor Greek, slave nor free, male nor female, for you are all one in Christ Jesus.” — Galatians 3:28\n\nFrom part 23 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nLoving your own family, culture and country is good. The sin is ranking people as worth more or less by race, nation or class (James 2:1-9).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“There is neither Jew nor Greek, slave nor free, male nor female, for you are all one in Christ Jesus.” — Galatians 3:28\n\nFrom part 23 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nLoving your own family, culture and country is good. The sin is ranking people as worth more or less by race, nation or class (James 2:1-9).\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray now, because this teaching has reached my heart.",
       "Father, I curse now every stronghold of racism, every stronghold of nationalism and every stronghold of caste in me.",
@@ -5920,13 +5920,13 @@
     "title": "Against the Stronghold of Greed",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "money"
     ],
-    "note": "“Put to death, therefore, the components of your earthly nature: sexual immorality, impurity, lust, evil desires, and greed, which is idolatry.” — Colossians 3:5\n\nFrom part 24 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe authority over snakes and scorpions is Luke 10:19. This part separates greed from healthy saving: saving more than you need in order to give and to build is good; holding on out of fear of loss is not.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Put to death, therefore, the components of your earthly nature: sexual immorality, impurity, lust, evil desires, and greed, which is idolatry.” — Colossians 3:5\n\nFrom part 24 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nThe authority over snakes and scorpions is Luke 10:19. This part separates greed from healthy saving: saving more than you need in order to give and to build is good; holding on out of fear of loss is not.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You that You always hear me.",
       "Thank You that in the name of Jesus You have given me authority to tread on snakes and scorpions, and over all the power of the enemy.",
@@ -5943,13 +5943,13 @@
     "title": "Against the Stronghold of Lies",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "wisdom"
     ],
-    "note": "“I will make justice the measuring line and righteousness the level. Hail will sweep away your refuge of lies, and water will flood your hiding place.” — Isaiah 28:17\n\nFrom part 25 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“I will make justice the measuring line and righteousness the level. Hail will sweep away your refuge of lies, and water will flood your hiding place.” — Isaiah 28:17\n\nFrom part 25 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray in the name of Jesus, and I thank You that You are a God who wants my freedom.",
       "Father, I declare in the name of Jesus that I have freedom in Christ, and I stand in the place of His authority.",
@@ -5965,13 +5965,13 @@
     "title": "Against the Stronghold of Dead Pleasures",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "strongholds",
       "addiction"
     ],
-    "note": "“‘Everything is permissible for me,’ but not everything is beneficial. ‘Everything is permissible for me,’ but I will not be mastered by anything.” — 1 Corinthians 6:12\n\nFrom part 26 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nA hobby is not sinful in itself. Ask the three questions this part gives: Is it beneficial? Does it build up? Does it master me? Decide before God, not out of fear of what someone else has told you.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“‘Everything is permissible for me,’ but not everything is beneficial. ‘Everything is permissible for me,’ but I will not be mastered by anything.” — 1 Corinthians 6:12\n\nFrom part 26 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nA hobby is not sinful in itself. Ask the three questions this part gives: Is it beneficial? Does it build up? Does it master me? Decide before God, not out of fear of what someone else has told you.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, thank You for the freedom You give.",
       "Father, in the name of Jesus I curse every demonic stronghold of dead pleasures in my life: every pastime that has a destructive influence on my life in any way.",
@@ -5986,13 +5986,13 @@
     "title": "Against the Stronghold of Addiction",
     "splitMode": "sentence",
     "tags": [
-      "Demony burzące"
+      "Series on strongholds"
     ],
     "needs": [
       "addiction",
       "strongholds"
     ],
-    "note": "“Then they will come to their senses and escape the snare of the devil, who has taken them captive to his will.” — 2 Timothy 2:26\n\nFrom part 27 of the series Demony burzące (Demolishing Demons), rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nTell someone today, and get medical help to stop. Stopping alcohol, sleeping pills, tranquillisers or some other drugs suddenly can be dangerous without a doctor. A recovery group helps many people stay free.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
+    "note": "“Then they will come to their senses and escape the snare of the devil, who has taken them captive to his will.” — 2 Timothy 2:26\n\nFrom part 27 of a teaching series on strongholds, rewritten so that you pray it for yourself. Start with “Tearing Down a Stronghold”, then pray this one.\n\nTell someone today, and get medical help to stop. Stopping alcohol, sleeping pills, tranquillisers or some other drugs suddenly can be dangerous without a doctor. A recovery group helps many people stay free.\n\n“Curse” here means what part 4 of the series teaches: stopping the growth of a pattern (Amos 2:9; Luke 17:6; compare the fig tree, Mark 11:14, 20-21). It is aimed at strongholds and evil spirits, never at a person (Romans 12:14).\n\nPray this alongside medical, psychological and pastoral help, never instead of it.",
     "segments": [
       "Father, I pray now in agreement with You, in the name of Jesus.",
       "I recognise a demonic stronghold of addiction in my life, and I curse it.",

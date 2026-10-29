@@ -20,8 +20,8 @@ describe('tourTextFor', () => {
 
   it('prefers the story prayer once the library is in', async () => {
     await seedLibrary()
-    expect(await tourTextFor('peace', 'pl')).toBe(builtinTextId('pl.lovy-peace'))
-    expect(await tourTextFor('peace', 'en')).toBe(builtinTextId('en.lovy-peace'))
+    expect(await tourTextFor('peace', 'pl')).toBe(builtinTextId('pl.life-peace'))
+    expect(await tourTextFor('peace', 'en')).toBe(builtinTextId('en.life-peace'))
   })
 
   it('finds nothing among hidden texts', async () => {

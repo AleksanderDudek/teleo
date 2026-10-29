@@ -18,7 +18,7 @@ import { readSettings, updateMeta } from './settings'
 import { newSegment, replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
-export const SEED_VERSION = 7
+export const SEED_VERSION = 8
 
 const typeFocus = (type: TextType): 'prayers' | 'affirmations' | null =>
   type === 'prayer' ? 'prayers' : type === 'affirmation' ? 'affirmations' : null

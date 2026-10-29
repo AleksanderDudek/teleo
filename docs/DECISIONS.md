@@ -607,11 +607,11 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
     (`src/domain/text/libraryFilter.ts`, replacing component state, updates replace the history entry), and a card
     passes that URL in the link state, so the back arrow returns to the same filtered list. The editor offers the
     same needs (optional, in the order chosen); a copy keeps them. Search covers titles, words and tags.
-126. **The prayer library ships as two lazy chunks, in both languages.** 133 prayers of Prophet Lovy L. Elias
+126. **The prayer library ships as two lazy chunks, in both languages.** 133 prayers of a contemporary preacher
     (`src/content/prayers/en.json`, given; `pl.json`, translated sentence for sentence — same count and order, held by
-    a test — with a fixed glossary and m/f/n forms where the speaker's gender shows, #26). Every text is tagged
-    *Prophet Lovy L. Elias* / *prorok Lovy L. Elias* (shown on the text page, searchable); the per-sentence sermon
-    trace is not shipped. These are the first builtins that are neither public domain nor written for the project — an
+    a test — with a fixed glossary and m/f/n forms where the speaker's gender shows, #26). Every text was tagged
+    with the preacher's name (shown on the text page, searchable; removed by #134); the per-sentence sermon trace is
+    not shipped. These are the first builtins that are neither public domain nor written for the project — an
     exception to the content rule of spec §13 made at the owner's request, with texts the owner supplied. Bundling ~0.6 MB of JSON would double the start-up script for data read once per content
     version, so `loadBuiltinTexts()` imports them dynamically — only seeding and the grammatical form need them; the
     chunks are still precached, so the library works offline from the first launch. Gendered sentences are stored
@@ -680,7 +680,7 @@ Design: [superpowers/specs/2026-10-08-prayer-library-needs-design.md](superpower
 
 ## Finding a prayer for a specific need (owner request, 2026-10-27)
 
-The owner sent the 133 prayers of Prophet Lovy L. Elias again (texts, by-area document, sermon trace) asking to add
+The owner sent the 133 prayers of #126 again (texts, by-area document, sermon trace) asking to add
 all of them without duplicates and to make them findable by topic. All 133 were already in, EN and PL, sentence for
 sentence identical to the file (#126). Checked for duplicates: none — the closest pairs share at most 29 % of their
 sentences word for word (≈46 % allowing small wording changes: *Cancelling Words I Spoke over My Finances* vs
@@ -729,14 +729,14 @@ findability instead.
 
 ## Prayers for tearing down strongholds (owner request, 2026-10-27)
 
-132. **Artur Ceroński's *Demony burzące* prayers join the library, with a note read before praying.** 29 prayers in
+132. **A Polish teaching series on strongholds joins the library, with a note read before praying.** 29 prayers in
     both languages (`*.stronghold-*`): two to start with, built from the method of parts 4 and 1, then one for each of
     the 27 parts but part 4 (whose method they are), as rewritten in the owner's write-up to pray for oneself, with its
-    six changes that keep every prayer within Scripture. Tags *Artur Ceroński* and *Demony burzące* (searchable).
+    six changes that keep every prayer within Scripture. Tags with the teacher's name and the series title (searchable; replaced by #134).
     - **Parts 14, 16, 17 and 21 came later, from the transcripts** the owner then sent (manipulation, pessimism, fears,
       humanism), written the same way: Polish first-hand, English from it, the same six changes. Part 14's opening
       reading (*You shall not steal*, read as taking a person captive) gives way to the verse its prayer stands on
-      (2 Corinthians 2:11, which he attributes to Jesus; the note says it is Paul's). Where a recording is unclear (the
+      (2 Corinthians 2:11, which the recording attributes to Jesus; the note says it is Paul's). Where a recording is unclear (the
       end of part 16, much of part 21) the note says the prayer is completed or pieced together from what can be heard.
     - **Nothing to fill in while speaking.** The write-up's brackets (*[name it]*, *[names]*) cannot be checked by ear,
       so the sentences say it in general (*I name it before You: this is a stronghold in my life.*) and the note tells
@@ -754,7 +754,7 @@ findability instead.
     - **A new need, *Strongholds & bad patterns* / *Warownie i złe wzorce*** (`strongholds`, deliverance, after
       `warfare`): every prayer of the series carries it; the main need stays the issue itself where one fits well
       (rejection and humiliation → *Rejection & shame*, compulsions → *Fear & anxiety*, atheism → *Faith*, addiction →
-      *Addiction*). Lovy's *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 6.
+      *Addiction*). The #126 prayer *Pulling Down Strongholds* moves to it too. 46 needs; `SEED_VERSION` 6.
 
 ## Gentle checking, points that follow accuracy (owner request, 2026-10-29)
 
@@ -776,9 +776,15 @@ findability instead.
       (#123 settled any pass at once): at 60 % a breath after most of a long verse would otherwise pass it and spill the
       rest into the next one. On the strict lower rungs this delays an imperfect pass to the pause or the next words.
 
-134. **No public figure is named in the prayers.** Owner request: titles, tags and notes name no person. The author tags
-    are gone (the `*.lovy-*` prayers carry no tag now; the stronghold prayers keep the series tag *Demony burzące*).
-    The stronghold notes say *the series*, *this part* or *the original prayer* where they named the teacher or said
-    *he* / *his*. Keys stay: they are ids that progress, tasks and backups point to, seen only in a link. A content test
-    guards titles, tags and notes; `SEED_VERSION` 7 carries the change to existing installs. README and CHANGELOG no
-    longer name them either.
+134. **No preacher or teaching series is named in the prayers.** Owner request: keys, titles, tags and notes name no
+    person. The author tags are gone; the stronghold prayers keep a neutral series tag (*Series on strongholds* /
+    *Cykl o warowniach*), and their notes say *a teaching series on strongholds*, *this part* or *the original prayer*
+    where they named the teacher or the series or said *he* / *his*. Biblical names in the prayers stay.
+    - **The #126 prayers move to `<lang>.life-<slug>`** (the old prefix is in `renamed.ts`). A builtin id is kept in
+      most tables — the text, its segments, attempts and stats, per-text achievement keys, run plans, templates, tasks,
+      the XP ledger's `refId` — so `withRenamedKeys` (`src/domain/backup/renamed.ts`) renames it in every string of a row:
+      the Dexie v6 upgrade on the device (rows whose primary key changes are deleted and written again) and every
+      restore (older backups and restore points, beside `withoutRetiredRows`). Links saved with an old key no longer
+      open the text.
+    - A content test fails when a key, title, tag, note or sentence names them again; `SEED_VERSION` 8 carries the new
+      tags and notes to existing installs. README, CHANGELOG and the library design spec no longer name them.

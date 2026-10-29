@@ -75,8 +75,8 @@ describe('seedBuiltins', () => {
     await seedBuiltins()
     expect(LIBRARY_PRAYERS).toBeGreaterThan(200)
     expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
-    expect((await db.texts.get(builtinTextId('en.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
-    expect((await db.texts.get(builtinTextId('pl.lovy-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
+    expect((await db.texts.get(builtinTextId('en.life-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
+    expect((await db.texts.get(builtinTextId('pl.life-sleep-nightmares')))?.needs).toEqual(['sleep', 'warfare'])
     expect((await db.texts.get(builtinTextId('pl.ojcze-nasz')))?.needs).toEqual(['traditional'])
   })
 
@@ -134,7 +134,7 @@ describe('seedCore and seedLibrary (the app awaits only the core, DECISIONS #126
   })
 
   it('writes the library in a grammatical form chosen before it arrives, without stray sentences', async () => {
-    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.lovy-') && d.variants)
+    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.life-') && d.variants)
     if (!def?.variants) throw new Error('no gendered library prayer')
     await seedCore()
     await updateAppSettings({ grammaticalForm: 'f' })
@@ -210,7 +210,7 @@ describe('applyGrammaticalForm', () => {
   })
 
   it('speaks the Polish prayer library in the chosen form too', async () => {
-    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.lovy-') && d.variants)
+    const def = (await loadBuiltinTexts()).find((d) => d.key.startsWith('pl.life-') && d.variants)
     const variants = def?.variants
     if (!def || !variants) throw new Error('no gendered library prayer')
     const index = variants.m.findIndex((sentence, i) => sentence !== variants.f[i])

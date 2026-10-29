@@ -1,4 +1,5 @@
 import Dexie, { type EntityTable, type Table } from 'dexie'
+import { withRenamedKeys } from '@/domain/backup/renamed'
 import { RETIRED_TEXT_SOURCES, retiredRows } from '@/domain/backup/retired'
 import { DB_NAME } from './name'
 import type {
@@ -20,7 +21,7 @@ import type {
 } from './types'
 
 export { DB_NAME } from './name'
-export const SCHEMA_VERSION = 5
+export const SCHEMA_VERSION = 6
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -86,6 +87,25 @@ export class TeleoDB extends Dexie {
       tasks: 'id, textId, endDay',
       taskLog: 'id, taskId, [taskId+dayKey], dayKey, runId',
     })
+    // v1.7: the library prayers moved to keys that name no person (DECISIONS #134). Their ids are kept in most tables,
+    // some as a primary key (a text, its stats, a per-text achievement), so changed rows are deleted and written again.
+    // Restore points are renamed when used, like every restore.
+    this.version(6)
+      .stores({})
+      .upgrade(async (tx) => {
+        for (const name of ALL_TABLES) {
+          const table = tx.table(name)
+          const rows: object[] = await table.toArray()
+          const changed = rows.flatMap((row) => {
+            const renamed = withRenamedKeys(row)
+            return renamed === row ? [] : [{ row, renamed }]
+          })
+          if (changed.length === 0) continue
+          const keyPath = table.schema.primKey.keyPath as string
+          await table.bulkDelete(changed.map(({ row }) => Dexie.getByKeyPath(row, keyPath)))
+          await table.bulkAdd(changed.map(({ renamed }) => renamed))
+        }
+      })
   }
 }
 

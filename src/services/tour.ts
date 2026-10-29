@@ -5,7 +5,7 @@ import { isListedText } from '@/domain/text/visibility'
 import type { Lang } from '@/domain/types'
 
 /** A gentle prayer the tour prefers to open for its need (DECISIONS #127), when it is there and visible. */
-const STORY_TEXT_KEY = (lang: Lang) => `${lang}.lovy-peace`
+const STORY_TEXT_KEY = (lang: Lang) => `${lang}.life-peace`
 
 /**
  * The text the guided tour opens: the story's own prayer if this person can see it, else the first text the library
