@@ -105,10 +105,10 @@ test.describe('one language at a time', () => {
     await finishOnboarding(page)
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
     await expect(page.getByRole('link', { name: /Ojcze nasz/ })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Lord’s Prayer|Hail Mary/ })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: /Lord’s Prayer|Glory Be/ })).toHaveCount(0)
     await page.getByRole('navigation').getByRole('link', { name: 'Sesje' }).click()
-    await expect(page.getByRole('heading', { name: 'Dziesiątka różańca' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: /Decade of the Rosary|Morning affirmations/ })).toHaveCount(0)
+    await expect(page.getByRole('heading', { name: 'Poranne afirmacje' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Psalm 91|Morning affirmations/ })).toHaveCount(0)
 
     await page.getByRole('navigation').getByRole('link', { name: 'Ustawienia' }).click()
     await page.getByText('English', { exact: true }).click()

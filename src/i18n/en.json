@@ -232,7 +232,7 @@
     "tasksBody": "An affirmation a few times a day, for a couple of weeks.",
     "tasksToday_one": "{{count}} task today · {{left}} left to say",
     "tasksToday_other": "{{count}} tasks today · {{left}} left to say",
-    "what": "A session is a few texts said one after another — like a decade of the rosary."
+    "what": "A session is a few texts said one after another — say, the Lord’s Prayer and then Psalm 23."
   },
   "builder": {
     "titleNew": "New session",
@@ -528,7 +528,7 @@
     "welcomeBody": "I am your Guardian. I’ll listen as you say your prayers and affirmations aloud, check every sentence and keep count — privately, on this device.",
     "focusTitle": "What would you like to practise?",
     "focusPrayers": "Prayers",
-    "focusPrayersBody": "Our Father, Hail Mary, the Rosary, Psalm 23",
+    "focusPrayersBody": "Our Father, Glory Be, Psalm 23, Psalm 91",
     "focusAffirmations": "Affirmations",
     "focusAffirmationsBody": "A calm morning set of short sentences",
     "focusBoth": "Both",
@@ -1499,7 +1499,7 @@
       },
       "session": {
         "title": "Sessions",
-        "body": "A session is a few texts said one after another — like a decade of the rosary. Start one, or build your own."
+        "body": "A session is a few texts said one after another — say, the Lord’s Prayer and then Psalm 23. Start one, or build your own."
       },
       "garden": {
         "title": "Your garden",

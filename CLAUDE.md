@@ -68,8 +68,9 @@ npm run typecheck    # tsc -b
 - Backups: `src/domain/backup` (validate, `crypto.ts` password envelope, `summary.ts`), `src/services/backup.ts`
   (import keeps a restore point in `restorePoints` — local only, never in `ALL_TABLES`), screen `src/screens/Data`
   (`/settings/data`). A new table must be added to `ALL_TABLES`, the backup validator (optional for old files) and
-  the e2e round trip. Rows of retired features (language dialogues, moved to the separate app Fluentum) are dropped
-  by `src/domain/backup/retired.ts` — in the Dexie v4 upgrade and on every restore (`replaceAll`).
+  the e2e round trip. Rows of retired features (language dialogues, moved to the separate app Fluentum) and retired builtins
+  (the Hail Mary and the rosary decades, DECISIONS #135) are dropped by `src/domain/backup/retired.ts` — in the Dexie
+  v4/v7 upgrades and on every restore (`replaceAll`).
 - Leaderboard: no server; friends' cards travel in links (`src/domain/leaderboard/friends.ts`, strict decoding).
 - Daily tasks: rules in `src/domain/tasks` (pure), `src/services/tasks.ts` (`createTask`, `taskViews`,
   `logTaskRepetition` — called inside `recordAttempt` when a full-text block completes), screens `src/screens/Tasks`,

@@ -18,7 +18,7 @@ import { readSettings, updateMeta } from './settings'
 import { newSegment, replaceSegments, SEGMENT_EDIT_TABLES } from './texts'
 
 /** Bump when builtin content changes; existing installs re-sync on next launch. */
-export const SEED_VERSION = 8
+export const SEED_VERSION = 9
 
 const typeFocus = (type: TextType): 'prayers' | 'affirmations' | null =>
   type === 'prayer' ? 'prayers' : type === 'affirmation' ? 'affirmations' : null
@@ -30,11 +30,15 @@ function visible(focus: 'prayers' | 'affirmations' | null, prefs: Pick<AppSettin
   return focus === prefs.contentFocus
 }
 
-/** The one builtin session pinned for a language + focus (Start button default). */
+/**
+ * The one builtin session pinned for a language + focus (Start button default). With both kinds of content a language
+ * without a prayer session (Polish, since the rosary decade left, DECISIONS #135) gets its affirmations.
+ */
 export function defaultPinnedSessionKey(uiLang: Lang, focus: ContentFocus): string | null {
   if (focus === 'own') return null
   const wantsPrayers = focus === 'prayers' || (focus === 'both' && uiLang === 'pl')
-  const session = BUILTIN_SESSIONS.find((s) => s.lang === uiLang && s.focus === (wantsPrayers ? 'prayers' : 'affirmations'))
+  const of = (kind: 'prayers' | 'affirmations') => BUILTIN_SESSIONS.find((s) => s.lang === uiLang && s.focus === kind)
+  const session = of(wantsPrayers ? 'prayers' : 'affirmations') ?? (focus === 'both' ? of(wantsPrayers ? 'affirmations' : 'prayers') : undefined)
   return session?.key ?? null
 }
 

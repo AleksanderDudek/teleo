@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { builtinSessionId, builtinTextId } from '@/content'
+import { builtinTextId } from '@/content'
 import { db } from '@/db/schema'
 import type { SessionRun } from '@/db/types'
 import { resetDb } from '@/test/db'
 import { finishRun, markHinted, reconcileStreakFreezes, recordAttempt, skipEntry, type Evaluation } from './practice'
 import { seedBuiltins } from './seed'
-import { startRun } from './sessions'
+import { createTemplate, startRun } from './sessions'
 import { readSettings, updateAppSettings, updateGameState } from './settings'
 import { createText } from './texts'
 
@@ -31,27 +31,33 @@ beforeEach(async () => {
   await seedBuiltins()
 })
 
-describe('a full PL rosary decade', () => {
+describe('a full PL session with a repeated prayer', () => {
   it('counts repetitions, completion, goal, XP and achievements consistently', async () => {
-    const run = await startRun({ kind: 'template', templateId: builtinSessionId('pl.dziesiatka-rozanca') }, at(25))
+    // Our Father, Glory Be ×10, the Guardian Angel prayer: 4 + 2 × 10 + 3 sentences in 12 texts.
+    const template = await createTemplate('Modlitwy', [
+      { textId: builtinTextId('pl.ojcze-nasz'), repeat: 1 },
+      { textId: builtinTextId('pl.chwala-ojcu'), repeat: 10 },
+      { textId: builtinTextId('pl.aniele-bozy'), repeat: 1 },
+    ])
+    const run = await startRun({ kind: 'template', templateId: template.id }, at(25))
     const end = await speakAll(run, at(25), new Set([0]))
     const finished = await finishRun(run.id, end + 1000)
 
     expect(finished.clean).toBe(true)
     const reps = async (key: string) => (await db.textStats.get(builtinTextId(key)))?.repetitions
     expect(await reps('pl.ojcze-nasz')).toBe(1)
-    expect(await reps('pl.zdrowas-maryjo')).toBe(10)
-    expect(await reps('pl.chwala-ojcu')).toBe(1)
+    expect(await reps('pl.chwala-ojcu')).toBe(10)
+    expect(await reps('pl.aniele-bozy')).toBe(1)
 
     const day = await db.dailyStats.get('2026-09-25')
-    expect(day).toMatchObject({ segmentsAccepted: 26, attempts: 27, textsCompleted: 12, sessionsCompleted: 1, goalReached: true, langs: ['pl'], morning: false, evening: false, firstTryAccepted: 25 })
+    expect(day).toMatchObject({ segmentsAccepted: 27, attempts: 28, textsCompleted: 12, sessionsCompleted: 1, goalReached: true, langs: ['pl'], morning: false, evening: false, firstTryAccepted: 26 })
 
     const keys = await unlockedKeys()
     const expected = [
       `text.reps.1:${builtinTextId('pl.ojcze-nasz')}`,
-      `text.reps.1:${builtinTextId('pl.zdrowas-maryjo')}`,
-      `text.reps.7:${builtinTextId('pl.zdrowas-maryjo')}`,
       `text.reps.1:${builtinTextId('pl.chwala-ojcu')}`,
+      `text.reps.7:${builtinTextId('pl.chwala-ojcu')}`,
+      `text.reps.1:${builtinTextId('pl.aniele-bozy')}`,
       'daily.10',
       'daily.25',
       'session.first',
@@ -63,7 +69,7 @@ describe('a full PL rosary decade', () => {
     expect(game.totalXp).toBe(await ledgerTotal())
     expect(day?.xp).toBe(await ledgerTotal())
     const runRow = await db.sessionRuns.get(run.id)
-    expect(runRow).toMatchObject({ status: 'completed', cursor: 26 })
+    expect(runRow).toMatchObject({ status: 'completed', cursor: 27 })
     // The run remembers exactly what it unlocked (the summary lists these).
     expect([...(runRow?.unlocked ?? [])].sort()).toEqual([...keys].sort())
     expect(runRow?.xpEarned).toBe(await ledgerTotal())

@@ -27,7 +27,7 @@ servers, no tracking. Polish 🇵🇱 and English 🇺🇸.
 
 - **Live listening (default):** start a session, tap the microphone once and just keep praying — each
   sentence is checked as you speak it; heard words ink in, a finished sentence gets a quiet “Great!”
-  and the next one is already listening. Repeated items show a counter (`Zdrowaś Maryjo · 3/10`).
+  and the next one is already listening. Repeated items show a counter (`Chwała Ojcu · 3/10`).
   Tap mode (one utterance per tap) is one switch away.
 - **Honest checking:** a sentence counts when enough of its words were said and nothing was added — 90 % on
   the first try, 80 % on the second, 70 % from the third on (recognition slips such as missing Polish letters,

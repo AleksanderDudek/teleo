@@ -1,6 +1,6 @@
 import Dexie from 'dexie'
 import { afterEach, describe, expect, it } from 'vitest'
-import { dialogueRows, textRows, type TextRows } from '@/test/textRows'
+import { dialogueRows, retiredBuiltinRows, textRows, type TextRows } from '@/test/textRows'
 import { SCHEMA_VERSION, TeleoDB } from './schema'
 
 const NAME = 'teleo-upgrade-test'
@@ -60,7 +60,7 @@ describe('schema version 4: language dialogues left Teleo (DECISIONS #118)', () 
     const db = new TeleoDB(NAME)
     await db.open()
     expect(db.verno).toBe(SCHEMA_VERSION)
-    expect(SCHEMA_VERSION).toBe(6)
+    expect(SCHEMA_VERSION).toBe(7)
 
     expect(byId(await db.texts.toArray())).toEqual(byId([bible.text, own.text]))
     expect(await db.segments.orderBy('id').toArray()).toEqual(byId([...bible.segments, ...own.segments]))
@@ -133,6 +133,51 @@ describe('schema version 6: the library prayers move to keys that name no person
     expect(await db.achievements.orderBy('key').toArray()).toEqual([own.achievement, after.achievement].sort((a, b) => a.key.localeCompare(b.key)))
     expect((await db.xpLedger.toArray()).map((row) => row.refId).sort()).toEqual([after.attempt.id, own.attempt.id].sort())
     expect(await db.tasks.toArray()).toEqual([task(after.text.id)])
+    db.close()
+  })
+})
+
+describe('schema version 7: the Hail Mary and the rosary decades left the content (DECISIONS #135)', () => {
+  it('deletes the prayer, its decades and tasks, takes it out of own sessions and keeps the progress earned with it', async () => {
+    const hail = retiredBuiltinRows('en.hail-mary', 'en')
+    const zdrowas = retiredBuiltinRows('pl.zdrowas-maryjo', 'pl')
+    const lords = textRows('builtin:en.lords-prayer', 'builtin', 'en')
+    const template = (id: string, items: { textId: string; repeat: number }[], builtinKey?: string) => ({
+      id, name: id, pinned: false, items, createdAt: 1, updatedAt: 1, source: builtinKey ? 'builtin' : 'user', archived: false,
+      ...(builtinKey ? { builtinKey } : {}),
+    })
+    const decade = template('builtin:en.decade-of-the-rosary', [{ textId: lords.text.id, repeat: 1 }, { textId: hail.text.id, repeat: 10 }], 'en.decade-of-the-rosary')
+    const dziesiatka = template('builtin:pl.dziesiatka-rozanca', [{ textId: zdrowas.text.id, repeat: 10 }], 'pl.dziesiatka-rozanca')
+    const psalm = template('builtin:en.psalm-91-session', [{ textId: 'builtin:en.psalm-91', repeat: 1 }], 'en.psalm-91-session')
+    const mine = template('mine', [{ textId: lords.text.id, repeat: 1 }, { textId: hail.text.id, repeat: 3 }])
+    const task = (id: string, textId: string) => ({ id, textId, timesPerDay: 1, startDay: '2026-10-05', endDay: '2026-10-18', createdAt: 1, archived: false })
+    const log = (id: string, taskId: string) => ({ id, taskId, dayKey: '2026-10-05', runId: 'run', timestamp: 1 })
+    // A decade said to the end stays in the history; one left halfway could not be resumed.
+    const sessionRun = (id: string, status: string) => ({ ...lords.run, id, textId: undefined, templateId: decade.id, status, plan: [...lords.run.plan, ...hail.run.plan] })
+
+    const old = openVersion3()
+    old.version(5).stores({ tasks: 'id, textId, endDay', taskLog: 'id, taskId, [taskId+dayKey], dayKey, runId' })
+    old.version(6).stores({})
+    await store(old, hail, zdrowas, lords)
+    await old.table('sessionTemplates').bulkAdd([decade, dziesiatka, psalm, mine])
+    await old.table('sessionRuns').bulkAdd([sessionRun('run:done', 'completed'), sessionRun('run:half', 'partial')])
+    await old.table('tasks').bulkAdd([task('t-hail', hail.text.id), task('t-lords', lords.text.id)])
+    await old.table('taskLog').bulkAdd([log('l-hail', 't-hail'), log('l-lords', 't-lords')])
+    const ledger = await old.table('xpLedger').toArray()
+    old.close()
+
+    const db = new TeleoDB(NAME)
+    await db.open()
+    expect(await db.texts.toArray()).toEqual([lords.text])
+    expect(await db.segments.orderBy('id').toArray()).toEqual(lords.segments)
+    expect(await db.textStats.toArray()).toEqual([lords.textStats])
+    expect(await db.achievements.toArray()).toEqual([lords.achievement])
+    expect(byId(await db.sessionTemplates.toArray())).toEqual(byId([psalm, { ...mine, items: [{ textId: lords.text.id, repeat: 1 }] }]))
+    expect((await db.sessionRuns.toArray()).map((run) => run.id).sort()).toEqual([lords.run.id, 'run:done'].sort())
+    expect(await db.tasks.toArray()).toEqual([task('t-lords', lords.text.id)])
+    expect(await db.taskLog.toArray()).toEqual([log('l-lords', 't-lords')])
+    expect(byId(await db.attempts.toArray())).toEqual(byId([hail.attempt, zdrowas.attempt, lords.attempt]))
+    expect(await db.xpLedger.toArray()).toEqual(ledger)
     db.close()
   })
 })

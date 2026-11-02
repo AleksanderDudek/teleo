@@ -99,6 +99,12 @@ export function dialogueRows(key = 'cafe', lang: Lang = 'en'): TextRows {
   return textRows(`dialogue:${lang}:${key}`, 'dialogue', lang)
 }
 
+/** The rows a builtin text taken out of the content (DECISIONS #135) left on a device or in a backup. */
+export function retiredBuiltinRows(key = 'en.hail-mary', lang: Lang = 'en'): TextRows {
+  const rows = textRows(`builtin:${key}`, 'builtin', lang)
+  return { ...rows, text: { ...rows.text, builtinKey: key } }
+}
+
 /** `data` with the rows of more texts added to its tables. */
 export function withTextRows(data: BackupData, ...rows: TextRows[]): BackupData {
   return {

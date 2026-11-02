@@ -252,7 +252,7 @@
     "tasksToday_few": "{{count}} zadania na dziś · do powiedzenia: {{left}}",
     "tasksToday_many": "{{count}} zadań na dziś · do powiedzenia: {{left}}",
     "tasksToday_other": "{{count}} zadania na dziś · do powiedzenia: {{left}}",
-    "what": "Sesja to kilka tekstów wypowiadanych jeden po drugim – jak dziesiątka różańca."
+    "what": "Sesja to kilka tekstów wypowiadanych jeden po drugim – na przykład Ojcze nasz, a po nim Chwała Ojcu."
   },
   "builder": {
     "titleNew": "Nowa sesja",
@@ -552,7 +552,7 @@
     "welcomeBody": "Jestem Twoim Aniołem Stróżem. Będę słuchać, gdy wypowiadasz modlitwy i afirmacje na głos, sprawdzę każde zdanie i policzę powtórzenia – prywatnie, na tym urządzeniu.",
     "focusTitle": "Co chcesz praktykować?",
     "focusPrayers": "Modlitwy",
-    "focusPrayersBody": "Ojcze nasz, Zdrowaś Maryjo, dziesiątka różańca",
+    "focusPrayersBody": "Ojcze nasz, Chwała Ojcu, Aniele Boży",
     "focusAffirmations": "Afirmacje",
     "focusAffirmationsBody": "Spokojny poranny zestaw krótkich zdań",
     "focusBoth": "Jedno i drugie",
@@ -1563,7 +1563,7 @@
       },
       "session": {
         "title": "Sesje",
-        "body": "Sesja to kilka tekstów wypowiadanych jeden po drugim – jak dziesiątka różańca. Rozpocznij gotową albo ułóż własną."
+        "body": "Sesja to kilka tekstów wypowiadanych jeden po drugim – na przykład Ojcze nasz, a po nim Chwała Ojcu. Rozpocznij gotową albo ułóż własną."
       },
       "garden": {
         "title": "Twój ogród",

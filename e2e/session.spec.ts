@@ -1,17 +1,34 @@
 import { expect, test, type Page } from '@playwright/test'
 import { declineTour, finishOnboarding, installFakeSpeech, libraryReady } from './fakeSpeech.ts'
 
+/** Builds and starts a session with a repeated prayer: Our Father, then Glory Be ten times — 4 + 2 × 10 sentences. */
+async function startPrayers(page: Page) {
+  await page.getByRole('navigation').getByRole('link', { name: 'Sesje' }).click()
+  await page.getByRole('link', { name: 'Nowa sesja' }).click()
+  await page.getByPlaceholder('np. Modlitwa wieczorna').fill('Moja chwała')
+  for (const title of ['Ojcze nasz', 'Chwała Ojcu']) {
+    await page.getByRole('button', { name: 'Dodaj tekst' }).click()
+    await page.getByRole('dialog').getByRole('button', { name: new RegExp(`^${title}`) }).first().click()
+  }
+  const repeat = page.getByRole('group', { name: 'Powtórzenia' }).last()
+  for (let n = 1; n < 10; n++) await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
+  await expect(page.getByText('24 / 150 zdań')).toBeVisible()
+  await page.getByRole('button', { name: 'Zapisz sesję' }).click()
+  await expect(page).toHaveURL(/#\/sessions$/)
+  await page.locator('.card', { hasText: 'Moja chwała' }).getByRole('button', { name: 'Rozpocznij' }).click()
+  await expect(page).toHaveURL(/#\/play\//)
+}
+
 test.describe('tap mode', () => {
   test.use({ locale: 'pl-PL' })
 
-  test('a PL rosary decade runs end to end with correct counters', async ({ page }, testInfo) => {
+  test('a PL session with a repeated prayer runs end to end with correct counters', async ({ page }, testInfo) => {
     test.setTimeout(180_000)
     await installFakeSpeech(page)
     await finishOnboarding(page)
     await page.screenshot({ path: testInfo.outputPath('today.png'), fullPage: true })
 
-    await page.getByRole('button', { name: 'Rozpocznij', exact: true }).click()
-    await expect(page).toHaveURL(/#\/play\//)
+    await startPrayers(page)
     await expect(page.getByTestId('segment-text')).toContainText('Ojcze nasz')
     await page.getByRole('switch', { name: 'Na żywo' }).click() // live listening is the default
     await expect(page.getByRole('switch', { name: 'Na żywo' })).toHaveAttribute('aria-checked', 'false')
@@ -21,47 +38,47 @@ test.describe('tap mode', () => {
     await mic.click()
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click() // first-use privacy notice
 
-    for (let next = 2; next <= 26; next++) {
-      await expect(page.getByRole('progressbar', { name: `Zdanie ${next} z 26` })).toBeVisible({ timeout: 10_000 })
+    for (let next = 2; next <= 24; next++) {
+      await expect(page.getByRole('progressbar', { name: `Zdanie ${next} z 24` })).toBeVisible({ timeout: 10_000 })
       await expect(mic).toBeEnabled({ timeout: 10_000 })
       await mic.click()
     }
     await page.waitForURL(/summary$/, { timeout: 20_000 })
-    await expect(page.getByText('26/26')).toBeVisible()
+    await expect(page.getByText('24/24')).toBeVisible()
     await page.screenshot({ path: testInfo.outputPath('summary.png'), fullPage: true })
 
     await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await page.getByRole('link', { name: /Zdrowaś Maryjo/ }).click()
+    await page.getByRole('link', { name: /Chwała Ojcu/ }).first().click()
     // Progress is folded under the text (DECISIONS #128): its summary counts, and it opens to the statistics.
     const progress = page.getByText('Twoje postępy z tym tekstem')
     await expect(page.getByText(/^10 powtórzeń · ostatnio:/)).toBeVisible()
     await progress.click()
     await expect(page.getByRole('term').filter({ hasText: 'Powtórzenia' }).locator('..')).toContainText('10')
 
-    // Its own history: the rosary session in which it was said, counting its sentences (DECISIONS #129).
+    // Its own history: the session in which it was said, counting its sentences (DECISIONS #129).
     await page.getByRole('link', { name: /Historia tego tekstu/ }).click()
-    await expect(page).toHaveURL(/#\/progress\/history\?text=builtin%3Apl\.zdrowas-maryjo$/)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Zdrowaś Maryjo')
-    await expect(page.getByRole('link', { name: 'Dziesiątka różańca' }).first()).toBeVisible()
+    await expect(page).toHaveURL(/#\/progress\/history\?text=builtin%3Apl\.chwala-ojcu$/)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Chwała Ojcu')
+    await expect(page.getByRole('link', { name: 'Moja chwała' }).first()).toBeVisible()
   })
 })
 
 test.describe('live mode', () => {
   test.use({ locale: 'pl-PL' })
 
-  test('a PL rosary decade completes hands-free, sentence after sentence', async ({ page }, testInfo) => {
+  test('a PL session with a repeated prayer completes hands-free, sentence after sentence', async ({ page }, testInfo) => {
     test.setTimeout(180_000)
     await installFakeSpeech(page, { live: true, wordDelayMs: 25 })
     await finishOnboarding(page)
-    await page.getByRole('button', { name: 'Rozpocznij', exact: true }).click()
+    await startPrayers(page)
     await expect(page.getByRole('switch', { name: 'Na żywo' })).toBeVisible()
     await page.getByRole('button', { name: 'Mów' }).click()
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
-    await expect(page.getByText('Zdrowaś Maryjo · 3/10')).toBeVisible({ timeout: 60_000 })
+    await expect(page.getByText('Chwała Ojcu · 3/10')).toBeVisible({ timeout: 60_000 })
     await page.screenshot({ path: testInfo.outputPath('live-player.png') })
     await page.waitForURL(/summary$/, { timeout: 120_000 })
-    await expect(page.getByText('26/26')).toBeVisible()
+    await expect(page.getByText('24/24')).toBeVisible()
     await expect(page.getByText('100%', { exact: true })).toBeVisible()
     await page.screenshot({ path: testInfo.outputPath('live-summary.png'), fullPage: true })
 
@@ -76,7 +93,7 @@ test.describe('live mode', () => {
     test.setTimeout(180_000)
     await installFakeSpeech(page, { live: true, wordDelayMs: 25 })
     await finishOnboarding(page)
-    await page.getByRole('button', { name: 'Rozpocznij', exact: true }).click()
+    await startPrayers(page)
     await page.evaluate(() => {
       const fake = (window as unknown as { __fakeSpeech: { queue: string[] } }).__fakeSpeech
       fake.queue.push('Ojcze nasz któryś jest bardzo w niebie')
@@ -84,8 +101,8 @@ test.describe('live mode', () => {
     await page.getByRole('button', { name: 'Mów' }).click()
     await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
     await page.waitForURL(/summary$/, { timeout: 120_000 })
-    await expect(page.getByText('26/26')).toBeVisible()
-    await expect(page.getByText('96%', { exact: true })).toBeVisible() // 25 of 26 on the first try
+    await expect(page.getByText('24/24')).toBeVisible()
+    await expect(page.getByText('96%', { exact: true })).toBeVisible() // 23 of 24 on the first try
   })
 })
 

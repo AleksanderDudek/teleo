@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { RETIRED_BUILTIN_SESSIONS, RETIRED_BUILTIN_TEXTS } from '@/domain/backup/retired'
 import { countWords } from '@/domain/text/countWords'
 import { NEED_IDS, needsOf } from '@/domain/text/needs'
 import { BUILTIN_SESSIONS, builtinSegments, CORE_TEXTS, expandLibraryText, loadBuiltinTexts, type LibraryTextDef } from './index'
@@ -146,15 +147,20 @@ describe('builtin content', () => {
     expect(problems).toEqual([])
   })
 
-  it('expands the rosary decades to 26 (PL) and 36 (EN) segments', () => {
+  it('expands the morning sessions to 10 segments', () => {
     const texts = new Map(BUILTIN_TEXTS.map((t) => [t.key, t]))
     const size = (key: string) => {
       const session = BUILTIN_SESSIONS.find((s) => s.key === key)!
       return session.items.reduce((sum, item) => sum + builtinSegments(texts.get(item.text)!, 'n').length * item.repeat, 0)
     }
-    expect(size('pl.dziesiatka-rozanca')).toBe(26)
-    expect(size('en.decade-of-the-rosary')).toBe(36)
     expect(size('pl.poranne-afirmacje')).toBe(10)
     expect(size('en.morning-affirmations')).toBe(10)
+  })
+
+  it('holds no Hail Mary and no rosary decade (DECISIONS #135)', () => {
+    const keys = [...BUILTIN_TEXTS.map((t) => t.key), ...BUILTIN_SESSIONS.map((s) => s.key)]
+    expect(keys.filter((key) => [...RETIRED_BUILTIN_TEXTS, ...RETIRED_BUILTIN_SESSIONS].includes(key as never))).toEqual([])
+    const sentences = BUILTIN_TEXTS.flatMap((t) => builtinSegments(t, 'n'))
+    expect(sentences.filter((sentence) => /hail mary|zdrowaś maryjo|święta maryjo/i.test(sentence))).toEqual([])
   })
 })

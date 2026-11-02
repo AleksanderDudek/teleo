@@ -21,7 +21,7 @@ beforeEach(async () => {
   await updateAppSettings({ uiLang: 'pl', contentFocus: 'both', onboardingCompleted: true })
   await seedBuiltins()
   await createText({ title: 'Moje', type: 'affirmation', lang: 'pl', splitMode: 'line', segments: ['Jestem spokojny i silny.'] })
-  const run = await startRun({ kind: 'template', templateId: builtinSessionId('pl.dziesiatka-rozanca') })
+  const run = await startRun({ kind: 'template', templateId: builtinSessionId('pl.poranne-afirmacje') })
   for (let i = 0; i < run.plan.length; i++) {
     await recordAttempt({ runId: run.id, entryIndex: i, evaluation: { accepted: true, coverage: 1, extra: 0, wrong: 0, transcript: 'ok' }, engine: 'webspeech', durationMs: 900 })
   }
