@@ -36,7 +36,7 @@ describe('seedBuiltins', () => {
   it('inserts all builtin texts and sessions once', async () => {
     await seedBuiltins(10)
     expect(await db.texts.count()).toBe((await loadBuiltinTexts()).length)
-    expect(await db.sessionTemplates.count()).toBe(8)
+    expect(await db.sessionTemplates.count()).toBe(6)
     expect((await readSettings()).meta.seedVersion).toBe(SEED_VERSION)
     const segmentsBefore = await db.segments.count()
     await seedBuiltins(20)
@@ -44,11 +44,10 @@ describe('seedBuiltins', () => {
     expect((await db.texts.get(builtinTextId('pl.ojcze-nasz')))?.updatedAt).toBe(10)
   })
 
-  it('shows builtins of both languages together (both focus) and pins the rosary for Polish', async () => {
+  it('shows builtins of both languages together (both focus) and pins the morning affirmations for Polish', async () => {
     await seedBuiltins()
     expect(await visibleTexts()).toEqual([
       'en.glory-be',
-      'en.hail-mary',
       'en.lords-prayer',
       'en.morning',
       'en.psalm-23',
@@ -60,15 +59,11 @@ describe('seedBuiltins', () => {
       'pl.ojcze-nasz',
       'pl.poranek',
       'pl.przez-jezusa-chrystusa',
-      'pl.zdrowas-maryjo',
     ])
-    const rosary = await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca'))
-    expect(rosary).toMatchObject({ pinned: true, archived: false, source: 'builtin' })
-    expect(rosary?.items).toEqual([
-      { textId: builtinTextId('pl.ojcze-nasz'), repeat: 1 },
-      { textId: builtinTextId('pl.zdrowas-maryjo'), repeat: 10 },
-      { textId: builtinTextId('pl.chwala-ojcu'), repeat: 1 },
-    ])
+    // No Polish prayer session since the rosary decade left (DECISIONS #135).
+    const morning = await db.sessionTemplates.get(builtinSessionId('pl.poranne-afirmacje'))
+    expect(morning).toMatchObject({ pinned: true, archived: false, source: 'builtin' })
+    expect(morning?.items).toEqual([{ textId: builtinTextId('pl.poranek'), repeat: 1 }])
   })
 
   it('seeds the prayer library with what each text is for, visible under the content focus', async () => {
@@ -105,19 +100,19 @@ describe('seedBuiltins', () => {
   it('keeps user choices (hidden, pinned) when content is re-seeded', async () => {
     await seedBuiltins()
     await db.texts.update(builtinTextId('pl.aniele-bozy'), { archived: true })
-    await db.sessionTemplates.update(builtinSessionId('pl.dziesiatka-rozanca'), { pinned: false })
+    await db.sessionTemplates.update(builtinSessionId('pl.poranne-afirmacje'), { pinned: false })
     await updateMeta({ seedVersion: 0 })
     await seedBuiltins()
     expect((await db.texts.get(builtinTextId('pl.aniele-bozy')))?.archived).toBe(true)
-    expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(false)
+    expect((await db.sessionTemplates.get(builtinSessionId('pl.poranne-afirmacje')))?.pinned).toBe(false)
   })
 })
 
 describe('seedCore and seedLibrary (the app awaits only the core, DECISIONS #126)', () => {
   it('writes the core texts and sessions first and the library after, then marks the version', async () => {
     expect(await seedCore()).toBe(true)
-    expect(await db.texts.count()).toBe(14)
-    expect(await db.sessionTemplates.count()).toBe(8)
+    expect(await db.texts.count()).toBe(12)
+    expect(await db.sessionTemplates.count()).toBe(6)
     expect((await readSettings()).meta.seedVersion).toBeLessThan(SEED_VERSION)
     await seedLibrary()
     expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
@@ -167,7 +162,6 @@ describe('applyContentPreferences', () => {
     await applyContentPreferences('pl', 'prayers')
     expect(await visibleTexts()).toEqual([
       'en.glory-be',
-      'en.hail-mary',
       'en.lords-prayer',
       'en.psalm-23',
       'en.psalm-91',
@@ -175,7 +169,6 @@ describe('applyContentPreferences', () => {
       'pl.aniele-bozy',
       'pl.chwala-ojcu',
       'pl.ojcze-nasz',
-      'pl.zdrowas-maryjo',
     ])
     expect(await visibleLibraryPrayers()).toBe(LIBRARY_PRAYERS)
   })
@@ -188,10 +181,12 @@ describe('applyContentPreferences', () => {
   })
 
   it('picks the default pinned session per language and focus', () => {
-    expect(defaultPinnedSessionKey('pl', 'both')).toBe('pl.dziesiatka-rozanca')
+    // Polish has no prayer session (DECISIONS #135): both kinds fall back to its affirmations, prayers alone pin nothing.
+    expect(defaultPinnedSessionKey('pl', 'both')).toBe('pl.poranne-afirmacje')
+    expect(defaultPinnedSessionKey('pl', 'prayers')).toBeNull()
     expect(defaultPinnedSessionKey('pl', 'affirmations')).toBe('pl.poranne-afirmacje')
     expect(defaultPinnedSessionKey('en', 'both')).toBe('en.morning-affirmations')
-    expect(defaultPinnedSessionKey('en', 'prayers')).toBe('en.decade-of-the-rosary')
+    expect(defaultPinnedSessionKey('en', 'prayers')).toBe('en.psalm-91-session')
   })
 })
 
@@ -226,18 +221,18 @@ describe('applyLanguage', () => {
   it('pins the default session of the new language when none of its sessions is pinned', async () => {
     await updateAppSettings({ uiLang: 'pl', contentFocus: 'both' })
     await seedBuiltins()
-    expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(true)
+    expect((await db.sessionTemplates.get(builtinSessionId('pl.poranne-afirmacje')))?.pinned).toBe(true)
 
     await applyLanguage('en', 'both')
     expect((await db.sessionTemplates.get(builtinSessionId('en.morning-affirmations')))?.pinned).toBe(true)
     // The Polish pin stays for when the language is switched back.
-    expect((await db.sessionTemplates.get(builtinSessionId('pl.dziesiatka-rozanca')))?.pinned).toBe(true)
+    expect((await db.sessionTemplates.get(builtinSessionId('pl.poranne-afirmacje')))?.pinned).toBe(true)
   })
 
   it('leaves the pins alone when the language already has a pinned session', async () => {
     await updateAppSettings({ uiLang: 'pl', contentFocus: 'both' })
     await seedBuiltins()
-    await db.sessionTemplates.update(builtinSessionId('en.decade-of-the-rosary'), { pinned: true })
+    await db.sessionTemplates.update(builtinSessionId('en.psalm-91-session'), { pinned: true })
     await applyLanguage('en', 'both')
     expect((await db.sessionTemplates.get(builtinSessionId('en.morning-affirmations')))?.pinned).toBe(false)
   })

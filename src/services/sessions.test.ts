@@ -17,7 +17,15 @@ import { updateAppSettings } from './settings'
 import { createText } from './texts'
 
 const NOON = new Date(2026, 8, 25, 12).getTime()
-const ROSARY = builtinSessionId('pl.dziesiatka-rozanca')
+const MORNING = builtinSessionId('pl.poranne-afirmacje')
+
+/** Our Father, Glory Be ×10, the Guardian Angel prayer: 4 + 2 × 10 + 3 sentences. */
+const prayers = (now?: number) =>
+  createTemplate('Modlitwy', [
+    { textId: builtinTextId('pl.ojcze-nasz'), repeat: 1 },
+    { textId: builtinTextId('pl.chwala-ojcu'), repeat: 10 },
+    { textId: builtinTextId('pl.aniele-bozy'), repeat: 1 },
+  ], now)
 
 beforeEach(async () => {
   await resetDb()
@@ -37,19 +45,20 @@ describe('templates', () => {
   })
 
   it('protects builtin templates: no edits, delete only hides', async () => {
-    await expect(updateTemplate(ROSARY, 'X', [{ textId: builtinTextId('pl.ojcze-nasz'), repeat: 1 }])).rejects.toMatchObject({ code: 'notEditable' })
-    await deleteTemplate(ROSARY)
-    expect(await db.sessionTemplates.get(ROSARY)).toMatchObject({ archived: true, pinned: false })
+    await expect(updateTemplate(MORNING, 'X', [{ textId: builtinTextId('pl.ojcze-nasz'), repeat: 1 }])).rejects.toMatchObject({ code: 'notEditable' })
+    await deleteTemplate(MORNING)
+    expect(await db.sessionTemplates.get(MORNING)).toMatchObject({ archived: true, pinned: false })
   })
 })
 
 describe('runs', () => {
-  it('expands the PL rosary decade into 26 entries and records last use', async () => {
-    const run = await startRun({ kind: 'template', templateId: ROSARY }, NOON)
-    expect(run).toMatchObject({ status: 'in_progress', dayKey: '2026-09-25', cursor: 0, title: 'Dziesiątka różańca', templateId: ROSARY })
-    expect(run.plan).toHaveLength(26)
+  it('expands a session with a repeated prayer into 27 entries and records last use', async () => {
+    const { id } = await prayers()
+    const run = await startRun({ kind: 'template', templateId: id }, NOON)
+    expect(run).toMatchObject({ status: 'in_progress', dayKey: '2026-09-25', cursor: 0, title: 'Modlitwy', templateId: id })
+    expect(run.plan).toHaveLength(27)
     expect(run.entries.every((e) => e.status === 'pending' && e.attempts === 0)).toBe(true)
-    expect((await db.sessionTemplates.get(ROSARY))?.lastUsedAt).toBe(NOON)
+    expect((await db.sessionTemplates.get(id))?.lastUsedAt).toBe(NOON)
   })
 
   it('starts an ad-hoc run from one text', async () => {
@@ -67,7 +76,7 @@ describe('runs', () => {
   })
 
   it('keeps only one running session and resumes today’s partial run', async () => {
-    const first = await startRun({ kind: 'template', templateId: ROSARY }, NOON)
+    const first = await startRun({ kind: 'template', templateId: MORNING }, NOON)
     await db.sessionRuns.update(first.id, { cursor: 3, lastActivityAt: NOON + 10 })
     const second = await startRun({ kind: 'text', textId: builtinTextId('pl.chwala-ojcu') }, NOON + 20)
     expect((await db.sessionRuns.get(first.id))?.status).toBe('partial')

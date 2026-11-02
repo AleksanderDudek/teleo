@@ -34,7 +34,7 @@ export default function Library() {
   const app = useAppSettings()
   const location = useLocation()
   const entries = useLibrary(app.uiLang)
-  // Texts used by a visible session belong to "Start here" (the rosary prayers, the morning affirmations…).
+  // Texts used by a visible session belong to "Start here" (the morning affirmations, Psalm 91…).
   const inSessions = useLiveQuery(async () => {
     const templates = await db.sessionTemplates.toArray()
     return new Set(templates.filter((template) => !template.archived).flatMap((template) => template.items.map((item) => item.textId)))

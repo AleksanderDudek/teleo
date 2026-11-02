@@ -9,7 +9,7 @@ export interface RepetitionLabel {
   single: boolean
 }
 
-/** Counter for repeated template items ("Zdrowaś Maryjo · 3/10"); nothing for single repetitions. */
+/** Counter for repeated template items ("Chwała Ojcu · 3/10"); nothing for single repetitions. */
 export function repetitionLabel(plan: readonly PlanEntry[], index: number, titleOf: (textId: string) => string): RepetitionLabel | undefined {
   const entry = plan[index]
   if (!entry) return undefined

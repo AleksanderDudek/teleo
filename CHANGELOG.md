@@ -4,6 +4,12 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Changed
+
+- **The Hail Mary is no longer part of Teleo**, in either language, and neither are the rosary decades built on it.
+  Your own sessions keep their other prayers; points and streak days you earned stay.
+- **The support ribbon at the top is larger** and easier to tap.
+
 ### Easier to find your way
 
 - **A guided tour after the setup:** Teleo offers a one-minute walk — the screen dims, one control lights up, and the

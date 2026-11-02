@@ -21,7 +21,7 @@ export function isBlockComplete(
 
 /**
  * Repetition counters for the entry at `index`, used by live mode to show
- * "Hail Mary 3 of 10"-style progress: `rep` is the 0-based rank of this
+ * "Glory Be 3 of 10"-style progress: `rep` is the 0-based rank of this
  * entry's block among all blocks of the same template item present in the
  * plan, `reps` is how many such blocks the plan holds (only those actually
  * present — a truncated plan counts fewer), and `blockStart`/`blockEnd` are

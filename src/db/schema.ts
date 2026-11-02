@@ -1,6 +1,6 @@
 import Dexie, { type EntityTable, type Table } from 'dexie'
 import { withRenamedKeys } from '@/domain/backup/renamed'
-import { RETIRED_TEXT_SOURCES, retiredRows } from '@/domain/backup/retired'
+import { isRetiredTemplate, RETIRED_BUILTIN_TEXTS, RETIRED_TEXT_SOURCES, retiredRows } from '@/domain/backup/retired'
 import { DB_NAME } from './name'
 import type {
   AchievementRow,
@@ -21,7 +21,7 @@ import type {
 } from './types'
 
 export { DB_NAME } from './name'
-export const SCHEMA_VERSION = 6
+export const SCHEMA_VERSION = 7
 
 /**
  * IndexedDB schema (spec §10). Boolean fields (`archived`, `pinned`, `accepted`)
@@ -105,6 +105,29 @@ export class TeleoDB extends Dexie {
           await table.bulkDelete(changed.map(({ row }) => Dexie.getByKeyPath(row, keyPath)))
           await table.bulkAdd(changed.map(({ renamed }) => renamed))
         }
+      })
+    // v1.8: the Hail Mary and the rosary decades built on it left the content (DECISIONS #135). Their rows are deleted
+    // and the prayer is taken out of the user's own sessions; attempts, daily stats and points stay. Restore points drop
+    // them when used, like every restore.
+    this.version(7)
+      .stores({})
+      .upgrade(async (tx) => {
+        await tx.table('sessionTemplates').filter(isRetiredTemplate).delete()
+        const ids = RETIRED_BUILTIN_TEXTS.map((key) => `builtin:${key}`)
+        const retired = retiredRows(await tx.table('texts').where('id').anyOf(ids).toArray())
+        if (retired.textIds.size === 0) return
+        const textIds = [...retired.textIds]
+        await tx.table('texts').bulkDelete(textIds)
+        await tx.table('segments').where('textId').anyOf(textIds).delete()
+        await tx.table('textStats').bulkDelete(textIds)
+        await tx.table('achievements').where('textId').anyOf(textIds).delete()
+        await tx.table('sessionRuns').filter(retired.sessionRun).delete()
+        const taskIds = await tx.table('tasks').where('textId').anyOf(textIds).primaryKeys()
+        await tx.table('taskLog').where('taskId').anyOf(taskIds).delete()
+        await tx.table('tasks').bulkDelete(taskIds)
+        await tx.table<SessionTemplate>('sessionTemplates').toCollection().modify((template) => {
+          template.items = retired.template(template).items
+        })
       })
   }
 }

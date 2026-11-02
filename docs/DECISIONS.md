@@ -788,3 +788,23 @@ findability instead.
       open the text.
     - A content test fails when a key, title, tag, note or sentence names them again; `SEED_VERSION` 8 carries the new
       tags and notes to existing installs. README, CHANGELOG and the library design spec no longer name them.
+
+## No Hail Mary; a larger support ribbon (owner request, 2026-11-02)
+
+135. **The Hail Mary and the rosary decades leave the content.** Owner request: the prayer is removed in both languages
+    (`pl.zdrowas-maryjo`, `en.hail-mary`), and with it the two sessions that were built on it
+    (`pl.dziesiatka-rozanca`, `en.decade-of-the-rosary`) — the owner chose no replacement session. Our Father, Glory Be
+    and the Guardian Angel prayer stay, without the `rosary` / `różaniec` tag (`SEED_VERSION` 9).
+    - **Rows on a device and in backups** follow #118: the retired keys live in `src/domain/backup/retired.ts`
+      (`RETIRED_BUILTIN_TEXTS`, `RETIRED_BUILTIN_SESSIONS`; `isRetiredText` now also matches them). The Dexie v7 upgrade
+      and every restore delete the texts, their segments, stats, per-text achievements, daily tasks (with their log),
+      the two builtin sessions, single-text runs and the *unfinished* session runs holding the prayer (they could not
+      be resumed); finished session runs stay in the history. User sessions lose the prayer's items, as when a text is
+      deleted (#28). Attempts, daily stats and the XP ledger stay.
+    - **Polish has no builtin prayer session now.** `defaultPinnedSessionKey` falls back to the affirmations of the
+      language when the focus is *both*; with *prayers* alone nothing is pinned and Start offers the session of the day.
+      Installs that had the decade pinned lose the pin and fall back the same way (§8.2: resume → last used → pinned →
+      daily). Copy that gave the decade as the example of a session now names other prayers.
+
+136. **The support ribbon is 1.5× larger** (supersedes the 36 px of #95): `--strip-h` 3.375 rem (54 px), 1.2 rem
+    text, 24 px coffee icon. Everything sticky below it follows `--chrome-top`.

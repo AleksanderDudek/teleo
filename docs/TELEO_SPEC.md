@@ -273,13 +273,11 @@ Wszystkie teksty wbudowane mogą być przez użytkownika ukryte, a do edycji –
 
 **PL – modlitwy (tradycyjne teksty liturgiczne):**
 - *Ojcze nasz* – „Ojcze nasz, któryś jest w niebie, święć się imię Twoje, przyjdź królestwo Twoje, bądź wola Twoja jako w niebie, tak i na ziemi. Chleba naszego powszedniego daj nam dzisiaj. I odpuść nam nasze winy, jako i my odpuszczamy naszym winowajcom. I nie wódź nas na pokuszenie, ale nas zbaw ode złego. Amen.”
-- *Zdrowaś Maryjo* – „Zdrowaś Maryjo, łaski pełna, Pan z Tobą, błogosławionaś Ty między niewiastami i błogosławiony owoc żywota Twojego, Jezus. Święta Maryjo, Matko Boża, módl się za nami grzesznymi teraz i w godzinę śmierci naszej. Amen.”
 - *Chwała Ojcu* – „Chwała Ojcu i Synowi, i Duchowi Świętemu. Jak była na początku, teraz i zawsze, i na wieki wieków. Amen.”
 - *Aniele Boży* – „Aniele Boży, stróżu mój, Ty zawsze przy mnie stój. Rano, wieczór, we dnie, w nocy bądź mi zawsze ku pomocy. Strzeż duszy, ciała mego i zaprowadź mnie do żywota wiecznego. Amen.”
 
 **EN – prayers (traditional public-domain wording):**
 - *The Lord’s Prayer* – “Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread. And forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.”
-- *Hail Mary* – “Hail Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.”
 - *Glory Be* – “Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.”
 - *Psalm 23* (King James Version, domena publiczna) – pełny tekst do wklejenia w seed.
 
@@ -290,7 +288,7 @@ Jestem spokojny i skupiony. · Każdego dnia staję się lepszą wersją siebie.
 **EN – affirmations (original, “Morning” set):**
 I am calm and focused. · Every day I am becoming a better version of myself. · I have the strength to handle this day. · I deserve kindness and respect. · My mind is clear and my choices are wise. · I am grateful for what I have. · I learn from my mistakes and keep moving forward. · I take care of my body and my mind. · Today I take small steps toward my goals. · I choose peace over hurry.
 
-**Sesje wbudowane:** „Poranne afirmacje” (10 segmentów), „Dziesiątka różańca” PL (Ojcze nasz ×1, Zdrowaś Maryjo ×10, Chwała Ojcu ×1), „Morning affirmations” EN, „Decade of the Rosary” EN.
+**Sesje wbudowane:** „Poranne afirmacje” (10 segmentów), „Morning affirmations” EN. (Zdrowaś Maryjo / Hail Mary i dziesiątki różańca usunięte – DECISIONS #135.)
 
 ---
 
