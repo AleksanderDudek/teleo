@@ -126,7 +126,7 @@
  */
 :root {
   /* App chrome: the support ribbon under the status bar, then the compact app bar of each screen. */
-  --strip-h: 2.25rem;
+  --strip-h: 3.375rem;
   --chrome-top: calc(env(safe-area-inset-top, 0px) + var(--strip-h));
   --appbar-h: 3rem;
   /* The stained-glass support window: fixed pigments, like a painted panel (the same in both themes). */

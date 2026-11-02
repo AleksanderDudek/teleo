@@ -17,11 +17,11 @@ export function SupportStrip() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('support.buttonLabel')}
-        className="mx-auto flex h-(--strip-h) max-w-2xl items-center justify-center gap-2 px-4 text-[0.8rem] font-semibold text-gold-ink select-none"
+        className="mx-auto flex h-(--strip-h) max-w-2xl items-center justify-center gap-3 px-4 text-[1.2rem] font-semibold text-gold-ink select-none"
       >
-        <Icon name="coffee" size={16} />
+        <Icon name="coffee" size={24} />
         <span className="truncate">{t('support.strip')}</span>
-        <Icon name="caret-right" size={12} className="shrink-0 opacity-70" />
+        <Icon name="caret-right" size={18} className="shrink-0 opacity-70" />
       </a>
     </div>
   )
