@@ -808,3 +808,17 @@ findability instead.
 
 136. **The support ribbon is 1.5× larger** (supersedes the 36 px of #95): `--strip-h` 3.375 rem (54 px), 1.2 rem
     text, 24 px coffee icon. Everything sticky below it follows `--chrome-top`.
+
+## The library prayers checked again against the recordings (owner request, 2026-11-12)
+
+137. **Every sentence of the 133 `*.life-*` prayers is checked again against what was said** — an owner-supplied update
+    of `src/content/prayers/{en,pl}.json`; the per-sentence trace, now with the words heard and a note on each change,
+    stays outside the repository as in #126. Words the first version had cut are restored and words it had added are
+    dropped; sentences are split or joined where the recording is; 420 sentences that were not the preacher's own
+    words are replaced by ones that are, and 29 that no recording holds are dropped. 3,481 → 3,508 sentences per
+    language (60 prayers change length); keys, English titles, needs and the 29 `*.stronghold-*` prayers are unchanged.
+    - **The Polish translation follows sentence for sentence** (content test) and now says *w imieniu Jezusa* for *in
+      the name of Jesus*, as the stronghold series does, instead of *w imię Jezusa*; *w potężnym imieniu Jezusa* stays
+      (#126). m/f/n forms in 108 prayers instead of 78 (#26); six Polish titles are reworded.
+    - **`SEED_VERSION` 10** re-seeds the library: `replaceSegments` keeps unchanged sentences with their ids and history,
+      archives changed ones that were said or are in an unfinished run, and leaves text stats, points and streaks alone.

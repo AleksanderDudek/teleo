@@ -6,6 +6,10 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ### Changed
 
+- **The library prayers read closer to what was actually prayed.** Every sentence was checked again against its
+  recording: words that had been cut are back, added ones are gone, and lines that were not in a recording are replaced
+  or dropped. The Polish translation follows the new wording sentence for sentence and uses your grammatical form in
+  more prayers. Your points, streak days and the times you said each prayer stay.
 - **The Hail Mary is no longer part of Teleo**, in either language, and neither are the rosary decades built on it.
   Your own sessions keep their other prayers; points and streak days you earned stay.
 - **The support ribbon at the top is larger** and easier to tap.
