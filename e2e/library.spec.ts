@@ -70,7 +70,8 @@ test('a stronghold is found by its name, and its page says what to read before p
   await page.getByRole('link', { name: /Against the Stronghold of Paranoia/ }).click()
   const note = page.getByRole('region', { name: 'Before you pray' })
   await expect(note).toContainText('Proverbs 18:11')
-  await expect(note).toContainText('Start with “Tearing Down a Stronghold”')
+  // A full prayer since DECISIONS #139: no longer "start with the method prayer".
+  await expect(note).toContainText('so you can pray it on its own')
   await expect(page.getByRole('link', { name: 'Strongholds & bad patterns', exact: true })).toBeVisible()
   // The note is read, never said: the sentences start with the prayer itself.
   const text = page.getByRole('region', { name: 'Text', exact: true })
@@ -133,7 +134,7 @@ test.describe('in Polish', () => {
     await page.getByRole('link', { name: /Przeciw warowni paranoi/ }).click()
     const note = page.getByRole('region', { name: 'Zanim zaczniesz' })
     await expect(note).toContainText('Prz 18,11')
-    await expect(note).toContainText('Zacznij od modlitwy „Burzenie warowni”')
+    await expect(note).toContainText('możesz się nią modlić samodzielnie')
     await expect(page.getByRole('link', { name: 'Warownie i złe wzorce', exact: true })).toBeVisible()
   })
 })
