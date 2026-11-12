@@ -1,0 +1,3136 @@
+[
+  {
+    "key": "pl.orthodox-in-the-name-of-the-father",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "W imię Ojca",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "segments": [
+      "W imię Ojca i Syna, i Świętego Ducha. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-god-be-merciful",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Boże, bądź miłościw mnie grzesznemu",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "holiness"
+    ],
+    "note": "Słowa celnika z przypowieści (Łk 18,13). Odmawia się trzy razy, zwykle z pokłonem.",
+    "segments": [
+      "Boże, bądź miłościw mnie grzesznemu."
+    ]
+  },
+  {
+    "key": "pl.orthodox-opening-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa początkowa: dla modlitw Przeczystej Twojej Matki",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "Tak zaczynają się modlitwy poranne w polskim modlitewniku.",
+    "segments": [
+      "Panie Jezu Chryste, Synu Boży, dla modlitw Przeczystej Twojej Matki i wszystkich świętych, zmiłuj się nad nami. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-glory-to-you-our-god",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała Tobie, Boże nasz, chwała Tobie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Chwała Tobie, Boże nasz, chwała Tobie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-heavenly-king",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Królu Niebieski",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "closeness"
+    ],
+    "note": "Modlitwa do Ducha Świętego. Od Paschy do Pięćdziesiątnicy zwyczajowo się jej nie odmawia. Spotkasz też „Skarbie dóbr” zamiast „Skarbnico dóbr” – obie formy są poprawne.",
+    "segments": [
+      "Królu Niebieski, Pocieszycielu, Duchu Prawdy, który wszędzie jesteś i wszystko napełniasz, Skarbnico Dóbr i Dawco życia,",
+      "przyjdź i zamieszkaj w nas, i oczyść nas od wszelkiej zmazy i zbaw, o Dobry, dusze nasze."
+    ]
+  },
+  {
+    "key": "pl.orthodox-trisagion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Święty Boże (Trisagion)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Odmawia się trzy razy.",
+    "segments": [
+      "Święty Boże, Święty Mocny, Święty Nieśmiertelny, zmiłuj się nad nami."
+    ]
+  },
+  {
+    "key": "pl.orthodox-glory-to-the-father",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała Ojcu (wersja prawosławna)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Często dzielona na dwie części: „Chwała Ojcu i Synowi, i Świętemu Duchowi” oraz „I teraz, i zawsze, i na wieki wieków. Amen”, np. między troparionami.",
+    "segments": [
+      "Chwała Ojcu i Synowi, i Świętemu Duchowi, i teraz, i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-all-holy-trinity",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Najświętsza Trójco",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "holiness"
+    ],
+    "segments": [
+      "Najświętsza Trójco, zmiłuj się nad nami, Panie, oczyść grzechy nasze, Władco, przebacz nieprawości nasze, Święty, nawiedź nas, i ulecz niemoce nasze, dla imienia Twego."
+    ]
+  },
+  {
+    "key": "pl.orthodox-lord-have-mercy",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Panie, zmiłuj się",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Powtarza się trzy, dwanaście lub czterdzieści razy, jak podaje porządek modlitw.",
+    "segments": [
+      "Panie, zmiłuj się."
+    ]
+  },
+  {
+    "key": "pl.orthodox-our-father",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Ojcze nasz (wersja prawosławna)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "W cerkwi kapłan dodaje zakończenie: „Albowiem Twoje jest królestwo i moc, i chwała, Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen”.",
+    "segments": [
+      "Ojcze nasz, któryś jest w niebiesiech, święć się imię Twoje, przyjdź królestwo Twoje, bądź wola Twoja, jako w niebie tak i na ziemi,",
+      "chleba naszego powszedniego daj nam dzisiaj, i odpuść nam nasze winy, jako i my odpuszczamy naszym winowajcom, i nie wwódź nas w pokuszenie, ale nas zbaw ode złego."
+    ]
+  },
+  {
+    "key": "pl.orthodox-symbol-of-faith",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Wyznanie wiary (Symbol wiary)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "faith",
+      "traditional"
+    ],
+    "note": "W cerkwi odmawia się je w brzmieniu przyjętym przez Cerkiew, które może różnić się pojedynczymi słowami. „Soborowy” znaczy powszechny (gr. katholike).",
+    "segments": [
+      "Wierzę w jednego Boga, Ojca Wszechmogącego, Stworzyciela nieba i ziemi, wszystkiego, co widzialne i niewidzialne.",
+      "I w jednego Pana Jezusa Chrystusa, Syna Bożego Jednorodzonego, z Ojca zrodzonego przed wszystkimi wiekami;",
+      "Światłość ze Światłości, Boga prawdziwego z Boga prawdziwego, zrodzonego, nie stworzonego, współistotnego Ojcu, przez którego wszystko się stało.",
+      "Który dla nas, ludzi, i dla naszego zbawienia zstąpił z niebios i przyjął ciało z Ducha Świętego i Marii Dziewicy, i stał się człowiekiem.",
+      "Ukrzyżowany za nas za Poncjusza Piłata, cierpiał i został pogrzebany;",
+      "i zmartwychwstał trzeciego dnia według Pism.",
+      "Wstąpił na niebiosa i siedzi po prawicy Ojca;",
+      "i znów przyjdzie w chwale sądzić żywych i umarłych, a Jego królestwu nie będzie końca.",
+      "I w Ducha Świętego, Pana, Dawcę życia, który od Ojca pochodzi, który wraz z Ojcem i Synem odbiera pokłon i chwałę, który mówił przez proroków.",
+      "W jeden, święty, soborowy i apostolski Kościół.",
+      "Wyznaję jeden chrzest na odpuszczenie grzechów.",
+      "Oczekuję zmartwychwstania umarłych i życia przyszłego wieku. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-jesus-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa Jezusowa",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "closeness",
+      "traditional"
+    ],
+    "note": "Odmawiana wiele razy, np. 33 razy na czotkach (sznurze modlitewnym). Spotyka się też formę „zmiłuj się nade mną, grzesznikiem”.",
+    "segments": [
+      "Panie Jezu Chryste, Synu Boży, zmiłuj się nade mną, grzesznym."
+    ]
+  },
+  {
+    "key": "pl.orthodox-through-the-prayers-of-our-holy-fathers",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przez modlitwy świętych ojców naszych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Tą formułą zaczyna się lub kończy modlitwę, gdy nie ma kapłana.",
+    "segments": [
+      "Przez modlitwy świętych ojców naszych, Panie Jezu Chryste, Boże nasz, zmiłuj się nad nami i zbaw nas. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-closing-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa końcowa: dla modlitw najczystszej Twojej Matki i ojców",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "Zamyka modlitwy poranne w polskim modlitewniku.",
+    "segments": [
+      "Panie Jezu Chryste, Synu Boży, dla modlitw najczystszej Twojej Matki, czcigodnych i bogobojnych ojców naszych, i wszystkich świętych, zmiłuj się nad nami. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-dismissal",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Odpust: Chrystus, prawdziwy Bóg nasz",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Odpust to błogosławieństwo na zakończenie nabożeństwa.",
+    "segments": [
+      "Chrystus, prawdziwy Bóg nasz, przez wstawiennictwo Przeczystej i Świętej Swojej Matki oraz wszystkich świętych niech zmiłuje się nad nami i zbawi nas, albowiem jest dobry i miłuje ludzi.",
+      "Przez modlitwy świętych ojców naszych, Panie Jezu Chryste, zmiłuj się nad nami i zbaw nas. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-father-bless",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "W imię Pańskie pobłogosław, ojcze",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "church"
+    ],
+    "note": "Prośba do kapłana o błogosławieństwo. Modląc się bez kapłana, mówi się zamiast niej „Przez modlitwy świętych ojców naszych…”.",
+    "segments": [
+      "W imię Pańskie pobłogosław, ojcze!"
+    ]
+  },
+  {
+    "key": "pl.orthodox-alleluia",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Alleluja",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Alleluja. Alleluja. Alleluja."
+    ]
+  },
+  {
+    "key": "pl.orthodox-glory-to-you-o-god",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała Tobie, Boże",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "Mówi się trzy razy, np. po „Alleluja” i zaraz po przyjęciu Komunii.",
+    "segments": [
+      "Chwała Tobie, Boże."
+    ]
+  },
+  {
+    "key": "pl.orthodox-lord-our-hope",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Panie, nadziejo nasza, chwała Tobie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Panie, nadziejo nasza, chwała Tobie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-troparia-to-the-holy-trinity",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Tropariony do Trójcy Świętej",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "traditional"
+    ],
+    "segments": [
+      "Powstawszy ze snu przypadamy do Ciebie, Dobry Boże, i anielską pieśń donośnie śpiewamy Tobie, Mocny: Święty, Święty, Święty jesteś Boże, przez Bogurodzicę zmiłuj się nad nami.",
+      "Chwała Ojcu i Synowi, i Świętemu Duchowi.",
+      "Z łoża i snu podźwignąłeś mnie, Boże, oświeć mój umysł i serce, i otwórz moje usta, abym Ciebie wysławiał, Trójco Święta:",
+      "Święty, Święty, Święty jesteś Boże, przez Bogurodzicę zmiłuj się nad nami.",
+      "I teraz, i zawsze, i na wieki wieków. Amen.",
+      "Niespodziewanie przyjdzie Sędzia i wyjawione będą uczynki każdego, lecz z bojaźnią wołamy w nocy: Święty, Święty, Święty jesteś Boże, przez Bogurodzicę zmiłuj się nad nami."
+    ]
+  },
+  {
+    "key": "pl.orthodox-thanksgiving-on-rising",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa dziękczynna po wstaniu ze snu",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Powstawszy ze snu dzięki składam Tobie, Najświętsza Trójco, że z wielkiej swej dobroci i cierpliwości nie zagniewałaś się na mnie, leniwego i grzesznego,",
+      "i nie zgubiłaś mnie z moimi nieprawościami, ale jak zawsze byłaś miłosierna i podźwignęłaś mnie, leżącego w beznadziei, abym poranną modlitwą wysławiał Twoją moc.",
+      "Oświeć teraz oczy mego umysłu, otwórz moje usta, abym nauczył się Twoich słów i zrozumiał Twoje przykazania, czynił Twoją wolę i wysławiał Ciebie w wyznaniu serdecznym,",
+      "i w pieśniach wywyższał najświętsze Twoje imię, Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-macarius-first-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Pierwsza modlitwa św. Makarego Wielkiego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "Boże, oczyść mnie grzesznego, albowiem nigdy nie uczyniłem dobra przed Tobą, ale zbaw mnie od złego, niechaj dzieje się ze mną wola Twoja,",
+      "abym nie ku potępieniu otworzył moje niegodne usta i wysławiał święte imię Twoje, Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-macarius-second-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Druga modlitwa św. Makarego Wielkiego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "Powstawszy ze snu o północy pieśń zanoszę Tobie, Zbawco, i padając przed Tobą, wołam do Ciebie:",
+      "Nie daj mi zasnąć w grzechu śmierci, ale zmiłuj się, który dobrowolnie zostałeś ukrzyżowany, i leżącego w lenistwie prędko mnie podnieś i zbaw mnie,",
+      "w gorliwości i modlitwie, daj mi po nocnym śnie dzień bezgrzeszny, Chryste Boże, i zbaw mnie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-macarius-third-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Trzecia modlitwa św. Makarego Wielkiego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "protection"
+    ],
+    "segments": [
+      "Powstawszy ze snu przybiegam do Ciebie, Boże, Przyjacielu człowieka, do dzieł Twych z miłosierdzia Twego przystępuję i proszę Cię,",
+      "abyś dopomógł mi w każdym czasie, w każdej sprawie, zachowaj mnie od wszystkiego złego na tym świecie,",
+      "wybaw mnie od pokus szatana i wprowadź do Twego wiecznego królestwa, Ty bowiem jesteś moim Stwórcą, Dawcą wszelkiego dobra i Opiekunem,",
+      "w Tobie więc cała moja nadzieja, i Tobie chwałę oddaję, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-macarius-fourth-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Czwarta modlitwa św. Makarego Wielkiego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Boże, któryś dla wielkiej Twojej łaski i wielkiego miłosierdzia Twego pozwolił mi, Twemu słudze, przebyć miniony czas tej nocy bez napaści wszelkiego złego i przeciwnego,",
+      "Ty sam, Władco, Stwórco wszystkich rzeczy, uczyń mnie godnym przez Twoją przedziwną Światłość oświeconym sercem pełnić Twoją wolę, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-basil-lord-almighty",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa św. Bazylego Wielkiego: Panie Wszechwładny",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "Panie Wszechwładny, Boże mocy i wszelkiego ciała, który żyjesz na wysokościach i patrzysz na pokornych, badasz serca i nerki,",
+      "i ukryte rzeczy ludzi jawnie przewidujesz, niemająca początku i zawsze będąca Światłości, w którym nie masz odmiany lub zmiany, sam Nieśmiertelny Królu,",
+      "przyjmij nasze modlitwy, które w obecnym czasie zanosimy ze skalanych naszych ust, odważając się na wielość Twoich łask,",
+      "i przebacz nam nasze grzechy, które popełniliśmy czynem, słowem i myślą, świadome lub nieświadome, i oczyść nas z wszelkiego skalania ciała i ducha.",
+      "Daj nam, czuwającym sercem i trzeźwą myślą przejść całą noc obecnego życia, oczekując nadejścia świetlistego i objawionego dnia Jednorodzonego Twego Syna,",
+      "Pana Boga i Zbawiciela naszego Jezusa Chrystusa, w którym Sędzia wszystkich przyjdzie w chwale, aby każdemu oddać według jego uczynków,",
+      "abyśmy nie upadli i nie stali się leniwymi, ale czuwali i zostali znalezieni czuwającymi,",
+      "gotowi do wejścia w radość i do Bożego pałacu Jego chwały, gdzie świętych głos nieustający i niewypowiedziana słodycz oglądających niewypowiedzianą dobroć Twego oblicza.",
+      "Ty bowiem jesteś prawdziwą Światłością, oświecającą i uświęcającą wszystko, i Ciebie całe stworzenie opiewa na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-glory-to-you-king-god-almighty",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała Tobie, Królu, Boże wszechmogący",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "note": "Modlitwa z greckiego porządku modlitw porannych; nie ma jej w polskim modlitewniku.",
+    "segments": [
+      "Chwała Tobie, Królu, Boże wszechmogący, który w Twojej Boskiej i pełnej miłości opatrzności raczyłeś pozwolić mnie, niegodnemu grzesznikowi, powstać ze snu i dostąpić wejścia do Twego świętego domu.",
+      "Przyjmij, Panie, głos mojej modlitwy, jak przyjmujesz głosy Twoich świętych i duchowych Mocy;",
+      "i spraw, aby nie skalanymi wargami, lecz z czystego serca i w pokornym duchu zanoszona była Tobie chwała, abym i ja,",
+      "z jasną lampą mej duszy, stał się towarzyszem mądrych panien i wysławiał Ciebie, Boga Słowo, wysławianego w Ojcu i w Duchu. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-basil-we-bless-you",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa św. Bazylego: Błogosławimy Cię, Boże najwyższy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "note": "Według angielskiego modlitewnika odmawiana codziennie oprócz soboty.",
+    "segments": [
+      "Błogosławimy Cię, Boże najwyższy i Panie miłosierdzia, który zawsze czynisz z nami rzeczy wielkie i niezbadane, chwalebne, przedziwne i niezliczone.",
+      "Ty dajesz nam sen dla odpoczynku od naszych słabości i wytchnienia od trudów naszego utrudzonego ciała.",
+      "Dziękujemy Ci, że nie zgubiłeś nas wraz z naszymi grzechami, lecz wciąż okazujesz nam swoją miłość; a gdy pogrążeni byliśmy w rozpaczy, podźwignąłeś nas, abyśmy wysławiali Twoją moc.",
+      "Dlatego błagamy Twoją niezrównaną dobroć: oświeć oczy naszego umysłu i podnieś nasze myśli z ciężkiego snu gnuśności.",
+      "Otwórz nasze usta i napełnij je Twoją chwałą, abyśmy bez roztargnienia mogli śpiewać i wyznawać, że Ty jesteś Bogiem wysławianym we wszystkim i przez wszystkich:",
+      "Ojcem przedwiecznym wraz z Twoim Jednorodzonym Synem i Najświętszym, dobrym i życiodajnym Twoim Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-eustratios",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa św. Eustracjusza",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "note": "Według angielskiego modlitewnika odmawiana w sobotę. Modlitwa o dobrą śmierć i łaskawy sąd.",
+    "segments": [
+      "Wielce wysławiam Cię, Panie, albowiem wejrzałeś na moją niskość, nie wydałeś mnie w ręce moich nieprzyjaciół, lecz wybawiłeś moją duszę z utrapień.",
+      "Teraz, Władco, niech osłoni mnie Twoja ręka i niech zstąpi na mnie Twoja łaska,",
+      "gdyż dusza moja jest niespokojna i cierpi przed odejściem z tego nędznego i plugawego mojego ciała,",
+      "aby nie dosięgnął jej ostateczny zamysł przeciwnika i nie strącił jej w ciemność z powodu nieznanych i znanych grzechów, które nagromadziłem w tym życiu.",
+      "Bądź mi łaskawy, Władco, i niech dusza moja nie ujrzy mrocznego oblicza złych duchów, lecz niech przyjmą ją Twoi aniołowie, jaśniejący i świetliści.",
+      "Wsław Twoje święte imię i mocą Twoją postaw mnie przed Twoim Boskim sądem.",
+      "Gdy będę sądzony, nie pozwól, aby pochwyciła mnie ręka księcia tego świata i strąciła mnie, grzesznika, w otchłań piekła, lecz stań przy mnie i bądź mi Zbawcą i Orędownikiem.",
+      "Zmiłuj się, Panie, nad moją duszą, skalaną namiętnościami tego życia, i przyjmij ją oczyszczoną pokutą i wyznaniem, albowiem błogosławiony jesteś na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-evening-troparia",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Tropariony wieczorne: Gdy dzień przeminął",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "segments": [
+      "Gdy dzień przeminął, dziękuję Tobie, Panie, i proszę, aby wieczór i noc były bez grzechu.",
+      "Użycz mi tego, Zbawicielu, i zbaw mnie.",
+      "Chwała Ojcu i Synowi, i Świętemu Duchowi.",
+      "Gdy dzień przeszedł, wysławiam Ciebie, Władco, i proszę, aby wieczór wraz z nocą był bez zgorszenia.",
+      "Użycz mi tego, Zbawicielu, i zbaw mnie.",
+      "I teraz, i zawsze, i na wieki wieków. Amen.",
+      "Gdy dzień się skończył, opiewam Ciebie, Święty, i proszę, aby wieczór i noc były niezakłócone.",
+      "Użycz mi tego, Zbawicielu, i zbaw mnie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-child-evening-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa wieczorna dziecka",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "children"
+    ],
+    "note": "Modlitwa dla dziecka. Dziewczynka mówi: „położyła się i zasnęła”, „wysławiała”.",
+    "segments": [
+      "Panie Jezu Chryste, Ty przyjmowałeś dzieci, które przychodziły do Ciebie; przyjmij także z ust Twojego dziecka tę wieczorną modlitwę.",
+      "Osłoń mnie cieniem Twoich skrzydeł, abym w pokoju położył się i zasnął.",
+      "Obudź mnie we właściwym czasie, abym wysławiał Ciebie, albowiem Ty jeden jesteś dobry i miłujesz wszystkich ludzi."
+    ]
+  },
+  {
+    "key": "pl.orthodox-adult-evening-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa wieczorna dorosłych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "protection"
+    ],
+    "segments": [
+      "Panie Boże nasz, w czymkolwiek zgrzeszyłem tego dnia słowem, czynem lub myślą, przebacz mi, albowiem jesteś dobry i miłujesz ludzi.",
+      "Daj mi sen spokojny i niezakłócony.",
+      "Chroń mnie od wszelkiej napaści i podstępu złego.",
+      "Podnieś mnie we właściwym czasie, abym wysławiał Ciebie, albowiem błogosławiony jesteś wraz z Jednorodzonym Twoim Synem i Najświętszym Twoim Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-prayer-of-the-hours",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa godzin: W każdym czasie i o każdej godzinie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "segments": [
+      "Ty, który w każdym czasie i o każdej godzinie odbierasz pokłon i chwałę w niebie i na ziemi, Chryste Boże nasz,",
+      "wielce cierpliwy, wielce miłosierny i pełen współczucia, który miłujesz sprawiedliwych, a nad grzesznikami się zmiłowujesz, który wszystkich wzywasz do zbawienia obietnicą przyszłych dóbr:",
+      "sam, Panie, przyjmij w tej godzinie nasze modlitwy i skieruj nasze życie ku Twoim przykazaniom.",
+      "Uświęć nasze dusze, oczyść ciała, napraw myśli, oczyść zamysły i wybaw nas od wszelkiego smutku, zła i boleści.",
+      "Otocz nas Twoimi świętymi aniołami, abyśmy strzeżeni i prowadzeni przez ich zastępy doszli do jedności wiary i do poznania Twojej niedostępnej chwały, albowiem błogosławiony jesteś na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-sleep",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed zaśnięciem: W ręce Twoje, Panie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "sleep",
+      "protection"
+    ],
+    "segments": [
+      "Pod osłoną Twoich skrzydeł skryję się i zasnę, albowiem tylko w Tobie, Panie, jest moja nadzieja.",
+      "W ręce Twoje, Panie, polecam duszę moją i ciało moje.",
+      "Ty mi błogosław, Ty zmiłuj się nade mną i daj mi życie wieczne. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-compline-troparia",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Tropariony powieczerza: Boże ojców naszych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "church"
+    ],
+    "segments": [
+      "Boże ojców naszych, który zawsze postępujesz z nami łagodnie, nie odbieraj nam Twego miłosierdzia, lecz przez wstawiennictwo naszych ojców prowadź nasze życie w pokoju.",
+      "Krwią Twoich męczenników na całym świecie, jakby purpurą i bisiorem przyozdobiony, Kościół Twój przez nich woła do Ciebie, Chryste Boże:",
+      "ześlij Twoje zmiłowania na lud Twój, daj pokój Twojej społeczności, a duszom naszym wielkie miłosierdzie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-antiochos-grant-us-master",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa do Pana Jezusa Chrystusa (Antioch Mnich): Daj nam, Władco",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "sleep"
+    ],
+    "segments": [
+      "Daj nam, Władco, gdy udajemy się na spoczynek, odpocznienie ciała i duszy.",
+      "Zachowaj nas od mrocznego snu grzechu i od wszelkiej ciemnej rozkoszy nocnej.",
+      "Uśmierz porywy namiętności, zgaś rozżarzone strzały złego, które podstępnie są na nas miotane.",
+      "Poskrom wzburzenie naszego ciała i uśpij wszystkie nasze ziemskie i doczesne myśli.",
+      "Daj nam, Boże, czujny umysł, roztropną myśl, czuwające serce i spokojny sen, wolny od wszelkich złych snów.",
+      "Podnieś nas w godzinie modlitwy, umocnij w Twoich przykazaniach i zachowaj w nas niewzruszoną pamięć o Twoich sądach.",
+      "Daj nam przez całą noc wysławiać Ciebie, abyśmy opiewali, błogosławili i wysławiali przeczcigodne i wspaniałe imię Twoje,",
+      "Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-my-hope-is-the-father",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Nadzieją moją jest Ojciec (św. Joannicjusz)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "note": "Krótka modlitwa przypisywana św. Joannicjuszowi Wielkiemu.",
+    "segments": [
+      "Nadzieją moją jest Ojciec, ucieczką moją Syn, osłoną moją Duch Święty.",
+      "Trójco Święta, chwała Tobie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-a-meal",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed posiłkiem: Chryste Boże, pobłogosław pokarm",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Przed śniadaniem i obiadem poprzedzają ją: Chwała Ojcu…, Panie, zmiłuj się (trzy razy) i Ojcze nasz.",
+    "segments": [
+      "Chryste Boże nasz, pobłogosław pokarm i napój sług Twoich, albowiem Ty jesteś święty zawsze, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-supper",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed wieczerzą: Jeść będą ubodzy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Werset psalmu (Ps 21,27 według Septuaginty). Po nim: Chwała Ojcu…, Panie, zmiłuj się (trzy razy) i błogosławieństwo pokarmu.",
+    "segments": [
+      "Jeść będą ubodzy i nasycą się, i będą chwalić Pana ci, którzy Go szukają; żyć będą ich serca na wieki wieków."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-a-meal",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa po posiłku",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Ta sama modlitwa po śniadaniu i po obiedzie.",
+    "segments": [
+      "Dziękujemy Tobie, Chryste Boże nasz, albowiem nasyciłeś nas ziemskimi Twoimi dobrami.",
+      "Nie pozbawiaj nas i Niebieskiego Twojego Królestwa, ale tak jak pośród swych uczniów przyszedłeś, Zbawicielu, pokój dając im, przyjdź ku nam i zbaw nas."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-supper",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Po wieczerzy: Rozweseliłeś nas, Panie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "evening"
+    ],
+    "note": "Złożona z wersetów psalmów (Ps 91,5 i Ps 4,7–10 według Septuaginty). Poprzedzają ją: Chwała Ojcu… i Panie, zmiłuj się (trzy razy).",
+    "segments": [
+      "Rozweseliłeś, Panie, nasze serca Twoim stworzeniem i radowaliśmy się dziełami Twoich rąk.",
+      "Zajaśniała nad nami światłość Twego oblicza, Panie.",
+      "Rozweseliłeś nasze serca.",
+      "Nasyciliśmy się dobrami ziemi.",
+      "W pokoju zaśniemy i spoczniemy w Tobie, albowiem Ty jeden, Panie, umocniłeś nas w nadziei."
+    ]
+  },
+  {
+    "key": "pl.orthodox-blessed-is-god-who-feeds-us",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Błogosławiony Bóg, który nas żywi",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "segments": [
+      "Błogosławiony Bóg, który zmiłowuje się nad nami i karmi nas ze swoich obfitych darów swoją łaską i miłością ku ludziom, zawsze, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-3",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 3",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "protection",
+      "morning"
+    ],
+    "note": "Pierwszy z sześciu psalmów jutrzni.",
+    "segments": [
+      "Panie, czemuż tak wielu jest tych, którzy mnie gnębią?",
+      "Wielu powstaje przeciwko mnie.",
+      "Wielu mówi o mojej duszy: „Nie ma dla niego zbawienia w jego Bogu”.",
+      "Lecz Ty, Panie, jesteś moim obrońcą, moją chwałą i Tym, który podnosi moją głowę.",
+      "Głosem moim wołałem do Pana, a On wysłuchał mnie ze swej świętej góry.",
+      "Położyłem się i zasnąłem; obudziłem się, bo Pan mnie wspomoże.",
+      "Nie ulęknę się dziesiątków tysięcy ludzi, którzy zewsząd na mnie nastają.",
+      "Powstań, Panie, zbaw mnie, Boże mój!",
+      "Albowiem Ty poraziłeś wszystkich, którzy bez przyczyny są mi wrogami, zęby grzeszników pokruszyłeś.",
+      "Od Pana jest zbawienie, a nad ludem Twoim Twoje błogosławieństwo."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-22",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 22 (23)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "peace"
+    ],
+    "note": "Odmawiany rano w dniu Komunii.",
+    "segments": [
+      "Pan jest moim pasterzem, niczego mi nie braknie.",
+      "Na zielonych pastwiskach pozwala mi odpocząć, prowadzi mnie nad spokojne wody.",
+      "Pokrzepia moją duszę, wiedzie mnie ścieżkami sprawiedliwości przez wzgląd na swoje imię.",
+      "Choćbym nawet szedł doliną cienia śmierci, zła się nie ulęknę, bo Ty jesteś ze mną; Twoja laska i Twój kij mnie pocieszają.",
+      "Zastawiasz przede mną stół wobec moich nieprzyjaciół, namaszczasz oliwą moją głowę, mój kielich jest przepełniony.",
+      "Zaiste dobroć i miłosierdzie pójdą za mną przez wszystkie dni mojego życia i zamieszkam w domu Pańskim na zawsze."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-23",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 23 (24)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "segments": [
+      "Do Pana należy ziemia i wszystko, co ją napełnia, świat i ci, którzy w nim mieszkają.",
+      "On bowiem założył ją na morzach i utwierdził na wodach.",
+      "Kto wstąpi na górę Pana i kto stanie na Jego świętym miejscu?",
+      "Ten, kto ma czyste ręce i czyste serce, kto nie zwrócił duszy ku fałszowi i nie przysięgał podstępnie swemu bliźniemu.",
+      "Ten otrzyma błogosławieństwo od Pana i sprawiedliwość od Boga, swego Zbawiciela.",
+      "Takie jest pokolenie tych, którzy szukają Pana, którzy szukają oblicza Boga Jakuba.",
+      "Podnieście, książęta, wasze bramy, podnieście się, bramy odwieczne, a wejdzie Król chwały.",
+      "Któż jest tym Królem chwały?",
+      "Pan silny i potężny, Pan potężny w boju.",
+      "Podnieście, książęta, wasze bramy, podnieście się, bramy odwieczne, a wejdzie Król chwały.",
+      "Któż jest tym Królem chwały?",
+      "Pan Zastępów, On jest Królem chwały."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-37",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 37 (38)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "note": "Jeden z sześciu psalmów jutrzni.",
+    "segments": [
+      "Panie, nie karć mnie w Twoim gniewie ani nie karz mnie w Twojej zapalczywości.",
+      "Albowiem strzały Twoje utkwiły we mnie głęboko, a ręka Twoja ciąży nade mną.",
+      "Nie ma nic zdrowego w moim ciele z powodu Twojego gniewu ani nic zdrowego w moich kościach z powodu moich grzechów.",
+      "Bo nieprawości moje przerosły moją głowę, przygniotły mnie jak ciężkie brzemię.",
+      "Cuchną i ropieją moje rany z powodu mojej głupoty.",
+      "Jestem udręczony i bardzo pochylony, przez cały dzień chodzę w smutku.",
+      "Bo lędźwie moje pełne są szyderstw i nie ma uzdrowienia w moim ciele.",
+      "Jestem udręczony i do głębi upokorzony, ryczę od jęku mego serca.",
+      "Panie, przed Tobą jest każde moje pragnienie, a moje westchnienie nie jest przed Tobą ukryte.",
+      "Serce moje jest strwożone, opuściła mnie moja siła, a i światło moich oczu odeszło ode mnie.",
+      "Przyjaciele moi i bliscy zbliżyli się i stanęli przeciwko mnie, a krewni moi stanęli z daleka.",
+      "Ci, którzy czyhali na moją duszę, zadawali mi gwałt; ci, którzy chcieli mojej krzywdy, mówili rzeczy próżne i przez cały dzień obmyślali podstęp.",
+      "Lecz ja byłem jak głuchy, który nie słyszy, i jak niemy, który nie otwiera ust.",
+      "Stałem się jak człowiek, który nie słyszy i w którego ustach nie ma odpowiedzi.",
+      "Albowiem w Tobie, Panie, pokładam nadzieję; Ty mnie wysłuchasz, Panie, Boże mój.",
+      "Rzekłem bowiem: niech nigdy nie cieszą się z mego powodu moi wrogowie; gdy chwiały się moje nogi, wynosili się nade mnie.",
+      "Ja zaś gotów jestem na chłosty, a ból mój jest zawsze przede mną.",
+      "Wyznam bowiem moją nieprawość i będę się trapił moim grzechem.",
+      "A wrogowie moi żyją i stają się silniejsi ode mnie, i pomnożyli się ci, którzy niesłusznie mnie nienawidzą.",
+      "Ci, którzy odpłacają złem za dobro, oczerniali mnie, bo dążyłem do dobra.",
+      "Nie opuszczaj mnie, Panie, Boże mój, nie oddalaj się ode mnie.",
+      "Pospiesz mi na pomoc, Panie mojego zbawienia."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-50",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 50 (51)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "note": "Psalm pokutny; w modlitwach porannych odmawia się go po modlitwie dziękczynnej.",
+    "segments": [
+      "Zmiłuj się nade mną, Boże, według wielkiego miłosierdzia Twego i według mnóstwa Twoich zmiłowań zgładź moje przewinienie.",
+      "Obmyj mnie całkowicie z mojej nieprawości i oczyść mnie z mojego grzechu.",
+      "Albowiem uznaję moją nieprawość, a grzech mój jest zawsze przede mną.",
+      "Przeciwko Tobie, Tobie jedynemu zgrzeszyłem i uczyniłem zło przed Tobą, abyś okazał się sprawiedliwy w Twoich słowach i zwyciężył, gdy będziesz sądzony.",
+      "Oto bowiem w nieprawościach zostałem poczęty i w grzechach zrodziła mnie moja matka.",
+      "Oto bowiem umiłowałeś prawdę, objawiłeś mi tajemnice i skrytości Twojej mądrości.",
+      "Pokropisz mnie hyzopem, a zostanę oczyszczony; obmyjesz mnie, a nad śnieg wybieleję.",
+      "Daj mi usłyszeć radość i wesele, a rozradują się kości upokorzone.",
+      "Odwróć Twoje oblicze od moich grzechów i zgładź wszystkie moje nieprawości.",
+      "Serce czyste stwórz we mnie, Boże, i ducha niezłomnego odnów w moim wnętrzu.",
+      "Nie odrzucaj mnie od Twego oblicza i Ducha Twego Świętego nie odbieraj mi.",
+      "Przywróć mi radość Twojego zbawienia i umocnij mnie Duchem władczym.",
+      "Nauczę przestępców Twoich dróg, a bezbożni nawrócą się do Ciebie.",
+      "Wybaw mnie od krwi, Boże, Boże mojego zbawienia; mój język z radością będzie głosił Twoją sprawiedliwość.",
+      "Panie, otwórz moje wargi, a moje usta będą głosić Twoją chwałę.",
+      "Gdybyś bowiem chciał ofiary, złożyłbym ją; całopalenia nie są Ci miłe.",
+      "Ofiarą dla Boga jest duch skruszony; serca skruszonego i upokorzonego Bóg nie wzgardzi.",
+      "Okaż dobroć w Twojej łaskawości Syjonowi i niech zostaną odbudowane mury Jeruzalem.",
+      "Wtedy upodobasz sobie ofiarę sprawiedliwości, dar ofiarny i całopalenia; wtedy złożą cielce na Twoim ołtarzu."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-62",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 62 (63)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "closeness",
+      "morning"
+    ],
+    "note": "Jeden z sześciu psalmów jutrzni.",
+    "segments": [
+      "Boże, Boże mój, do Ciebie wstaję o świcie.",
+      "Pragnie Ciebie moja dusza, tęskni za Tobą moje ciało w ziemi pustej, bezdrożnej i bezwodnej.",
+      "Tak stanąłem przed Tobą w świątyni, aby ujrzeć Twoją moc i Twoją chwałę.",
+      "Albowiem Twoje miłosierdzie lepsze jest niż życie; moje wargi będą Cię chwalić.",
+      "Tak będę Cię błogosławił przez całe moje życie i w imię Twoje wzniosę moje ręce.",
+      "Niech nasyci się moja dusza jak szpikiem i tłustością, a moje usta będą Cię wychwalać radosnymi wargami.",
+      "Gdy wspominam Ciebie na moim posłaniu, o świcie rozmyślam o Tobie.",
+      "Bo stałeś się moim wspomożycielem, a w cieniu Twoich skrzydeł będę się radował.",
+      "Moja dusza podąża tuż za Tobą, Twoja prawica szybko przyszła mi z pomocą.",
+      "Ci zaś, którzy szukają mojej duszy, aby ją zgubić, zejdą do głębin ziemi.",
+      "Padną od miecza, staną się łupem szakali.",
+      "A król będzie się radował w Bogu; chwalony będzie każdy, kto na Niego przysięga, bo zamkną się usta mówiących kłamstwa."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-69",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 69 (70)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "protection"
+    ],
+    "segments": [
+      "Boże, wejrzyj ku wspomożeniu memu, Panie, pospiesz ku ratunkowi memu.",
+      "Niech się zawstydzą i okryją hańbą ci, którzy czyhają na moje życie.",
+      "Niech się cofną i zawstydzą ci, którzy życzą mi zła.",
+      "Niech się cofną, okryci wstydem, ci, którzy mówią do mnie: „Dobrze, dobrze!”.",
+      "Niech się radują i weselą w Tobie wszyscy, którzy Cię szukają, a ci, którzy miłują Twoje zbawienie, niech mówią zawsze: „Niech będzie wywyższony Bóg!”.",
+      "A ja jestem ubogi i nędzny; Boże, wspomóż mnie!",
+      "Ty jesteś moją pomocą i moim wybawcą, Panie, nie zwlekaj."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-87",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 87 (88)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "sadness"
+    ],
+    "note": "Jeden z sześciu psalmów jutrzni.",
+    "segments": [
+      "Panie, Boże mojego zbawienia, we dnie i w nocy wołałem przed Tobą.",
+      "Niech dojdzie przed Ciebie moja modlitwa, nakłoń ucha Twego na moje wołanie.",
+      "Albowiem dusza moja napełniona jest nieszczęściem, a moje życie zbliżyło się do otchłani.",
+      "Zostałem zaliczony do tych, którzy schodzą do dołu;",
+      "stałem się jak człowiek bez pomocy, porzucony wśród umarłych, jak ciała zabitych, którzy śpią w grobie, o których już nie pamiętasz i którzy odcięci są od Twojej ręki.",
+      "Położyli mnie w najgłębszym dole, w ciemnościach i w cieniu śmierci.",
+      "Zaciążył nade mną Twój gniew i wszystkimi Twoimi falami mnie przytłoczyłeś.",
+      "Uczyniłeś mnie dla nich obrzydliwością; jestem zamknięty i nie mogę wyjść; moje oczy osłabły od nędzy.",
+      "Wołałem do Ciebie, Panie, przez cały dzień, wyciągałem do Ciebie moje ręce.",
+      "Czy dla umarłych uczynisz cuda?",
+      "Czy lekarze ich wskrzeszą, aby Cię wysławiali?",
+      "Czy ktoś w grobie opowie o Twoim miłosierdziu i o Twojej prawdzie w miejscu zagłady?",
+      "Czy w ciemnościach poznane zostaną Twoje cuda, a Twoja sprawiedliwość w ziemi zapomnienia?",
+      "Lecz ja do Ciebie, Panie, wołałem i rano moja modlitwa stanie przed Tobą.",
+      "Czemu, Panie, odrzucasz moją duszę i odwracasz się ode mnie?",
+      "Jestem ubogi i w udręce; od młodości wywyższony, zostałem poniżony i doprowadzony do utrapienia.",
+      "Przeszedł nade mną Twój srogi gniew, a Twoje postrachy bardzo mnie zatrwożyły.",
+      "Otaczały mnie jak woda przez cały dzień, ogarnęły mnie zewsząd.",
+      "Oddaliłeś ode mnie przyjaciela i bliźniego, a moich znajomych z powodu mojej nędzy."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-102",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 102 (103)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "thanksgiving"
+    ],
+    "note": "Jeden z sześciu psalmów jutrzni.",
+    "segments": [
+      "Błogosław, duszo moja, Pana, i wszystko, co we mnie, święte imię Jego!",
+      "Błogosław, duszo moja, Pana i nie zapominaj o wszystkim, co dla ciebie uczynił.",
+      "On przebacza wszystkie twoje nieprawości, On leczy wszystkie twoje niemoce.",
+      "On wybawia twoje życie od zagłady, On wieńczy cię miłosierdziem i zmiłowaniem.",
+      "On nasyca dobrami twoje pragnienie, tak że odnawia się jak u orła twoja młodość.",
+      "Pan czyni dzieła miłosierdzia i sprawiedliwość wszystkim pokrzywdzonym.",
+      "Objawił swoje drogi Mojżeszowi, synom Izraela swoje dzieła.",
+      "Miłosierny i litościwy jest Pan, cierpliwy i pełen łaskawości.",
+      "Nie zawsze będzie się z nami spierał ani na wieki nie zachowa gniewu.",
+      "Nie postąpił z nami według naszych nieprawości ani nie odpłacił nam według naszych grzechów.",
+      "Bo jak wysoko niebo wznosi się nad ziemią, tak wielkie jest Jego miłosierdzie dla tych, którzy się Go boją.",
+      "Jak daleko jest wschód od zachodu, tak oddalił od nas nasze nieprawości.",
+      "Jak ojciec lituje się nad synem, tak Pan lituje się nad tymi, którzy się Go boją.",
+      "Wie bowiem, z czego jesteśmy utworzeni, pamięta, że jesteśmy prochem.",
+      "Dni człowieka są jak trawa, jak kwiat polny, tak rozkwitnie; przejdzie nad nim wiatr i już go nie ma, a jego miejsce już go nie pamięta.",
+      "Lecz miłosierdzie Pana od wieków na wieki nad tymi, którzy się Go boją,",
+      "a Jego sprawiedliwość nad synami synów, nad tymi, którzy strzegą Jego przymierza i pamiętają, by wypełniać Jego przykazania.",
+      "Pan ustanowił swój tron w niebie, a Jego królestwo panuje nad wszystkim.",
+      "Błogosławcie Pana, wszyscy Jego aniołowie, potężni mocą, wykonujący Jego słowo, posłuszni głosowi Jego słów.",
+      "Błogosławcie Pana, wszystkie Jego zastępy, słudzy Jego, pełniący Jego wolę.",
+      "Błogosławcie Pana, wszystkie Jego dzieła, na każdym miejscu Jego panowania.",
+      "Błogosław, duszo moja, Pana."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-115",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 115 (116,10–19)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "thanksgiving"
+    ],
+    "note": "Odmawiany rano w dniu Komunii.",
+    "segments": [
+      "Uwierzyłem, dlatego przemówiłem, a byłem bardzo upokorzony.",
+      "Powiedziałem w moim zachwyceniu: każdy człowiek jest kłamcą.",
+      "Cóż oddam Panu za wszystko, czym mnie obdarzył?",
+      "Wezmę kielich zbawienia i wezwę imienia Pańskiego.",
+      "Moje śluby wypełnię przed Panem wobec całego Jego ludu.",
+      "Cenna jest w oczach Pana śmierć Jego świętych.",
+      "Panie, jestem Twoim sługą i synem Twojej służebnicy.",
+      "Rozerwałeś moje więzy.",
+      "Tobie złożę ofiarę chwały i wezwę imienia Pańskiego.",
+      "Moje śluby wypełnię przed Panem wobec całego Jego ludu, na dziedzińcach domu Pańskiego, pośrodku ciebie, Jeruzalem."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-120",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 120 (121)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "protection",
+      "morning"
+    ],
+    "note": "W angielskim modlitewniku odmawiany rano, po troparionach do Trójcy Świętej.",
+    "segments": [
+      "Wznoszę moje oczy ku górom: skąd przyjdzie mi pomoc?",
+      "Pomoc moja od Pana, który stworzył niebo i ziemię.",
+      "Nie pozwoli, aby zachwiała się twoja noga; nie zdrzemnie się Ten, który cię strzeże.",
+      "Oto nie zdrzemnie się ani nie zaśnie Ten, który strzeże Izraela.",
+      "Pan cię ochroni, Pan jest twoją osłoną po twojej prawicy.",
+      "Za dnia nie spali cię słońce ani księżyc w nocy.",
+      "Pan zachowa cię od wszelkiego zła, Pan zachowa twoją duszę.",
+      "Pan zachowa twoje wyjście i twoje wejście, odtąd i aż na wieki."
+    ]
+  },
+  {
+    "key": "pl.orthodox-psalm-142",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Psalm 142 (143)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "wisdom"
+    ],
+    "note": "Jeden z sześciu psalmów jutrzni. Po nim powtarza się: „Wysłuchaj mnie, Panie, w Twojej sprawiedliwości i nie wchodź w sąd ze swoim sługą” (dwa razy) i „Twój dobry Duch poprowadzi mnie równą drogą”.",
+    "segments": [
+      "Panie, wysłuchaj mojej modlitwy, w Twojej prawdzie nakłoń ucha na moje błagania, w Twojej sprawiedliwości wysłuchaj mnie.",
+      "I nie wchodź w sąd ze swoim sługą, albowiem nikt z żyjących nie będzie usprawiedliwiony przed Tobą.",
+      "Bo nieprzyjaciel ścigał moją duszę, wdeptał w ziemię moje życie, osadził mnie w ciemnościach jak dawno umarłych; mój duch omdlewa we mnie, moje serce we mnie jest strwożone.",
+      "Wspominałem dni dawne, rozważałem wszystkie Twoje dzieła, rozmyślałem nad dziełem Twoich rąk.",
+      "Wyciągam ku Tobie moje ręce, moja dusza tęskni za Tobą jak spragniona ziemia.",
+      "Prędko wysłuchaj mnie, Panie, ustaje mój duch.",
+      "Nie odwracaj ode mnie Twego oblicza, abym nie stał się podobny do tych, którzy zstępują do dołu.",
+      "Daj mi rano usłyszeć o Twoim miłosierdziu, bo Tobie zaufałem.",
+      "Panie, daj mi poznać drogę, którą mam iść, bo do Ciebie wznoszę moją duszę.",
+      "Wybaw mnie, Panie, od moich nieprzyjaciół, do Ciebie się uciekam.",
+      "Naucz mnie pełnić Twoją wolę, bo Ty jesteś moim Bogiem.",
+      "Twój dobry Duch poprowadzi mnie równą drogą; Panie, przez wzgląd na Twoje imię zachowasz mnie przy życiu.",
+      "W Twojej sprawiedliwości wyprowadzisz z utrapienia moją duszę, a w Twoim miłosierdziu wytracisz moich nieprzyjaciół i zgubisz wszystkich, którzy gnębią moją duszę, albowiem jestem Twoim sługą."
+    ]
+  },
+  {
+    "key": "pl.orthodox-glory-to-god-in-the-highest",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chwała na wysokościach Bogu",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Mówi się trzy razy przed sześcioma psalmami jutrzni (Łk 2,14).",
+    "segments": [
+      "Chwała na wysokościach Bogu, a na ziemi pokój, wśród ludzi dobra wola."
+    ]
+  },
+  {
+    "key": "pl.orthodox-lord-open-my-lips",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Panie, otwórz wargi moje",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "Mówi się trzy razy (Ps 50,17).",
+    "segments": [
+      "Panie, otwórz wargi moje, a usta moje będą głosić Twoją chwałę."
+    ]
+  },
+  {
+    "key": "pl.orthodox-small-doxology",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Doksologia: Chwała na wysokościach Bogu… Każdego wieczoru",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "evening",
+      "traditional"
+    ],
+    "note": "Mała doksologia z powieczerza; na jutrzni zamiast „Każdego wieczoru” mówi się „Każdego dnia”.",
+    "segments": [
+      "Chwała na wysokościach Bogu, a na ziemi pokój, wśród ludzi dobra wola. Chwalimy Cię, błogosławimy Cię, oddajemy Ci pokłon, wysławiamy Cię, dzięki Ci składamy za wielką chwałę Twoją.",
+      "Panie Boże, Królu niebieski, Boże Ojcze wszechmogący, Panie, Synu Jednorodzony, Jezu Chryste, i Duchu Święty.",
+      "Panie Boże, Baranku Boży, Synu Ojca, który gładzisz grzech świata, zmiłuj się nad nami.",
+      "Ty, który gładzisz grzechy świata, przyjmij naszą modlitwę.",
+      "Ty, który siedzisz po prawicy Ojca, zmiłuj się nad nami.",
+      "Albowiem Ty jeden jesteś święty, Ty jeden jesteś Panem, Jezu Chryste, ku chwale Boga Ojca. Amen.",
+      "Każdego wieczoru błogosławimy Ciebie i chwalimy Twoje imię na wieki i na wieki wieków.",
+      "Panie, Ty stałeś się dla nas ucieczką z pokolenia w pokolenie.",
+      "Rzekłem: Panie, zmiłuj się nade mną, uzdrów moją duszę, bo zgrzeszyłem przeciwko Tobie.",
+      "Panie, do Ciebie się uciekam, naucz mnie pełnić Twoją wolę, bo Ty jesteś moim Bogiem.",
+      "U Ciebie bowiem jest źródło życia, w Twojej światłości ujrzymy światłość.",
+      "Rozciągnij Twoje miłosierdzie na tych, którzy Cię znają.",
+      "Racz, Panie, zachować nas tej nocy bez grzechu.",
+      "Błogosławiony jesteś, Panie, Boże ojców naszych, a Twoje imię chwalone i wysławiane na wieki. Amen.",
+      "Niech Twoje miłosierdzie, Panie, spocznie na nas, bo w Tobie pokładamy ufność.",
+      "Błogosławiony jesteś, Panie, naucz mnie Twoich przykazań.",
+      "Błogosławiony jesteś, Władco, naucz mnie Twoich przykazań.",
+      "Błogosławiony jesteś, Święty, oświeć mnie Twoimi przykazaniami.",
+      "Panie, Twoje miłosierdzie trwa na wieki; nie odwracaj się od dzieła Twoich rąk.",
+      "Tobie przystoi chwała, Tobie przystoi pokłon, Tobie przystoi uwielbienie: Ojcu i Synowi, i Świętemu Duchowi, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-come-let-us-worship",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przyjdźcie, pokłońmy się",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "church"
+    ],
+    "note": "Każde wezwanie zwykle z pokłonem.",
+    "segments": [
+      "Przyjdźcie, pokłońmy się i przypadnijmy do Boga, Króla naszego.",
+      "Przyjdźcie, pokłońmy się i przypadnijmy do Chrystusa, Króla naszego i Boga.",
+      "Przyjdźcie, pokłońmy się i przypadnijmy do samego Chrystusa, Króla naszego i Boga."
+    ]
+  },
+  {
+    "key": "pl.orthodox-song-of-simeon",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Pieśń Symeona: Teraz pozwól odejść",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "note": "Łk 2,29–32. Kończy dziękczynienie po Komunii; mówi się ją też przy wyjściu z cerkwi.",
+    "segments": [
+      "Teraz pozwól odejść, Panie, słudze Twemu w pokoju, według słowa Twego;",
+      "albowiem moje oczy ujrzały Twoje zbawienie, które przygotowałeś przed obliczem wszystkich ludów: światłość na oświecenie pogan i chwałę ludu Twego, Izraela."
+    ]
+  },
+  {
+    "key": "pl.orthodox-troparion-of-the-cross",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Troparion Krzyża: Zbaw, Panie, lud Twój",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "protection"
+    ],
+    "segments": [
+      "Zbaw, Panie, lud Twój i pobłogosław dziedzictwo Twoje, zwycięstwem prawowiernych nad przeciwnikami obdarzaj i przez Krzyż Twój ochraniaj społeczność Twoją."
+    ]
+  },
+  {
+    "key": "pl.orthodox-kontakion-of-the-cross",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Kondakion Krzyża: Wzniesiony dobrowolnie na Krzyż",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "protection"
+    ],
+    "segments": [
+      "Ty, który dobrowolnie zostałeś wzniesiony na Krzyż, Chryste Boże nasz, obdarz Twoim zmiłowaniem nową społeczność, która nosi Twoje imię.",
+      "Rozwesel Twoją mocą prawowiernych, dając im zwycięstwo nad przeciwnikami.",
+      "Niech mają Twoje przymierze jako oręż pokoju i niezwyciężony znak zwycięstwa."
+    ]
+  },
+  {
+    "key": "pl.orthodox-virgin-theotokos",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Pozdrowienie anielskie: Bogurodzico Dziewico",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Pozdrowienie anielskie w brzmieniu prawosławnym: zaczyna się od „raduj się” (gr. chaire).",
+    "segments": [
+      "Bogurodzico Dziewico, raduj się łaski pełna Mario, Pan z Tobą, Błogosławionaś Ty między niewiastami i błogosławiony owoc żywota Twego, albowiem zrodziłaś Zbawcę dusz naszych."
+    ]
+  },
+  {
+    "key": "pl.orthodox-it-is-truly-right",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Zaprawdę godne jest",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "Drugą część („Czcigodniejszą od Cherubinów…”) śpiewa się też osobno.",
+    "segments": [
+      "Zaprawdę godne jest to, błogosławić Ciebie, Bogurodzico, zawsze błogosławioną i najczystszą i Matkę Boga naszego. Czcigodniejszą od Cherubinów i bez porównania chwalebniejszą od Serafinów,",
+      "któraś bez zmiany zrodziła Boga Słowo, Ciebie, prawdziwą Bogurodzicę, wysławiamy."
+    ]
+  },
+  {
+    "key": "pl.orthodox-more-honorable-than-the-cherubim",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Czcigodniejszą od Cherubinów",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "Druga część „Zaprawdę godne jest”, śpiewana także osobno.",
+    "segments": [
+      "Czcigodniejszą od Cherubinów i bez porównania chwalebniejszą od Serafinów, któraś bez zmiany zrodziła Boga Słowo, Ciebie, prawdziwą Bogurodzicę, wysławiamy."
+    ]
+  },
+  {
+    "key": "pl.orthodox-theotokos-morning",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Do Najświętszej Bogurodzicy (poranna): Najświętsza Władczyni moja",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "holiness",
+      "morning",
+      "protection"
+    ],
+    "segments": [
+      "Najświętsza Władczyni moja, Bogurodzico, przez święte Twoje i wszechmocne modlitwy zachowaj mnie, pokornego i niegodnego Twego sługę, przed rozpaczą, zapomnieniem, brakiem rozumu,",
+      "niedbałością i wszystkimi nieczystymi, zdradliwymi i bluźnierczymi zamysłami nędznego mego serca i przyćmionego mego umysłu, zgaś płomień moich pożądliwości, albowiem nędzny jestem i niegodny.",
+      "Wybaw mnie od wszelkich okropnych wspomnień i zamiarów, uwolnij mnie od wszystkich złych uczynków, albowiem błogosławiona jesteś między wszystkimi narodami i wysławiamy imię Twoje najświętsze na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-beneath-your-compassion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Pod Twoje miłosierdzie uciekamy się",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "note": "Jedna z najstarszych znanych modlitw do Bogurodzicy.",
+    "segments": [
+      "Pod Twoje miłosierdzie uciekamy się, Bogurodzico.",
+      "Nie gardź naszymi modlitwami, lecz wybaw nas z niebezpieczeństwa, jedyna Czysta i Błogosławiona."
+    ]
+  },
+  {
+    "key": "pl.orthodox-all-my-hope",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Całą nadzieję moją w Tobie pokładam",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional",
+      "protection"
+    ],
+    "segments": [
+      "Całą moją nadzieję w Tobie pokładam, Matko Boża, zachowaj mnie pod Twoją opieką."
+    ]
+  },
+  {
+    "key": "pl.orthodox-most-glorious-ever-virgin",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przechwalebna, zawsze Dziewico",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "segments": [
+      "Przechwalebna, zawsze Dziewico, błogosławiona Bogurodzico, zanieś naszą modlitwę do Twojego Syna i Boga naszego i proś Go, aby przez Ciebie zbawił nasze dusze."
+    ]
+  },
+  {
+    "key": "pl.orthodox-paul-the-monk-to-the-theotokos",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa do Najświętszej Bogurodzicy (Paweł Mnich)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "holiness"
+    ],
+    "note": "Modlitwa z powieczerza, autorstwa Pawła, mnicha z monasteru Ewergetis.",
+    "segments": [
+      "Nieskalana, nienaruszona, niepokalana, nieskażona, czysta Dziewico, Władczyni, Oblubienico Boża, która przez przedziwne Twoje poczęcie zjednoczyłaś Boga Słowo z ludźmi i upadłą naturę naszego rodzaju połączyłaś z niebiosami:",
+      "Ty jesteś jedyną nadzieją tych, którzy nie mają nadziei, i pomocą uciśnionych, gotową obroną uciekających się do Ciebie i ucieczką wszystkich chrześcijan.",
+      "Nie gardź mną, grzesznikiem obciążonym winą, choć haniebnymi myślami, słowami i czynami uczyniłem się całkiem nieużytecznym i przez gnuśność stałem się niewolnikiem przyjemności życia.",
+      "Lecz jako Matka miłującego ludzi Boga okaż miłosiernie litość nade mną, grzesznym i marnotrawnym, i przyjmij moją modlitwę, choć zanoszę ją do Ciebie nieczystymi ustami.",
+      "Błagaj Twojego Syna, a naszego Pana i Władcę, z matczyną śmiałością, aby otworzył i dla mnie miłosierdzie swojej dobroci,",
+      "przeoczył moje niezliczone przewinienia, nawrócił mnie do pokuty i uczynił mnie godnym wykonawcą swoich przykazań.",
+      "Bądź zawsze przy mnie, albowiem jesteś miłosierna, litościwa i miłująca.",
+      "Bądź mi w tym życiu żarliwą pomocą i obroną, chroniąc mnie przed napaściami przeciwników, i prowadź mnie do zbawienia.",
+      "W godzinie mojej śmierci zaopiekuj się moją nędzną duszą i odpędź od niej mroczne widziadła złych duchów.",
+      "W straszny dzień sądu wybaw mnie od wiecznej kary i uczyń mnie dziedzicem niewypowiedzianej chwały Twojego Syna, a Boga naszego.",
+      "Obym tego dostąpił, Władczyni moja, Najświętsza Bogurodzico, przez Twoje wstawiennictwo i pomoc, łaską i miłością ku ludziom Jednorodzonego Twego Syna, Pana i Boga, i Zbawiciela naszego Jezusa Chrystusa,",
+      "któremu należy się wszelka chwała, cześć i pokłon wraz z Jego przedwiecznym Ojcem i Najświętszym, dobrym i życiodajnym Jego Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-awesome-protection",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Teotokion: Opieko straszliwa",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "church"
+    ],
+    "note": "Teotokion to hymn do Bogurodzicy; ten zamyka tropariony królewskie przed sześcioma psalmami jutrzni.",
+    "segments": [
+      "Opieko straszliwa i zawsze obecna, nie gardź, o Dobra, naszymi błaganiami.",
+      "Przesławna Bogurodzico, umocnij lud prawowierny, zbaw tych, których powołałaś do rządzenia, i daj im zwycięstwo z wysoka, albowiem zrodziłaś Boga, jedyna Błogosławiona."
+    ]
+  },
+  {
+    "key": "pl.orthodox-guardian-angel-morning",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Do Anioła Stróża (poranna): Święty Aniele",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "morning"
+    ],
+    "segments": [
+      "Święty Aniele, opiekunie niegodnej mojej duszy i mego grzesznego życia, nie opuszczaj mnie grzesznego i nie odstępuj ode mnie wskutek mojej niewstrzemięźliwości.",
+      "Nie daj miejsca złemu duchowi, aby przemocą panował nad śmiertelnym moim ciałem, wzmocnij moją biedną i nędzną dłoń, i skieruj mnie na drogę zbawienia.",
+      "Zaprawdę, święty Aniele Boży, stróżu i obrońco mojej niegodnej duszy i ciała, wszystko mi przebacz,",
+      "czym znieważyłem Ciebie przez wszystkie dni mego żywota i jeśli zgrzeszyłem czymś tej minionej nocy,",
+      "osłoń mnie w obecnym dniu, zachowaj mnie od wszelkiej pokusy złego,",
+      "abym żadnym grzechem nie zagniewał Boga i błagaj za mną Pana, aby umocnił mnie w swojej bojaźni i uczynił godnym swej dobroci. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-guardian-angel-evening",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Do Anioła Stróża (wieczorna): Aniele Chrystusowy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "evening"
+    ],
+    "segments": [
+      "Aniele Chrystusowy, święty stróżu i opiekunie mojej duszy i ciała, przebacz mi wszystko, czym codziennie Cię obrażam, i chroń mnie od wszelkiego wpływu i pokusy złego.",
+      "Obym żadnym grzechem nie rozgniewał Boga.",
+      "Módl się za mną do Pana, aby uczynił mnie godnym łaski Najświętszej Trójcy, Przebłogosławionej Bogurodzicy i wszystkich świętych. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-patron-saint",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przyzywanie świętego patrona",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "note": "Możesz zrobić kopię modlitwy i dopisać imię swojego świętego patrona po „święty Boży”.",
+    "segments": [
+      "Błagaj Boga za mną, święty Boży, albowiem gorliwie przypadam do Ciebie, skorego pomocnika i orędownika mojej duszy."
+    ]
+  },
+  {
+    "key": "pl.orthodox-baptizer-of-christ",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Chrzcicielu Chrystusa",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "segments": [
+      "Chrzcicielu Chrystusa, pamiętaj o nas, abyśmy zostali wybawieni od naszych grzechów, Tobie bowiem dana jest łaska wstawiać się za nami. Chwała Ojcu i Synowi, i Świętemu Duchowi.",
+      "Módlcie się za nami, święci Apostołowie i wszyscy święci, abyśmy zostali wybawieni od niebezpieczeństw i smutków; mamy bowiem w Was gorliwych orędowników przed Zbawicielem. I teraz, i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-intercessions-of-all-saints",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przez wstawiennictwo wszystkich świętych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "peace",
+      "traditional"
+    ],
+    "segments": [
+      "Przez wstawiennictwo wszystkich Twoich świętych i Bogurodzicy, Panie, daj nam Twój pokój i zmiłuj się nad nami, jedyny Miłosierny."
+    ]
+  },
+  {
+    "key": "pl.orthodox-canon-before-communion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Kanon do Komunii Świętej (ton 2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Kanon z porządku przygotowania do Komunii, odmawiany zwykle wieczorem w przeddzień. Kończy się hymnem „Zaprawdę godne jest”.",
+    "segments": [
+      "Niech Twoje święte Ciało i Twoja czcigodna Krew, miłosierny Panie, staną się dla mnie chlebem życia wiecznego i strażą przed wielorakimi utrapieniami.",
+      "Skalany haniebnymi uczynkami, Chryste, nie jestem godny przyjąć Twojego przeczystego Ciała i Twojej Boskiej Krwi, lecz uczyń mnie godnym tej Komunii.",
+      "Błogosławiona Bogurodzico, ziemio dobra, która wydałaś niezasianą pszenicę, zbawiającą świat, uczyń mnie godnym spożywać ją i być zbawionym.",
+      "Daj mi, Chryste, łzy, które obmyją nieczystość mego serca, abym z dobrym sumieniem, z wiarą i bojaźnią przystąpił, Władco, do Komunii Twoich Boskich Darów.",
+      "Niech Twoje przeczyste Ciało i święta Krew będą dla mnie, miłujący ludzi Boże, odpuszczeniem grzechów, wspólnotą Świętego Ducha, życiem wiecznym i oddaleniem namiętności i utrapień.",
+      "Najświętsza, Ty jesteś stołem Chleba życia, który z miłosierdzia zstąpił z wysoka, dając światu nowe życie.",
+      "Uczyń i mnie, teraz niegodnego, godnym, abym z bojaźnią z niego spożywał i żył.",
+      "Najmiłosierniejszy, dla nas przyoblekłeś się w ciało i zechciałeś jak baranek zostać zabity za nasze grzechy; dlatego błagam Cię: zgładź i moje grzechy.",
+      "Ulecz rany mojej duszy, Panie, nędznego, jakim jestem, i uczyń mnie w pełni godnym, Władco, przyjęcia Twojej mistycznej Wieczerzy.",
+      "Władczyni, przebłagaj za mnie Tego, który się z Ciebie narodził, i zachowaj mnie, Twego sługę,",
+      "który się do Ciebie modli, czystym i nieskalanym, abym przyjmując duchową perłę dostąpił uświęcenia.",
+      "Jak zapowiedziałeś, Chryste, niech się stanie z Twoim niegodnym sługą, jak obiecałeś: zamieszkaj we mnie.",
+      "Oto bowiem spożywam Twoje Boskie Ciało i piję Twoją Krew.",
+      "Boże i Słowo Boże, niech żarzący się węgiel Twojego Ciała rozświetli moje ciemności, a Twoja Krew niech oczyści moją skalaną duszę.",
+      "Mario, Matko Boża, czcigodny przybytku wonności, uczyń mnie Twoimi modlitwami naczyniem wybranym, abym przyjął uświęcenie od Twojego Syna.",
+      "Zbawicielu, uświęć mój umysł, duszę, serce i ciało i uczyń mnie godnym, Władco, bez potępienia przystąpić do Twoich strasznych Tajemnic.",
+      "Chryste, daj, abym uwolnił się od namiętności, wzrastał w Twojej łasce i umacniał się w życiu przez Komunię Twoich Świętych Tajemnic.",
+      "Święte, Boskie Słowo Boże, uświęć mnie całego, gdy teraz przystępuję do Twoich Świętych Tajemnic, przez modlitwy Twojej świętej Matki.",
+      "Gdy teraz przyjmuję Twoje straszne Tajemnice, Twoje przeczyste Ciało i Twoją czcigodną Krew, nie odwracaj się ode mnie, Chryste, nędznego, jakim jestem.",
+      "Niech moja Komunia nie będzie dla mnie sądem, lecz niech prowadzi do życia wiecznego i nieśmiertelnego.",
+      "Niech Komunia Twoich nieśmiertelnych Tajemnic będzie dla mnie światłością i życiem, wolnością od namiętności,",
+      "postępem i pomnożeniem coraz bardziej duchowych cnót, abym wysławiał Ciebie, Chryste, albowiem Ty jeden jesteś dobry.",
+      "Przystępując teraz do Twoich nieśmiertelnych i Boskich Tajemnic z drżeniem, pragnieniem i pobożnością, daj mi, miłujący ludzi Boże, abym został wybawiony od namiętności, nieprzyjaciół i wszelkiego utrapienia.",
+      "Daj, abym śpiewał Tobie: Błogosławiony jesteś, Boże ojców naszych.",
+      "Błagam Cię, Czysta, obdarzona łaską przez Boga, która w sposób niepojęty zrodziłaś Chrystusa Zbawiciela:",
+      "oczyść mnie, Twego nieczystego sługę, z wszelkiej zmazy ciała i ducha, gdy pragnę teraz przystąpić do przeczystych Tajemnic.",
+      "Boże, Zbawicielu mój, daj mi, Twemu zrozpaczonemu słudze, stać się teraz uczestnikiem Twoich niebieskich, strasznych i świętych Tajemnic oraz Twojej Boskiej i mistycznej Wieczerzy.",
+      "Uciekając się do Twojej łaskawości, dobry Zbawicielu, wołam do Ciebie z bojaźnią: zamieszkaj we mnie, a mnie, jak obiecałeś, pozwól trwać w Tobie.",
+      "Oto bowiem, ufając Twojemu miłosierdziu, spożywam Twoje Ciało i piję Twoją Krew.",
+      "Drżę, biorąc ten ogień, abym nie spłonął jak wosk i jak trawa.",
+      "O straszna Tajemnico!",
+      "O Boska miłości!",
+      "Jakże to ja, ziemskie stworzenie, mam udział w Boskim Ciele i Krwi i staję się niezniszczalny?",
+      "Skosztujcie i zobaczcie, że dobry jest Pan, który dla nas stał się podobny do nas i raz na zawsze złożył siebie w ofierze swojemu Ojcu,",
+      "aby być zawsze składanym w ofierze, uświęcając tych, którzy mają w niej udział.",
+      "Władco, niech zostanę uświęcony na ciele i duszy, niech zostanę oświecony i zbawiony,",
+      "i niech stanę się Twoim mieszkaniem przez Komunię Świętych Tajemnic, mając Ciebie, najmiłosierniejszy Dobroczyńco, mieszkającego we mnie wraz z Ojcem i Duchem.",
+      "Niech Twoje Ciało i Twoja czcigodna Krew, Zbawicielu, będą dla mnie jak ogień i światło,",
+      "spalające materię grzechów, wypalające kąkol moich namiętności i całego mnie oświecające, abym oddawał pokłon Twemu Bóstwu.",
+      "Bóg przyjął ciało z Twojej przeczystej krwi;",
+      "dlatego wszystkie pokolenia opiewają Ciebie, Władczyni, a zastępy bezcielesnych Mocy wysławiają Ciebie, widzą bowiem jasno, że Ten, który panuje nad wszystkim, przez Ciebie przyjął ludzką naturę."
+    ]
+  },
+  {
+    "key": "pl.orthodox-troparia-before-communion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Tropariony przed Komunią (ton 6): Nie patrz na moje przewinienia",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Odwróć wzrok od moich przewinień, Panie, narodzony z Dziewicy, i oczyść moje serce, czyniąc je świątynią Twojego przeczystego Ciała i czcigodnej Krwi.",
+      "Nie odrzucaj mnie od Twego oblicza, bo Twoje wielkie miłosierdzie nie ma granic.",
+      "Chwała Ojcu i Synowi, i Świętemu Duchowi.",
+      "Jakże ja, niegodny, nie zawstydzę się Twoich świętości?",
+      "Jeśli odważę się przystąpić do Ciebie razem z godnymi, szata moja mnie oskarży, bo nie jest szatą godną wieczerzy, i ściągnę hańbę na moją wielce grzeszną duszę.",
+      "Dlatego oczyść mnie, Panie, ze zmazy mojej duszy i zbaw mnie, albowiem jesteś miłującym Bogiem.",
+      "I teraz, i zawsze, i na wieki wieków. Amen.",
+      "Z powodu mnóstwa moich przewinień przychodzę do Ciebie, Czysta Bogurodzico, prosząc o zbawienie.",
+      "Nawiedź moją cierpiącą duszę, jedyna Błogosławiona, i błagaj Twojego Syna, a Boga naszego, aby dał mi odpuszczenie zła, które uczyniłem."
+    ]
+  },
+  {
+    "key": "pl.orthodox-holy-thursday-troparion",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Troparion Wielkiego Czwartku",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Chwalebni uczniowie zostali oświeceni podczas Wieczerzy, przy obmyciu nóg, lecz bezbożny Judasz, chory na chciwość, pogrążył się w ciemności i wydał Ciebie, sprawiedliwego Sędziego, bezprawnym sędziom.",
+      "Patrz, miłośniku pieniędzy, jak on z powodu pieniędzy się powiesił.",
+      "Uciekaj od chciwości, która popchnęła go do takiego czynu wobec Nauczyciela.",
+      "Panie, dobry dla wszystkich, chwała Tobie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-instructive-verses",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Wiersze pouczające: jak przystępować do Tajemnic",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Pouczenie dla przystępującego do Komunii, nie modlitwa do Boga.",
+    "segments": [
+      "Gdy masz spożywać Ciało Władcy, przystąp z bojaźnią, abyś się nie spalił, bo jest ono ogniem.",
+      "A zanim wypijesz w Komunii Krew, najpierw pojednaj się ze wszystkimi, których obraziłeś; wtedy z odwagą spożywaj mistyczny Pokarm.",
+      "Zanim weźmiesz udział w strasznej ofierze życiodajnego Ciała Władcy, zachowaj czujność i módl się z bojaźnią Bożą."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-1-basil",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Pierwsza modlitwa przed Komunią (św. Bazyli Wielki)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Władco, Panie Jezu Chryste, Boże nasz, źródło życia i nieśmiertelności, Stwórco wszystkiego, co widzialne i niewidzialne, współwieczny i współprzedwieczny Synu Ojca, który nie ma początku:",
+      "Ty z przeobfitej dobroci w ostatnich dniach przyoblekłeś się w ciało, zostałeś ukrzyżowany i pogrzebany za nas,",
+      "niewdzięcznych i nieczułych, i własną Krwią odnowiłeś naszą naturę, zepsutą przez grzech.",
+      "Przyjmij, nieśmiertelny Królu, moją skruchę, skruchę grzesznika, zwróć się ku mnie i wysłuchaj moich słów.",
+      "Zgrzeszyłem, Panie, zgrzeszyłem przeciw niebu i przed Tobą, i nie jestem godny spojrzeć na wysokość Twojej chwały, gdyż obraziłem Twoją dobroć.",
+      "Przekroczyłem Twoje przykazania.",
+      "Nie posłuchałem Twoich nakazów.",
+      "Lecz Ty, Panie, cierpliwy i wielce miłosierny, nie pamiętasz zła i nie wydałeś mnie na zgubę z powodu moich nieprawości, lecz zawsze czekałeś na moje nawrócenie.",
+      "Ty bowiem, miłujący ludzi, powiedziałeś przez swego proroka: Nie chcę śmierci grzesznika, lecz aby się nawrócił i żył.",
+      "Nie chcesz bowiem, Władco, aby zginęło dzieło Twoich rąk, i nie masz upodobania w zgubie ludzi, lecz pragniesz, aby wszyscy zostali zbawieni i doszli do poznania prawdy.",
+      "Dlatego i ja, choć niegodny nieba i ziemi oraz tego przemijającego życia, bo całkowicie poddałem się grzechowi, stałem się niewolnikiem rozkoszy i zbezcześciłem Twój obraz,",
+      "będąc jednak Twoim stworzeniem i dziełem Twoich rąk, nie tracę w swojej nędzy nadziei zbawienia, lecz ośmielony Twoim niezmierzonym miłosierdziem przystępuję.",
+      "Przyjmij więc i mnie, Chryste miłujący ludzi, jak nierządnicę, jak łotra, jak celnika i jak syna marnotrawnego.",
+      "Zdejmij ze mnie ciężkie brzemię moich grzechów, Ty, który gładzisz grzech świata, który leczysz niemoce wszystkich ludzi,",
+      "który wzywasz do siebie utrudzonych i obciążonych i dajesz im odpoczynek, który nie przyszedłeś powołać sprawiedliwych, lecz grzeszników do pokuty.",
+      "Oczyść mnie z wszelkiej zmazy ciała i ducha i naucz mnie dopełniać świętości w bojaźni przed Tobą, abym z czystym świadectwem sumienia, przyjmując cząstkę Twoich Świętych Darów,",
+      "zjednoczył się z Twoim świętym Ciałem i czcigodną Krwią i abyś Ty mieszkał i trwał we mnie wraz z Ojcem i Twoim Świętym Duchem.",
+      "Tak, Panie Jezu Chryste, Boże mój, niech Komunia Twoich świętych i życiodajnych Tajemnic nie będzie dla mnie potępieniem; niech nie osłabnę na duszy i ciele, przyjmując je niegodnie.",
+      "Lecz daj mi aż do ostatniego tchnienia bez potępienia przyjmować cząstkę Twoich Świętych Darów,",
+      "ku wspólnocie Świętego Ducha, ku życiu wiecznemu i ku dobrej odpowiedzi na Twoim strasznym sądzie,",
+      "abym i ja wraz z Twoimi wybranymi stał się uczestnikiem Twoich niezniszczalnych dóbr, które przygotowałeś dla tych, którzy Cię miłują, Panie, w których jesteś wysławiany na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-2-basil",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Druga modlitwa przed Komunią (św. Bazyli Wielki)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Wiem, Panie, że niegodnie przyjmuję Twoje przeczyste Ciało i czcigodną Krew i że jestem winny,",
+      "Chryste mój i Boże mój, bo jem i piję własne potępienie, nie rozróżniając Twojego Ciała i Krwi.",
+      "Lecz ośmielony Twoją łaskawością przychodzę do Ciebie, który powiedziałeś: Kto spożywa moje Ciało i pije moją Krew, ten trwa we mnie, a Ja w nim.",
+      "Zlituj się więc, Panie, i nie karć mnie, grzesznika, lecz postąp ze mną według Twego miłosierdzia.",
+      "Niech te Święte Dary będą dla mnie uzdrowieniem i oczyszczeniem, oświeceniem i ochroną, zbawieniem i uświęceniem duszy i ciała.",
+      "Niech odpędzą wszelkie urojenie, złe postępowanie i działanie diabła, który podstępnie działa w moich członkach.",
+      "Niech dadzą mi ufność i miłość ku Tobie, poprawę życia i wytrwałość, pomnożenie cnoty i doskonałość, wypełnienie Twoich przykazań, wspólnotę Świętego Ducha,",
+      "pokarm na drogę życia wiecznego i dobrą odpowiedź na Twoim strasznym sądzie, a niech nie będą mi ku sądowi ani ku potępieniu. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-3-chrysostom",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Trzecia modlitwa przed Komunią (św. Jan Chryzostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Panie, Boże mój, wiem, że nie jestem godny ani wystarczająco dobry, abyś wszedł pod dach domu mojej duszy,",
+      "gdyż cała jest pusta i zrujnowana, i nie masz we mnie godnego miejsca, gdzie mógłbyś złożyć głowę.",
+      "Lecz jak dla nas uniżyłeś się z wysokości, tak zniż się i do mojej nikłości.",
+      "I jak zechciałeś w grocie położyć się w żłobie bezrozumnych zwierząt, tak zechciej teraz wejść do żłobu mojej bezrozumnej duszy i do mego skalanego ciała.",
+      "I jak nie odmówiłeś wejść i zasiąść do stołu z grzesznikami w domu Szymona trędowatego, tak racz wejść do domu mojej duszy, choć jestem trędowaty i grzeszny.",
+      "I jak nie odrzuciłeś nierządnicy, grzesznej jak ja, która przyszła i dotknęła Ciebie, tak zlituj się nade mną, grzesznym, który teraz przychodzę, aby Cię dotknąć.",
+      "I jak nie wzgardziłeś pocałunkiem jej grzesznych i nieczystych ust, tak nie gardź moimi ustami,",
+      "bardziej skalanymi i nieczystymi niż jej, ani moimi plugawymi, nieczystymi i bezwstydnymi wargami, ani moim jeszcze nieczystszym językiem.",
+      "Lecz niech żarzący się węgiel Twego przeczystego Ciała i Twojej najczcigodniejszej Krwi przyniesie uświęcenie, oświecenie i umocnienie mojej pokornej duszy i ciała, ulgę w ciężarze moich licznych przewinień,",
+      "ochronę przed wszelkim działaniem diabła, odwrócenie i powstrzymanie moich złych i niegodziwych nawyków, umartwienie namiętności, wypełnienie Twoich przykazań, pomnożenie Twojej Boskiej łaski i dziedzictwo Twojego królestwa.",
+      "Nie z lekkim bowiem sercem ośmielam się przystąpić do Ciebie, Chryste Boże mój, lecz ufam Twojej niewypowiedzianej dobroci.",
+      "Obym, długo stroniąc od Twojej Komunii, nie stał się łupem szatana.",
+      "Dlatego modlę się do Ciebie, Panie, jedyny Święty: uświęć moją duszę i ciało, serce i umysł, odnów mnie całego i zaszczep w moich członkach bojaźń przed Tobą.",
+      "Niech nie zostanie mi odebrane Twoje uświęcenie, lecz bądź mi pomocą i obrońcą, kierując moim życiem w pokoju.",
+      "Uczyń mnie godnym stanąć po Twojej prawicy wraz z Twoimi świętymi, przez modlitwy i błagania Twojej Przeczystej Matki,",
+      "Twoich bezcielesnych sług i przeczystych Mocy anielskich oraz wszystkich Twoich świętych, którzy od wieków Ci się podobali. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-4-chrysostom",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Czwarta modlitwa przed Komunią (św. Jan Chryzostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Nie jestem godny, Władco Panie, abyś wszedł pod dach mojej duszy.",
+      "Lecz ponieważ Ty, miłując ludzi, pragniesz zamieszkać we mnie, z ufnością przystępuję.",
+      "Rozkaż, a otworzą się bramy, które Ty jeden uczyniłeś, i wejdziesz z właściwą Ci miłością do ludzi; wejdziesz i oświecisz mój zaciemniony rozum.",
+      "Wierzę, że to uczynisz, bo nie odpędziłeś nierządnicy, która przyszła do Ciebie ze łzami, nie odrzuciłeś skruszonego celnika, nie odtrąciłeś łotra,",
+      "który uznał Twoje królestwo, ani nie zostawiłeś nawróconego prześladowcy takim, jakim był, lecz wszystkich, którzy przychodzili do Ciebie z pokutą, zaliczyłeś do grona Twoich przyjaciół.",
+      "Ty jeden jesteś błogosławiony zawsze, teraz i na nieskończone wieki. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-5-chrysostom",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Piąta modlitwa przed Komunią (św. Jan Chryzostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Panie Jezu Chryste, Boże mój, odpuść, daruj, wybacz i przebacz mnie, Twemu grzesznemu, nieużytecznemu i niegodnemu słudze, błędy, przewinienia i upadki,",
+      "których dopuściłem się od mojej młodości aż do obecnego dnia i godziny, świadomie lub nieświadomie, słowami, czynami lub myślami, rozważaniami i dążeniami, i wszystkimi moimi zmysłami.",
+      "I przez wstawiennictwo Przeczystej i zawsze Dziewicy Marii, Twojej Matki, która bez grzechu Cię poczęła, jedynej mojej nadziei,",
+      "opieki i zbawienia, uczyń mnie godnym bez potępienia przyjąć Twoje przeczyste, nieśmiertelne, życiodajne i straszne Tajemnice:",
+      "ku odpuszczeniu grzechów i ku życiu wiecznemu, ku uświęceniu i oświeceniu, ku mocy, uzdrowieniu i zdrowiu duszy i ciała,",
+      "ku zatarciu i całkowitemu usunięciu moich złych myśli i wspomnień, przesądów i nocnych urojeń, sprowadzanych przez ciemne i złe duchy.",
+      "Albowiem Twoje jest królestwo i moc, cześć i pokłon, wraz z Ojcem i Świętym Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-6-damascene",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Szósta modlitwa przed Komunią (św. Jan Damasceński)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Władco, Panie Jezu Chryste, Boże nasz, Ty jeden masz władzę odpuszczać ludziom grzechy, albowiem jesteś dobry i miłujesz wszystkich.",
+      "Przebacz mi wszystkie przewinienia popełnione świadomie lub nieświadomie.",
+      "Uczyń mnie godnym bez potępienia przyjąć Twoje Boskie, chwalebne, przeczyste i życiodajne Tajemnice,",
+      "nie ku karze ani ku pomnożeniu grzechów, lecz ku oczyszczeniu, uświęceniu i jako zadatek przyszłego życia i królestwa.",
+      "Niech będą dla mnie warownią, pomocą i odparciem przeciwników oraz zgładzeniem moich licznych przewinień.",
+      "Albowiem Ty jesteś Bogiem miłosierdzia, litości i miłości do wszystkich ludzi, i Tobie chwałę zanosimy, Ojcu i Synowi, i Świętemu Duchowi, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-7-symeon",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Siódma modlitwa przed Komunią (św. Symeon Nowy Teolog)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Ze skalanych warg i z nieczystego serca, z nieczystego języka i ze splugawionej duszy przyjmij moją modlitwę, Chryste mój.",
+      "Nie zważaj na moje słowa ani na moje postępowanie, ani na mój bezwstyd.",
+      "Daj mi śmiałość, Chryste mój, powiedzieć wszystko, czego pragnę, a raczej naucz mnie, co mam czynić i mówić.",
+      "Zgrzeszyłem bardziej niż nierządnica, która dowiedziawszy się, gdzie przebywasz, śmiało przyszła namaścić Twoje nogi, Chryste mój, Władco mój i Boże mój.",
+      "A jak jej, która przyszła z gorliwością serca, nie odrzuciłeś, tak i mnie nie odrzucaj, Słowo,",
+      "lecz podaj mi Twoje nogi, abym je objął i ucałował i strumieniami łez, jak drogocenną mirrą, śmiało je namaścił.",
+      "Obmyj mnie moimi łzami i oczyść mnie nimi, Słowo.",
+      "Odpuść moje przewinienia i daj mi przebaczenie.",
+      "Znasz mnóstwo moich grzechów, znasz też moje rany i widzisz moje sińce.",
+      "Ale znasz i moją wiarę, widzisz moją gorliwość i słyszysz moje westchnienia.",
+      "Nie ukryje się przed Tobą, Boże mój, Stwórco mój i Odkupicielu mój, ani jedna łza, ani nawet jej cząstka.",
+      "Twoje oczy znają moje niedoskonałości, a w Twojej księdze zapisane są już wszystkie czyny jeszcze niedokonane.",
+      "Spójrz na moją niskość, spójrz, jak wielkie jest moje znużenie, i na wszystkie moje grzechy.",
+      "Boże wszechrzeczy, odpuść mi wszystko, abym z czystym sercem, z sumieniem pełnym świętej bojaźni i ze skruszoną duszą miał udział w Twoich przeczystych i całkowicie nieskalanych Tajemnicach,",
+      "które dają życie i przebóstwienie wszystkim, którzy z czystym sercem Ciebie spożywają i piją.",
+      "Ty bowiem powiedziałeś, Władco: Kto spożywa moje Ciało i pije moją Krew, ten trwa we mnie, a Ja w nim.",
+      "Prawdziwe jest zaiste słowo mego Władcy i Boga.",
+      "Kto bowiem ma udział w tych Boskich i przebóstwiających łaskach, ten wcale nie jest sam, lecz jest z Tobą, Chryste mój, trójpromienna Światłości, która oświecasz świat.",
+      "Abym zaś nigdy nie był sam, bez Ciebie, Dawco życia, tchnienie moje, życie moje, radości moja i zbawienie świata, przystąpiłem do Ciebie, jak widzisz,",
+      "ze łzami i skruszoną duszą, aby otrzymać odkupienie moich przewinień, błagając Cię, abyś mnie wybawił i pozwolił mi bez potępienia mieć udział w Twoich życiodajnych Tajemnicach;",
+      "abyś, jak powiedziałeś, zamieszkał ze mną, najnędzniejszym, aby zwodziciel nie znalazł mnie pozbawionego Twojej łaski, nie pochwycił mnie podstępem i zwiódłszy nie odciągnął od Twoich życiodajnych słów.",
+      "Dlatego przypadam do Ciebie i gorąco wołam:",
+      "jak przyjąłeś syna marnotrawnego i nierządnicę, gdy przyszła do Ciebie, tak przyjmij i mnie, nierządnego i marnotrawnego, Miłosierny, gdy teraz przychodzę do Ciebie ze skruszonym sercem.",
+      "Wiem, Zbawicielu, że nikt tak jak ja nie zgrzeszył przeciwko Tobie ani nie popełnił czynów, których ja się dopuściłem.",
+      "Ale wiem i to, że ani wielkość moich grzechów, ani mnóstwo moich przewinień nie przewyższa wielkiej cierpliwości mego Boga i Jego wielkiej miłości do wszystkich.",
+      "Olejem przebaczenia oczyszczasz i oświecasz tych, którzy gorąco żałują, i czynisz ich uczestnikami Twojej światłości i współuczestnikami Twojego Bóstwa.",
+      "I choć dziwne to jest dla umysłów aniołów i ludzi, często rozmawiasz z nimi jak z prawdziwymi przyjaciółmi.",
+      "Te myśli czynią mnie śmiałym, te myśli dodają mi skrzydeł, Chryste mój; i widząc bogactwo Twoich dobrodziejstw wobec nas, raduję się i zarazem drżę.",
+      "Przyjmuję ogień, choć jestem trawą, i, o dziwny cud, niespodziewanie zostaję orzeźwiony jak niegdyś krzew, który płonął, a nie spłonął.",
+      "Dlatego z wdzięcznym umysłem, z wdzięcznym sercem, wdzięczny każdym członkiem duszy i ciała,",
+      "oddaję Ci pokłon, wywyższam i wysławiam Ciebie, Boże mój, albowiem jesteś błogosławiony teraz i na wieki."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-8-metaphrastes",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Ósma modlitwa przed Komunią (św. Symeon Metafrastes)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Jezu Chryste, Mądrości Boża, pokoju i mocy, jedyny czysty i nieskalany Panie, poruszony niewypowiedzianym współczuciem w Twojej miłości do ludzi,",
+      "przyjąłeś całą naszą naturę z czystej i dziewiczej krwi Tej, która w przedziwny sposób Cię poczęła za sprawą zstąpienia Świętego Ducha i z upodobania przedwiecznego Ojca.",
+      "W tej przyjętej naturze poniosłeś życiodajną i zbawczą mękę: krzyż, gwoździe, włócznię i samą śmierć.",
+      "Umartw we mnie cielesne namiętności, które niszczą duszę.",
+      "Ty, który swoim pogrzebem zniszczyłeś moc otchłani, pogrzeb i zniszcz czystymi myślami podstępy złych duchów.",
+      "Ty, który swoim zmartwychwstaniem podniosłeś upadłego praojca, podnieś mnie z grzechu, w który upadłem, i ukaż mi drogę pokuty.",
+      "Swoim chwalebnym wniebowstąpieniem przebóstwiłeś przyjęte ciało i uczciłeś je miejscem po prawicy Ojca;",
+      "uczyń mnie godnym, przez udział w Twoich Świętych Tajemnicach, miejsca po Twojej prawicy wśród zbawionych.",
+      "Przez zstąpienie Pocieszyciela, Ducha, uczyniłeś swoich świętych uczniów cennymi naczyniami; ukaż i mnie naczyniem Twego przyjścia.",
+      "Obiecałeś przyjść ponownie, aby sądzić świat w sprawiedliwości;",
+      "daj mi wyjść na obłokach na spotkanie z Tobą, moim Stwórcą i Twórcą, wraz ze wszystkimi świętymi,",
+      "abym bez końca Cię wysławiał i opiewał wraz z Twoim przedwiecznym Ojcem i Najświętszym, łaskawym i życiodajnym Twoim Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-9-damascene",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziewiąta modlitwa przed Komunią (św. Jan Damasceński)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Stoję przed drzwiami Twojej świątyni, a nie odstąpiłem od złych myśli.",
+      "Lecz Ty, Chryste Boże mój, który usprawiedliwiłeś celnika, zmiłowałeś się nad Kananejką i otworzyłeś łotrowi bramy raju,",
+      "otwórz i dla mnie głębię Twojej miłości i przyjmij mnie, gdy przystępuję i dotykam Ciebie, jak przyjąłeś nierządnicę i kobietę cierpiącą na krwotok.",
+      "Ta bowiem dotknęła tylko frędzla Twojej szaty i od razu otrzymała uzdrowienie, tamta zaś, obejmując Twoje przeczyste nogi, otrzymała przebaczenie grzechów.",
+      "Obym ja, nędzny, nie spłonął, ośmielając się przyjąć całe Twoje Ciało.",
+      "Lecz przyjmij mnie jak je i oświeć zmysły mojej duszy, przez wstawiennictwo Tej, która bez grzechu Cię zrodziła, i niebieskich Mocy, albowiem jesteś błogosławiony na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-communion-10-i-believe",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziesiąta modlitwa przed Komunią: Wierzę, Panie, i wyznaję",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Tę modlitwę mówi się także w cerkwi tuż przed przyjęciem Komunii.",
+    "segments": [
+      "Wierzę, Panie, i wyznaję, że Ty jesteś prawdziwie Chrystus, Syn Boga żywego, który przyszedł na świat zbawić grzeszników, z których pierwszym jestem ja.",
+      "Wierzę także, że to jest prawdziwie Twoje przeczyste Ciało i że to jest prawdziwie Twoja czcigodna Krew.",
+      "Dlatego modlę się do Ciebie: zmiłuj się nade mną i odpuść mi moje przewinienia, dobrowolne i mimowolne, popełnione słowem i czynem, świadomie i nieświadomie.",
+      "I uczyń mnie godnym bez potępienia przyjąć Twoje przeczyste Tajemnice ku odpuszczeniu grzechów i ku życiu wiecznemu. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-behold-i-approach",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Wiersze Symeona Metafrastesa: Oto przystępuję do Komunii",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Mówi się, podchodząc do Komunii; po nich: „Przyjmij mnie dziś, Synu Boży…”.",
+    "segments": [
+      "Oto, Stwórco mój, przystępuję do świętej Komunii.",
+      "Nie spal mnie, gdy przyjmuję, albowiem jesteś ogniem, który spala niegodnych, lecz oczyść mnie z wszelkiej zmazy."
+    ]
+  },
+  {
+    "key": "pl.orthodox-receive-me-today",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przyjmij mnie dziś, Synu Boży (Wieczerzy Twojej mistycznej)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Troparion Wielkiego Czwartku, śpiewany przy Komunii.",
+    "segments": [
+      "Przyjmij mnie dziś, Synu Boży, jako uczestnika Twojej mistycznej Wieczerzy.",
+      "Nie wyjawię Twojej Tajemnicy Twoim wrogom ani nie dam Ci pocałunku jak Judasz, lecz jak łotr wyznaję Ciebie: Pamiętaj o mnie, Panie, w Twoim królestwie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-seeing-the-divine-blood",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Widząc Boską Krew",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Widząc Boską Krew, ulęknij się, człowieku, bo jest ona węglem, który spala niegodnych.",
+      "Ciało Boże przebóstwia mnie i karmi: przebóstwia ducha, a umysł karmi w sposób mistyczny."
+    ]
+  },
+  {
+    "key": "pl.orthodox-wounded-with-longing",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Zraniłeś mnie tęsknotą, Chryste",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Zraniłeś mnie tęsknotą, Chryste, i przemieniłeś mnie Twoją Boską miłością.",
+      "Spal moje grzechy duchowym ogniem i uczyń mnie godnym napełnienia się Twoją radością, abym, radując się Twoją dobrocią, wysławiał Twoje dwa przyjścia."
+    ]
+  },
+  {
+    "key": "pl.orthodox-how-shall-i-enter",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Jakże wejdę w blask Twoich świętych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Jakże ja, niegodny, wejdę w blask Twoich świętych?",
+      "Jeśli odważę się wejść do komnaty weselnej, moja szata mnie oskarży, bo nie jest szatą weselną, i związany zostanę wyrzucony przez aniołów.",
+      "W Twojej miłości, Panie, oczyść plugawość mojej duszy i zbaw mnie."
+    ]
+  },
+  {
+    "key": "pl.orthodox-let-these-holy-things",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Władco miłujący ludzi, niech te Świętości",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Władco miłujący ludzi, Panie Jezu Chryste, Boże mój, niech te Świętości nie będą dla mnie potępieniem z powodu mojej niegodności,",
+      "lecz niech służą oczyszczeniu i uświęceniu mojej duszy i ciała i będą zadatkiem przyszłego życia i królestwa.",
+      "Dobrze mi bowiem trwać przy Bogu i w Panu pokładać nadzieję mego zbawienia."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-communion-i-thank-you",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po Komunii: Dziękuję Ci, Panie, Boże mój",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Dziękuję Ci, Panie, Boże mój, że mnie, grzesznego, nie odrzuciłeś, lecz uczyniłeś mnie godnym uczestnictwa w Twoich Świętych Tajemnicach.",
+      "Dziękuję Ci, że pozwoliłeś mi, niegodnemu, przyjąć Twoje przeczyste i niebieskie Dary.",
+      "Władco miłujący ludzi, który dla nas umarłeś i zmartwychwstałeś i dałeś nam te straszne i życiodajne Tajemnice dla dobra i uświęcenia naszych dusz i ciał,",
+      "spraw, aby były one i dla mnie uzdrowieniem duszy i ciała,",
+      "odpędzeniem wszelkiego zła, oświeceniem oczu mego serca, pokojem moich duchowych sił,",
+      "wiarą niezawstydzoną, miłością nieobłudną, napełnieniem mądrością, zachowaniem Twoich przykazań, przyjęciem Twojej Boskiej łaski i dziedzictwem Twojego królestwa.",
+      "Strzeżony przez nie w Twojej świętości, obym zawsze pamiętał o Twojej łasce i nie żył już dla siebie, lecz dla Ciebie, naszego Władcy i Dobroczyńcy.",
+      "Obym, odchodząc z tego życia w nadziei życia wiecznego, osiągnął wieczny odpoczynek,",
+      "gdzie nieustanny jest głos Twoich świętujących świętych i nieskończona ich radość z oglądania niewypowiedzianego piękna Twojego oblicza.",
+      "Albowiem Ty, Chryste Boże nasz, jesteś prawdziwą radością i niewypowiedzianym weselem tych, którzy Cię miłują, i Ciebie opiewa całe stworzenie na wieki. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-communion-basil",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po Komunii (św. Bazyli Wielki)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Dziękuję Ci, Chryste, Władco, Boże nasz, Królu wieków i Stwórco wszystkiego, za wszystkie dobra, którymi mnie obdarzyłeś, a zwłaszcza za udział w Twoich przeczystych i życiodajnych Tajemnicach.",
+      "Modlę się więc do Ciebie, dobry i miłujący ludzi Panie: zachowaj mnie pod Twoją opieką i w cieniu Twoich skrzydeł.",
+      "Daj mi aż do ostatniego tchnienia z czystym sumieniem godnie przyjmować Twoje Dary ku odpuszczeniu grzechów i ku życiu wiecznemu.",
+      "Albowiem Ty jesteś chlebem życia, źródłem świętości, Dawcą wszelkiego dobra, i Tobie chwałę zanosimy wraz z Ojcem i Świętym Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-communion-metaphrastes",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po Komunii (Symeon Metafrastes)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Ty, który dobrowolnie dałeś mi Twoje Ciało na pokarm, który jesteś ogniem spalającym niegodnych, nie spal mnie.",
+      "Nie, Stwórco mój!",
+      "Raczej przeniknij do moich członków, do wszystkich stawów, do wnętrza i do serca, i spal jak ciernie wszystkie moje nieprawości.",
+      "Oczyść moją duszę, uświęć moje myśli, umocnij moje kolana i kości.",
+      "Oświeć moje pięć zmysłów i całego mnie uczyń czujnym w bojaźni przed Tobą.",
+      "Zawsze mnie strzeż, osłaniaj i chroń od każdego czynu i słowa, które niszczą duszę.",
+      "Oczyść mnie, obmyj i uporządkuj; przyozdób mnie, daj mi zrozumienie i oświeć mnie.",
+      "Ukaż mnie mieszkaniem jedynie Ducha, a już nie mieszkaniem grzechu,",
+      "aby, gdy wejdziesz przez Komunię jak do własnego domu, uciekł ode mnie jak od ognia każdy złoczyńca i każda namiętność.",
+      "Jako orędowników przyprowadzam do Ciebie wszystkich świętych, wodzów bezcielesnych zastępów, Twojego Poprzednika, mądrych Apostołów, a nade wszystko Twoją nieskalaną, czystą Matkę; przyjmij ich modlitwy, miłosierny Chryste mój.",
+      "Uczyń Twego sługę synem światłości.",
+      "Albowiem Ty jeden w Twojej dobroci uświęcasz i oświecasz nasze dusze, i Tobie, naszemu Bogu i Władcy, jak przystoi, oddajemy chwałę każdego dnia."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-communion-may-your-holy-body",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po Komunii: Niech Twoje święte Ciało",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Niech Twoje święte Ciało, Panie Jezu Chryste, Boże nasz, prowadzi mnie do życia wiecznego, a Twoja czcigodna Krew do odpuszczenia grzechów.",
+      "Niech ta Eucharystia będzie dla mnie radością, zdrowiem i weselem, a przy Twoim strasznym przyjściu uczyń mnie,",
+      "grzesznego, godnym stanąć po prawicy Twojej chwały, przez wstawiennictwo Twojej Przeczystej Matki i wszystkich Twoich świętych. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-communion-theotokos",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po Komunii: do Bogurodzicy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Najświętsza Władczyni, Bogurodzico, światłości mojej zaciemnionej duszy, nadziejo moja, osłono, ucieczko, pociecho i radości moja,",
+      "dziękuję Ci, że mnie, niegodnego, uczyniłaś godnym przyjęcia przeczystego Ciała i czcigodnej Krwi Twojego Syna.",
+      "Ty, która zrodziłaś prawdziwą Światłość, oświeć duchowe oczy mego serca.",
+      "Ty, która poczęłaś Źródło nieśmiertelności, ożyw teraz mnie, umarłego przez grzech.",
+      "Ty, miłosierna Matko miłosiernego Boga, zmiłuj się nade mną i daj mi skruchę i żal serca, pokorę w myślach i wyzwolenie moich myśli z niewoli.",
+      "Daj mi aż do ostatniego tchnienia bez potępienia przyjmować uświęcenie świętych Tajemnic ku uzdrowieniu duszy i ciała.",
+      "Daj mi łzy pokuty i wyznania, abym opiewał i wysławiał Ciebie po wszystkie dni mego życia, albowiem jesteś błogosławiona i wysławiona na wieki. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-entering-a-church",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przy wejściu do cerkwi",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "note": "Pierwsze zdania to Ps 5,8–9 (Septuaginta).",
+    "segments": [
+      "Wejdę do Twojego domu w wielkości Twego miłosierdzia i z bojaźnią pokłonię się ku Twojej świętej świątyni.",
+      "Prowadź mnie, Panie, w Twojej sprawiedliwości ze względu na moich nieprzyjaciół;",
+      "wyprostuj przede mną Twoją drogę, abym z czystym umysłem wysławiał Ciebie na wieki, jedną Boską Moc czczoną w trzech Osobach: Ojca i Syna, i Świętego Ducha. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-icon-of-christ",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed ikoną Chrystusa",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "segments": [
+      "Twojej przeczystej ikonie oddajemy pokłon, Dobry Panie, prosząc o przebaczenie naszych przewinień, Chryste Boże nasz.",
+      "Z własnej woli zechciałeś bowiem wstąpić ciałem na Krzyż, aby wybawić z niewoli wroga tych, których stworzyłeś.",
+      "Wołamy do Ciebie: Wszystko napełniłeś radością, Zbawicielu nasz, bo przyszedłeś zbawić świat. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-icon-of-the-theotokos",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed ikoną Bogurodzicy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "note": "„Raduj się” (gr. chaire): tak brzmi pozdrowienie anielskie w polskich tekstach prawosławnych.",
+    "segments": [
+      "Z Ciebie wypływa czułe miłosierdzie, Bogurodzico, uczyń nas godnymi współczucia.",
+      "Wejrzyj na lud grzeszny, okazuj zawsze Twoją moc, bo w Tobie pokładamy nadzieję i wołamy do Ciebie: Raduj się! jak niegdyś Gabriel, wódz bezcielesnych Mocy. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-prayer-of-a-sick-person",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa chorego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "healing",
+      "strength"
+    ],
+    "segments": [
+      "Jezu Chryste, Panie i Zbawicielu mój, Ty stałeś się człowiekiem i umarłeś na krzyżu dla naszego zbawienia.",
+      "Ty uzdrawiałeś ludzi z chorób i cierpień w Twojej miłości i współczuciu.",
+      "Nawiedź mnie, Panie, i daj mi siłę, abym tę chorobę, która mnie dotknęła, znosił cierpliwie, w poddaniu się Twojej woli i w zaufaniu do Twojej troskliwej opieki.",
+      "Proszę Cię, pobłogosław środki użyte do mojego wyzdrowienia i tych, którzy je stosują.",
+      "Spraw, aby moja choroba posłużyła mojemu duchowemu dobru i abym resztę życia przeżył wierniej, według Twojej woli.",
+      "Albowiem Ty jesteś źródłem życia i uzdrowienia, i Tobie oddaję cześć i chwałę, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-a-sick-person-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za chorego (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "healing"
+    ],
+    "note": "Modlisz się za konkretną osobę? Zrób kopię modlitwy i dopisz jej imię po „Twego sługę” (dla kobiety: „Twoją służebnicę” i formy żeńskie).",
+    "segments": [
+      "Ojcze Niebieski, Lekarzu naszych dusz i ciał, który posłałeś Jednorodzonego Twego Syna, Pana naszego Jezusa Chrystusa,",
+      "aby uzdrawiał wszelką chorobę i wszelką niemoc, nawiedź i ulecz także Twego sługę ze wszystkich dolegliwości ciała i duszy łaską Twojego Chrystusa.",
+      "Daj mu cierpliwość w tej chorobie, siłę ciała i ducha oraz powrót do zdrowia.",
+      "Panie, przez Twoje słowo nauczyłeś nas modlić się jedni za drugich, abyśmy zostali uzdrowieni.",
+      "Proszę Cię, ulecz Twego sługę i obdarz go pełnią zdrowia.",
+      "Albowiem Ty jesteś źródłem uzdrowienia, i Tobie oddaję chwałę, Ojcu i Synowi, i Świętemu Duchowi. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-a-sick-person-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za chorego (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "healing"
+    ],
+    "note": "Modlisz się za konkretną osobę? Zrób kopię modlitwy i dopisz jej imię po „Twego sługę” (dla kobiety: „Twoją służebnicę” i formy żeńskie).",
+    "segments": [
+      "Panie, Boże nasz, który samym słowem uzdrawiałeś wszelkie choroby i uleczyłeś teściową Piotra,",
+      "który karzesz z litością i uzdrawiasz według Twojej dobroci, który możesz oddalić każdą chorobę i niemoc:",
+      "Ty sam, ten sam Pan, wspomóż Twego sługę i ulecz go z każdej choroby, która go trapi;",
+      "ześlij na niego Twoje wielkie miłosierdzie i, jeśli taka jest Twoja wola, daj mu zdrowie i pełny powrót do sił.",
+      "Albowiem Ty jesteś Lekarzem naszych dusz i ciał, i Tobie chwałę zanosimy, Ojcu i Synowi, i Świętemu Duchowi, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-an-operation",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Po operacji",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "healing",
+      "thanksgiving"
+    ],
+    "note": "Modlisz się za konkretną osobę? Zrób kopię modlitwy i dopisz jej imię po „Twego sługę” (dla kobiety: „Twoją służebnicę” i formy żeńskie).",
+    "segments": [
+      "Ojcze Święty, jedyny prawdziwy Lekarzu naszych dusz i ciał, który poniżasz i podnosisz, przyjmij mnie,",
+      "gdy w całej pokorze przychodzę, aby wysławiać Cię i dziękować Ci, że Twoją łaską zachowałeś Twego sługę podczas niedawnej operacji.",
+      "Dziękujemy Ci, że pobłogosławiłeś lekarzy, którzy się nim opiekowali, i środki użyte do jego leczenia,",
+      "i że przywróciłeś go całego i zdrowego rodzinie i Kościołowi, odwracając wszelkie niebezpieczeństwo od jego ciała i duszy.",
+      "Prosimy Cię, podnieś go rychło z łoża choroby, na którym leży, i przywróć do domu i spokojnych zajęć.",
+      "Spraw, aby cierpienie jego ciała posłużyło oczyszczeniu duszy i doprowadziło go do powrotu, z dziękczynieniem, do pracy rąk i do Chrystusa Jezusa, Lekarza duszy i ciała.",
+      "Przez modlitwy świętych ojców naszych, Panie Jezu Chryste,",
+      "zmiłuj się nad nami i zbaw nas. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-recovery-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po wyzdrowieniu (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "healing"
+    ],
+    "segments": [
+      "Boże wszechmogący, Ojcze Niebieski, Ty jesteś źródłem życia i uzdrowienia.",
+      "Błogosławię Twoje święte imię i składam Ci dzięki za to, że wybawiłeś mnie z choroby i przywróciłeś mi zdrowie.",
+      "Proszę Cię, obdarz mnie Twoją wieczną łaską, abym żył nowym życiem w prawdziwym posłuszeństwie Tobie.",
+      "Prowadź mnie, abym we wszystkim pełnił Twoją wolę, poświęcając moje życie służbie Tobie.",
+      "Żyjąc tak dla Ciebie, obym okazał się godny Twojego królestwa, gdzie przebywasz w chwale z Twoim Synem i Twoim Świętym Duchem na wieki. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-recovery-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po wyzdrowieniu (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "healing"
+    ],
+    "segments": [
+      "Panie Boże, Jezu Chryste, Życie i Mocy wszystkich, którzy w Tobie pokładają nadzieję, którego zmiłowania są niezliczone, a skarbnica dobroci nieskończona:",
+      "dziękujemy Ci za dobrodziejstwa, którymi nas obdarzyłeś, i pokornie prosimy, abyś nadal okazywał nam Twoją dobroć.",
+      "Jak raczyłeś przywrócić nam zdrowie ciała,",
+      "tak napełnij nasze dusze wszelkimi łaskami niebieskimi i wytrwałością w dobrych uczynkach i przygotuj nas Twoimi błogosławieństwami w tym życiu do radowania się wiecznym szczęściem w życiu przyszłym.",
+      "Albowiem Tobie należy się wszelka chwała, cześć i pokłon, jak również Twemu przedwiecznemu Ojcu i Najświętszemu, dobremu i życiodajnemu Twemu Duchowi, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-the-terminally-ill",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za nieuleczalnie chorego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "healing",
+      "peace"
+    ],
+    "note": "Modlisz się za konkretną osobę? Zrób kopię modlitwy i dopisz jej imię po „Twego sługę” (dla kobiety: „Twoją służebnicę” i formy żeńskie).",
+    "segments": [
+      "Panie Jezu Chryste, który cierpiałeś i umarłeś za nasze grzechy, abyśmy żyli:",
+      "jeśli w ciągu naszego życia zgrzeszyliśmy słowem, czynem lub myślą, przebacz nam w Twojej dobroci i miłości.",
+      "Całą naszą nadzieję w Tobie pokładamy; chroń Twego sługę od wszelkiego zła.",
+      "Poddajemy się Twojej woli i w Twoje ręce polecamy nasze dusze i ciała.",
+      "O chrześcijański koniec naszego życia, spokojny, bez wstydu i cierpienia, i o dobrą odpowiedź przed strasznym sądem Chrystusa modlimy się do Ciebie, Panie.",
+      "Błogosław nam, zmiłuj się nad nami i daj nam życie wieczne. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-lord-of-hosts-be-with-us",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Panie Zastępów, bądź z nami",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "anxiety"
+    ],
+    "note": "Wiąże się z wersetem „Pan Zastępów jest z nami” (Ps 46[45],8).",
+    "segments": [
+      "Panie Zastępów, bądź z nami, albowiem w utrapieniach nie mamy innej pomocy prócz Ciebie.",
+      "Panie Zastępów, zmiłuj się nad nami."
+    ]
+  },
+  {
+    "key": "pl.orthodox-in-time-of-need-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "W potrzebie (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "anxiety",
+      "peace",
+      "strength"
+    ],
+    "segments": [
+      "Boże wszechmogący, Ojcze miłosierdzia i Boże wszelkiej pociechy, przyjdź mi z pomocą i wybaw mnie z trudności, która mnie przygniata.",
+      "Wierzę, Panie, że wszystkie próby życia są pod Twoją opieką i że wszystko służy ku dobremu tym, którzy Cię miłują.",
+      "Oddal ode mnie lęk, niepokój i udrękę.",
+      "Pomóż mi stawić czoło tej trudności i znosić ją z wiarą, odwagą i mądrością.",
+      "Spraw, aby ta próba zbliżyła mnie do Ciebie, bo Ty jesteś moją skałą i ucieczką, moją pociechą i nadzieją, moim weselem i radością.",
+      "Ufam Twojej miłości i Twemu miłosierdziu.",
+      "Błogosławione jest Twoje imię, Ojca i Syna, i Świętego Ducha, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-in-time-of-need-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "W potrzebie (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "anxiety",
+      "strength"
+    ],
+    "segments": [
+      "Boże, nasza pomocy w potrzebie, który jesteś sprawiedliwy i miłosierny i nakłaniasz ucha ku błaganiom Twego ludu:",
+      "wejrzyj na mnie, zmiłuj się nade mną i wybaw mnie z kłopotu, który mnie teraz przygniata.",
+      "Nie postępuj z nami według naszych nieprawości, lecz według mnóstwa Twoich zmiłowań, bo jesteśmy dziełem Twoich rąk, a Ty znasz nasze słabości.",
+      "Proszę Cię, udziel mi Twojej Boskiej, wspomagającej łaski i obdarz mnie cierpliwością i siłą, abym znosił moje trudy w całkowitym poddaniu się Twojej woli.",
+      "Tylko Ty znasz naszą nędzę i nasze cierpienia;",
+      "do Ciebie, naszej jedynej nadziei i ucieczki, uciekam się po ulgę i pocieszenie, ufając Twojej nieskończonej miłości i miłosierdziu,",
+      "że we właściwym czasie, gdy uznasz to za najlepsze, wybawisz mnie z tego kłopotu i zamienisz moją udrękę w pociechę.",
+      "Wtedy będziemy radować się Twoim miłosierdziem, wywyższać i wysławiać Twoje święte imię, Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-against-evil-spirits",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przeciw działaniu złych duchów",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "warfare",
+      "protection"
+    ],
+    "segments": [
+      "Boże wszechmogący, który wybawiłeś Twój lud z niewoli przeciwnika i przez Twego Syna strąciłeś szatana jak błyskawicę, wybaw i mnie od wszelkiego wpływu duchów nieczystych.",
+      "Rozkaż szatanowi, aby odszedł daleko ode mnie mocą Twojego Jednorodzonego Syna.",
+      "Wyrwij mnie z demonicznych urojeń i z ciemności.",
+      "Napełnij mnie światłością Świętego Ducha, abym był strzeżony przed wszelkimi sidłami przebiegłych demonów.",
+      "Spraw, aby anioł zawsze szedł przede mną i prowadził mnie drogą sprawiedliwości po wszystkie dni mego życia,",
+      "ku czci Twego chwalebnego imienia, Ojca i Syna, i Świętego Ducha, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-facing-the-unknown",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "W obliczu nieznanego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "anxiety",
+      "faith"
+    ],
+    "segments": [
+      "Panie, który podtrzymałeś rękę Piotra, gdy zaczął tonąć na wzburzonym morzu: jeśli Ty jesteś ze mną, nikt nie jest przeciwko mnie.",
+      "Daj mi tarczę wiary i potężną zbroję Świętego Ducha, aby mnie chroniły i prowadziły do pełnienia Twojej woli.",
+      "Przyszłość składam w Twoje ręce, Panie, i idę za Tobą ku życiu w Chrystusie. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-acceptance-of-gods-will",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O przyjęcie woli Bożej",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "wisdom",
+      "closeness"
+    ],
+    "note": "Przypisywana św. Filaretowi, metropolicie moskiewskiemu.",
+    "segments": [
+      "Panie, nie wiem, o co Cię prosić.",
+      "Ty lepiej niż ja wiesz, czego potrzebuję.",
+      "Ty miłujesz bardziej, niż ja umiem kochać.",
+      "Pomóż mi jasno ujrzeć moje prawdziwe potrzeby, których nie widzę.",
+      "Otwieram przed Tobą moje serce.",
+      "Zbadaj mnie i ukaż mi moje wady i grzechy.",
+      "Całą ufność pokładam w Tobie.",
+      "Nie mam innego pragnienia, jak tylko pełnić Twoją wolę.",
+      "Naucz mnie modlić się.",
+      "Módl się Ty sam we mnie. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-thanksgiving-after-trouble",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dziękczynienie po wyjściu z trudności",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "thanksgiving",
+      "peace"
+    ],
+    "segments": [
+      "Boże wszechmogący i miłosierny, z całą pokorą i z głębi serca dziękuję Twemu Boskiemu majestatowi za Twoją łaskawość i czułe zmiłowania,",
+      "za to, że wysłuchałeś mojej pokornej modlitwy i łaskawie wybawiłeś mnie z mojego kłopotu i nędzy.",
+      "Proszę Cię, nie przestawaj udzielać mi Twojej wspomagającej łaski, abym prowadził życie Tobie miłe i nieustannie składał Ci ofiarę chwały i dziękczynienia, Ojcze i Synu, i Duchu Święty. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-work-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed pracą (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "job"
+    ],
+    "note": "Cytat: J 15,5.",
+    "segments": [
+      "Panie Jezu Chryste, Boże mój, Ty powiedziałeś: „Beze mnie nic nie możecie uczynić”.",
+      "Z wiarą przyjmuję Twoje słowa, Panie, i błagam Twoją dobroć: pomóż mi wykonać pracę, którą zaczynam, i doprowadzić ją do końca.",
+      "Tobie oddaję chwałę, Ojcu i Synowi, i Świętemu Duchowi. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-work-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed pracą (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "job",
+      "wisdom"
+    ],
+    "segments": [
+      "Boże wszechmogący, nasza Pomocy i Ucieczko, Ty wiesz, że bez Twojego prowadzenia i pomocy nie potrafimy uczynić nic dobrego.",
+      "Kieruj mną Twoją mądrością i mocą, abym wykonał to zadanie i wszystko, co czynię, według Twojej Boskiej woli,",
+      "aby było to pożyteczne dla mnie i dla innych oraz ku chwale Twego świętego imienia. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-work-3",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed pracą (3)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "job",
+      "strength"
+    ],
+    "segments": [
+      "Panie i Zbawicielu mój, Ty stałeś się człowiekiem i pracowałeś własnymi rękami aż do czasu Twojej publicznej służby.",
+      "Pobłogosław mnie, gdy zaczynam tę pracę, i pomóż mi doprowadzić ją do końca.",
+      "Panie, oświeć mój umysł i wzmocnij moje ciało, abym wykonał moje zadanie według Twojej woli.",
+      "Prowadź mnie, abym czynił dobre dzieła ku Twojej służbie i chwale. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-work",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Po pracy",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "job",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Dziękuję Ci, Panie, za Twoją moc i prowadzenie w mojej pracy.",
+      "Ty jesteś spełnieniem wszelkiego dobra.",
+      "Napełnij także moją duszę radością i weselem, abym zawsze Cię wysławiał. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-students-prayer",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa ucznia",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "studies",
+      "wisdom"
+    ],
+    "segments": [
+      "Chryste, Panie mój, Dawco światłości i mądrości, który otworzyłeś oczy niewidomemu i przez zstąpienie Świętego Ducha przemieniłeś rybaków w mądrych zwiastunów i nauczycieli Ewangelii:",
+      "zapal i w moim umyśle światło łaski Świętego Ducha.",
+      "Daj mi rozeznanie, zrozumienie i mądrość w nauce.",
+      "Pozwól mi wykonać moje zadania i obfitować w każde dobre dzieło, albowiem Tobie oddaję cześć i chwałę. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-study-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed nauką (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "studies"
+    ],
+    "segments": [
+      "Przedobry Panie, ześlij na mnie łaskę Twego Świętego Ducha, która mnie umocni, abym dobrze przyswoił sobie to, czego mam się uczyć,",
+      "i dzięki temu stał się lepszym człowiekiem, ku Twojej chwale, ku pociesze mojej rodziny, ku pożytkowi Twojego Kościoła i naszej ojczyzny. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-study-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed nauką (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "studies",
+      "wisdom"
+    ],
+    "note": "Modlitwa z nabożeństwa pierwszej godziny.",
+    "segments": [
+      "Chryste, Światłości prawdziwa, która oświecasz i uświęcasz każdego człowieka przychodzącego na świat, niech zajaśnieje nade mną światłość Twego oblicza, abym ujrzał Twoją światłość niedostępną;",
+      "i kieruj moje kroki drogą Twoich przykazań, przez wstawiennictwo Twojej Przeczystej Matki i wszystkich świętych. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-study",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Po nauce",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "studies",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Dziękuję Ci, Panie Boże nasz, że i tym razem otworzyłeś moje oczy na światło Twojej mądrości i rozweseliłeś moje serce poznaniem prawdy.",
+      "Błagam Cię, Panie, pomóż mi zawsze pełnić Twoją wolę.",
+      "Błogosław moją duszę i ciało, moje słowa i czyny.",
+      "Daj mi wzrastać w łasce, cnocie i dobrych przyzwyczajeniach, aby było wysławiane Twoje imię, Ojca i Syna, i Świętego Ducha, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-scripture-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed czytaniem Pisma Świętego (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "closeness"
+    ],
+    "segments": [
+      "Władco, który nas miłujesz, zapal w naszych sercach Twoją wieczną światłość, abyśmy lepiej Cię poznali.",
+      "Pomóż nam w pełni zrozumieć orędzie Twojej Ewangelii.",
+      "Zaszczep w nas szacunek dla Twoich świętych przykazań, abyśmy, przezwyciężając światowe pragnienia, prowadzili życie duchowe, w myślach i czynach Tobie miłe.",
+      "Prosimy Cię o to, Chryste Boże nasz, albowiem Ty jesteś światłością naszych dusz i ciał,",
+      "i Ciebie wysławiamy wraz z Twoim przedwiecznym Ojcem i Najświętszym, dobrym i życiodajnym Twoim Duchem, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-scripture-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed czytaniem Pisma Świętego (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "scripture",
+      "wisdom"
+    ],
+    "note": "Osobista wersja modlitwy, którą kapłan mówi przed czytaniem Ewangelii w Boskiej Liturgii.",
+    "segments": [
+      "Zajaśnij w moim sercu, Władco miłujący ludzi, czystą światłością Twego Boskiego poznania i otwórz oczy mego umysłu, abym rozumiał Twoje nauki.",
+      "Zaszczep we mnie także cześć dla Twoich błogosławionych przykazań, abym, przezwyciężywszy grzeszne pragnienia, prowadził duchowe życie, myśląc i czyniąc wszystko, co Tobie miłe.",
+      "Albowiem Ty, Chryste Boże mój, jesteś moją światłością, i Tobie oddaję chwałę wraz z Twoim Ojcem i Twoim Świętym Duchem, teraz i zawsze. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-a-journey-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed podróżą (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "peace"
+    ],
+    "segments": [
+      "Panie Jezu Chryste, Boże mój, bądź moim Towarzyszem, przewodnikiem i obrońcą w czasie mojej podróży.",
+      "Zachowaj mnie od wszelkiego niebezpieczeństwa, nieszczęścia i pokusy.",
+      "Twoją Boską mocą daj mi spokojną i pomyślną podróż i szczęśliwe przybycie do celu.",
+      "W Tobie pokładam nadzieję i ufność, i Ciebie wysławiam, czczę i chwalę wraz z Twoim Ojcem i Świętym Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-before-a-journey-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Przed podróżą (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "protection",
+      "closeness"
+    ],
+    "segments": [
+      "Panie Jezu, Ty po zmartwychwstaniu wędrowałeś z dwoma uczniami i rozpaliłeś ich serca Twoją łaską.",
+      "Wędruj także ze mną i rozwesel moje serce Twoją obecnością.",
+      "Wiem, Panie, że jestem pielgrzymem na tej ziemi i szukam obywatelstwa, które jest w niebie.",
+      "W czasie mojej podróży otocz mnie Twoimi świętymi aniołami i chroń od widzialnych i niewidzialnych niebezpieczeństw.",
+      "Spraw, abym wykonał moje plany i spełnił moje oczekiwania według Twojej woli.",
+      "Pomóż mi dostrzegać piękno stworzenia i we wszystkim pojmować cud Twojej prawdy.",
+      "Albowiem Ty jesteś drogą, prawdą i życiem, i Tobie składam dziękczynienie, cześć i chwałę na wieki. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-repentance-1",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa pokutna (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "holiness"
+    ],
+    "segments": [
+      "Boże, mój dobry i miłujący Panie, wyznaję wszystkie grzechy, które popełniałem każdego dnia mojego życia, myślą, słowem lub czynem.",
+      "Z głębi serca proszę o przebaczenie za to, że obrażałem Ciebie i innych, i żałuję za moje dawne postępowanie.",
+      "Pomóż mi Twoją łaską przemienić się, więcej nie grzeszyć, kroczyć drogą sprawiedliwości oraz chwalić i wysławiać Twoje imię, Ojca i Syna, i Świętego Ducha. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-repentance-2",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa pokutna (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "holiness"
+    ],
+    "segments": [
+      "Panie, Boże mój, wyznaję, że zgrzeszyłem przeciwko Tobie myślą, słowem i uczynkiem.",
+      "Zaniedbałem też tego, czego wymaga ode mnie Twoje święte prawo.",
+      "Lecz teraz ze skruchą i żalem zwracam się ponownie do Twojej miłości i Twego miłosierdzia.",
+      "Błagam Cię, przebacz mi wszystkie moje przewinienia i oczyść mnie ze wszystkich moich grzechów.",
+      "Panie, napełnij moje serce światłością Twojej prawdy.",
+      "Umocnij moją wolę Twoją łaską.",
+      "Naucz mnie pragnąć i czynić tylko to, co Tobie miłe. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-love",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O miłość",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "closeness",
+      "holiness"
+    ],
+    "segments": [
+      "Chryste Boże mój, rozpal moje serce miłością do Ciebie, abym w jej płomieniu miłował Ciebie całym sercem, całym umysłem,",
+      "całą duszą i całą mocą, a bliźniego jak siebie samego, abym, zachowując Twoje przykazania, wysławiał Ciebie, Dawcę wszelkiego dobrego i doskonałego daru. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-great-lent",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa wielkopostna",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "holiness",
+      "strength"
+    ],
+    "note": "Modlitwa zaambonowa z Liturgii Uprzednio Poświęconych Darów.",
+    "segments": [
+      "Władco wszechmogący, który wszystko stworzyłeś w mądrości,",
+      "Ty w Twojej opatrzności i wielkiej dobroci doprowadziłeś nas do tego czasu Wielkiego Postu dla oczyszczenia dusz i ciał, dla panowania nad namiętnościami, w nadziei zmartwychwstania.",
+      "Ty, który po czterdziestu dniach dałeś Mojżeszowi tablice prawa zapisane Twoją Boską ręką, daj i nam siłę, abyśmy toczyli dobry bój,",
+      "wytrwali w poście, zachowali wiarę, zdeptali wszystkie złe demony, stali się zwycięzcami nad grzechem i doszli do świętowania Twojego świętego Zmartwychwstania.",
+      "Albowiem błogosławione i wysławione jest przeczcigodne i wspaniałe imię Twoje, Ojca i Syna, i Świętego Ducha, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-ephrem-the-syrian",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa św. Efrema Syryjczyka",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "holiness",
+      "traditional"
+    ],
+    "note": "Odmawia się ją w Wielkim Poście z pokłonami. Zamiast „wścibstwa” (gr. periergia) w tradycji słowiańskiej stoi „przygnębienie”, a zamiast „roztropności” – „czystość”.",
+    "segments": [
+      "Panie i Władco życia mego, wybaw mnie od ducha lenistwa, wścibstwa, żądzy władzy i próżnomówstwa.",
+      "Udziel mi, Twemu słudze, ducha roztropności, pokory, cierpliwości i miłości.",
+      "Panie i Królu, daj mi widzieć moje grzechy i upadki, a nie osądzać mego brata, albowiem błogosławiony jesteś na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-diptychs",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Dyptychy (wspomnienie żywych)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "home",
+      "enemies"
+    ],
+    "note": "Przy każdym wezwaniu pokłon. Możesz zrobić kopię i dopisać imiona metropolity, ojca duchownego i rodziców.",
+    "segments": [
+      "Pamiętaj, Panie Jezu Chryste, Boże nasz, o miłosierdziu i łaskach Twoich, będących od wieków,",
+      "ze względu na które wcieliłeś się oraz zechciałeś przecierpieć ukrzyżowanie i śmierć ze względu na zbawienie prawdziwie w Ciebie wierzących,",
+      "powstałeś z martwych, wstąpiłeś na niebiosa, siedzisz po prawicy Boga Ojca i spoglądasz na pokorne modły przyzywających Ciebie całym sercem.",
+      "Nakłoń Twoje ucho i usłysz moją pokorną modlitwę, niepotrzebnego Twego sługi, jak przyjemną wonność duchową, przynoszoną Tobie za wszystkich Twoich ludzi.",
+      "Przede wszystkim pamiętaj o Twoim świętym Kościele, soborowym i apostolskim, który nabyłeś Twoją czcigodną krwią,",
+      "umocnij go, utwierdź, rozwijaj, pomnóż, obdarz pokojem i zachowaj na wieki niezwyciężonym przez bramy otchłani.",
+      "Utul podziały Kościoła, wygaś napaści pogan, powstające herezje szybko zniszcz, wykorzeń i obróć w nicość mocą Świętego Twego Ducha.",
+      "Zbaw, Panie, i zmiłuj się nad wielce błogosławionym metropolitą naszym, nad wszystkimi patriarchami, metropolitami, arcybiskupami i biskupami prawosławnymi, nad wszystkimi kapłanami i mnichami,",
+      "nad całym duchowieństwem, które ustanowiłeś, aby pasło Twoją duchową owczarnię, i ich modlitwami zmiłuj się nade mną i zbaw mnie grzesznego.",
+      "Zbaw, Panie, i zmiłuj się nad ojcem moim duchownym i jego świętymi modlitwami przebacz moje grzechy.",
+      "Zbaw, Panie, i zmiłuj się nad moimi rodzicami, nad braćmi i siostrami oraz krewnymi według ciała,",
+      "nad całą moją rodziną, nad przyjaciółmi i daj im Twój pokój oraz nadprzyrodzone dobra.",
+      "Zbaw, Panie, i zmiłuj się nad starcami i młodymi, ubogimi i sierotami, wdowami i pozostającymi w chorobach oraz kłopotach, biedach i smutkach, zniewolonych w więzieniach i na wygnaniu,",
+      "nad prześladowanymi przez bezbożnych pogan, odstępców i heretyków ze względu na Ciebie i wiarę prawosławną Twymi sługami,",
+      "i pamiętaj o nich, nawiedź i pociesz, szybko daj im Twoją mocną pociechę, wolność i wybawienie.",
+      "Zbaw, Panie, i zmiłuj się nad nienawidzącymi i znieważającymi mnie, nad atakującymi mnie i nie pozostawiaj ich, aby zginęli ze względu na mnie grzesznego.",
+      "Oświeć światłością Twego poznania i połącz z Twoim świętym, apostolskim i soborowym Kościołem odstępców od wiary prawosławnej i oślepionymi przez zgubne herezje."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-our-enemies",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za nieprzyjaciół",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "enemies",
+      "forgiveness"
+    ],
+    "segments": [
+      "Panie Jezu Chryste, w Twoim wielkim miłosierdziu modliłeś się o przebaczenie dla tych, którzy Cię ukrzyżowali, i nauczyłeś nas miłować nieprzyjaciół i modlić się za tych, którzy nas prześladują.",
+      "Panie, proszę Cię, przebacz tym, którzy postępują ze mną niesprawiedliwie i występują przeciwko mnie; pobłogosław ich i prowadź według Twojej woli.",
+      "Usuń z mego serca wszelką gorycz wobec nich.",
+      "Panie, niech Twoje przebaczenie, dobroć i miłość objawią się w nas wszystkich, ku Twojej czci i chwale. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-peace-in-the-world",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "O pokój na świecie",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "church",
+      "peace"
+    ],
+    "segments": [
+      "Boże wszechmogący, Stwórco, Ty jesteś Ojcem wszystkich ludzi na ziemi.",
+      "Proszę Cię, prowadź wszystkie narody i ich przywódców drogami sprawiedliwości i pokoju.",
+      "Chroń nas od zła niesprawiedliwości, uprzedzeń, wyzysku, konfliktów i wojen.",
+      "Pomóż nam odrzucić nieufność, gorycz i nienawiść.",
+      "Naucz nas zaprzestać gromadzenia i używania narzędzi wojny.",
+      "Prowadź nas, abyśmy znaleźli pokój, szacunek i wolność.",
+      "Zjednocz nas we wspólnym tworzeniu i dzieleniu się narzędziami pokoju przeciw niewiedzy, ubóstwu, chorobom i uciskowi.",
+      "Spraw, abyśmy wzrastali w zgodzie i przyjaźni jako bracia i siostry stworzeni na Twój obraz, ku Twojej czci i chwale. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-the-departed-morning",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za zmarłych (z modlitw porannych)",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief",
+      "traditional"
+    ],
+    "note": "Odmawia się trzy razy, z trzema pokłonami. Możesz zrobić kopię i dopisać imiona rodziców po „moich rodziców”.",
+    "segments": [
+      "Pamiętaj, Panie, o duszach zmarłych Twoich sług, moich rodziców, i wszystkich krewnych według ciała,",
+      "i o wszystkich zmarłych w nadziei zmartwychwstania i życia wiecznego ojcach, braciach naszych i siostrach, i daj im wieczny odpoczynek."
+    ]
+  },
+  {
+    "key": "pl.orthodox-saturday-for-the-departed",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Modlitwa sobotnia za zmarłych",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief"
+    ],
+    "note": "Według angielskiego modlitewnika odmawiana rano w sobotę, dniu modlitwy za zmarłych.",
+    "segments": [
+      "Pamiętaj, Panie, o naszych ojcach i braciach, którzy zasnęli w nadziei zmartwychwstania do życia wiecznego, i o wszystkich, którzy zakończyli to życie w pobożności i wierze.",
+      "Przebacz im każde przewinienie, popełnione dobrowolnie lub mimowolnie, słowem, czynem lub myślą.",
+      "Umieść ich w miejscu światłym, w miejscu ochłody, w miejscu pokoju, skąd wygnane są wszelka choroba,",
+      "smutek i westchnienie, i gdzie światłość Twego oblicza jaśnieje i rozwesela wszystkich Twoich świętych od wieków.",
+      "Obdarz ich i nas Twoim królestwem.",
+      "Daj im udział w Twoich niewypowiedzianych i wiecznych dobrach i radość z Twojego niekończącego się i błogiego życia.",
+      "Albowiem Ty jesteś życiem, zmartwychwstaniem i odpoczynkiem zmarłych sług Twoich, Chryste Boże nasz,",
+      "i Tobie chwałę zanosimy wraz z Najświętszym, dobrym i życiodajnym Twoim Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-kontakion-for-the-departed",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Kondakion za zmarłych: Ze świętymi daj odpoczynek",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief",
+      "traditional"
+    ],
+    "segments": [
+      "Ze świętymi daj odpoczynek, Chryste, duszom sług Twoich tam, gdzie nie ma bólu ani smutku, ani westchnienia, lecz życie bez końca."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-one-who-has-died",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za zmarłego",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief"
+    ],
+    "note": "Modlisz się za konkretną osobę? Zrób kopię i dopisz jej imię po „zmarłego sługi Twego” (dla kobiety: „zmarłej służebnicy Twojej” i formy żeńskie).",
+    "segments": [
+      "Chryste, przedwieczny Królu i Boże nasz, który Twoim Krzyżem zniszczyłeś śmierć i diabła, a Twoim Zmartwychwstaniem przywróciłeś człowiekowi życie:",
+      "daj odpoczynek, Panie, duszy zmarłego sługi Twego w Twoim królestwie, gdzie nie ma bólu, smutku ani cierpienia.",
+      "W Twojej dobroci i miłości do ludzi przebacz mu wszystkie grzechy, które popełnił myślą, słowem lub czynem,",
+      "nie ma bowiem człowieka, który by żył i nie grzeszył; Ty jeden jesteś bez grzechu.",
+      "Albowiem Ty jesteś zmartwychwstaniem, życiem i odpoczynkiem zmarłego sługi Twego, Chryste Boże nasz,",
+      "i Tobie chwałę zanosimy wraz z Twoim przedwiecznym Ojcem i Najświętszym, dobrym i życiodajnym Twoim Duchem, teraz i zawsze, i na wieki wieków. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-for-a-child-who-has-died",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Za zmarłe dziecko",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief",
+      "children"
+    ],
+    "note": "Możesz zrobić kopię i dopisać imię dziecka po „Twojego małego sługi” (dla dziewczynki: „Twojej małej służebnicy”).",
+    "segments": [
+      "Panie, który strzeżesz dzieci w życiu doczesnym i w świecie przyszłym ze względu na ich prostotę i niewinność umysłu,",
+      "obficie obdarzając je miejscem na łonie Abrahama i prowadząc je do miejsc jaśniejących światłem, gdzie przebywają duchy sprawiedliwych:",
+      "przyjmij w pokoju duszę Twojego małego sługi, albowiem Ty sam powiedziałeś: „Pozwólcie dzieciom przychodzić do Mnie, do takich bowiem należy królestwo niebieskie”. Amen."
+    ]
+  },
+  {
+    "key": "pl.orthodox-after-a-miscarriage",
+    "lang": "pl",
+    "type": "prayer",
+    "title": "Po poronieniu",
+    "splitMode": "sentence",
+    "tags": [
+      "Modlitewnik prawosławny"
+    ],
+    "needs": [
+      "grief",
+      "fertility"
+    ],
+    "note": "Modlitwa za matkę po poronieniu. W kopii możesz dopisać jej imię po „tę służebnicę Twoją”.",
+    "segments": [
+      "Władco, Panie Boże nasz, który narodziłeś się z Przeczystej Bogurodzicy i zawsze Dziewicy Marii i jako niemowlę zostałeś złożony w żłobie:",
+      "Ty sam, według Twego wielkiego miłosierdzia, wejrzyj na tę służebnicę Twoją, która poroniła to, co w niej zostało poczęte.",
+      "Ulecz jej cierpienie, darując jej, miłujący ludzi Panie, zdrowie i siłę ciała i duszy.",
+      "Strzeż jej przez świetlistego Anioła od wszelkiego natarcia choroby i słabości i od wszelkiej wewnętrznej udręki.",
+      "Ty, który przyjmujesz do Twojego królestwa niewinność niemowląt, pociesz umysł Twojej służebnicy i obdarz ją pokojem. Amen."
+    ]
+  }
+]

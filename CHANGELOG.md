@@ -29,6 +29,10 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ### A prayer library, found by what you pray for
 
+- **An Orthodox prayer book** in English and Polish: 143 prayers — morning and evening prayers, psalms, hymns,
+  prayers to the Theotokos, to the guardian angel and the saints, the prayers before and after Holy Communion, and
+  prayers in sickness, in trouble, for work, study and travel, in repentance and for the departed. A note before a
+  prayer says how it is said: three times, with a bow, or where to add a name.
 - **133 new prayers** in English and in Polish — for fear and anxiety, healing, sleep,
   marriage, children, work and money, protection, the spiritual life and every stage of life. The Polish
   translation follows the original sentence for sentence and uses your grammatical form where it matters.

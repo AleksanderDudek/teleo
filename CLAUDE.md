@@ -55,13 +55,13 @@ npm run typecheck    # tsc -b
   tested planner in `src/domain/bible/readings.ts` — keep that file import-free). Readings are materialised as hidden
   texts (`source: 'bible'`, filter lists with `isListedText`); finished readings live in `bibleReadings`.
 - Prayer library & needs (DECISIONS #125–#126): taxonomy in `src/domain/text/needs.ts` (labels `needs.*` in i18n), library
-  filters in the URL (`src/domain/text/libraryFilter.ts`). The library prayers are lazy chunks `src/content/prayers/{en,pl}.json`
+  filters in the URL (`src/domain/text/libraryFilter.ts`). The library prayers are lazy chunks `src/content/prayers/{en,pl}.json` (the Orthodox prayer book in `prayers/orthodox/{en,pl}.json`, DECISIONS #138)
   (PL gendered sentences inline as `{m,f,n}`), reached only through `loadBuiltinTexts()` — never import them statically;
   core texts stay in `texts.json`. Every builtin has 1–3 needs; EN/PL library pairs keep the same sentence count (tests).
   Search: `src/domain/text/librarySearch.ts` (ranked, words in any order, need labels searchable — DECISIONS #130,
   index built by `textSearchIndex`); a text page's *More for this need* is `relatedTexts` in `needs.ts`.
   A builtin may carry a `note` (read before praying, never spoken — verses with references, cautions; DECISIONS #132);
-  sentences hold no digits and no `[fill-ins]` (content tests). Library series: `*.life-*`, `*.stronghold-*`; no preacher or series is named in a key, title, tag, note or sentence
+  sentences hold no digits and no `[fill-ins]` (content tests). Library series: `*.life-*`, `*.stronghold-*`, `*.orthodox-*`; no preacher or series is named in a key, title, tag, note or sentence
   (content test; the old library keys are renamed on upgrade and restore by `src/domain/backup/renamed.ts`, DECISIONS #134).
   Start-up awaits only `seedCore`; the library is written in the background (`seedLibraryInBackground`, small transactions)
   and `<html data-library="ready">` marks the end — e2e tests wait for it via `libraryReady`/`finishOnboarding`.

@@ -8,7 +8,7 @@ async function startPrayers(page: Page) {
   await page.getByPlaceholder('np. Modlitwa wieczorna').fill('Moja chwała')
   for (const title of ['Ojcze nasz', 'Chwała Ojcu']) {
     await page.getByRole('button', { name: 'Dodaj tekst' }).click()
-    await page.getByRole('dialog').getByRole('button', { name: new RegExp(`^${title}`) }).first().click()
+    await page.getByRole('dialog').getByRole('button', { name: new RegExp(`^${title}(?! \\()`) }).first().click()
   }
   const repeat = page.getByRole('group', { name: 'Powtórzenia' }).last()
   for (let n = 1; n < 10; n++) await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
@@ -49,7 +49,7 @@ test.describe('tap mode', () => {
 
     await page.getByRole('link', { name: 'Wróć do ekranu Dziś' }).click()
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await page.getByRole('link', { name: /Chwała Ojcu/ }).first().click()
+    await page.getByRole('link', { name: /^Chwała Ojcu(?! \()/ }).first().click()
     // Progress is folded under the text (DECISIONS #128): its summary counts, and it opens to the statistics.
     const progress = page.getByText('Twoje postępy z tym tekstem')
     await expect(page.getByText(/^10 powtórzeń · ostatnio:/)).toBeVisible()
@@ -114,7 +114,7 @@ test.describe('memory mode', () => {
     await installFakeSpeech(page, { live: true, wordDelayMs: 20 })
     await finishOnboarding(page)
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await page.getByRole('link', { name: /Chwała Ojcu/ }).click()
+    await page.getByRole('link', { name: /^Chwała Ojcu(?! \()/ }).click()
     await page.getByRole('button', { name: 'Z pamięci' }).click()
     await page.getByText('Tekst ukryty', { exact: true }).click()
     await page.getByRole('button', { name: 'Rozpocznij' }).click()
@@ -164,7 +164,7 @@ test.describe('how sentences are checked (DECISIONS #133)', () => {
 
   const openOurFather = async (page: Page, texts: string[]) => {
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await page.getByRole('link', { name: /Ojcze nasz/ }).click()
+    await page.getByRole('link', { name: /^Ojcze nasz(?! \()/ }).click()
     await page.getByRole('button', { name: 'Powiedz teraz' }).click()
     await page.getByRole('switch', { name: 'Na żywo' }).click()
     await page.evaluate((queued) => {

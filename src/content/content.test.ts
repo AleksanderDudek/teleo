@@ -98,6 +98,13 @@ describe('builtin content', () => {
     expect(strongholds.every((def) => def.note && def.needs.includes('strongholds') && def.tags.includes(def.lang === 'en' ? 'Series on strongholds' : 'Cykl o warowniach'))).toBe(true)
   })
 
+  it('ships the Orthodox prayer book in both languages, tagged as such (DECISIONS #138)', () => {
+    const book = BUILTIN_TEXTS.filter((def) => def.key.includes('.orthodox-'))
+    expect(book).toHaveLength(286)
+    const tag = (lang: string) => (lang === 'en' ? 'Orthodox prayer book' : 'Modlitewnik prawosławny')
+    expect(book.filter((def) => !def.tags.includes(tag(def.lang))).map((def) => def.key)).toEqual([])
+  })
+
   it('holds no duplicates: one title per language, and no two texts sharing half their sentences (DECISIONS #130)', () => {
     const fold = (sentence: string) => sentence.toLowerCase().replace(/[^\p{L} ]/gu, '').replace(/\s+/g, ' ').trim()
     const problems: string[] = []

@@ -1,0 +1,3136 @@
+[
+  {
+    "key": "en.orthodox-in-the-name-of-the-father",
+    "lang": "en",
+    "type": "prayer",
+    "title": "In the Name of the Father",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "segments": [
+      "In the name of the Father, and of the Son, and of the Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-god-be-merciful",
+    "lang": "en",
+    "type": "prayer",
+    "title": "God, Be Merciful to Me, a Sinner",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "holiness"
+    ],
+    "note": "The words of the tax collector in the parable (Luke 18:13). Said three times, usually with a bow.",
+    "segments": [
+      "O God, be merciful to me, a sinner."
+    ]
+  },
+  {
+    "key": "en.orthodox-opening-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Opening Prayer: Through the Prayers of Your Most Pure Mother",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "This is how the morning prayers begin in the Polish prayer book.",
+    "segments": [
+      "Lord Jesus Christ, Son of God, through the prayers of your most pure Mother and of all the saints, have mercy on us. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-glory-to-you-our-god",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory to You, Our God",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Glory to you, our God, glory to you."
+    ]
+  },
+  {
+    "key": "en.orthodox-heavenly-king",
+    "lang": "en",
+    "type": "prayer",
+    "title": "O Heavenly King",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "closeness"
+    ],
+    "note": "A prayer to the Holy Spirit. It is customarily not said from Pascha to Pentecost.",
+    "segments": [
+      "O Heavenly King, Comforter, Spirit of truth, who are everywhere present and fill all things, Treasury of good things and Giver of life,",
+      "come and abide in us, cleanse us from every stain, and save our souls, O Good One."
+    ]
+  },
+  {
+    "key": "en.orthodox-trisagion",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Holy God (Trisagion)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Said three times.",
+    "segments": [
+      "Holy God, Holy Mighty, Holy Immortal, have mercy on us."
+    ]
+  },
+  {
+    "key": "en.orthodox-glory-to-the-father",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory to the Father (Orthodox)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Often said in two halves, “Glory to the Father…” and “Now and forever…”, for example between troparia.",
+    "segments": [
+      "Glory to the Father, and to the Son, and to the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-all-holy-trinity",
+    "lang": "en",
+    "type": "prayer",
+    "title": "All-Holy Trinity",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "holiness"
+    ],
+    "segments": [
+      "All-holy Trinity, have mercy on us; Lord, cleanse us from our sins; Master, pardon our iniquities; Holy One, visit and heal our infirmities, for your name's sake."
+    ]
+  },
+  {
+    "key": "en.orthodox-lord-have-mercy",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Lord, Have Mercy",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Repeated three, twelve or forty times, as the order of prayers says.",
+    "segments": [
+      "Lord, have mercy."
+    ]
+  },
+  {
+    "key": "en.orthodox-our-father",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Our Father (Orthodox)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "In church the priest adds: “For yours is the kingdom and the power and the glory, of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen.”",
+    "segments": [
+      "Our Father, who are in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven,",
+      "give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us, and lead us not into temptation, but deliver us from evil."
+    ]
+  },
+  {
+    "key": "en.orthodox-symbol-of-faith",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Symbol of Faith (Creed)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "faith",
+      "traditional"
+    ],
+    "note": "In church it is said in the wording your Church uses, which may differ in a few words. “Catholic” here means universal (Greek katholike).",
+    "segments": [
+      "I believe in one God, the Father Almighty, Maker of heaven and earth, and of all things visible and invisible.",
+      "And in one Lord Jesus Christ, the only-begotten Son of God, begotten of the Father before all ages;",
+      "Light of Light, true God of true God, begotten, not made, of one essence with the Father, through whom all things were made.",
+      "Who for us men and for our salvation came down from heaven, and was incarnate of the Holy Spirit and the Virgin Mary, and became man.",
+      "He was crucified for us under Pontius Pilate, and suffered, and was buried;",
+      "and he rose on the third day according to the Scriptures.",
+      "He ascended into heaven, and sits at the right hand of the Father;",
+      "and he will come again in glory to judge the living and the dead, and his kingdom shall have no end.",
+      "And in the Holy Spirit, the Lord, the Giver of life, who proceeds from the Father, who with the Father and the Son is worshipped and glorified, who spoke through the prophets.",
+      "In one holy, catholic and apostolic Church.",
+      "I confess one baptism for the forgiveness of sins.",
+      "I look for the resurrection of the dead, and the life of the age to come. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-jesus-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Jesus Prayer",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "closeness",
+      "traditional"
+    ],
+    "note": "Said many times over, for example 33 times on a prayer rope.",
+    "segments": [
+      "Lord Jesus Christ, Son of God, have mercy on me, a sinner."
+    ]
+  },
+  {
+    "key": "en.orthodox-through-the-prayers-of-our-holy-fathers",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Through the Prayers of Our Holy Fathers",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "Prayer begins or ends with these words when no priest is present.",
+    "segments": [
+      "Through the prayers of our holy fathers, Lord Jesus Christ, our God, have mercy on us and save us. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-closing-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Closing Prayer: Through the Prayers of Your Most Pure Mother and the Fathers",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "Closes the morning prayers in the Polish prayer book.",
+    "segments": [
+      "Lord Jesus Christ, Son of God, through the prayers of your most pure Mother, of our venerable and God-fearing fathers, and of all the saints, have mercy on us. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-dismissal",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Dismissal: Christ Our True God",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "The dismissal is the blessing at the end of a service.",
+    "segments": [
+      "May Christ our true God, through the intercessions of his most pure and holy Mother and of all the saints, have mercy on us and save us, for he is good and loves mankind.",
+      "Through the prayers of our holy fathers, Lord Jesus Christ, have mercy on us and save us. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-father-bless",
+    "lang": "en",
+    "type": "prayer",
+    "title": "In the Name of the Lord, Father, Bless",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "church"
+    ],
+    "note": "Asks the priest for a blessing. Praying without a priest, one says “Through the prayers of our holy fathers…” instead.",
+    "segments": [
+      "In the name of the Lord, Father, bless!"
+    ]
+  },
+  {
+    "key": "en.orthodox-alleluia",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Alleluia",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Alleluia. Alleluia. Alleluia."
+    ]
+  },
+  {
+    "key": "en.orthodox-glory-to-you-o-god",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory to You, O God",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "Said three times, for example after the Alleluia and right after receiving Communion.",
+    "segments": [
+      "Glory to you, O God."
+    ]
+  },
+  {
+    "key": "en.orthodox-lord-our-hope",
+    "lang": "en",
+    "type": "prayer",
+    "title": "O Lord, Our Hope, Glory to You",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "segments": [
+      "O Lord, our hope, glory to you."
+    ]
+  },
+  {
+    "key": "en.orthodox-troparia-to-the-holy-trinity",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Troparia to the Holy Trinity",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "traditional"
+    ],
+    "segments": [
+      "Having risen from sleep, we fall down before you, good God, and loudly sing to you, Mighty One, the angelic hymn: Holy, Holy, Holy are you, O God; through the Theotokos have mercy on us.",
+      "Glory to the Father, and to the Son, and to the Holy Spirit.",
+      "From bed and sleep you have raised me up, O God; enlighten my mind and heart, and open my lips to praise you, O Holy Trinity:",
+      "Holy, Holy, Holy are you, O God; through the Theotokos have mercy on us.",
+      "Now and forever and to the ages of ages. Amen.",
+      "The Judge will come suddenly and the deeds of each will be laid bare; but with fear we cry out in the night: Holy, Holy, Holy are you, O God; through the Theotokos have mercy on us."
+    ]
+  },
+  {
+    "key": "en.orthodox-thanksgiving-on-rising",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Prayer of Thanksgiving on Rising from Sleep",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "segments": [
+      "Having risen from sleep, I thank you, O Holy Trinity, that in your great goodness and patience you were not angry with me, lazy and sinful as I am,",
+      "and you did not destroy me with my iniquities, but were merciful as always and raised me up as I lay in despair, that with my morning prayer I might glorify your might.",
+      "Now enlighten the eyes of my mind, open my mouth to learn your words and understand your commandments, to do your will and praise you with heartfelt confession,",
+      "and in hymns to exalt your all-holy name, of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-macarius-first-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "First Prayer of Saint Macarius the Great",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "O God, cleanse me, a sinner, for I have never done anything good before you; but deliver me from evil, and let your will be done in me,",
+      "that I may open my unworthy mouth without condemnation and praise your holy name, of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-macarius-second-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Second Prayer of Saint Macarius the Great",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "Having risen from sleep at midnight, I offer you a hymn, O Savior, and falling down before you I cry out:",
+      "Do not let me fall asleep in the death of sin, but have mercy on me, you who were willingly crucified; raise me quickly as I lie in sloth and save me,",
+      "and in zeal and prayer grant me after the night's sleep a day without sin, O Christ God, and save me."
+    ]
+  },
+  {
+    "key": "en.orthodox-macarius-third-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Third Prayer of Saint Macarius the Great",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "protection"
+    ],
+    "segments": [
+      "Having risen from sleep, I hasten to you, O God, Lover of mankind; by your mercy I set about your works, and I ask you",
+      "to help me at all times and in every matter; keep me from every evil of this world,",
+      "deliver me from the temptations of Satan and bring me into your eternal kingdom, for you are my Creator, the Giver of every good thing and my Protector,",
+      "and so all my hope is in you, and to you I give glory, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-macarius-fourth-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Fourth Prayer of Saint Macarius the Great",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "segments": [
+      "O God, who in your great grace and great mercy have let me, your servant, pass the night that is gone without the assault of any evil or adversity,",
+      "you yourself, Master, Creator of all things, make me worthy, with a heart enlightened by your wondrous Light, to do your will, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-basil-lord-almighty",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer of Saint Basil the Great: Lord Almighty",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "segments": [
+      "Lord Almighty, God of powers and of all flesh, who dwell on high and look upon the humble, who search hearts and inward parts,",
+      "and clearly foresee the hidden things of men; Light without beginning and everlasting, in whom there is no variation or shadow of change, immortal King,",
+      "accept our prayers, which at this present time we offer from our defiled lips, daring to trust in the abundance of your mercies,",
+      "and forgive us the sins we have committed in deed, word and thought, knowingly or unknowingly, and cleanse us from every defilement of flesh and spirit.",
+      "Grant us to pass through the whole night of this present life with a watchful heart and a sober mind, awaiting the coming of the bright and manifest day of your only-begotten Son,",
+      "our Lord God and Savior Jesus Christ, on which the Judge of all will come in glory to render to each according to his deeds,",
+      "that we may not fall and grow slothful, but be watchful and be found watching,",
+      "ready to enter into the joy and the divine palace of his glory, where the voice of the saints is unceasing, with the ineffable sweetness of those who behold the ineffable goodness of your face.",
+      "For you are the true Light, who enlighten and sanctify all things, and all creation sings your praise to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-glory-to-you-king-god-almighty",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory to You, King, God Almighty",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "note": "From the Greek order of morning prayers; it is not in the Polish prayer book.",
+    "segments": [
+      "Glory to you, King, God almighty, who in your divine and loving providence have deigned to let me, an unworthy sinner, rise from sleep and come into your holy house.",
+      "Accept, O Lord, the voice of my prayer, as you accept the voices of your saints and of the spiritual Powers;",
+      "and grant that praise may be offered to you not from defiled lips but from a pure heart and in a humble spirit, so that I too,",
+      "with the bright lamp of my soul, may become a companion of the wise virgins and glorify you, God the Word, glorified in the Father and the Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-basil-we-bless-you",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer of Saint Basil: We Bless You, O God Most High",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "thanksgiving"
+    ],
+    "note": "In the English prayer book, said every day except Saturday.",
+    "segments": [
+      "We bless you, O God most high and Lord of mercy, who always do great and unsearchable things with us, glorious, wondrous and without number.",
+      "You give us sleep for rest from our weaknesses and relief from the labors of our weary body.",
+      "We thank you that you have not destroyed us with our sins but still show us your love; and when we were sunk in despair, you raised us up to glorify your might.",
+      "Therefore we implore your incomparable goodness: enlighten the eyes of our mind and raise our thoughts from the heavy sleep of sloth.",
+      "Open our mouths and fill them with your praise, that we may sing and confess without distraction that you are God, glorified in all and by all:",
+      "the eternal Father, with your only-begotten Son and your all-holy, good and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-eustratios",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer of Saint Eustratios",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "morning",
+      "holiness"
+    ],
+    "note": "In the English prayer book, said on Saturday. A prayer for a good death and a merciful judgment.",
+    "segments": [
+      "I greatly magnify you, O Lord, for you have looked upon my lowliness, you have not delivered me into the hands of my enemies, but have rescued my soul from afflictions.",
+      "Now, Master, let your hand shelter me and let your grace come down upon me,",
+      "for my soul is troubled and in anguish at its departure from this wretched and defiled body of mine,",
+      "lest the final scheme of the adversary overtake it and cast it into darkness for the sins, unknown and known, that I have gathered in this life.",
+      "Be gracious to me, Master, and let my soul not see the dark face of the evil spirits, but let your bright and shining angels receive it.",
+      "Glorify your holy name, and by your power set me before your divine judgment seat.",
+      "When I am judged, do not let the hand of the prince of this world seize me and cast me, a sinner, into the abyss of hell, but stand by me and be my Savior and Defender.",
+      "Have mercy, O Lord, on my soul, defiled by the passions of this life, and receive it cleansed by repentance and confession, for you are blessed to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-evening-troparia",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Evening Troparia: Now That the Day Is Past",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "segments": [
+      "Now that the day is past, I thank you, O Lord, and I ask that the evening and the night may be without sin.",
+      "Grant me this, O Savior, and save me.",
+      "Glory to the Father, and to the Son, and to the Holy Spirit.",
+      "Now that the day has gone by, I glorify you, O Master, and I ask that the evening with the night may be without offense.",
+      "Grant me this, O Savior, and save me.",
+      "Now and forever and to the ages of ages. Amen.",
+      "Now that the day has ended, I praise you, O Holy One, and I ask that the evening and the night may be undisturbed.",
+      "Grant me this, O Savior, and save me."
+    ]
+  },
+  {
+    "key": "en.orthodox-child-evening-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Child's Evening Prayer",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "children"
+    ],
+    "note": "A prayer for a child to say.",
+    "segments": [
+      "Lord Jesus Christ, you received the children who came to you; receive also from the lips of your child this evening prayer.",
+      "Shelter me in the shadow of your wings, that I may lie down in peace and sleep.",
+      "Wake me at the right time, that I may glorify you, for you alone are good and love all people."
+    ]
+  },
+  {
+    "key": "en.orthodox-adult-evening-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "An Evening Prayer for Adults",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "protection"
+    ],
+    "segments": [
+      "O Lord our God, in whatever I have sinned this day in word, deed or thought, forgive me, for you are good and love mankind.",
+      "Grant me peaceful and undisturbed sleep.",
+      "Guard me from every attack and snare of the evil one.",
+      "Raise me up at the right time to glorify you, for you are blessed with your only-begotten Son and your all-holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-prayer-of-the-hours",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer of the Hours: At All Times and in Every Hour",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "segments": [
+      "You who at all times and in every hour are worshipped and glorified in heaven and on earth, O Christ our God,",
+      "long-suffering, most merciful and most compassionate, who love the righteous and have mercy on sinners, who call all to salvation through the promise of good things to come:",
+      "receive our prayers at this hour yourself, O Lord, and direct our lives toward your commandments.",
+      "Sanctify our souls, cleanse our bodies, set right our thoughts, purify our intentions, and deliver us from every sorrow, evil and pain.",
+      "Surround us with your holy angels, that guarded and guided by their hosts we may attain to the unity of the faith and the knowledge of your unapproachable glory, for you are blessed to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-sleep",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Sleep: Into Your Hands, O Lord",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "sleep",
+      "protection"
+    ],
+    "segments": [
+      "Under the shelter of your wings I will hide and fall asleep, for in you alone, O Lord, is my hope.",
+      "Into your hands, O Lord, I commend my soul and my body.",
+      "Bless me, have mercy on me, and grant me eternal life. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-compline-troparia",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Compline Troparia: God of Our Fathers",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "church"
+    ],
+    "segments": [
+      "God of our fathers, who always deal gently with us, do not take your mercy from us, but through the intercessions of our fathers guide our life in peace.",
+      "Adorned with the blood of your martyrs throughout the world as with purple and fine linen, your Church cries out to you through them, O Christ God:",
+      "send down your compassion on your people, grant peace to your commonwealth, and to our souls great mercy."
+    ]
+  },
+  {
+    "key": "en.orthodox-antiochos-grant-us-master",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer to Our Lord Jesus Christ (Antiochos the Monk): Grant Us, Master",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "sleep"
+    ],
+    "segments": [
+      "Grant us, O Master, as we go to rest, repose of body and soul.",
+      "Keep us from the gloomy sleep of sin and from every dark pleasure of the night.",
+      "Calm the onslaught of the passions, quench the fiery arrows of the evil one that are cunningly hurled at us.",
+      "Subdue the unrest of our flesh and lull to sleep all our earthly and worldly thoughts.",
+      "Grant us, O God, a watchful mind, prudent thought, a wakeful heart and peaceful sleep, free from every evil dream.",
+      "Raise us up at the hour of prayer, strengthen us in your commandments, and keep within us the unshaken remembrance of your judgments.",
+      "Grant us to glorify you all night long, that we may praise, bless and glorify your all-honorable and majestic name,",
+      "of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-my-hope-is-the-father",
+    "lang": "en",
+    "type": "prayer",
+    "title": "My Hope Is the Father (Saint Ioannikios)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "evening",
+      "traditional"
+    ],
+    "note": "A short prayer attributed to Saint Ioannikios the Great.",
+    "segments": [
+      "My hope is the Father, my refuge is the Son, my shelter is the Holy Spirit.",
+      "O Holy Trinity, glory to you."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-a-meal",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before a Meal: Christ Our God, Bless the Food",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Before breakfast and lunch it comes after Glory to the Father…, Lord, have mercy (three times) and the Our Father.",
+    "segments": [
+      "O Christ our God, bless the food and drink of your servants, for you are holy always, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-supper",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Supper: The Poor Shall Eat",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "A verse of the psalms (Psalm 21:27 in the Septuagint). Then: Glory to the Father…, Lord, have mercy (three times) and the blessing of the food.",
+    "segments": [
+      "The poor shall eat and be satisfied, and those who seek the Lord shall praise him; their hearts shall live to the ages of ages."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-a-meal",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after a Meal",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "The same prayer after breakfast and after lunch.",
+    "segments": [
+      "We thank you, O Christ our God, that you have filled us with your earthly gifts.",
+      "Do not deprive us of your heavenly kingdom either, but as you came among your disciples, O Savior, and gave them peace, come to us and save us."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-supper",
+    "lang": "en",
+    "type": "prayer",
+    "title": "After Supper: You Have Gladdened Us, O Lord",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "evening"
+    ],
+    "note": "Made of verses of the psalms (Psalms 91:5 and 4:7–10 in the Septuagint). It comes after Glory to the Father… and Lord, have mercy (three times).",
+    "segments": [
+      "You have gladdened our hearts, O Lord, by your creation, and we have rejoiced in the works of your hands.",
+      "The light of your countenance has shone upon us, O Lord.",
+      "You have gladdened our hearts.",
+      "We have been filled with the good things of the earth.",
+      "In peace we will sleep and rest in you, for you alone, O Lord, have established us in hope."
+    ]
+  },
+  {
+    "key": "en.orthodox-blessed-is-god-who-feeds-us",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Blessed Is God Who Feeds Us",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "segments": [
+      "Blessed is God, who has mercy on us and feeds us from his rich gifts by his grace and love for mankind, always, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-3",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 3",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "protection",
+      "morning"
+    ],
+    "note": "The first of the six psalms of Matins.",
+    "segments": [
+      "O Lord, why are those who trouble me so many?",
+      "Many rise up against me.",
+      "Many say of my soul, “There is no salvation for him in his God.”",
+      "But you, O Lord, are my protector, my glory, and the one who lifts up my head.",
+      "I cried to the Lord with my voice, and he heard me from his holy mountain.",
+      "I lay down and slept; I awoke, for the Lord will help me.",
+      "I will not be afraid of tens of thousands of people who set themselves against me round about.",
+      "Arise, O Lord, save me, O my God!",
+      "For you have struck all who are my enemies without cause; you have broken the teeth of sinners.",
+      "Salvation is of the Lord, and your blessing is upon your people."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-22",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 22 (23)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "peace"
+    ],
+    "note": "Said on the morning of Communion.",
+    "segments": [
+      "The Lord is my shepherd; I shall lack nothing.",
+      "He lets me rest in green pastures; he leads me beside quiet waters.",
+      "He refreshes my soul; he guides me along paths of righteousness for his name's sake.",
+      "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff comfort me.",
+      "You prepare a table before me in the presence of my enemies; you anoint my head with oil; my cup overflows.",
+      "Surely goodness and mercy will follow me all the days of my life, and I will dwell in the house of the Lord forever."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-23",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 23 (24)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "segments": [
+      "The earth is the Lord's and all that fills it, the world and those who dwell in it.",
+      "For he founded it upon the seas and established it upon the waters.",
+      "Who shall ascend the mountain of the Lord, and who shall stand in his holy place?",
+      "One who has clean hands and a pure heart, who has not lifted up his soul to falsehood nor sworn deceitfully to his neighbor.",
+      "He will receive a blessing from the Lord and righteousness from God his Savior.",
+      "Such is the generation of those who seek the Lord, who seek the face of the God of Jacob.",
+      "Lift up your gates, O princes, and be lifted up, O everlasting doors, and the King of glory shall come in.",
+      "Who is this King of glory?",
+      "The Lord strong and mighty, the Lord mighty in battle.",
+      "Lift up your gates, O princes, and be lifted up, O everlasting doors, and the King of glory shall come in.",
+      "Who is this King of glory?",
+      "The Lord of hosts, he is the King of glory."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-37",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 37 (38)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "note": "One of the six psalms of Matins.",
+    "segments": [
+      "O Lord, do not rebuke me in your anger, nor chasten me in your wrath.",
+      "For your arrows have pierced me deeply, and your hand weighs heavy upon me.",
+      "There is no health in my flesh because of your anger, nor any soundness in my bones because of my sins.",
+      "For my iniquities have gone over my head; like a heavy burden they have crushed me.",
+      "My wounds stink and fester because of my foolishness.",
+      "I am wretched and bowed down greatly; I go about mourning all the day long.",
+      "For my loins are filled with mockings, and there is no healing in my flesh.",
+      "I am afflicted and humbled exceedingly; I roar because of the groaning of my heart.",
+      "O Lord, all my desire is before you, and my sighing is not hidden from you.",
+      "My heart is troubled, my strength has failed me, and the light of my eyes, even that has gone from me.",
+      "My friends and my neighbors drew near and stood against me, and my kinsmen stood far off.",
+      "Those who sought my soul used violence; those who sought my harm spoke vain things and plotted deceit all the day long.",
+      "But I was like a deaf man who does not hear, and like a mute who does not open his mouth.",
+      "I became like a man who does not hear and in whose mouth there is no reply.",
+      "For in you, O Lord, I have hoped; you will hear me, O Lord my God.",
+      "For I said, “Let my enemies never rejoice over me”; when my feet were shaken, they boasted against me.",
+      "For I am ready for scourges, and my pain is ever before me.",
+      "For I will declare my iniquity, and I will be troubled because of my sin.",
+      "But my enemies live and grow stronger than I, and those who hate me without cause have multiplied.",
+      "Those who repay evil for good slandered me, because I pursued goodness.",
+      "Do not forsake me, O Lord my God, do not depart from me.",
+      "Make haste to help me, O Lord of my salvation."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-50",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 50 (51)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "holiness"
+    ],
+    "note": "The psalm of repentance; in the morning prayers it follows the prayer of thanksgiving.",
+    "segments": [
+      "Have mercy on me, O God, according to your great mercy, and according to the multitude of your compassions blot out my transgression.",
+      "Wash me thoroughly from my iniquity, and cleanse me from my sin.",
+      "For I know my iniquity, and my sin is ever before me.",
+      "Against you, you only, have I sinned and done evil in your sight, that you may be justified in your words and prevail when you are judged.",
+      "For behold, I was conceived in iniquities, and in sins my mother bore me.",
+      "For behold, you have loved truth; you have shown me the hidden and secret things of your wisdom.",
+      "You shall sprinkle me with hyssop, and I shall be cleansed; you shall wash me, and I shall be whiter than snow.",
+      "Make me to hear joy and gladness, and the bones that were humbled shall rejoice.",
+      "Turn your face from my sins, and blot out all my iniquities.",
+      "Create in me a clean heart, O God, and renew a steadfast spirit within me.",
+      "Do not cast me away from your presence, and do not take your Holy Spirit from me.",
+      "Restore to me the joy of your salvation, and establish me with your governing Spirit.",
+      "I will teach transgressors your ways, and the ungodly shall return to you.",
+      "Deliver me from bloodguiltiness, O God, the God of my salvation; my tongue shall joyfully proclaim your righteousness.",
+      "O Lord, open my lips, and my mouth shall declare your praise.",
+      "For if you had desired sacrifice, I would have given it; you take no pleasure in burnt offerings.",
+      "A sacrifice to God is a broken spirit; a broken and humbled heart God will not despise.",
+      "Do good in your good pleasure to Zion, and let the walls of Jerusalem be built.",
+      "Then you will be pleased with a sacrifice of righteousness, with offering and burnt offerings; then they shall offer bulls upon your altar."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-62",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 62 (63)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "closeness",
+      "morning"
+    ],
+    "note": "One of the six psalms of Matins.",
+    "segments": [
+      "O God, my God, I rise early to seek you.",
+      "My soul thirsts for you, my flesh longs for you in a barren land, without a way and without water.",
+      "So I have appeared before you in the sanctuary, to see your power and your glory.",
+      "For your mercy is better than life; my lips shall praise you.",
+      "So I will bless you all my life, and in your name I will lift up my hands.",
+      "Let my soul be filled as with marrow and fatness, and my mouth shall praise you with joyful lips.",
+      "When I remember you upon my bed, at dawn I meditate on you.",
+      "For you have become my helper, and in the shadow of your wings I will rejoice.",
+      "My soul follows close behind you; your right hand has quickly come to help me.",
+      "But those who seek my soul to destroy it shall go down into the depths of the earth.",
+      "They shall fall by the sword; they shall be a portion for jackals.",
+      "But the king shall rejoice in God; everyone who swears by him shall be praised, for the mouths of those who speak lies shall be stopped."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-69",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 69 (70)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "protection"
+    ],
+    "segments": [
+      "O God, be attentive to help me; O Lord, make haste to help me.",
+      "Let those who seek my life be ashamed and confounded.",
+      "Let those who wish me evil be turned back and put to shame.",
+      "Let those who say to me, “Well done, well done!” be turned back in shame.",
+      "Let all who seek you rejoice and be glad in you, and let those who love your salvation say always, “Let God be magnified!”",
+      "But I am poor and needy; O God, help me!",
+      "You are my helper and my deliverer; O Lord, do not delay."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-87",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 87 (88)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "sadness"
+    ],
+    "note": "One of the six psalms of Matins.",
+    "segments": [
+      "O Lord, God of my salvation, by day and by night I have cried out before you.",
+      "Let my prayer come before you; incline your ear to my cry.",
+      "For my soul is filled with troubles, and my life has drawn near to the grave.",
+      "I am counted among those who go down to the pit;",
+      "I have become like a man without help, cast off among the dead, like the slain who sleep in the grave, whom you remember no more, and who are cut off from your hand.",
+      "They laid me in the lowest pit, in darkness and in the shadow of death.",
+      "Your wrath has rested heavily upon me, and you have overwhelmed me with all your waves.",
+      "You have made me an abomination to them; I am shut in and cannot go out; my eyes have grown weak from misery.",
+      "I have cried to you, O Lord, all the day long; I have stretched out my hands to you.",
+      "Will you work wonders for the dead?",
+      "Will physicians raise them up, that they may praise you?",
+      "Will anyone in the grave tell of your mercy, and of your truth in the place of destruction?",
+      "Will your wonders be known in the darkness, and your righteousness in the land of forgetting?",
+      "But I have cried to you, O Lord, and in the morning my prayer shall come before you.",
+      "Why, O Lord, do you cast off my soul and turn your face from me?",
+      "I am poor and in troubles from my youth; having been exalted, I was humbled and brought to distress.",
+      "Your fierce wrath has passed over me, and your terrors have greatly troubled me.",
+      "They surrounded me like water all the day long; they closed in on me from every side.",
+      "You have put friend and neighbor far from me, and my acquaintances because of my misery."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-102",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 102 (103)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "thanksgiving"
+    ],
+    "note": "One of the six psalms of Matins.",
+    "segments": [
+      "Bless the Lord, O my soul, and all that is within me, bless his holy name!",
+      "Bless the Lord, O my soul, and forget not all that he has done for you.",
+      "He forgives all your iniquities, he heals all your infirmities.",
+      "He redeems your life from destruction, he crowns you with mercy and compassion.",
+      "He satisfies your desire with good things, so that your youth is renewed like the eagle's.",
+      "The Lord works deeds of mercy and justice for all who are wronged.",
+      "He made known his ways to Moses, his works to the sons of Israel.",
+      "The Lord is compassionate and merciful, long-suffering and abounding in kindness.",
+      "He will not always contend with us, nor keep his anger forever.",
+      "He has not dealt with us according to our iniquities, nor repaid us according to our sins.",
+      "For as high as the heavens are above the earth, so great is his mercy toward those who fear him.",
+      "As far as the east is from the west, so far has he removed our iniquities from us.",
+      "As a father has compassion on his son, so the Lord has compassion on those who fear him.",
+      "For he knows how we are formed; he remembers that we are dust.",
+      "As for man, his days are like grass; like a flower of the field, so he flourishes; the wind passes over it and it is gone, and its place remembers it no more.",
+      "But the mercy of the Lord is from age to age upon those who fear him,",
+      "and his righteousness upon children's children, upon those who keep his covenant and remember to do his commandments.",
+      "The Lord has established his throne in heaven, and his kingdom rules over all.",
+      "Bless the Lord, all you his angels, mighty in strength, who do his word, obeying the voice of his words.",
+      "Bless the Lord, all you his hosts, his servants who do his will.",
+      "Bless the Lord, all his works, in every place of his dominion.",
+      "Bless the Lord, O my soul."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-115",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 115 (116:10–19)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "thanksgiving"
+    ],
+    "note": "Said on the morning of Communion.",
+    "segments": [
+      "I believed, therefore I spoke; and I was greatly humbled.",
+      "I said in my amazement, “Every man is a liar.”",
+      "What shall I render to the Lord for all that he has given me?",
+      "I will take the cup of salvation and call upon the name of the Lord.",
+      "I will pay my vows to the Lord in the presence of all his people.",
+      "Precious in the sight of the Lord is the death of his saints.",
+      "O Lord, I am your servant, the son of your handmaid.",
+      "You have broken my bonds.",
+      "I will offer you a sacrifice of praise and call upon the name of the Lord.",
+      "I will pay my vows to the Lord in the presence of all his people, in the courts of the house of the Lord, in the midst of you, O Jerusalem."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-120",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 120 (121)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "protection",
+      "morning"
+    ],
+    "note": "In the English prayer book it is said in the morning, after the troparia to the Holy Trinity.",
+    "segments": [
+      "I lift up my eyes to the mountains: from where will my help come?",
+      "My help comes from the Lord, who made heaven and earth.",
+      "He will not let your foot be moved; he who keeps you will not slumber.",
+      "Behold, he who keeps Israel shall neither slumber nor sleep.",
+      "The Lord will keep you; the Lord is your shelter at your right hand.",
+      "The sun shall not burn you by day, nor the moon by night.",
+      "The Lord shall keep you from all evil; the Lord shall keep your soul.",
+      "The Lord shall keep your going out and your coming in, from this time forth and forevermore."
+    ]
+  },
+  {
+    "key": "en.orthodox-psalm-142",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Psalm 142 (143)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "wisdom"
+    ],
+    "note": "One of the six psalms of Matins. It is followed by “Hear me, O Lord, in your righteousness, and do not enter into judgment with your servant” (twice) and “Your good Spirit will lead me on level ground.”",
+    "segments": [
+      "O Lord, hear my prayer; in your truth give ear to my supplications; in your righteousness hear me.",
+      "And do not enter into judgment with your servant, for no one living shall be justified before you.",
+      "For the enemy has pursued my soul; he has trampled my life to the ground; he has made me dwell in darkness like those long dead; my spirit faints within me, my heart within me is troubled.",
+      "I remembered the days of old; I meditated on all your works; I pondered on the work of your hands.",
+      "I stretch out my hands to you; my soul thirsts for you like a parched land.",
+      "Hear me quickly, O Lord; my spirit fails.",
+      "Do not turn your face from me, lest I become like those who go down into the pit.",
+      "Let me hear your mercy in the morning, for in you I have trusted.",
+      "O Lord, make me know the way in which I should walk, for to you I lift up my soul.",
+      "Rescue me from my enemies, O Lord; to you I have fled for refuge.",
+      "Teach me to do your will, for you are my God.",
+      "Your good Spirit will lead me on level ground; for your name's sake, O Lord, you will give me life.",
+      "In your righteousness you will bring my soul out of trouble, and in your mercy you will destroy my enemies and ruin all who afflict my soul, for I am your servant."
+    ]
+  },
+  {
+    "key": "en.orthodox-glory-to-god-in-the-highest",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Glory to God in the Highest",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "traditional"
+    ],
+    "note": "Said three times before the six psalms of Matins (Luke 2:14).",
+    "segments": [
+      "Glory to God in the highest, and on earth peace, good will among men."
+    ]
+  },
+  {
+    "key": "en.orthodox-lord-open-my-lips",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Lord, Open My Lips",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "morning"
+    ],
+    "note": "Said three times (Psalm 50:17).",
+    "segments": [
+      "Lord, open my lips, and my mouth will proclaim your praise."
+    ]
+  },
+  {
+    "key": "en.orthodox-small-doxology",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Small Doxology (Compline)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "evening",
+      "traditional"
+    ],
+    "note": "The small doxology of Compline; at Matins one says “Every day” instead of “Every evening”.",
+    "segments": [
+      "Glory to God in the highest, and on earth peace, good will among men. We praise you, we bless you, we worship you, we glorify you, we give thanks to you for your great glory.",
+      "O Lord God, heavenly King, God the Father almighty; O Lord, only-begotten Son, Jesus Christ, and O Holy Spirit.",
+      "O Lord God, Lamb of God, Son of the Father, who take away the sin of the world, have mercy on us.",
+      "You who take away the sins of the world, receive our prayer.",
+      "You who sit at the right hand of the Father, have mercy on us.",
+      "For you alone are holy, you alone are the Lord, Jesus Christ, to the glory of God the Father. Amen.",
+      "Every evening we will bless you and praise your name forever and to the ages of ages.",
+      "Lord, you have been our refuge from generation to generation.",
+      "I said: Lord, have mercy on me, heal my soul, for I have sinned against you.",
+      "Lord, I flee to you for refuge; teach me to do your will, for you are my God.",
+      "For with you is the fountain of life; in your light we shall see light.",
+      "Extend your mercy to those who know you.",
+      "Grant, O Lord, to keep us this night without sin.",
+      "Blessed are you, O Lord, God of our fathers, and praised and glorified is your name forever. Amen.",
+      "Let your mercy, O Lord, be upon us, for we have set our hope on you.",
+      "Blessed are you, O Lord; teach me your commandments.",
+      "Blessed are you, O Master; teach me your commandments.",
+      "Blessed are you, O Holy One; enlighten me with your commandments.",
+      "O Lord, your mercy endures forever; do not despise the works of your hands.",
+      "To you belongs praise, to you belongs worship, to you belongs glory: to the Father and to the Son and to the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-come-let-us-worship",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Come, Let Us Worship",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "church"
+    ],
+    "note": "Each line is usually said with a bow.",
+    "segments": [
+      "Come, let us worship and fall down before God our King.",
+      "Come, let us worship and fall down before Christ, our King and God.",
+      "Come, let us worship and fall down before Christ himself, our King and God."
+    ]
+  },
+  {
+    "key": "en.orthodox-song-of-simeon",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Song of Simeon: Now You Let Your Servant Depart",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "note": "Luke 2:29–32. It ends the thanksgiving after Communion and is also said on leaving church.",
+    "segments": [
+      "Now, Lord, you let your servant depart in peace, according to your word;",
+      "for my eyes have seen your salvation, which you have prepared before the face of all peoples: a light to enlighten the Gentiles and the glory of your people Israel."
+    ]
+  },
+  {
+    "key": "en.orthodox-troparion-of-the-cross",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Troparion of the Cross: O Lord, Save Your People",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "protection"
+    ],
+    "segments": [
+      "O Lord, save your people and bless your inheritance; grant victory to the Orthodox over their adversaries, and by your Cross preserve your commonwealth."
+    ]
+  },
+  {
+    "key": "en.orthodox-kontakion-of-the-cross",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Kontakion of the Cross: Lifted Up of Your Own Will",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "protection"
+    ],
+    "segments": [
+      "You who were lifted up on the Cross of your own will, O Christ our God, grant your mercies to the new commonwealth that bears your name.",
+      "Gladden the Orthodox by your power, granting them victory over their adversaries.",
+      "May they have your covenant as a weapon of peace and an invincible sign of victory."
+    ]
+  },
+  {
+    "key": "en.orthodox-virgin-theotokos",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Angelic Greeting: Virgin Theotokos",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "note": "The angelic greeting in its Orthodox wording, which begins with “Rejoice” (Greek chaire).",
+    "segments": [
+      "Rejoice, O Virgin Theotokos, Mary full of grace, the Lord is with you; blessed are you among women, and blessed is the fruit of your womb, for you have borne the Savior of our souls."
+    ]
+  },
+  {
+    "key": "en.orthodox-it-is-truly-right",
+    "lang": "en",
+    "type": "prayer",
+    "title": "It Is Truly Right",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "The second half (“More honorable than the Cherubim…”) is also sung on its own.",
+    "segments": [
+      "It is truly right to bless you, O Theotokos, ever-blessed and most pure, and the Mother of our God. More honorable than the Cherubim and beyond compare more glorious than the Seraphim,",
+      "who without corruption gave birth to God the Word, true Theotokos, we magnify you."
+    ]
+  },
+  {
+    "key": "en.orthodox-more-honorable-than-the-cherubim",
+    "lang": "en",
+    "type": "prayer",
+    "title": "More Honorable than the Cherubim",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "thanksgiving"
+    ],
+    "note": "The second half of “It Is Truly Right”, also sung on its own.",
+    "segments": [
+      "More honorable than the Cherubim and beyond compare more glorious than the Seraphim, who without corruption gave birth to God the Word, true Theotokos, we magnify you."
+    ]
+  },
+  {
+    "key": "en.orthodox-theotokos-morning",
+    "lang": "en",
+    "type": "prayer",
+    "title": "To the Most Holy Theotokos (Morning): My Most Holy Lady",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "holiness",
+      "morning",
+      "protection"
+    ],
+    "segments": [
+      "My most holy Lady, Theotokos, by your holy and all-powerful prayers keep me, your humble and unworthy servant, from despair, forgetfulness, folly,",
+      "negligence, and all the unclean, crafty and blasphemous thoughts of my wretched heart and darkened mind; quench the flame of my passions, for I am wretched and unworthy.",
+      "Deliver me from all terrible memories and intentions, free me from all evil deeds, for you are blessed among all nations, and we glorify your most holy name to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-beneath-your-compassion",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Beneath Your Compassion",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "note": "One of the oldest known prayers to the Theotokos.",
+    "segments": [
+      "Beneath your compassion we take refuge, O Theotokos.",
+      "Do not despise our prayers, but deliver us from danger, O only pure and blessed one."
+    ]
+  },
+  {
+    "key": "en.orthodox-all-my-hope",
+    "lang": "en",
+    "type": "prayer",
+    "title": "I Place All My Hope in You",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional",
+      "protection"
+    ],
+    "segments": [
+      "I place all my hope in you, O Mother of God; keep me under your protection."
+    ]
+  },
+  {
+    "key": "en.orthodox-most-glorious-ever-virgin",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Most Glorious, Ever-Virgin",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "traditional"
+    ],
+    "segments": [
+      "Most glorious, ever-virgin, blessed Theotokos, bring our prayer to your Son and our God, and ask him to save our souls through you."
+    ]
+  },
+  {
+    "key": "en.orthodox-paul-the-monk-to-the-theotokos",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer to the All-Holy Theotokos (Paul the Monk)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "holiness"
+    ],
+    "note": "From Compline, written by Paul, a monk of the Evergetis monastery.",
+    "segments": [
+      "Spotless, undefiled, immaculate, incorrupt, pure Virgin, Lady and Bride of God, who by your wondrous conceiving united God the Word with mankind and joined the fallen nature of our race to the heavens:",
+      "you are the only hope of the hopeless and the help of the oppressed, the ready defense of those who flee to you and the refuge of all Christians.",
+      "Do not despise me, a sinner laden with guilt, though by shameful thoughts, words and deeds I have made myself wholly useless and through sloth have become a slave to the pleasures of life.",
+      "But as the Mother of God who loves mankind, mercifully have pity on me, sinful and prodigal, and accept my prayer, though I offer it to you with unclean lips.",
+      "Entreat your Son, our Lord and Master, with a mother's boldness, to open to me also the mercy of his goodness,",
+      "to overlook my countless transgressions, to turn me to repentance and to make me a worthy doer of his commandments.",
+      "Be always near me, for you are merciful, compassionate and loving.",
+      "Be my fervent help and protection in this life, guarding me from the assaults of adversaries, and lead me to salvation.",
+      "At the hour of my death care for my wretched soul and drive away from it the dark visions of the evil spirits.",
+      "On the dread day of judgment deliver me from eternal punishment and make me an heir of the ineffable glory of your Son and our God.",
+      "May I attain this, my Lady, most holy Theotokos, through your intercession and help, by the grace and love for mankind of your only-begotten Son, our Lord, God and Savior Jesus Christ,",
+      "to whom belong all glory, honor and worship, with his eternal Father and his all-holy, good and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-awesome-protection",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Theotokion: O Awesome Protection",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "church"
+    ],
+    "note": "A theotokion is a hymn to the Theotokos; this one closes the royal troparia before the six psalms of Matins.",
+    "segments": [
+      "O awesome protection, ever present, do not despise our supplications, O Good One.",
+      "All-glorious Theotokos, strengthen the Orthodox people, save those whom you have called to govern, and grant them victory from on high, for you gave birth to God, O only blessed one."
+    ]
+  },
+  {
+    "key": "en.orthodox-guardian-angel-morning",
+    "lang": "en",
+    "type": "prayer",
+    "title": "To the Guardian Angel (Morning): Holy Angel",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "morning"
+    ],
+    "segments": [
+      "Holy Angel, guardian of my unworthy soul and of my sinful life, do not forsake me, a sinner, and do not depart from me because of my intemperance.",
+      "Give no place to the evil spirit to rule my mortal body by force; strengthen my poor and wretched hand, and guide me onto the way of salvation.",
+      "Truly, holy Angel of God, guardian and protector of my unworthy soul and body, forgive me everything",
+      "by which I have offended you all the days of my life, and if I have sinned in anything this past night,",
+      "shelter me on this present day, keep me from every temptation of the evil one,",
+      "that I may not anger God by any sin, and pray to the Lord for me, that he may strengthen me in his fear and make me worthy of his goodness. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-guardian-angel-evening",
+    "lang": "en",
+    "type": "prayer",
+    "title": "To the Guardian Angel (Evening): Angel of Christ",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "evening"
+    ],
+    "segments": [
+      "Angel of Christ, holy guardian and protector of my soul and body, forgive me all the ways I offend you every day, and protect me from every influence and temptation of the evil one.",
+      "May I not anger God by any sin.",
+      "Pray for me to the Lord, that he may make me worthy of the grace of the all-holy Trinity, of the most blessed Theotokos and of all the saints. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-patron-saint",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Calling on Your Patron Saint",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "note": "You can make a copy of this prayer and add your patron saint's name after “saint of God”.",
+    "segments": [
+      "Pray to God for me, O holy saint of God, for I fervently run to you, a ready helper and intercessor for my soul."
+    ]
+  },
+  {
+    "key": "en.orthodox-baptizer-of-christ",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Baptizer of Christ",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "traditional"
+    ],
+    "segments": [
+      "Baptizer of Christ, remember us, that we may be delivered from our sins, for grace has been given to you to intercede for us. Glory to the Father, and to the Son, and to the Holy Spirit.",
+      "Pray for us, O holy Apostles and all the saints, that we may be delivered from dangers and sorrows, for we have in you fervent intercessors before the Savior. Now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-intercessions-of-all-saints",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Through the Intercessions of All Your Saints",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "peace",
+      "traditional"
+    ],
+    "segments": [
+      "Through the intercessions of all your saints and of the Theotokos, O Lord, grant us your peace and have mercy on us, for you alone are merciful."
+    ]
+  },
+  {
+    "key": "en.orthodox-canon-before-communion",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Canon before Holy Communion (Tone 2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "A canon from the preparation for Holy Communion, usually said the evening before. It ends with the hymn “It Is Truly Right”.",
+    "segments": [
+      "May your holy Body and your precious Blood, O merciful Lord, become for me the bread of eternal life and a guard against many kinds of affliction.",
+      "Defiled by shameful deeds, O Christ, I am not worthy to receive your most pure Body and your divine Blood, but make me worthy of this Communion.",
+      "O blessed Theotokos, good earth that brought forth the unsown wheat that saves the world, make me worthy to eat of it and be saved.",
+      "Grant me, O Christ, tears to wash away the uncleanness of my heart, that with a good conscience, with faith and fear, I may approach, O Master, the Communion of your divine Gifts.",
+      "May your most pure Body and holy Blood be for me, O God who love mankind, forgiveness of sins, communion of the Holy Spirit, eternal life, and release from passions and afflictions.",
+      "O most holy one, you are the table of the Bread of life, who in mercy came down from on high, giving the world new life.",
+      "Make me too, unworthy as I now am, worthy to eat of it with fear and to live.",
+      "O most merciful one, for our sake you took flesh and willed to be slain like a lamb for our sins; therefore I implore you: blot out my sins as well.",
+      "Heal the wounds of my soul, O Lord, wretched as I am, and make me fully worthy, O Master, to receive your mystical Supper.",
+      "O Lady, entreat for me the one who was born of you, and keep me, your servant,",
+      "who prays to you, pure and undefiled, that receiving the spiritual pearl I may be sanctified.",
+      "As you foretold, O Christ, let it be with your unworthy servant as you promised: abide in me.",
+      "For behold, I eat your divine Body and drink your Blood.",
+      "O God and Word of God, let the live coal of your Body enlighten my darkness, and let your Blood cleanse my defiled soul.",
+      "O Mary, Mother of God, precious dwelling of fragrance, by your prayers make me a chosen vessel, that I may receive sanctification from your Son.",
+      "O Savior, sanctify my mind, soul, heart and body, and make me worthy, O Master, to approach your awesome Mysteries without condemnation.",
+      "O Christ, grant that I may be freed from the passions, grow in your grace and be strengthened in life through the Communion of your holy Mysteries.",
+      "O holy, divine Word of God, sanctify the whole of me as I now approach your holy Mysteries, through the prayers of your holy Mother.",
+      "As I now receive your awesome Mysteries, your most pure Body and your precious Blood, do not turn away from me, O Christ, wretched as I am.",
+      "Let my Communion not be for my judgment, but let it lead to life eternal and immortal.",
+      "Let the Communion of your immortal Mysteries be for me light and life, freedom from the passions,",
+      "progress and an increase of ever more spiritual virtues, that I may glorify you, O Christ, for you alone are good.",
+      "As I now approach your immortal and divine Mysteries with trembling, longing and devotion, grant me, O God who love mankind, to be delivered from passions, enemies and every affliction.",
+      "Grant that I may sing to you: Blessed are you, O God of our fathers.",
+      "I implore you, O pure one, graced by God, who in a way beyond understanding gave birth to Christ the Savior:",
+      "cleanse me, your unclean servant, from every defilement of flesh and spirit, as I now desire to approach the most pure Mysteries.",
+      "O God, my Savior, grant me, your despairing servant, to become now a partaker of your heavenly, awesome and holy Mysteries and of your divine and mystical Supper.",
+      "Fleeing to your kindness, O good Savior, I cry to you with fear: abide in me, and let me, as you promised, abide in you.",
+      "For behold, trusting in your mercy, I eat your Body and drink your Blood.",
+      "I tremble as I take this fire, lest I burn like wax and like grass.",
+      "O awesome Mystery!",
+      "O divine love!",
+      "How is it that I, an earthly creature, share in the divine Body and Blood and become incorruptible?",
+      "Taste and see that the Lord is good, who for our sake became like us and once for all offered himself as a sacrifice to his Father,",
+      "to be ever offered as a sacrifice, sanctifying those who partake of it.",
+      "O Master, let me be sanctified in body and soul, let me be enlightened and saved,",
+      "and let me become your dwelling through the Communion of the holy Mysteries, having you, most merciful Benefactor, dwelling in me with the Father and the Spirit.",
+      "May your Body and your precious Blood, O Savior, be for me like fire and light,",
+      "consuming the matter of my sins, burning up the tares of my passions and enlightening the whole of me, that I may worship your Divinity.",
+      "God took flesh from your most pure blood;",
+      "therefore all generations sing your praise, O Lady, and the hosts of bodiless Powers glorify you, for they see clearly that he who rules all things took human nature through you."
+    ]
+  },
+  {
+    "key": "en.orthodox-troparia-before-communion",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Troparia before Communion (Tone 6): Turn Away from My Transgressions",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Turn your eyes from my transgressions, O Lord born of the Virgin, and cleanse my heart, making it a temple for your most pure Body and precious Blood.",
+      "Do not cast me away from your presence, for your great mercy has no bounds.",
+      "Glory to the Father, and to the Son, and to the Holy Spirit.",
+      "How shall I, unworthy as I am, not be ashamed before your holy things?",
+      "If I dare to approach you with the worthy, my garment will accuse me, for it is not a garment fit for the supper, and I will bring shame upon my most sinful soul.",
+      "Therefore cleanse me, O Lord, from the stain of my soul and save me, for you are a loving God.",
+      "Now and forever and to the ages of ages. Amen.",
+      "Because of the multitude of my transgressions I come to you, pure Theotokos, asking for salvation.",
+      "Visit my suffering soul, O only blessed one, and entreat your Son and our God to grant me forgiveness for the evil I have done."
+    ]
+  },
+  {
+    "key": "en.orthodox-holy-thursday-troparion",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Troparion of Holy and Great Thursday",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "The glorious disciples were enlightened at the Supper, at the washing of feet, but ungodly Judas, sick with avarice, was darkened, and he handed you, the just Judge, over to lawless judges.",
+      "Behold, lover of money, how he hanged himself because of money.",
+      "Flee from greed, which drove him to such a deed against the Teacher.",
+      "O Lord, good to all, glory to you."
+    ]
+  },
+  {
+    "key": "en.orthodox-instructive-verses",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Instructive Verses: How to Approach the Mysteries",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Guidance for the one approaching Communion, not a prayer addressed to God.",
+    "segments": [
+      "When you are about to eat the Body of the Master, draw near with fear, lest you be burned, for it is fire.",
+      "And before you drink the Blood in Communion, first be reconciled with all whom you have offended; then eat the mystical Food with courage.",
+      "Before you partake of the awesome sacrifice of the Master's life-giving Body, keep watch and pray with the fear of God."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-1-basil",
+    "lang": "en",
+    "type": "prayer",
+    "title": "First Prayer before Communion (Saint Basil the Great)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Master, Lord Jesus Christ our God, source of life and immortality, Creator of all things visible and invisible, co-eternal and co-unoriginate Son of the Father who has no beginning:",
+      "out of your overflowing goodness you took flesh in the last days, and were crucified and buried for us,",
+      "ungrateful and unfeeling as we are, and with your own Blood you renewed our nature, corrupted by sin.",
+      "Accept, O immortal King, my repentance, the repentance of a sinner; turn to me and hear my words.",
+      "I have sinned, O Lord, I have sinned against heaven and before you, and I am not worthy to look upon the height of your glory, for I have offended your goodness.",
+      "I have transgressed your commandments.",
+      "I have not obeyed your ordinances.",
+      "But you, O Lord, long-suffering and most merciful, do not remember evil and have not given me up to destruction for my iniquities, but have always waited for my conversion.",
+      "For you, who love mankind, have said through your prophet: I do not desire the death of a sinner, but that he should turn and live.",
+      "For you do not will, O Master, that the work of your hands should perish, nor do you delight in the destruction of men, but you desire all to be saved and come to the knowledge of the truth.",
+      "Therefore I too, though unworthy of heaven and earth and of this passing life, for I have wholly given myself to sin, become a slave of pleasures and defiled your image,",
+      "yet being your creature and the work of your hands, I do not despair of salvation in my wretchedness, but emboldened by your boundless mercy I draw near.",
+      "Receive me also, O Christ who love mankind, as the harlot, as the thief, as the publican and as the prodigal son.",
+      "Take from me the heavy burden of my sins, you who take away the sin of the world, who heal the infirmities of all people,",
+      "who call to yourself the weary and heavy laden and give them rest, who came to call not the righteous but sinners to repentance.",
+      "Cleanse me from every defilement of flesh and spirit, and teach me to perfect holiness in fear of you, that with the clear witness of my conscience, receiving a portion of your holy Gifts,",
+      "I may be united to your holy Body and precious Blood, and that you may dwell and abide in me with the Father and your Holy Spirit.",
+      "Yes, O Lord Jesus Christ my God, let the Communion of your holy and life-giving Mysteries not be for my condemnation; let me not grow weak in soul and body by receiving them unworthily.",
+      "But grant me until my last breath to receive without condemnation a portion of your holy Gifts,",
+      "for communion with the Holy Spirit, for eternal life, and for a good defense at your awesome judgment,",
+      "that I too, with your chosen ones, may become a partaker of your incorruptible good things, which you have prepared for those who love you, O Lord, in whom you are glorified to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-2-basil",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Second Prayer before Communion (Saint Basil the Great)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "I know, O Lord, that I receive your most pure Body and precious Blood unworthily, and that I am guilty,",
+      "my Christ and my God, for I eat and drink judgment to myself, not discerning your Body and Blood.",
+      "But emboldened by your kindness I come to you, who said: He who eats my Flesh and drinks my Blood abides in me, and I in him.",
+      "Have compassion, therefore, O Lord, and do not rebuke me, a sinner, but deal with me according to your mercy.",
+      "Let these holy Gifts be for me healing and cleansing, enlightenment and protection, salvation and sanctification of soul and body.",
+      "Let them drive away every fantasy, evil practice and working of the devil, who acts cunningly in my members.",
+      "Let them give me confidence and love toward you, amendment of life and steadfastness, growth in virtue and perfection, fulfillment of your commandments, communion of the Holy Spirit,",
+      "provision for the journey of eternal life and a good defense at your awesome judgment, and let them not be for my judgment or condemnation. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-3-chrysostom",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Third Prayer before Communion (Saint John Chrysostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Lord my God, I know that I am not worthy nor good enough for you to come under the roof of the house of my soul,",
+      "for it is all empty and in ruins, and you find in me no worthy place to lay your head.",
+      "But as you humbled yourself from on high for our sake, so humble yourself now to my lowliness.",
+      "And as you consented to lie in a cave, in a manger of dumb animals, so consent now to enter the manger of my senseless soul and my defiled body.",
+      "And as you did not refuse to enter and recline at table with sinners in the house of Simon the leper, so deign to enter the house of my soul, leprous and sinful though I am.",
+      "And as you did not reject the harlot, a sinner like me, who came and touched you, so have pity on me, a sinner, who now come to touch you.",
+      "And as you did not despise the kiss of her sinful and unclean mouth, so do not despise my mouth,",
+      "more defiled and unclean than hers, nor my vile, unclean and shameless lips, nor my still more impure tongue.",
+      "But let the live coal of your most pure Body and your most precious Blood bring sanctification, enlightenment and strength to my humble soul and body, relief from the burden of my many transgressions,",
+      "protection from every working of the devil, the turning back and restraint of my evil and wicked habits, the mortifying of the passions, the keeping of your commandments, increase of your divine grace and the inheritance of your kingdom.",
+      "For not lightly do I dare to approach you, O Christ my God, but I trust in your ineffable goodness.",
+      "May I not, by long keeping away from your Communion, become the prey of Satan.",
+      "Therefore I pray to you, O Lord, the only Holy One: sanctify my soul and body, heart and mind, renew the whole of me, and implant your fear in my members.",
+      "Let your sanctification not be taken from me, but be my help and defender, guiding my life in peace.",
+      "Make me worthy to stand at your right hand with your saints, through the prayers and supplications of your most pure Mother,",
+      "of your bodiless servants and most pure angelic Powers, and of all your saints who have pleased you from the ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-4-chrysostom",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Fourth Prayer before Communion (Saint John Chrysostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "I am not worthy, O Master and Lord, that you should come under the roof of my soul.",
+      "But since you, who love mankind, wish to dwell in me, I approach with confidence.",
+      "Command, and the gates will open, which you alone have made, and you will enter with your own love for mankind; you will enter and enlighten my darkened reason.",
+      "I believe that you will do this, for you did not drive away the harlot who came to you with tears, you did not reject the repentant publican, you did not spurn the thief",
+      "who acknowledged your kingdom, nor did you leave the repentant persecutor as he was, but all who came to you in repentance you numbered among your friends.",
+      "You alone are blessed always, now and to endless ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-5-chrysostom",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Fifth Prayer before Communion (Saint John Chrysostom)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Lord Jesus Christ my God, remit, pardon, forgive and absolve me, your sinful, useless and unworthy servant, my errors, transgressions and falls,",
+      "which I have committed from my youth until this present day and hour, knowingly or unknowingly, in words, deeds or thoughts, in reflections and pursuits, and in all my senses.",
+      "And through the intercession of the most pure and ever-virgin Mary, your Mother, who conceived you without sin, my only hope,",
+      "protection and salvation, make me worthy to receive without condemnation your most pure, immortal, life-giving and awesome Mysteries:",
+      "for the forgiveness of sins and for eternal life, for sanctification and enlightenment, for strength, healing and health of soul and body,",
+      "for the wiping out and complete removal of my evil thoughts and memories, superstitions and nightly fantasies, brought on by dark and evil spirits.",
+      "For yours is the kingdom and the power, the honor and the worship, with the Father and the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-6-damascene",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Sixth Prayer before Communion (Saint John of Damascus)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Master, Lord Jesus Christ our God, you alone have power to forgive people their sins, for you are good and love all.",
+      "Forgive me all my transgressions committed knowingly or unknowingly.",
+      "Make me worthy to receive without condemnation your divine, glorious, most pure and life-giving Mysteries,",
+      "not for punishment or for the increase of sins, but for cleansing, for sanctification and as a pledge of the life and the kingdom to come.",
+      "Let them be for me a fortress, a help and a repelling of adversaries, and the blotting out of my many transgressions.",
+      "For you are a God of mercy, compassion and love for all, and to you we give glory, Father, Son and Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-7-symeon",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Seventh Prayer before Communion (Saint Symeon the New Theologian)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "From defiled lips and an unclean heart, from an impure tongue and a polluted soul, accept my prayer, O my Christ.",
+      "Do not regard my words, nor my conduct, nor my shamelessness.",
+      "Give me boldness, my Christ, to say all that I desire; or rather, teach me what I should do and say.",
+      "I have sinned more than the harlot, who, learning where you were staying, boldly came to anoint your feet, my Christ, my Master and my God.",
+      "And as you did not reject her who came with zeal of heart, so do not reject me either, O Word,",
+      "but give me your feet, that I may clasp and kiss them, and boldly anoint them with streams of tears as with precious myrrh.",
+      "Wash me with my tears and cleanse me with them, O Word.",
+      "Forgive my transgressions and grant me pardon.",
+      "You know the multitude of my sins, you know my wounds too, and you see my bruises.",
+      "But you also know my faith, you see my zeal, and you hear my sighs.",
+      "Not one tear is hidden from you, my God, my Creator and my Redeemer, nor even a part of one.",
+      "Your eyes know my imperfections, and in your book are already written all the deeds not yet done.",
+      "Look upon my lowliness, see how great is my weariness, and all my sins.",
+      "O God of all, forgive me everything, that with a pure heart, a conscience full of holy fear and a contrite soul I may partake of your most pure and all-immaculate Mysteries,",
+      "which give life and deification to all who eat and drink you with a pure heart.",
+      "For you have said, O Master: He who eats my Flesh and drinks my Blood abides in me, and I in him.",
+      "Truly the word of my Master and God is true.",
+      "For whoever shares in these divine and deifying graces is not alone at all, but is with you, my Christ, the triple-sunned Light that enlightens the world.",
+      "And that I may never be alone, without you, Giver of life, my breath, my life, my joy and the salvation of the world, I have come to you, as you see,",
+      "with tears and a contrite soul, to receive the redemption of my transgressions, imploring you to deliver me and let me partake of your life-giving Mysteries without condemnation;",
+      "that, as you said, you may dwell with me, most wretched as I am, lest the deceiver find me without your grace, seize me by guile and, having deceived me, draw me away from your life-giving words.",
+      "Therefore I fall down before you and fervently cry out:",
+      "as you received the prodigal son and the harlot when she came to you, so receive me too, prodigal and impure, O Merciful One, as I now come to you with a contrite heart.",
+      "I know, O Savior, that no one has sinned against you as I have, nor done the deeds that I have done.",
+      "But I also know that neither the greatness of my sins nor the multitude of my transgressions surpasses the great patience of my God and his great love for all.",
+      "With the oil of forgiveness you cleanse and enlighten those who fervently repent, and make them partakers of your light and sharers in your Divinity.",
+      "And strange as it is to the minds of angels and of men, you often converse with them as with true friends.",
+      "These thoughts make me bold, these thoughts give me wings, my Christ; and seeing the wealth of your benefits toward us, I rejoice and tremble at once.",
+      "I receive the fire, though I am grass, and, O strange wonder, I am unexpectedly refreshed, like the bush of old that burned yet was not consumed.",
+      "Therefore with a grateful mind, a grateful heart, grateful in every member of my soul and body,",
+      "I worship, magnify and glorify you, my God, for you are blessed now and to the ages."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-8-metaphrastes",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Eighth Prayer before Communion (Saint Symeon Metaphrastes)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Jesus Christ, Wisdom of God, peace and power, the only pure and undefiled Lord, moved by ineffable compassion in your love for mankind,",
+      "you took on our whole nature from the pure and virgin blood of her who wondrously conceived you by the descent of the Holy Spirit and the good pleasure of the eternal Father.",
+      "In this nature you took on, you endured the life-giving and saving Passion: the cross, the nails, the spear and death itself.",
+      "Mortify in me the bodily passions that destroy the soul.",
+      "You who by your burial destroyed the power of hell, bury and destroy with pure thoughts the schemes of the evil spirits.",
+      "You who by your resurrection raised up our fallen forefather, raise me up from the sin into which I have fallen, and show me the way of repentance.",
+      "By your glorious ascension you deified the flesh you had taken and honored it with a seat at the Father's right hand;",
+      "make me worthy, by partaking of your holy Mysteries, of a place at your right hand among the saved.",
+      "By the descent of the Comforter, the Spirit, you made your holy disciples precious vessels; show me too to be a vessel of your coming.",
+      "You have promised to come again to judge the world in righteousness;",
+      "grant me to go out on the clouds to meet you, my Creator and Maker, with all the saints,",
+      "that I may endlessly glorify and praise you with your eternal Father and your all-holy, gracious and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-9-damascene",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Ninth Prayer before Communion (Saint John of Damascus)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "I stand before the doors of your temple, yet I have not put away evil thoughts.",
+      "But you, O Christ my God, who justified the publican, had mercy on the Canaanite woman and opened the gates of paradise to the thief,",
+      "open to me also the depths of your love and receive me as I approach and touch you, as you received the harlot and the woman with the issue of blood.",
+      "For the one touched only the hem of your garment and at once received healing, while the other, clasping your most pure feet, received forgiveness of sins.",
+      "May I, wretched as I am, not be burned as I dare to receive your whole Body.",
+      "But receive me as you received them and enlighten the senses of my soul, through the intercession of her who bore you without sin, and of the heavenly Powers, for you are blessed to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-communion-10-i-believe",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Tenth Prayer before Communion: I Believe, O Lord, and I Confess",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "This prayer is also said in church just before receiving Communion.",
+    "segments": [
+      "I believe, O Lord, and I confess that you are truly the Christ, the Son of the living God, who came into the world to save sinners, of whom I am first.",
+      "I believe also that this is truly your most pure Body, and that this is truly your precious Blood.",
+      "Therefore I pray to you: have mercy on me and forgive me my transgressions, voluntary and involuntary, in word and in deed, in knowledge and in ignorance.",
+      "And make me worthy to partake without condemnation of your most pure Mysteries, for the forgiveness of sins and for life eternal. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-behold-i-approach",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Verses of Symeon Metaphrastes: Behold, I Approach",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "Said while approaching Communion, followed by “Receive me today, O Son of God…”.",
+    "segments": [
+      "Behold, my Maker, I approach holy Communion.",
+      "Do not burn me as I partake, for you are fire that burns the unworthy, but cleanse me from every stain."
+    ]
+  },
+  {
+    "key": "en.orthodox-receive-me-today",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Receive Me Today, O Son of God",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "note": "The troparion of Holy Thursday, sung at Communion.",
+    "segments": [
+      "Receive me today, O Son of God, as a partaker of your mystical Supper.",
+      "For I will not reveal your Mystery to your enemies, nor give you a kiss as Judas did, but like the thief I confess you: Remember me, O Lord, in your kingdom."
+    ]
+  },
+  {
+    "key": "en.orthodox-seeing-the-divine-blood",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Seeing the Divine Blood",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "Seeing the divine Blood, be afraid, O man, for it is a coal that burns the unworthy.",
+      "The Body of God deifies and nourishes me: it deifies the spirit and nourishes the mind in a mystical way."
+    ]
+  },
+  {
+    "key": "en.orthodox-wounded-with-longing",
+    "lang": "en",
+    "type": "prayer",
+    "title": "You Have Wounded Me with Longing, O Christ",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "You have wounded me with longing, O Christ, and transformed me by your divine love.",
+      "Burn up my sins with spiritual fire and make me worthy to be filled with your joy, that, rejoicing in your goodness, I may magnify your two comings."
+    ]
+  },
+  {
+    "key": "en.orthodox-how-shall-i-enter",
+    "lang": "en",
+    "type": "prayer",
+    "title": "How Shall I Enter the Splendor of Your Saints",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "How shall I, unworthy as I am, enter into the splendor of your saints?",
+      "If I dare to enter the bridal chamber, my garment will accuse me, for it is not a wedding garment, and I shall be bound and cast out by the angels.",
+      "In your love, O Lord, cleanse the filth of my soul and save me."
+    ]
+  },
+  {
+    "key": "en.orthodox-let-these-holy-things",
+    "lang": "en",
+    "type": "prayer",
+    "title": "O Master Who Love Mankind, Let These Holy Things",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "holiness"
+    ],
+    "segments": [
+      "O Master who love mankind, Lord Jesus Christ my God, let these holy things not be for my condemnation because of my unworthiness,",
+      "but let them serve for the cleansing and sanctification of my soul and body, and be a pledge of the life and kingdom to come.",
+      "For it is good for me to cling to God and to place in the Lord the hope of my salvation."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-communion-i-thank-you",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Communion: I Thank You, O Lord My God",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "I thank you, O Lord my God, that you have not rejected me, a sinner, but have made me worthy to partake of your holy Mysteries.",
+      "I thank you that you have let me, unworthy as I am, receive your most pure and heavenly Gifts.",
+      "O Master who love mankind, who died and rose again for us and gave us these awesome and life-giving Mysteries for the good and sanctification of our souls and bodies,",
+      "grant that they may be for me too the healing of soul and body,",
+      "the driving away of every evil, the enlightening of the eyes of my heart, peace for the powers of my soul,",
+      "faith unashamed, love unfeigned, fullness of wisdom, the keeping of your commandments, the receiving of your divine grace and the inheritance of your kingdom.",
+      "Kept by them in your holiness, may I always remember your grace and live no longer for myself but for you, our Master and Benefactor.",
+      "May I, departing this life in the hope of eternal life, attain to everlasting rest,",
+      "where the voice of your saints who keep festival is unceasing, and endless is their joy in beholding the ineffable beauty of your face.",
+      "For you, O Christ our God, are the true joy and the ineffable gladness of those who love you, and all creation sings your praise forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-communion-basil",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Communion (Saint Basil the Great)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "I thank you, O Christ, Master and our God, King of the ages and Creator of all, for all the good things you have given me, and above all for partaking of your most pure and life-giving Mysteries.",
+      "Therefore I pray to you, good Lord who love mankind: keep me under your protection and in the shadow of your wings.",
+      "Grant me until my last breath to receive your Gifts worthily with a pure conscience, for the forgiveness of sins and for eternal life.",
+      "For you are the bread of life, source of holiness, Giver of every good thing, and to you we give glory with the Father and the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-communion-metaphrastes",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Communion (Symeon Metaphrastes)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "You who willingly gave me your Body as food, who are fire that consumes the unworthy, do not burn me.",
+      "No, my Creator!",
+      "Rather, enter into my members, into all my joints, my inward parts and my heart, and burn up like thorns all my iniquities.",
+      "Cleanse my soul, sanctify my thoughts, strengthen my knees and bones.",
+      "Enlighten my five senses and make the whole of me watchful in fear of you.",
+      "Guard, shelter and protect me always from every deed and word that destroys the soul.",
+      "Cleanse me, wash me and set me in order; adorn me, give me understanding and enlighten me.",
+      "Show me to be a dwelling of the Spirit alone, and no longer a dwelling of sin,",
+      "so that, when you enter through Communion as into your own home, every evildoer and every passion may flee from me as from fire.",
+      "As intercessors I bring to you all the saints, the commanders of the bodiless hosts, your Forerunner, the wise Apostles, and above all your immaculate, pure Mother; accept their prayers, my merciful Christ.",
+      "Make your servant a child of light.",
+      "For you alone in your goodness sanctify and enlighten our souls, and to you, our God and Master, we give glory every day, as is fitting."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-communion-may-your-holy-body",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Communion: May Your Holy Body",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "May your holy Body, O Lord Jesus Christ our God, lead me to eternal life, and your precious Blood to the forgiveness of sins.",
+      "May this Eucharist be for me joy, health and gladness, and at your awesome coming make me,",
+      "a sinner, worthy to stand at the right hand of your glory, through the intercession of your most pure Mother and of all your saints. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-communion-theotokos",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Communion: To the Theotokos",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "church"
+    ],
+    "segments": [
+      "Most holy Lady, Theotokos, light of my darkened soul, my hope, shelter, refuge, consolation and joy,",
+      "I thank you that you have made me, unworthy as I am, worthy to receive the most pure Body and precious Blood of your Son.",
+      "You who gave birth to the true Light, enlighten the spiritual eyes of my heart.",
+      "You who conceived the Source of immortality, give life now to me, who am dead through sin.",
+      "O merciful Mother of the merciful God, have mercy on me and grant me compunction and contrition of heart, humility of mind and the freeing of my thoughts from captivity.",
+      "Grant me until my last breath to receive without condemnation the sanctification of the holy Mysteries for the healing of soul and body.",
+      "Grant me tears of repentance and confession, that I may sing your praise and glorify you all the days of my life, for you are blessed and glorified forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-entering-a-church",
+    "lang": "en",
+    "type": "prayer",
+    "title": "On Entering a Church",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "note": "The first lines are Psalm 5:8–9 (Septuagint).",
+    "segments": [
+      "I will enter your house in the greatness of your mercy and in fear I will worship toward your holy temple.",
+      "Lead me, O Lord, in your righteousness because of my enemies;",
+      "make your way straight before me, that with a pure mind I may glorify you forever, one divine Power worshipped in three Persons: the Father and the Son and the Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-icon-of-christ",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before the Icon of Christ",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "segments": [
+      "We venerate your most pure icon, O Good One, asking forgiveness of our transgressions, O Christ our God.",
+      "For of your own will you were pleased to ascend the Cross in the flesh, to deliver from the bondage of the enemy those whom you had created.",
+      "We cry out to you: You have filled all things with joy, O our Savior, for you came to save the world. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-icon-of-the-theotokos",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before the Icon of the Theotokos",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "traditional"
+    ],
+    "note": "“Rejoice” (Greek chaire) is the angel's greeting.",
+    "segments": [
+      "From you flows tender mercy, O Theotokos; make us worthy of compassion.",
+      "Look upon a sinful people, show your power always, for we hope in you and cry to you: Rejoice! as Gabriel, chief of the bodiless Powers, once did. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-prayer-of-a-sick-person",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Prayer of a Sick Person",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "healing",
+      "strength"
+    ],
+    "segments": [
+      "Jesus Christ, my Lord and Savior, you became man and died on the cross for our salvation.",
+      "In your love and compassion you healed people of their diseases and sufferings.",
+      "Visit me, O Lord, and give me strength to bear this illness that has come upon me with patience, in submission to your will and in trust in your loving care.",
+      "I ask you, bless the means used for my recovery and those who apply them.",
+      "Grant that my illness may serve my spiritual good, and that I may live the rest of my life more faithfully, according to your will.",
+      "For you are the source of life and healing, and to you I give honor and glory, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-a-sick-person-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For a Sick Person (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "healing"
+    ],
+    "note": "Praying for someone in particular? Make a copy of the prayer and add their name after “your servant”.",
+    "segments": [
+      "Heavenly Father, Physician of our souls and bodies, who sent your only-begotten Son, our Lord Jesus Christ,",
+      "to heal every sickness and every infirmity, visit and heal also your servant from every ailment of body and soul by the grace of your Christ.",
+      "Grant them patience in this illness, strength of body and spirit, and recovery.",
+      "Lord, by your word you taught us to pray for one another, that we may be healed.",
+      "I ask you, heal your servant and grant them full health.",
+      "For you are the source of healing, and to you I give glory, to the Father and the Son and the Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-a-sick-person-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For a Sick Person (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "healing"
+    ],
+    "note": "Praying for someone in particular? Make a copy of the prayer and add their name after “your servant”.",
+    "segments": [
+      "O Lord our God, who by your word alone healed every disease and cured Peter's mother-in-law,",
+      "who chasten with compassion and heal in your goodness, who can take away every sickness and infirmity:",
+      "you yourself, the same Lord, help your servant and heal them of every illness that afflicts them;",
+      "send down on them your great mercy and, if it is your will, grant them health and full recovery of strength.",
+      "For you are the Physician of our souls and bodies, and to you we give glory, to the Father and the Son and the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-an-operation",
+    "lang": "en",
+    "type": "prayer",
+    "title": "After an Operation",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "healing",
+      "thanksgiving"
+    ],
+    "note": "Praying for someone in particular? Make a copy of the prayer and add their name after “your servant”.",
+    "segments": [
+      "Holy Father, the only true Physician of our souls and bodies, who humble and exalt, receive me",
+      "as in all humility I come to glorify you and to thank you that by your grace you have kept your servant safe during the recent operation.",
+      "We thank you that you blessed the doctors who cared for them and the means used for their treatment,",
+      "and that you restored them whole and sound to their family and the Church, turning every danger away from their body and soul.",
+      "We ask you, raise them soon from the bed of sickness on which they lie, and restore them to their home and peaceful work.",
+      "Grant that the suffering of their body may serve to cleanse their soul and lead them back with thanksgiving to the work of their hands and to Christ Jesus, Physician of soul and body.",
+      "Through the prayers of our holy fathers, Lord Jesus Christ,",
+      "have mercy on us and save us. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-recovery-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Recovery (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "healing"
+    ],
+    "segments": [
+      "Almighty God, heavenly Father, you are the source of life and healing.",
+      "I bless your holy name and give you thanks that you have delivered me from sickness and restored my health.",
+      "I ask you, grant me your everlasting grace, that I may live a new life in true obedience to you.",
+      "Guide me to do your will in all things, devoting my life to your service.",
+      "Living thus for you, may I prove worthy of your kingdom, where you dwell in glory with your Son and your Holy Spirit forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-recovery-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Recovery (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "healing"
+    ],
+    "segments": [
+      "O Lord God, Jesus Christ, Life and Strength of all who hope in you, whose mercies are countless and whose treasury of goodness is boundless:",
+      "we thank you for the benefits you have given us, and humbly ask you to continue to show us your goodness.",
+      "As you have been pleased to restore our bodily health,",
+      "so fill our souls with every heavenly grace and with perseverance in good works, and by your blessings in this life prepare us to rejoice in eternal happiness in the life to come.",
+      "For to you belong all glory, honor and worship, as also to your eternal Father and your all-holy, good and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-the-terminally-ill",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For the Terminally Ill",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "healing",
+      "peace"
+    ],
+    "note": "Praying for someone in particular? Make a copy of the prayer and add their name after “your servant”.",
+    "segments": [
+      "Lord Jesus Christ, who suffered and died for our sins that we might live:",
+      "if in the course of our life we have sinned in word, deed or thought, forgive us in your goodness and love.",
+      "We place all our hope in you; protect your servant from all evil.",
+      "We submit to your will and into your hands we commend our souls and bodies.",
+      "For a Christian end to our life, peaceful, without shame or suffering, and for a good defense before the awesome judgment seat of Christ, we pray to you, O Lord.",
+      "Bless us, have mercy on us and grant us eternal life. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-lord-of-hosts-be-with-us",
+    "lang": "en",
+    "type": "prayer",
+    "title": "O Lord of Hosts, Be with Us",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "anxiety"
+    ],
+    "note": "Linked to the verse “The Lord of hosts is with us” (Psalm 46:7).",
+    "segments": [
+      "O Lord of hosts, be with us, for in our afflictions we have no other help but you.",
+      "O Lord of hosts, have mercy on us."
+    ]
+  },
+  {
+    "key": "en.orthodox-in-time-of-need-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "In Time of Need (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "anxiety",
+      "peace",
+      "strength"
+    ],
+    "segments": [
+      "Almighty God, Father of mercies and God of all comfort, come to my help and deliver me from the trouble that weighs upon me.",
+      "I believe, O Lord, that all the trials of life are in your care and that all things work together for good to those who love you.",
+      "Take from me fear, anxiety and anguish.",
+      "Help me to face this trouble and to bear it with faith, courage and wisdom.",
+      "Let this trial draw me closer to you, for you are my rock and refuge, my comfort and hope, my delight and joy.",
+      "I trust in your love and your mercy.",
+      "Blessed is your name, of the Father and of the Son and of the Holy Spirit, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-in-time-of-need-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "In Time of Need (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "anxiety",
+      "strength"
+    ],
+    "segments": [
+      "O God, our help in need, who are just and merciful and incline your ear to the supplications of your people:",
+      "look upon me, have mercy on me and deliver me from the trouble that now weighs upon me.",
+      "Do not deal with us according to our iniquities, but according to the multitude of your mercies, for we are the work of your hands and you know our weakness.",
+      "I ask you, grant me your divine, helping grace, and give me patience and strength to bear my hardships in complete submission to your will.",
+      "You alone know our misery and our sufferings;",
+      "to you, our only hope and refuge, I flee for relief and consolation, trusting in your infinite love and mercy,",
+      "that in due time, when you see it best, you will deliver me from this trouble and turn my anguish into comfort.",
+      "Then we shall rejoice in your mercy and exalt and glorify your holy name, of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-against-evil-spirits",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Against the Influence of Evil Spirits",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "warfare",
+      "protection"
+    ],
+    "segments": [
+      "Almighty God, who delivered your people from the bondage of the adversary and through your Son cast down Satan like lightning, deliver me also from every influence of unclean spirits.",
+      "Command Satan to depart far from me by the power of your only-begotten Son.",
+      "Rescue me from demonic delusions and from darkness.",
+      "Fill me with the light of the Holy Spirit, that I may be guarded against all the snares of crafty demons.",
+      "Grant that an angel may always go before me and lead me on the path of righteousness all the days of my life,",
+      "to the honor of your glorious name, of the Father and of the Son and of the Holy Spirit, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-facing-the-unknown",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Facing the Unknown",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "anxiety",
+      "faith"
+    ],
+    "segments": [
+      "O Lord, who held Peter's hand when he began to sink in the stormy sea: if you are with me, no one is against me.",
+      "Give me the shield of faith and the mighty armor of the Holy Spirit, to protect me and lead me to do your will.",
+      "I place the future in your hands, O Lord, and I follow you toward life in Christ. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-acceptance-of-gods-will",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For Acceptance of God's Will",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "wisdom",
+      "closeness"
+    ],
+    "note": "Attributed to Saint Philaret, Metropolitan of Moscow.",
+    "segments": [
+      "Lord, I do not know what to ask of you.",
+      "You know better than I what I need.",
+      "You love more than I know how to love.",
+      "Help me to see clearly my true needs, which I do not see.",
+      "I open my heart to you.",
+      "Search me and show me my faults and sins.",
+      "I place all my trust in you.",
+      "I have no other desire than to do your will.",
+      "Teach me to pray.",
+      "Pray yourself in me. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-thanksgiving-after-trouble",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Thanksgiving after Trouble",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "thanksgiving",
+      "peace"
+    ],
+    "segments": [
+      "Almighty and merciful God, in all humility and from the depth of my heart I thank your divine majesty for your kindness and tender mercies,",
+      "for having heard my humble prayer and graciously delivered me from my trouble and misery.",
+      "I ask you, do not cease to grant me your helping grace, that I may lead a life pleasing to you and offer you unceasingly a sacrifice of praise and thanksgiving, Father, Son and Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-work-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Work (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "job"
+    ],
+    "note": "The quotation is John 15:5.",
+    "segments": [
+      "Lord Jesus Christ my God, you said: “Without me you can do nothing.”",
+      "With faith I receive your words, O Lord, and I implore your goodness: help me to do the work I am beginning and to bring it to completion.",
+      "To you I give glory, to the Father and the Son and the Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-work-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Work (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "job",
+      "wisdom"
+    ],
+    "segments": [
+      "Almighty God, our Help and Refuge, you know that without your guidance and help we can do nothing good.",
+      "Direct me by your wisdom and power, that I may accomplish this task and all that I do according to your divine will,",
+      "that it may be useful to me and to others and to the glory of your holy name. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-work-3",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Work (3)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "job",
+      "strength"
+    ],
+    "segments": [
+      "My Lord and Savior, you became man and worked with your own hands until the time of your public ministry.",
+      "Bless me as I begin this work, and help me to bring it to completion.",
+      "Lord, enlighten my mind and strengthen my body, that I may carry out my task according to your will.",
+      "Guide me to do good works for your service and glory. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-work",
+    "lang": "en",
+    "type": "prayer",
+    "title": "After Work",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "job",
+      "thanksgiving"
+    ],
+    "segments": [
+      "I thank you, O Lord, for your strength and guidance in my work.",
+      "You are the fulfillment of every good thing.",
+      "Fill my soul also with joy and gladness, that I may always glorify you. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-students-prayer",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Student's Prayer",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "studies",
+      "wisdom"
+    ],
+    "segments": [
+      "O Christ my Lord, Giver of light and wisdom, who opened the eyes of the blind man and by the descent of the Holy Spirit made fishermen wise heralds and teachers of the Gospel:",
+      "kindle in my mind too the light of the grace of the Holy Spirit.",
+      "Give me discernment, understanding and wisdom in my studies.",
+      "Let me fulfill my tasks and abound in every good work, for to you I give honor and glory. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-study-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Study (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "studies"
+    ],
+    "segments": [
+      "Most good Lord, send down upon me the grace of your Holy Spirit to strengthen me, that I may learn well what I am to learn,",
+      "and so grow into a better person, to your glory, to the comfort of my family, and for the benefit of your Church and our country. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-study-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Study (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "studies",
+      "wisdom"
+    ],
+    "note": "A prayer from the service of the First Hour.",
+    "segments": [
+      "O Christ, the true Light, who enlighten and sanctify everyone who comes into the world, let the light of your countenance shine upon me, that I may see your unapproachable light;",
+      "and direct my steps in the way of your commandments, through the intercession of your most pure Mother and of all the saints. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-study",
+    "lang": "en",
+    "type": "prayer",
+    "title": "After Study",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "studies",
+      "thanksgiving"
+    ],
+    "segments": [
+      "I thank you, O Lord our God, that once again you have opened my eyes to the light of your wisdom and gladdened my heart with the knowledge of truth.",
+      "I implore you, O Lord, help me always to do your will.",
+      "Bless my soul and body, my words and deeds.",
+      "Grant me to grow in grace, virtue and good habits, that your name may be glorified, of the Father and of the Son and of the Holy Spirit, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-scripture-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Reading Holy Scripture (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "closeness"
+    ],
+    "segments": [
+      "O Master who love us, kindle in our hearts your eternal light, that we may know you better.",
+      "Help us to understand fully the message of your Gospel.",
+      "Implant in us reverence for your holy commandments, that, overcoming worldly desires, we may lead a spiritual life, pleasing to you in thought and deed.",
+      "We ask this of you, O Christ our God, for you are the light of our souls and bodies,",
+      "and we glorify you with your eternal Father and your all-holy, good and life-giving Spirit, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-scripture-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before Reading Holy Scripture (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "scripture",
+      "wisdom"
+    ],
+    "note": "A personal form of the prayer the priest says before the Gospel reading at the Divine Liturgy.",
+    "segments": [
+      "Shine in my heart, O Master who love mankind, the pure light of your divine knowledge, and open the eyes of my mind to understand your teachings.",
+      "Implant in me also reverence for your blessed commandments, that, having overcome sinful desires, I may lead a spiritual life, thinking and doing all that is pleasing to you.",
+      "For you, O Christ my God, are my light, and to you I give glory with your Father and your Holy Spirit, now and forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-a-journey-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before a Journey (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "peace"
+    ],
+    "segments": [
+      "Lord Jesus Christ my God, be my companion, guide and protector on my journey.",
+      "Keep me from every danger, misfortune and temptation.",
+      "By your divine power grant me a peaceful and successful journey and a safe arrival.",
+      "In you I place my hope and trust, and I glorify, honor and praise you with your Father and the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-before-a-journey-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Before a Journey (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "protection",
+      "closeness"
+    ],
+    "segments": [
+      "Lord Jesus, after your resurrection you walked with two disciples and set their hearts on fire with your grace.",
+      "Walk with me too and gladden my heart with your presence.",
+      "I know, O Lord, that I am a pilgrim on this earth and seek the citizenship that is in heaven.",
+      "On my journey surround me with your holy angels and protect me from dangers seen and unseen.",
+      "Grant that I may carry out my plans and fulfill my hopes according to your will.",
+      "Help me to see the beauty of creation and to grasp in all things the wonder of your truth.",
+      "For you are the way, the truth and the life, and to you I give thanks, honor and glory forever. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-repentance-1",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Prayer of Repentance (1)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "holiness"
+    ],
+    "segments": [
+      "O God, my good and loving Lord, I confess all the sins I have committed every day of my life, in thought, word or deed.",
+      "From the depth of my heart I ask forgiveness for offending you and others, and I repent of my former ways.",
+      "Help me by your grace to be transformed, to sin no more, to walk in the way of righteousness, and to praise and glorify your name, of the Father and of the Son and of the Holy Spirit. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-repentance-2",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Prayer of Repentance (2)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "holiness"
+    ],
+    "segments": [
+      "O Lord my God, I confess that I have sinned against you in thought, word and deed.",
+      "I have also neglected what your holy law requires of me.",
+      "But now with contrition and sorrow I turn again to your love and your mercy.",
+      "I implore you, forgive me all my transgressions and cleanse me from all my sins.",
+      "O Lord, fill my heart with the light of your truth.",
+      "Strengthen my will by your grace.",
+      "Teach me to desire and to do only what is pleasing to you. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-love",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For Love",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "closeness",
+      "holiness"
+    ],
+    "segments": [
+      "O Christ my God, kindle my heart with love for you, that in its flame I may love you with all my heart, with all my mind,",
+      "with all my soul and with all my strength, and my neighbor as myself, that by keeping your commandments I may glorify you, the Giver of every good and perfect gift. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-great-lent",
+    "lang": "en",
+    "type": "prayer",
+    "title": "A Prayer for Great Lent",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "holiness",
+      "strength"
+    ],
+    "note": "The prayer behind the ambo from the Liturgy of the Presanctified Gifts.",
+    "segments": [
+      "O Master almighty, who made all things in wisdom,",
+      "in your providence and great goodness you have brought us to this season of Great Lent, for the cleansing of souls and bodies, for mastery over the passions, in the hope of the resurrection.",
+      "You who after forty days gave Moses the tablets of the law written by your divine hand, grant us also strength to fight the good fight,",
+      "to persevere in the fast, to keep the faith, to trample down all evil demons, to become victors over sin and to come to celebrate your holy Resurrection.",
+      "For blessed and glorified is your all-honorable and majestic name, of the Father and of the Son and of the Holy Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-ephrem-the-syrian",
+    "lang": "en",
+    "type": "prayer",
+    "title": "The Prayer of Saint Ephrem the Syrian",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "holiness",
+      "traditional"
+    ],
+    "note": "Said during Great Lent with prostrations.",
+    "segments": [
+      "O Lord and Master of my life, take from me the spirit of sloth, meddling, lust for power and idle talk.",
+      "But grant to me, your servant, a spirit of prudence, humility, patience and love.",
+      "O Lord and King, grant me to see my own sins and failings and not to judge my brother, for you are blessed to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-diptychs",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Diptychs (Remembering the Living)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "home",
+      "enemies"
+    ],
+    "note": "Each petition is said with a bow. You can make a copy and add the names of your bishop, your spiritual father and your parents.",
+    "segments": [
+      "Remember, O Lord Jesus Christ our God, your mercies and compassions which are from of old,",
+      "for whose sake you became incarnate and were pleased to endure crucifixion and death for the salvation of those who truly believe in you,",
+      "you rose from the dead, ascended into heaven, sit at the right hand of God the Father and look upon the humble prayers of those who call on you with all their heart.",
+      "Incline your ear and hear my humble prayer, the prayer of your useless servant, as a pleasing spiritual fragrance offered to you for all your people.",
+      "Above all, remember your holy Church, catholic and apostolic, which you purchased with your precious blood,",
+      "strengthen it, establish it, enlarge it, multiply it, grant it peace and keep it forever unconquered by the gates of hell.",
+      "Calm the divisions of the Church, quench the assaults of the heathen, quickly destroy the heresies that arise, root them out and bring them to nothing by the power of your Holy Spirit.",
+      "Save, O Lord, and have mercy on our most blessed metropolitan, on all the Orthodox patriarchs, metropolitans, archbishops and bishops, on all priests and monastics,",
+      "on all the clergy whom you have appointed to shepherd your spiritual flock, and by their prayers have mercy on me and save me, a sinner.",
+      "Save, O Lord, and have mercy on my spiritual father, and by his holy prayers forgive my sins.",
+      "Save, O Lord, and have mercy on my parents, my brothers and sisters and my relatives according to the flesh,",
+      "on my whole family and my friends, and grant them your peace and your heavenly blessings.",
+      "Save, O Lord, and have mercy on the old and the young, the poor and the orphans, the widows and those in sickness and trouble, in hardship and sorrow, those captive in prisons and in exile,",
+      "and on your servants persecuted by godless heathens, apostates and heretics for your sake and for the Orthodox faith,",
+      "and remember them, visit and comfort them, and quickly grant them your mighty consolation, freedom and deliverance.",
+      "Save, O Lord, and have mercy on those who hate and insult me and those who attack me, and do not let them perish because of me, a sinner.",
+      "Enlighten with the light of your knowledge and unite to your holy, apostolic and catholic Church those who have fallen away from the Orthodox faith and those blinded by destructive heresies."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-our-enemies",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For Our Enemies",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "enemies",
+      "forgiveness"
+    ],
+    "segments": [
+      "Lord Jesus Christ, in your great mercy you prayed for the forgiveness of those who crucified you, and you taught us to love our enemies and to pray for those who persecute us.",
+      "O Lord, I ask you, forgive those who treat me unjustly and act against me; bless them and guide them according to your will.",
+      "Remove from my heart all bitterness toward them.",
+      "O Lord, let your forgiveness, goodness and love be revealed in all of us, to your honor and glory. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-peace-in-the-world",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For Peace in the World",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "church",
+      "peace"
+    ],
+    "segments": [
+      "Almighty God, Creator, you are the Father of all people on earth.",
+      "I ask you, guide all nations and their leaders in the ways of justice and peace.",
+      "Protect us from the evil of injustice, prejudice, exploitation, conflict and war.",
+      "Help us to cast away mistrust, bitterness and hatred.",
+      "Teach us to cease storing up and using the instruments of war.",
+      "Guide us to find peace, respect and freedom.",
+      "Unite us in making and sharing together the tools of peace against ignorance, poverty, disease and oppression.",
+      "Grant that we may grow in harmony and friendship as brothers and sisters created in your image, to your honor and glory. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-the-departed-morning",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For the Departed (from the Morning Prayers)",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief",
+      "traditional"
+    ],
+    "note": "Said three times, with three bows. You can make a copy and add your parents' names.",
+    "segments": [
+      "Remember, O Lord, the souls of your departed servants, my parents, and all my relatives according to the flesh,",
+      "and all our fathers, brothers and sisters who have died in the hope of resurrection and eternal life, and grant them eternal rest."
+    ]
+  },
+  {
+    "key": "en.orthodox-saturday-for-the-departed",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Saturday Prayer for the Departed",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief"
+    ],
+    "note": "In the English prayer book, said on Saturday morning, the day of prayer for the departed.",
+    "segments": [
+      "Remember, O Lord, our fathers and brothers who have fallen asleep in the hope of resurrection to eternal life, and all who have ended this life in piety and faith.",
+      "Forgive them every transgression, voluntary or involuntary, in word, deed or thought.",
+      "Place them in a place of light, a place of refreshment, a place of peace, from which all sickness has fled,",
+      "and sorrow and sighing, and where the light of your countenance shines and gladdens all your saints from the ages.",
+      "Grant them and us your kingdom.",
+      "Give them a share in your ineffable and eternal good things and the joy of your endless and blessed life.",
+      "For you are the life, the resurrection and the repose of your departed servants, O Christ our God,",
+      "and to you we give glory, with your all-holy, good and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-kontakion-for-the-departed",
+    "lang": "en",
+    "type": "prayer",
+    "title": "Kontakion for the Departed: With the Saints Give Rest",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief",
+      "traditional"
+    ],
+    "segments": [
+      "With the saints give rest, O Christ, to the souls of your servants, where there is neither pain nor sorrow nor sighing, but life everlasting."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-one-who-has-died",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For One Who Has Died",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief"
+    ],
+    "note": "Praying for someone in particular? Make a copy and add their name after “your departed servant”.",
+    "segments": [
+      "O Christ, eternal King and our God, who by your Cross destroyed death and the devil, and by your Resurrection restored life to mankind:",
+      "give rest, O Lord, to the soul of your departed servant in your kingdom, where there is no pain, sorrow or suffering.",
+      "In your goodness and love for mankind forgive them all the sins they committed in thought, word or deed,",
+      "for there is no one who lives and does not sin; you alone are without sin.",
+      "For you are the resurrection, the life and the repose of your departed servant, O Christ our God,",
+      "and to you we give glory, with your eternal Father and your all-holy, good and life-giving Spirit, now and forever and to the ages of ages. Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-for-a-child-who-has-died",
+    "lang": "en",
+    "type": "prayer",
+    "title": "For a Child Who Has Died",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief",
+      "children"
+    ],
+    "note": "You can make a copy and add the child's name after “your little servant”.",
+    "segments": [
+      "O Lord, who watch over children in this present life and in the world to come because of their simplicity and innocence of mind,",
+      "granting them abundantly a place in Abraham's bosom and leading them to places shining with light, where the spirits of the righteous dwell:",
+      "receive in peace the soul of your little servant, for you yourself said: “Let the children come to me, for of such is the kingdom of heaven.” Amen."
+    ]
+  },
+  {
+    "key": "en.orthodox-after-a-miscarriage",
+    "lang": "en",
+    "type": "prayer",
+    "title": "After a Miscarriage",
+    "splitMode": "sentence",
+    "tags": [
+      "Orthodox prayer book"
+    ],
+    "needs": [
+      "grief",
+      "fertility"
+    ],
+    "note": "A prayer for a mother after a miscarriage. In a copy you can add her name after “this your servant”.",
+    "segments": [
+      "O Master, Lord our God, who were born of the most pure Theotokos and ever-virgin Mary and as an infant were laid in a manger:",
+      "look in your great mercy upon this your servant, who has miscarried what was conceived in her.",
+      "Heal her suffering, granting her, O Lord who love mankind, health and strength of body and soul.",
+      "Guard her through a radiant Angel from every assault of sickness and weakness and from all inner anguish.",
+      "You who receive into your kingdom the innocence of infants, comfort the mind of your servant and grant her peace. Amen."
+    ]
+  }
+]

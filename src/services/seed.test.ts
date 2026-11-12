@@ -32,7 +32,9 @@ beforeEach(async () => {
   await updateAppSettings({ uiLang: 'pl', contentFocus: 'both', grammaticalForm: 'n' })
 })
 
-describe('seedBuiltins', () => {
+// Since the Orthodox prayer book (DECISIONS #138) the library is ~600 texts and ~11k sentences; re-seeding it in
+// fake-indexeddb takes seconds, so these get more than the default 5 s too.
+describe('seedBuiltins', { timeout: 20_000 }, () => {
   it('inserts all builtin texts and sessions once', async () => {
     await seedBuiltins(10)
     expect(await db.texts.count()).toBe((await loadBuiltinTexts()).length)
