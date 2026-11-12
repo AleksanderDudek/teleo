@@ -190,7 +190,9 @@ describe('applyContentPreferences', () => {
   })
 })
 
-describe('applyGrammaticalForm', () => {
+// A form switch drops ~300 sentences of the whole library; fake-indexeddb cleans its indexes linearly per delete
+// (~13 ms each over 7.5k segments), which a real IndexedDB does not — so these two get more than the default 5 s.
+describe('applyGrammaticalForm', { timeout: 20_000 }, () => {
   it('switches gendered sentences and keeps the ids of neutral ones', async () => {
     await seedBuiltins()
     const id = builtinTextId('pl.poranek')
