@@ -817,8 +817,13 @@ findability instead.
     dropped; sentences are split or joined where the recording is; 420 sentences that were not the preacher's own
     words are replaced by ones that are, and 29 that no recording holds are dropped. 3,481 → 3,508 sentences per
     language (60 prayers change length); keys, English titles, needs and the 29 `*.stronghold-*` prayers are unchanged.
-    - **The Polish translation follows sentence for sentence** (content test) and now says *w imieniu Jezusa* for *in
-      the name of Jesus*, as the stronghold series does, instead of *w imię Jezusa*; *w potężnym imieniu Jezusa* stays
-      (#126). m/f/n forms in 108 prayers instead of 78 (#26); six Polish titles are reworded.
-    - **`SEED_VERSION` 10** re-seeds the library: `replaceSegments` keeps unchanged sentences with their ids and history,
-      archives changed ones that were said or are in an unfinished run, and leaves text stats, points and streaks alone.
+    - **The Polish translation follows sentence for sentence** (content test). m/f/n forms in 108 prayers instead of
+      78 (#26); six Polish titles are reworded.
+    - **„W imię Jezusa”, not „w imieniu Jezusa”** (owner's choice): in Polish one prays *w imię* — calling on the
+      name — while *w imieniu* means on someone's behalf. So *in the name of Jesus / of the Lord Jesus / of your Son*
+      is *w imię …*, as before this update (the update's draft had *w imieniu* throughout, 672 sentences); *w imieniu*
+      stays only where the English says *on behalf of* (*w moim imieniu*, *w imieniu mojego rodu*). *W potężnym imieniu
+      Jezusa* stays (#126). The stronghold series keeps its own *w imieniu Jezusa*: its Polish is first-hand (#132).
+    - **`SEED_VERSION` 11** (10 held the draft) re-seeds the library: `replaceSegments` keeps unchanged sentences with
+      their ids and history, archives changed ones that were said or are in an unfinished run, and leaves text stats,
+      points and streaks alone.
