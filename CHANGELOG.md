@@ -6,6 +6,10 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ### Changed
 
+- **Each prayer against a stronghold is now a full prayer** you can pray on its own, in English and Polish: it names
+  what the stronghold does and where it grows from, confesses it, drives out every evil spirit connected with it, asks
+  for healing, forgives and declares the truth, with the prayer from the teaching kept inside it. Your points, streak
+  days and the times you said each prayer stay.
 - **The library prayers read closer to what was actually prayed.** Every sentence was checked again against its
   recording: words that had been cut are back, added ones are gone, and lines that were not in a recording are replaced
   or dropped. The Polish translation follows the new wording sentence for sentence and uses your grammatical form in

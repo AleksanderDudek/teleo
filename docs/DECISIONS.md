@@ -856,3 +856,24 @@ findability instead.
     - `SEED_VERSION` 12. *Sleep & nightmares* gains two prayers (before sleep, Antiochos's evening prayer), so the e2e
       tests count four; e2e locators for *Ojcze nasz* and *Chwała Ojcu* match the start of a card's name, because the
       Orthodox versions (and a card's preview) share those words.
+
+## Full prayers for each stronghold (owner request, 2026-11-12)
+
+139. **Each of the 24 prayers for one stronghold becomes a full prayer** (parts 2 and 5–27 of the series, #132): from
+    4–19 sentences to 20–29 (166 → 513 per language). Each takes its stronghold through the method of part 4 — the
+    fruit and the root the part describes, confession, driving out every evil spirit connected with this stronghold,
+    cursing fruit and root, healing, forgiveness, the truth to confess every day, not giving up, help — so it can be
+    prayed on its own. The part's closing prayer stays inside it sentence for sentence, so `replaceSegments` keeps those
+    sentences with their ids and history.
+    - **Spirits in general, never by name** (owner's choice): the prayers say *every evil spirit connected with this
+      stronghold* / *każdego złego ducha związanego z tą warownią*; the series' lists of demons stay out.
+    - **Parts 14, 16, 17 and 21 are expanded from what the library already had** (owner's choice): their short closing
+      prayer and their note, since no full transcript was at hand (part 21's recording is garbled). Their note says so.
+    - **Notes:** the *from part N* paragraph now says the prayer is full and can be prayed on its own; rejection,
+      compulsions, dependence and lies gain the paragraph on what *curse* means. The method prayer's note now says it
+      is for a stronghold without a prayer of its own. Cautions and crisis numbers are unchanged; the compulsions prayer
+      itself says to pray it once (OCD), and the instability prayer says to tell someone about thoughts of self-harm.
+    - **Both languages written together, sentence for sentence**; the Polish keeps *w imieniu Jezusa* (#137). New
+      first-person Polish sentences use the present tense or *będę* + infinitive where they can, so only 6 of the 347
+      need m/f/n forms (#26). Keys, titles, needs and tags are unchanged; the highest sentence overlap between two texts
+      is 20% (#130). `SEED_VERSION` 13.
