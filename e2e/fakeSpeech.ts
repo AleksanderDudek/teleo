@@ -101,21 +101,65 @@ export async function installFakeSpeech(page: Page, options: { live?: boolean; w
 }
 
 /** Completes the onboarding (skips everything). */
-export async function finishOnboarding(page: Page) {
+export async function finishOnboarding(page: Page, options: { keepInstallOffer?: boolean } = {}) {
   await page.goto('./')
   await page.getByRole('button', { name: /Zaczynamy|Get started|Pomiń|Skip/ }).first().click()
   await page.waitForURL(/#\/$/)
   await libraryReady(page)
-  await declineTour(page)
+  await declineTour(page, options)
 }
 
-/** After the setup Today invites to the guided tour (DECISIONS #127); tests about something else decline it. */
-export async function declineTour(page: Page) {
+/**
+ * After the setup Today invites to the guided tour (DECISIONS #127); tests about something else decline it — and
+ * the install offer too (#140), which would otherwise slide over the summary on the phone projects.
+ */
+export async function declineTour(page: Page, { keepInstallOffer = false }: { keepInstallOffer?: boolean } = {}) {
   await page.getByRole('dialog').getByRole('button', { name: /^(Not now|Nie teraz)$/ }).click()
   await expect(page.getByRole('dialog')).toHaveCount(0)
   // Stored before the test goes on: a reload right after would otherwise beat the write and invite again.
   await expect.poll(() => seenTour(page)).toBeGreaterThan(0)
+  if (!keepInstallOffer) await setInstallOffer(page, { dismissals: 3, lastDismissedAt: Date.now() })
 }
+
+/** Writes `meta.installOffer` straight into the database: the offer reads it from there when it decides. */
+export const setInstallOffer = (page: Page, offer: { dismissals: number; lastDismissedAt?: number }) =>
+  page.evaluate(
+    (installOffer) =>
+      new Promise<void>((resolve, reject) => {
+        const open = indexedDB.open('teleo')
+        open.onsuccess = () => {
+          const tx = open.result.transaction('settings', 'readwrite')
+          const store = tx.objectStore('settings')
+          const get = store.get('meta')
+          get.onsuccess = () => {
+            const row = get.result as { key: string; value: Record<string, unknown> }
+            store.put({ ...row, value: { ...row.value, installOffer } })
+          }
+          tx.oncomplete = () => {
+            open.result.close()
+            resolve()
+          }
+          tx.onerror = () => reject(tx.error)
+        }
+      }),
+    offer,
+  )
+
+/** `meta.installOffer` as stored. */
+export const readInstallOffer = (page: Page) =>
+  page.evaluate(
+    () =>
+      new Promise<{ dismissals: number; lastDismissedAt?: number } | null>((resolve) => {
+        const open = indexedDB.open('teleo')
+        open.onsuccess = () => {
+          const get = open.result.transaction('settings').objectStore('settings').get('meta')
+          get.onsuccess = () => {
+            resolve((get.result as { value?: { installOffer?: { dismissals: number } } } | undefined)?.value?.installOffer ?? null)
+            open.result.close()
+          }
+        }
+      }),
+  )
 
 /** The tour version this install has taken or declined, as stored (`meta.tourVersion`). */
 export const seenTour = (page: Page) =>

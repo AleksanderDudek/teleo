@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router'
 import { CharacterPicker } from '@/components/brand/CharacterPicker'
 import { Icon } from '@/components/icons/Icon'
+import { InstallGuide } from '@/components/install/InstallGuide'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { IconHalo } from '@/components/ui/IconHalo'
@@ -11,12 +12,13 @@ import { Segmented } from '@/components/ui/Segmented'
 import { Stepper } from '@/components/ui/Stepper'
 import { Switch } from '@/components/ui/Switch'
 import type { AppSettings, FontSize, ThemePreference } from '@/db/types'
+import { isInstallable } from '@/domain/install/platform'
 import type { Checking, ContentFocus, GrammaticalForm, Lang } from '@/domain/types'
-import { promptInstall, useInstallState } from '@/lib/install'
+import { useInstallPlatform } from '@/lib/install'
 import { applyContentPreferences, applyGrammaticalForm, applyLanguage } from '@/services/seed'
 import { DAILY_GOAL, DAY_START_HOURS, updateAppSettings } from '@/services/settings'
 import { useSettingsStore } from '@/stores/settings'
-import { toast, useUiStore } from '@/stores/ui'
+import { useUiStore } from '@/stores/ui'
 import { RemindersSettings } from './RemindersSettings'
 import { WhisperSettings } from './WhisperSettings'
 
@@ -34,34 +36,11 @@ function Section({ id, title, children }: { id: string; title: string; children:
 /** "Install Teleo": the browser's own dialog where it has one, the Share-menu steps on iPhone and iPad. */
 function InstallSection() {
   const { t } = useTranslation()
-  const state = useInstallState()
-  if (state !== 'prompt' && state !== 'ios') return null
+  const { platform } = useInstallPlatform()
+  if (!isInstallable(platform)) return null
   return (
     <Section id="install" title={t('settings.sectionInstall')}>
-      <p className="text-sm text-ink-soft">{t('settings.installBody')}</p>
-      {state === 'prompt' ? (
-        <Button
-          icon="download-simple"
-          onClick={async () => {
-            if (await promptInstall()) toast({ kind: 'success', title: t('settings.installDone') })
-          }}
-        >
-          {t('settings.installButton')}
-        </Button>
-      ) : (
-        <ol className="space-y-2 text-sm text-ink">
-          <li className="flex items-center gap-2.5">
-            <span className="halo size-7 text-xs font-bold">1</span>
-            <span>
-              {t('settings.installIos1')} <Icon name="export" size={18} label={t('settings.installIosShare')} className="inline align-text-bottom text-primary" />
-            </span>
-          </li>
-          <li className="flex items-center gap-2.5">
-            <span className="halo size-7 text-xs font-bold">2</span>
-            <span>{t('settings.installIos2')}</span>
-          </li>
-        </ol>
-      )}
+      <InstallGuide platform={platform} />
     </Section>
   )
 }

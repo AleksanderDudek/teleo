@@ -491,13 +491,7 @@
     "soundsHint": "A soft gold chime for every sentence said; a fuller one for a finished text or goal.",
     "displayName": "Name on shared cards",
     "displayNameHint": "Friends see it on their leaderboard. Empty = your character's name.",
-    "sectionInstall": "Teleo as an app",
-    "installBody": "Put Teleo on your home screen: it opens full-screen like an app, starts faster and works offline.",
-    "installButton": "Install Teleo",
-    "installDone": "Teleo is on your home screen.",
-    "installIos1": "In Safari, tap Share",
-    "installIosShare": "Share",
-    "installIos2": "Choose “Add to Home Screen”, then “Add”."
+    "sectionInstall": "Teleo as an app"
   },
   "micTest": {
     "rubric": "Microphone test",
@@ -1510,5 +1504,44 @@
         "body": "Press Start whenever you like. Reminders, language and this tour are in Settings."
       }
     }
+  },
+  "install": {
+    "chip": "Install",
+    "title": "Teleo on your home screen",
+    "inAppTitle": "Open Teleo in your browser",
+    "benefitApp": "Opens from your home screen, full screen, like an app.",
+    "benefitOffline": "Starts faster and works without internet.",
+    "benefitSafe": "Your progress is safer from browser clean-ups.",
+    "button": "Install Teleo",
+    "done": "Teleo is on your home screen.",
+    "notNow": "Not now",
+    "stepsLabel": "How to add Teleo",
+    "share": "Share",
+    "addToHome": "Add to Home Screen",
+    "add": "Add",
+    "safariMenu": "Tap the ⋯ button next to the address bar.",
+    "safariShare": "Tap “Share”.",
+    "safariToolbarShare": "Tap “Share” in Safari's toolbar.",
+    "chooseAdd": "Choose “Add to Home Screen” — scroll down if you don't see it.",
+    "keepWebApp": "Leave “Open as Web App” on and tap “Add”.",
+    "tapAdd": "Tap “Add”.",
+    "chromeShare": "Tap “Share” in the address bar.",
+    "otherMenu": "Open the browser's menu or its Share button.",
+    "otherEasier": "It's easiest in Safari: copy the link and open it there.",
+    "androidMenu": "Open the browser menu.",
+    "androidChoose": "Choose “Install app” or “Add to Home screen”.",
+    "androidInstallItem": "Install app",
+    "androidConfirm": "Confirm with “Install”.",
+    "androidInstall": "Install",
+    "otherLayout": "Looks different? Show the other way",
+    "fromOtherApp": "Opened from another app? Open this page in Safari first — tap the compass or “Open in Safari”.",
+    "inAppBodyNamed": "The browser built into {{app}} can't put Teleo on your home screen, and what you do here stays inside {{app}}. Open Teleo in {{browser}} and add it from there.",
+    "inAppBody": "This app's built-in browser can't put Teleo on your home screen, and what you do here stays inside it. Open Teleo in {{browser}} and add it from there.",
+    "openInChrome": "Open in Chrome",
+    "copyLink": "Copy link",
+    "copied": "Link copied — paste it into {{browser}}.",
+    "copyFailed": "Couldn't copy the link: {{url}}",
+    "inAppIosHint": "Or tap ⋯ (or the compass) and choose to open in Safari.",
+    "inAppAndroidHint": "Or tap ⋮ and choose to open in Chrome."
   }
 }

@@ -515,13 +515,7 @@
     "soundsHint": "Delikatny złoty dzwonek po każdym wypowiedzianym zdaniu; pełniejszy po ukończeniu tekstu lub celu.",
     "displayName": "Imię na udostępnianych kartach",
     "displayNameHint": "Znajomi zobaczą je na swojej tablicy. Puste = imię Twojej postaci.",
-    "sectionInstall": "Teleo jako aplikacja",
-    "installBody": "Dodaj Teleo do ekranu głównego: otwiera się na pełnym ekranie jak aplikacja, startuje szybciej i działa bez internetu.",
-    "installButton": "Zainstaluj Teleo",
-    "installDone": "Teleo jest na ekranie głównym.",
-    "installIos1": "W Safari stuknij Udostępnij",
-    "installIosShare": "Udostępnij",
-    "installIos2": "Wybierz „Do ekranu początkowego”, a potem „Dodaj”."
+    "sectionInstall": "Teleo jako aplikacja"
   },
   "micTest": {
     "rubric": "Test mikrofonu",
@@ -1574,5 +1568,44 @@
         "body": "Naciśnij Rozpocznij, kiedy zechcesz. Przypomnienia, język i ten przewodnik znajdziesz w Ustawieniach."
       }
     }
+  },
+  "install": {
+    "chip": "Zainstaluj",
+    "title": "Teleo na ekranie głównym",
+    "inAppTitle": "Otwórz Teleo w przeglądarce",
+    "benefitApp": "Otwiera się z ekranu głównego, na pełnym ekranie, jak aplikacja.",
+    "benefitOffline": "Startuje szybciej i działa bez internetu.",
+    "benefitSafe": "Twoje postępy są bezpieczniejsze przed czyszczeniem danych przeglądarki.",
+    "button": "Zainstaluj Teleo",
+    "done": "Teleo jest na ekranie głównym.",
+    "notNow": "Nie teraz",
+    "stepsLabel": "Jak dodać Teleo",
+    "share": "Udostępnij",
+    "addToHome": "Do ekranu początkowego",
+    "add": "Dodaj",
+    "safariMenu": "Stuknij przycisk ⋯ obok paska adresu.",
+    "safariShare": "Stuknij „Udostępnij”.",
+    "safariToolbarShare": "Stuknij „Udostępnij” na pasku Safari.",
+    "chooseAdd": "Wybierz „Do ekranu początkowego” — jeśli go nie widać, przewiń niżej.",
+    "keepWebApp": "Zostaw włączony przełącznik otwierania jako aplikacji i stuknij „Dodaj”.",
+    "tapAdd": "Stuknij „Dodaj”.",
+    "chromeShare": "Stuknij „Udostępnij” w pasku adresu.",
+    "otherMenu": "Otwórz menu przeglądarki albo jej przycisk „Udostępnij”.",
+    "otherEasier": "Najłatwiej w Safari: skopiuj link i otwórz go tam.",
+    "androidMenu": "Otwórz menu przeglądarki.",
+    "androidChoose": "Wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.",
+    "androidInstallItem": "Zainstaluj aplikację",
+    "androidConfirm": "Potwierdź przyciskiem „Zainstaluj”.",
+    "androidInstall": "Zainstaluj",
+    "otherLayout": "Wygląda inaczej? Pokaż drugi sposób",
+    "fromOtherApp": "Otwarte z innej aplikacji? Najpierw otwórz tę stronę w Safari — stuknij kompas lub „Otwórz w Safari”.",
+    "inAppBodyNamed": "Przeglądarka wbudowana w aplikację {{app}} nie doda Teleo do ekranu głównego, a to, co tu zrobisz, zostanie w aplikacji {{app}}. Otwórz Teleo w {{browser}} i dodaj stamtąd.",
+    "inAppBody": "Wbudowana przeglądarka tej aplikacji nie doda Teleo do ekranu głównego, a to, co tu zrobisz, zostanie w niej. Otwórz Teleo w {{browser}} i dodaj stamtąd.",
+    "openInChrome": "Otwórz w Chrome",
+    "copyLink": "Kopiuj link",
+    "copied": "Skopiowano link — wklej go w {{browser}}.",
+    "copyFailed": "Nie udało się skopiować linku: {{url}}",
+    "inAppIosHint": "Albo stuknij ⋯ (lub kompas) i wybierz otwarcie w Safari.",
+    "inAppAndroidHint": "Albo stuknij ⋮ i wybierz otwarcie w Chrome."
   }
 }

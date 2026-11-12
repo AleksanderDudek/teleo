@@ -1,5 +1,6 @@
 import type { BackupFile, BackupSummary } from '@/domain/backup'
 import type { BibleTranslation } from '@/domain/bible/types'
+import type { InstallOffer } from '@/domain/install/offer'
 import type { FriendCard } from '@/domain/leaderboard/friends'
 import type { MemoryLevel } from '@/domain/memory/mask'
 import type { EntryState, PlanEntry, TemplateItem } from '@/domain/session/types'
@@ -295,6 +296,8 @@ export interface MetaState {
   shareId?: string
   /** The guided tour version this install has taken or declined (DECISIONS #127); absent = none. */
   tourVersion?: number
+  /** "Not now"s on the install offer (DECISIONS #140); absent = never asked. */
+  installOffer?: InstallOffer
 }
 
 export type SettingsRow =

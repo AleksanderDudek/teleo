@@ -9,7 +9,7 @@ const NAMES = [
   'caret-down', 'caret-left', 'caret-right', 'caret-up', 'check', 'copy', 'dots-six-vertical', 'dots-three',
   'download-simple', 'export', 'eye', 'eye-slash', 'funnel', 'list', 'list-checks', 'lock-simple',
   'magnifying-glass', 'minus', 'pencil-simple', 'plus', 'push-pin', 'push-pin-slash', 'scissors', 'trash',
-  'upload-simple', 'x', 'share-network', 'link', 'arrow-up-right',
+  'upload-simple', 'x', 'share-network', 'link', 'arrow-up-right', 'dots-three-vertical', 'plus-square', 'compass',
   // status
   'check-circle', 'info', 'question', 'warning', 'warning-circle',
   // tabs and places
