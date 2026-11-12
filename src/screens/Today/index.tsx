@@ -8,12 +8,14 @@ import { LevelBar } from '@/components/LevelBar'
 import { ShareDayButton } from '@/components/share/ShareDayButton'
 import { sharedMinutes } from '@/components/share/shareText'
 import { Icon } from '@/components/icons/Icon'
+import { InstallChip, InstallOffer } from '@/components/install/InstallSheet'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { IconHalo } from '@/components/ui/IconHalo'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ProgressRing } from '@/components/ui/Progress'
 import { dayKeyToLocalDate } from '@/domain/time/dayKey'
+import { shouldOfferTour } from '@/domain/tour/tour'
 import { useTodayTasks } from '@/hooks/useTasks'
 import { useToday } from '@/hooks/useToday'
 import { TaskCard } from '@/screens/Tasks/TaskCard'
@@ -51,6 +53,7 @@ export default function Today() {
   const lastBackup = meta.lastBackupAt ?? meta.installedAt
   const showBackup =
     data.hasActivity && now - lastBackup > BACKUP_EVERY_MS && now - (meta.backupReminderSnoozedAt ?? 0) > BACKUP_EVERY_MS
+  const tourPending = shouldOfferTour({ onboardingCompleted: app.onboardingCompleted, tourVersion: meta.tourVersion, pathname: '/' })
 
   // Start follows what the person set up: an unfinished run, then a task still due today, then their session
   // (DECISIONS #128) — a task made a minute ago must not lose to the pinned morning set.
@@ -102,15 +105,20 @@ export default function Today() {
         rubric={date}
         title={t(greetingKey(new Date(now).getHours()))}
         actions={
-          <Link
-            to="/settings?section=character"
-            aria-label={t('today.yourCharacter', { name: t(`characters.${app.character}`) })}
-            className="rounded-full transition-transform hover:-translate-y-0.5"
-          >
-            <Avatar id={app.character} size={48} decorative />
-          </Link>
+          <>
+            <InstallChip />
+            <Link
+              to="/settings?section=character"
+              aria-label={t('today.yourCharacter', { name: t(`characters.${app.character}`) })}
+              className="rounded-full transition-transform hover:-translate-y-0.5"
+            >
+              <Avatar id={app.character} size={48} decorative />
+            </Link>
+          </>
         }
       />
+      {/* An in-app browser hears where to go before anything is done here; after the tour's invitation (#140). */}
+      <InstallOffer moment="today" enabled={!tourPending} />
 
       {game.pendingFreezeNotice.length > 0 && (
         <Card className="mb-4 flex items-start gap-3 border-frost/40 bg-frost-soft animate-rise">

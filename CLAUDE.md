@@ -79,6 +79,10 @@ npm run typecheck    # tsc -b
 - Reminders (DECISIONS #122): `src/domain/reminders/` (`times` — 1–3 fixed hours, `nudge` — what a notification
   says, bilingual copy kept there on purpose, `ics` — multi-event calendar), `src/services/reminders.ts` (permission,
   badge, periodic sync), `src/app/ReminderEffects.tsx` (while open), `src/screens/Settings/RemindersSettings.tsx`.
+- Install offer (DECISIONS #140): `src/domain/install/` (`platform` — how this device installs, from the user agent;
+  `offer` — when the sheet opens by itself), `src/lib/install.ts` (captured `beforeinstallprompt`, `useInstallPlatform`),
+  `src/components/install/` (`InstallGuide` — steps per platform; `InstallOffer` on the summary and, for in-app browsers,
+  Today; `InstallChip` in Today's header). e2e `declineTour` switches the offer off.
 - Service worker is our own `src/sw.ts` (vite-plugin-pwa `injectManifest`): precache, navigation fallback, `ort/` and
   `bible/` caches, `SKIP_WAITING`, `periodicsync` + `notificationclick`. It opens the database in Dexie dynamic mode
   through `src/db/name.ts` — never import `@/db/schema` (or anything that instantiates `db`) there.

@@ -877,3 +877,33 @@ findability instead.
       first-person Polish sentences use the present tense or *będę* + infinitive where they can, so only 6 of the 347
       need m/f/n forms (#26). Keys, titles, needs and tags are unchanged; the highest sentence overlap between two texts
       is 20% (#130). `SEED_VERSION` 13.
+
+## Home-screen install offer (owner request, 2026-11-12)
+
+140. **Teleo offers itself for the home screen on phones and tablets** (replaces the Settings-only offer of #100):
+    `src/domain/install/platform.ts` decides from the user agent and the captured `beforeinstallprompt` how a device
+    installs — one tap (`native`), Safari's steps (`menu` layout from Safari 26, where Share sits behind ⋯ next to
+    the address bar; `toolbar` before), Chrome on iPhone, other iPhone browsers, the ⋮ menu on Android without one-tap
+    install, an app's built-in browser, or nothing (desktop without one-tap, the installed app). One `InstallGuide`
+    shows it in the sheet, in Settings (desktop too, as before) and behind an *Install* chip next to Today's avatar
+    (phones, until installed).
+    - **When it opens by itself** (`shouldOfferInstall`, `src/domain/install/offer.ts`): on the summary of a session
+      that just ended (not when opened from the history), 1.5 s in — the first finished session is the moment Teleo
+      has shown what it is for. "Not now", closing the sheet or turning down the browser's own dialog counts in
+      `meta.installOffer`; it comes back on a summary at least 7 days later and never after the third. Read from the
+      database when deciding, so the count is current. Per install like `tourVersion`; it travels in backups.
+    - **In-app browsers** (Instagram, Facebook, Messenger, TikTok, Snapchat, LinkedIn, LINE, WeChat, the Google app,
+      any Android WebView): they cannot install, and nothing done there reaches Safari or Chrome, so they hear it on
+      Today right after the setup — once the tour's invitation is answered — not after a session. Android gets *Open
+      in Chrome* (an `intent://` link with the plain link as fallback); every in-app browser gets *Copy link*. The
+      `x-safari-https://` jump out of Facebook has one source and was not tested, so it is not used.
+    - **Drawn, not described**: each step shows the button or menu row to tap (gold-ringed mocks, Phosphor `dots-three`,
+      `dots-three-vertical`, `export`, `plus-square`), and an arrow bounces toward Safari's toolbar or the browser's
+      menu (it stays put with reduced motion). "Looks different?" switches between the two Safari layouts, in case the
+      version misleads (an iPad, a moved address bar). Polish labels quote only what the system says for sure
+      (*Udostępnij*, *Do ekranu początkowego*, *Dodaj*, *Zainstaluj aplikację*); the *Open as Web App* switch is
+      described, not quoted.
+    - The owner has tested live speech in the installed app on an iPhone, so iPhones are invited like everyone else.
+    - e2e: `declineTour` also switches the offer off (`setInstallOffer`, a direct write); `e2e/install.spec.ts` runs
+      on the phone projects only.
+

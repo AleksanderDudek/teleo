@@ -11,6 +11,7 @@ import { SupportBanner } from '@/components/support/SupportBanner'
 import { SupportStrip } from '@/components/support/SupportStrip'
 import { ArchFrame } from '@/components/ui/ArchFrame'
 import { Icon } from '@/components/icons/Icon'
+import { InstallOffer } from '@/components/install/InstallSheet'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { buttonClasses } from '@/components/ui/buttonClasses'
 import { ProgressRing } from '@/components/ui/Progress'
@@ -24,6 +25,8 @@ import { taskViews } from '@/services/tasks'
 import { useAppSettings, useGameState } from '@/stores/settings'
 import { startNextReading, useBibleShare } from '@/screens/Bible/useBible'
 import { toast, useUiStore } from '@/stores/ui'
+
+const JUST_ENDED_MS = 10 * 60_000
 
 export default function SessionSummary() {
   const { t, i18n } = useTranslation()
@@ -52,7 +55,9 @@ export default function SessionSummary() {
     // The daily tasks this run advanced, with where they stand now.
     const advanced = new Set((await db.taskLog.where('runId').equals(run.id).toArray()).map((row) => row.taskId))
     const tasks = advanced.size > 0 ? (await taskViews(now)).filter((view) => advanced.has(view.task.id)) : []
-    return { run, daily, achievements, bible, tasks, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
+    // Right after the session, not when opened from the history: the moment for the install offer (DECISIONS #140).
+    const justEnded = run.endedAt !== undefined && now - run.endedAt < JUST_ENDED_MS
+    return { run, daily, achievements, bible, tasks, justEnded, today: dayKeyFor(now, app.dayStartHour), titles: new Map(texts.map((x) => [x.id, x.title])) }
   }, [runId, app.dayStartHour])
 
   if (data === undefined) return null
@@ -65,7 +70,7 @@ export default function SessionSummary() {
     )
   }
 
-  const { run, daily, achievements, titles, today, bible, tasks } = data
+  const { run, daily, achievements, titles, today, bible, tasks, justEnded } = data
   const summary = summarizeRun(run.plan, run.entries)
   const todayStats = daily.find((d) => d.dayKey === today)
   const streak = computeStreak(dayMarksFrom(daily), today).current
@@ -183,6 +188,7 @@ export default function SessionSummary() {
 
       {/* Just after the app has done something for someone: the support window, once. */}
       <SupportBanner dayKey={today} className="mt-10 text-left" />
+      <InstallOffer moment="summary" enabled={justEnded} />
 
       {/* The next step stays in the thumb zone however long the page gets: one main action, one round one. */}
       <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex items-center gap-3 bg-gradient-to-t from-paper via-paper/95 to-transparent px-5 pt-6 pb-[max(env(safe-area-inset-bottom),1rem)] sm:-mx-6 sm:px-6">

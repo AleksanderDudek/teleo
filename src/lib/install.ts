@@ -1,4 +1,5 @@
-import { useSyncExternalStore } from 'react'
+import { useMemo, useSyncExternalStore } from 'react'
+import { detectInstallPlatform, isMobileDevice, type InstallPlatform } from '@/domain/install/platform'
 
 /** Chromium's install offer (not in the DOM typings). */
 interface BeforeInstallPromptEvent extends Event {
@@ -6,42 +7,22 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
-/**
- * installed — running as the installed app · prompt — the browser lets us offer installation ·
- * ios — Safari on iPhone/iPad (installed from the Share menu by hand) · unavailable — nothing to offer.
- */
-export type InstallState = 'installed' | 'prompt' | 'ios' | 'unavailable'
-
 let deferred: BeforeInstallPromptEvent | null = null
 let installedNow = false
 const listeners = new Set<() => void>()
 const notify = () => listeners.forEach((listener) => listener())
 
-/** iPhone, iPod, or an iPad (which reports itself as a Mac with a touch screen). */
-export function isIosDevice(userAgent: string, maxTouchPoints: number): boolean {
-  return /iPhone|iPad|iPod/.test(userAgent) || (userAgent.includes('Macintosh') && maxTouchPoints > 1)
-}
-
-export function resolveInstallState(env: { standalone: boolean; installedNow: boolean; hasPrompt: boolean; ios: boolean }): InstallState {
-  if (env.standalone || env.installedNow) return 'installed'
-  if (env.hasPrompt) return 'prompt'
-  if (env.ios) return 'ios'
-  return 'unavailable'
-}
-
-function currentState(): InstallState {
+const isStandalone = () => {
   const nav = navigator as Navigator & { standalone?: boolean }
-  return resolveInstallState({
-    standalone: nav.standalone === true || window.matchMedia?.('(display-mode: standalone)').matches === true,
-    installedNow,
-    hasPrompt: deferred !== null,
-    ios: isIosDevice(nav.userAgent, nav.maxTouchPoints ?? 0),
-  })
+  return nav.standalone === true || window.matchMedia?.('(display-mode: standalone)').matches === true
 }
+
+/** What may change during a visit, as a stable string for `useSyncExternalStore`; the user agent never does. */
+const snapshot = () => `${isStandalone()}|${installedNow}|${deferred !== null}`
 
 /**
  * Before the first render: the browser makes its install offer once, early in the visit. It is kept (and
- * the automatic mini-infobar suppressed) so Settings can offer installation when the user looks for it.
+ * the automatic mini-infobar suppressed) so Teleo can offer installation at a better moment (DECISIONS #140).
  */
 export function captureInstallPrompt(): void {
   window.addEventListener('beforeinstallprompt', (event) => {
@@ -67,13 +48,25 @@ export async function promptInstall(): Promise<boolean> {
   return outcome === 'accepted'
 }
 
-export function useInstallState(): InstallState {
-  return useSyncExternalStore(
+/** How this device installs Teleo, kept current through the visit; `mobile` = a phone or tablet. */
+export function useInstallPlatform(): { platform: InstallPlatform; mobile: boolean } {
+  const state = useSyncExternalStore(
     (listener) => {
       listeners.add(listener)
       return () => listeners.delete(listener)
     },
-    currentState,
-    () => 'unavailable',
+    snapshot,
+    () => 'server',
   )
+  return useMemo(() => {
+    const env = { userAgent: navigator.userAgent, maxTouchPoints: navigator.maxTouchPoints ?? 0 }
+    const [standalone, now, prompt] = state.split('|')
+    return {
+      platform: detectInstallPlatform({ ...env, standalone: standalone === 'true', installedNow: now === 'true', hasPrompt: prompt === 'true' }),
+      mobile: isMobileDevice(env),
+    }
+  }, [state])
 }
+
+/** The address a page opened elsewhere should start from: the app's start page. */
+export const startPageUrl = () => new URL(import.meta.env.BASE_URL, window.location.origin).href

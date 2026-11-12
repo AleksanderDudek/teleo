@@ -1,4 +1,4 @@
-import { isIosDevice } from './install'
+import { isIosDevice } from '@/domain/install/platform'
 
 /*
  * Getting a file off the device (DECISIONS #110). A download stays on the same phone or computer; the system share

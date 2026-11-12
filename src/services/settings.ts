@@ -1,6 +1,7 @@
 import { db, SCHEMA_VERSION } from '@/db/schema'
 import { appSettingsFrom, DEFAULT_GAME, DEFAULT_SETTINGS } from '@/db/defaults'
 import type { AppSettings, GameState, MetaState, SettingsRow } from '@/db/types'
+import { afterDismissal } from '@/domain/install/offer'
 import type { Lang } from '@/domain/types'
 import { useSettingsStore, type SettingsSnapshot } from '@/stores/settings'
 
@@ -85,4 +86,12 @@ export async function updateMeta(patch: Partial<MetaState>): Promise<MetaState> 
     await db.settings.put({ key: 'meta', value: next })
     return next
   }).then(mirror('meta'))
+}
+
+/** "Not now" on the install offer (DECISIONS #140), counted in `meta` in one transaction. */
+export async function dismissInstallOffer(now = Date.now()): Promise<MetaState> {
+  return db.transaction('rw', db.settings, async () => {
+    const { meta } = await readSettings()
+    return updateMeta({ installOffer: afterDismissal(meta.installOffer, now) })
+  })
 }

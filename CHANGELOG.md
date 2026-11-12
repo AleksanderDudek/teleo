@@ -4,6 +4,14 @@ All notable changes to Teleo. Dates are in the Europe/Warsaw timezone.
 
 ## Unreleased
 
+### Added
+
+- **Teleo invites you to put it on your home screen.** On a phone, after your first finished session a short sheet
+  shows how — one tap on Android, the steps drawn as the buttons look on iPhone (new and older Safari, Chrome), the
+  menu path in Firefox. "Not now" brings it back a week later, at most three times; an *Install* chip on Today and the
+  section in Settings are always there. Opened from Instagram, Facebook, Messenger or another app's built-in browser,
+  Teleo says right away to open it in Safari or Chrome — what you do in such a browser stays inside that app.
+
 ### Changed
 
 - **Each prayer against a stronghold is now a full prayer** you can pray on its own, in English and Polish: it names
