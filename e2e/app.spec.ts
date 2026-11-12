@@ -71,7 +71,7 @@ test.describe('session builder', () => {
     await page.getByRole('link', { name: 'Nowa sesja' }).click()
     await page.getByPlaceholder('np. Modlitwa wieczorna').fill('Wieczorna chwała')
     await page.getByRole('button', { name: 'Dodaj tekst' }).click()
-    await page.getByRole('dialog').getByRole('button', { name: /Chwała Ojcu/ }).click()
+    await page.getByRole('dialog').getByRole('button', { name: /^Chwała Ojcu(?! \()/ }).click()
     const repeat = page.getByRole('group', { name: 'Powtórzenia' })
     await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
     await repeat.getByRole('button', { name: 'Powtórzenia: +1' }).click()
@@ -104,7 +104,7 @@ test.describe('one language at a time', () => {
   test('Polish shows only Polish prayers; switching to English shows only English ones', async ({ page }) => {
     await finishOnboarding(page)
     await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-    await expect(page.getByRole('link', { name: /Ojcze nasz/ })).toBeVisible()
+    await expect(page.getByRole('link', { name: /^Ojcze nasz(?! \()/ })).toBeVisible()
     await expect(page.getByRole('link', { name: /Lord’s Prayer|Glory Be/ })).toHaveCount(0)
     await page.getByRole('navigation').getByRole('link', { name: 'Sesje' }).click()
     await expect(page.getByRole('heading', { name: 'Poranne afirmacje' })).toBeVisible()

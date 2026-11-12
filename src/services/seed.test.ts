@@ -32,7 +32,9 @@ beforeEach(async () => {
   await updateAppSettings({ uiLang: 'pl', contentFocus: 'both', grammaticalForm: 'n' })
 })
 
-describe('seedBuiltins', () => {
+// Since the Orthodox prayer book (DECISIONS #138) the library is ~600 texts and ~11k sentences; re-seeding it in
+// fake-indexeddb takes seconds, so these get more than the default 5 s too.
+describe('seedBuiltins', { timeout: 20_000 }, () => {
   it('inserts all builtin texts and sessions once', async () => {
     await seedBuiltins(10)
     expect(await db.texts.count()).toBe((await loadBuiltinTexts()).length)
@@ -190,7 +192,9 @@ describe('applyContentPreferences', () => {
   })
 })
 
-describe('applyGrammaticalForm', () => {
+// A form switch drops ~300 sentences of the whole library; fake-indexeddb cleans its indexes linearly per delete
+// (~13 ms each over 7.5k segments), which a real IndexedDB does not — so these two get more than the default 5 s.
+describe('applyGrammaticalForm', { timeout: 20_000 }, () => {
   it('switches gendered sentences and keeps the ids of neutral ones', async () => {
     await seedBuiltins()
     const id = builtinTextId('pl.poranek')

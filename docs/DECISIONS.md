@@ -808,3 +808,51 @@ findability instead.
 
 136. **The support ribbon is 1.5× larger** (supersedes the 36 px of #95): `--strip-h` 3.375 rem (54 px), 1.2 rem
     text, 24 px coffee icon. Everything sticky below it follows `--chrome-top`.
+
+## The library prayers checked again against the recordings (owner request, 2026-11-12)
+
+137. **Every sentence of the 133 `*.life-*` prayers is checked again against what was said** — an owner-supplied update
+    of `src/content/prayers/{en,pl}.json`; the per-sentence trace, now with the words heard and a note on each change,
+    stays outside the repository as in #126. Words the first version had cut are restored and words it had added are
+    dropped; sentences are split or joined where the recording is; 420 sentences that were not the preacher's own
+    words are replaced by ones that are, and 29 that no recording holds are dropped. 3,481 → 3,508 sentences per
+    language (60 prayers change length); keys, English titles, needs and the 29 `*.stronghold-*` prayers are unchanged.
+    - **The Polish translation follows sentence for sentence** (content test). m/f/n forms in 108 prayers instead of
+      78 (#26); six Polish titles are reworded.
+    - **„W imię Jezusa”, not „w imieniu Jezusa”** (owner's choice): in Polish one prays *w imię* — calling on the
+      name — while *w imieniu* means on someone's behalf. So *in the name of Jesus / of the Lord Jesus / of your Son*
+      is *w imię …*, as before this update (the update's draft had *w imieniu* throughout, 672 sentences); *w imieniu*
+      stays only where the English says *on behalf of* (*w moim imieniu*, *w imieniu mojego rodu*). *W potężnym imieniu
+      Jezusa* stays (#126). The stronghold series keeps its own *w imieniu Jezusa*: its Polish is first-hand (#132).
+    - **`SEED_VERSION` 11** (10 held the draft) re-seeds the library: `replaceSegments` keeps unchanged sentences with
+      their ids and history, archives changed ones that were said or are in an unfinished run, and leaves text stats,
+      points and streaks alone.
+
+## Orthodox prayer book (owner request, 2026-11-12)
+
+138. **An Orthodox prayer book joins the library in both languages** (`*.orthodox-*`, a third pair of lazy chunks,
+    `src/content/prayers/orthodox/{en,pl}.json`, loaded with the rest of the library, #126). 143 prayers from the
+    owner's index of an Orthodox prayer book, which has the Polish texts only — 15 as in a Polish prayer book, 14 found
+    only in Polish, 114 translated into Polish from English prayer books: fixed prayers and formulas, morning and evening
+    prayers, at meals, psalms (Septuagint numbering), hymns, to the Theotokos, to the guardian angel and the saints,
+    before and after Holy Communion, in church, in sickness, in trouble, for work, study and travel, repentance and
+    fasting, for the Church and one's neighbours, for the departed. Tagged *Modlitewnik prawosławny* / *Orthodox prayer
+    book*; needs as for every builtin (#125). The prayers to the Theotokos are the Orthodox ones (*Bogurodzico Dziewico,
+    raduj się*), not the Hail Mary of #135.
+    - **The English is a translation made for this project from the Polish, sentence for sentence** (the index gave
+      English titles only). Short liturgical formulas keep their usual English wording (*Lord, have mercy*, *now and
+      forever and to the ages of ages*); the psalms follow the Polish (Septuagint) with familiar KJV phrasing where it fits.
+    - **Speakable sentences** (spec §7.2): the Polish text is split at sentence ends, and a sentence over 28 words at a
+      semicolon, colon or comma near its middle, so that the English stays within 40 words. Rubrics in parentheses
+      (*trzy razy*, *pokłon*), the headings inside the canon and the name placeholders *N.* leave the spoken text; the
+      note says how a prayer is said and that a name can be written into a copy (#132). Prayers for another person keep
+      the prayer book's masculine form (*Twego sługę*) and the note gives the feminine one; the speaker's own forms stay
+      as printed — no m/f/n variants for liturgical texts (#26).
+    - **Titles that clash** with a core or library text get a qualifier (*Ojcze nasz (wersja prawosławna)*, *Chwała Ojcu
+      (wersja prawosławna)*, *O pokój na świecie*). Where a hymn also stands inside a longer text (*Czcigodniejszą od
+      Cherubinów* in *Zaprawdę godne jest*, *Chwała na wysokościach Bogu* in the doxology, the *Glory to the Father* lines
+      of short troparia), the longer text joins those lines to their neighbours, so that no two texts share half their
+      sentences (#130).
+    - `SEED_VERSION` 12. *Sleep & nightmares* gains two prayers (before sleep, Antiochos's evening prayer), so the e2e
+      tests count four; e2e locators for *Ojcze nasz* and *Chwała Ojcu* match the start of a card's name, because the
+      Orthodox versions (and a card's preview) share those words.

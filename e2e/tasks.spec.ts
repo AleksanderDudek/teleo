@@ -10,7 +10,7 @@ test('an affirmation becomes a daily task: set up from the library, said from To
 
   // Set the task up from the text's page: twice a day for a week.
   await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-  await page.getByRole('link', { name: /Chwała Ojcu/ }).click()
+  await page.getByRole('link', { name: /^Chwała Ojcu(?! \()/ }).click()
   await page.getByRole('link', { name: 'Ustaw jako codzienne zadanie' }).click()
   await expect(page).toHaveURL(/#\/tasks\/new\?text=/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Chwała Ojcu')

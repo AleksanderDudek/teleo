@@ -7,7 +7,7 @@ test.use({ locale: 'pl-PL', acceptDownloads: true })
 /** Says "Chwała Ojcu" once, so the device has a day of progress. */
 async function practiseOnce(page: Page) {
   await page.getByRole('navigation').getByRole('link', { name: 'Biblioteka' }).click()
-  await page.getByRole('link', { name: /Chwała Ojcu/ }).click()
+  await page.getByRole('link', { name: /^Chwała Ojcu(?! \()/ }).click()
   await page.getByRole('button', { name: 'Powiedz teraz' }).click()
   await page.getByRole('button', { name: 'Mów' }).click()
   await page.getByRole('button', { name: 'Rozumiem – dalej' }).click()
